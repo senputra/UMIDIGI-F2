@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="detect_one_labelList">
+        <item>background</item>
+        <item>Short pant</item>
+        <item>Long pant</item>
+        <item>Short coat</item>
+        <item>Long coat</item>
+        <item>Dress</item>
+        <item>Skirt</item>
+        <item>Top</item>
+        <item>Shoe</item>
+        <item>Bag</item>
+        <item>ACC</item>
+        <item>Full body</item>
+        <item>Bottom body pant</item>
+        <item>Bottom body skirt</item>
+    </string-array>
+
+    <string-array name="detect_labelList">
+        <item>background</item>
+        <item>person</item>
+        <item>bicycle</item>
+        <item>car</item>
+        <item>motorcycle</item>
+        <item>airplane</item>
+        <item>bus</item>
+        <item>train</item>
+        <item>truck</item>
+        <item>boat</item>
+        <item>traffic light</item>
+        <item>fire hydrant</item>
+        <item>background</item>
+        <item>stop sign</item>
+        <item>parking meter</item>
+        <item>bench</item>
+        <item>bird</item>
+        <item>cat</item>
+        <item>dog</item>
+        <item>horse</item>
+        <item>sheep</item>
+        <item>cow</item>
+        <item>elephant</item>
+        <item>bear</item>
+        <item>zebra</item>
+        <item>giraffe</item>
+        <item>background</item>
+        <item>backpack</item>
+        <item>umbrella</item>
+        <item>background</item>
+        <item>background</item>
+        <item>handbag</item>
+        <item>tie</item>
+        <item>suitcase</item>
+        <item>frisbee</item>
+        <item>skis</item>
+        <item>snowboard</item>
+        <item>sports ball</item>
+        <item>kite</item>
+        <item>baseball bat</item>
+        <item>baseball glove</item>
+        <item>skateboard</item>
+        <item>surfboard</item>
+        <item>tennis racket</item>
+        <item>bottle</item>
+        <item>background</item>
+        <item>wine glass</item>
+        <item>cup</item>
+        <item>fork</item>
+        <item>knife</item>
+        <item>spoon</item>
+        <item>bowl</item>
+        <item>banana</item>
+        <item>apple</item>
+        <item>sandwich</item>
+        <item>orange</item>
+        <item>broccoli</item>
+        <item>carrot</item>
+        <item>hot dog</item>
+        <item>pizza</item>
+        <item>donut</item>
+        <item>cake</item>
+        <item>chair</item>
+        <item>couch</item>
+        <item>potted plant</item>
+        <item>bed</item>
+        <item>background</item>
+        <item>dining table</item>
+        <item>background</item>
+        <item>background</item>
+        <item>toilet</item>
+        <item>background</item>
+        <item>tv</item>
+        <item>laptop</item>
+        <item>mouse</item>
+        <item>remote</item>
+        <item>keyboard</item>
+        <item>cell phone</item>
+        <item>microwave</item>
+        <item>oven</item>
+        <item>toaster</item>
+        <item>sink</item>
+        <item>refrigerator</item>
+        <item>background</item>
+        <item>book</item>
+        <item>clock</item>
+        <item>vase</item>
+        <item>scissors</item>
+        <item>teddy bear</item>
+        <item>hair drier</item>
+        <item>toothbrush</item>
+    </string-array>
+</resources>

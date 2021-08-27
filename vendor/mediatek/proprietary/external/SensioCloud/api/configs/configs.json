@@ -1,0 +1,23 @@
+{
+  "env": "local",
+  "appPort": 3001,
+  "dbConfigs": 
+  {
+      "database": "six381db",
+      "user": "mediatek",
+      "password": "mediatek",
+      "host": "localhost",
+      "port": 5432
+  },
+  "jwtConfigs": {
+    "secretOrKey": "sssssecret",
+    "issuer": "6381.mediatek.io",
+    "audience": "6381"
+  },
+  "screeningAPIEndpoint": "http://localhost:3005/screenings",
+  "screeningGzAPIEndpoint": "http://localhost:3005/screeningsGz",
+  "screeningCustomerId": "mediatek",
+  "screeningJwtKey": "screaming",
+  "screeningJwtOptions": {}
+}
+

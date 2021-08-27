@@ -1,0 +1,61 @@
+# ==============================================
+# Policy File of /system/bin/bip Executable File 
+
+# ==============================================
+# Type Declaration
+# ==============================================
+#for test
+#type bip, domain, mtkimsmddomain;
+type bip, domain;
+type bip_exec, exec_type, file_type;
+type bip_prop, property_type;
+
+# ==============================================
+# MTK Policy Rule
+# ==============================================
+permissive bip;
+init_daemon_domain(bip)
+
+# Date : WK14.42
+# Operation : Migration 
+# Purpose : for bip send RTP/RTCP
+allow bip socket_device:sock_file {create write unlink};
+allow bip socket_device:dir {write remove_name add_name};
+allow bip self:capability { net_raw setuid setgid net_admin};
+allow bip self:udp_socket { create write bind read setopt ioctl getattr shutdown connect };
+allow bip node:udp_socket node_bind;
+allow bip port:udp_socket name_bind;
+#for test
+#allow bip fwmarkd_socket:sock_file write;
+allow bip system_file:file execute_no_trans;
+allow bip self:tcp_socket { create setopt ioctl bind listen accept read write connect };
+allow bip port:tcp_socket name_connect;
+allow bip port:tcp_socket name_bind;
+allow bip node:tcp_socket node_bind;
+allow bip rootfs:lnk_file getattr;
+allow bip self:netlink_route_socket read;
+allow bip property_socket:sock_file write;
+allow bip system_prop:property_service set;
+#get_prop(bip, net_radio_prop)
+#allow bip net_radio_prop:file r_file_perms;
+#set_prop(bip, ril_mux_report_case_prop)
+#set_prop(bip, ctl_muxreport-daemon_prop)
+allow bip property_socket:sock_file write;
+allow bip init:unix_stream_socket connectto;
+#for test
+#allow bip ril_mux_report_case_prop:property_service set;
+#allow bip ril_mux_report_case_prop:file r_file_perms;
+#allow bip ctl_muxreport-daemon_prop:property_service set;
+#allow bip ctl_muxreport-daemon_prop:file r_file_perms;
+
+# Purpose : for access ccci device
+allow bip ccci_device:chr_file { read write open ioctl };
+
+# Purpose : for raw socket
+allow bip self:rawip_socket { create write bind setopt read getattr};
+allow bip node:rawip_socket {node_bind}; 
+
+# Purpose: for KaiOS first bring up
+allow bip bip_exec:file getattr;
+allow bip linker_exec:file read;
+allow bip self:netlink_route_socket { write bind create nlmsg_read };

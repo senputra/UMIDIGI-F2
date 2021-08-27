@@ -1,0 +1,3763 @@
+/* Copyright Statement:
+ *
+ * This software/firmware and related documentation ("MediaTek Software") are
+ * protected under relevant copyright laws. The information contained herein
+ * is confidential and proprietary to MediaTek Inc. and/or its licensors.
+ * Without the prior written permission of MediaTek inc. and/or its licensors,
+ * any reproduction, modification, use or disclosure of MediaTek Software,
+ * and information contained herein, in whole or in part, shall be strictly prohibited.
+ */
+/* MediaTek Inc. (C) 2020. All rights reserved.
+ *
+ * BY OPENING THIS FILE, RECEIVER HEREBY UNEQUIVOCALLY ACKNOWLEDGES AND AGREES
+ * THAT THE SOFTWARE/FIRMWARE AND ITS DOCUMENTATIONS ("MEDIATEK SOFTWARE")
+ * RECEIVED FROM MEDIATEK AND/OR ITS REPRESENTATIVES ARE PROVIDED TO RECEIVER ON
+ * AN "AS-IS" BASIS ONLY. MEDIATEK EXPRESSLY DISCLAIMS ANY AND ALL WARRANTIES,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE OR NONINFRINGEMENT.
+ * NEITHER DOES MEDIATEK PROVIDE ANY WARRANTY WHATSOEVER WITH RESPECT TO THE
+ * SOFTWARE OF ANY THIRD PARTY WHICH MAY BE USED BY, INCORPORATED IN, OR
+ * SUPPLIED WITH THE MEDIATEK SOFTWARE, AND RECEIVER AGREES TO LOOK ONLY TO SUCH
+ * THIRD PARTY FOR ANY WARRANTY CLAIM RELATING THERETO. RECEIVER EXPRESSLY ACKNOWLEDGES
+ * THAT IT IS RECEIVER'S SOLE RESPONSIBILITY TO OBTAIN FROM ANY THIRD PARTY ALL PROPER LICENSES
+ * CONTAINED IN MEDIATEK SOFTWARE. MEDIATEK SHALL ALSO NOT BE RESPONSIBLE FOR ANY MEDIATEK
+ * SOFTWARE RELEASES MADE TO RECEIVER'S SPECIFICATION OR TO CONFORM TO A PARTICULAR
+ * STANDARD OR OPEN FORUM. RECEIVER'S SOLE AND EXCLUSIVE REMEDY AND MEDIATEK'S ENTIRE AND
+ * CUMULATIVE LIABILITY WITH RESPECT TO THE MEDIATEK SOFTWARE RELEASED HEREUNDER WILL BE,
+ * AT MEDIATEK'S OPTION, TO REVISE OR REPLACE THE MEDIATEK SOFTWARE AT ISSUE,
+ * OR REFUND ANY SOFTWARE LICENSE FEES OR SERVICE CHARGE PAID BY RECEIVER TO
+ * MEDIATEK FOR SUCH MEDIATEK SOFTWARE AT ISSUE.
+ *
+ * The following software/firmware and/or related documentation ("MediaTek Software")
+ * have been modified by MediaTek Inc. All revisions are subject to any receiver's
+ * applicable license agreements with MediaTek Inc.
+ */
+
+/********************************************************************************************
+ *     LEGAL DISCLAIMER
+ *
+ *     (Header of MediaTek Software/Firmware Release or Documentation)
+ *
+ *     BY OPENING OR USING THIS FILE, BUYER HEREBY UNEQUIVOCALLY ACKNOWLEDGES AND AGREES
+ *     THAT THE SOFTWARE/FIRMWARE AND ITS DOCUMENTATIONS ("MEDIATEK SOFTWARE") RECEIVED
+ *     FROM MEDIATEK AND/OR ITS REPRESENTATIVES ARE PROVIDED TO BUYER ON AN "AS-IS" BASIS
+ *     ONLY. MEDIATEK EXPRESSLY DISCLAIMS ANY AND ALL WARRANTIES, EXPRESS OR IMPLIED,
+ *     INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR
+ *     A PARTICULAR PURPOSE OR NONINFRINGEMENT. NEITHER DOES MEDIATEK PROVIDE ANY WARRANTY
+ *     WHATSOEVER WITH RESPECT TO THE SOFTWARE OF ANY THIRD PARTY WHICH MAY BE USED BY,
+ *     INCORPORATED IN, OR SUPPLIED WITH THE MEDIATEK SOFTWARE, AND BUYER AGREES TO LOOK
+ *     ONLY TO SUCH THIRD PARTY FOR ANY WARRANTY CLAIM RELATING THERETO. MEDIATEK SHALL ALSO
+ *     NOT BE RESPONSIBLE FOR ANY MEDIATEK SOFTWARE RELEASES MADE TO BUYER'S SPECIFICATION
+ *     OR TO CONFORM TO A PARTICULAR STANDARD OR OPEN FORUM.
+ *
+ *     BUYER'S SOLE AND EXCLUSIVE REMEDY AND MEDIATEK'S ENTIRE AND CUMULATIVE LIABILITY WITH
+ *     RESPECT TO THE MEDIATEK SOFTWARE RELEASED HEREUNDER WILL BE, AT MEDIATEK'S OPTION,
+ *     TO REVISE OR REPLACE THE MEDIATEK SOFTWARE AT ISSUE, OR REFUND ANY SOFTWARE LICENSE
+ *     FEES OR SERVICE CHARGE PAID BY BUYER TO MEDIATEK FOR SUCH MEDIATEK SOFTWARE AT ISSUE.
+ *
+ *     THE TRANSACTION CONTEMPLATED HEREUNDER SHALL BE CONSTRUED IN ACCORDANCE WITH THE LAWS
+ *     OF THE STATE OF CALIFORNIA, USA, EXCLUDING ITS CONFLICT OF LAWS PRINCIPLES.
+ ************************************************************************************************/
+#include "camera_custom_nvram.h"
+#include "ov16885mipiraw_Face_Capture.h"
+
+const ISP_NVRAM_UDM_T ov16885mipiraw_UDM_0040 = {
+        .intp_crs  ={.bits={.UDM_CDG_SL=4, .UDM_CDG_OFST=0, .UDM_CDG_RAT=15, .UDM_CD_KNL=1, .rsv_18=0, .UDM_BYP=0, .UDM_MN_MODE=0}},
+    .intp_nat  ={.bits={.UDM_HL_OFST=63, .UDM_L0_SL=6, .UDM_L0_OFST=0, .UDM_CD_SLL=3, .UDM_CD_SLC=10, .rsv_30=0}},
+    .intp_aug  ={.bits={.UDM_DN_OFST=0, .UDM_L2_SL=6, .UDM_L2_OFST=0, .UDM_L1_SL=6, .UDM_L1_OFST=0}},
+    .luma_lut1 ={.bits={.UDM_LM_Y2=304, .UDM_LM_Y1=381, .UDM_LM_Y0=511, .rsv_27=0}},
+    .luma_lut2 ={.bits={.UDM_LM_Y5=79, .UDM_LM_Y4=137, .UDM_LM_Y3=216, .rsv_27=0}},
+    .sl_ctl    ={.bits={.UDM_SL_EN=0, .UDM_SL_HR=16, .UDM_SL_Y2=192, .UDM_SL_Y1=220, .rsv_22=0}},
+    .hftd_ctl  ={.bits={.UDM_CORE_TH1=4, .UDM_HD_GN2=16, .UDM_HD_GN1=16, .UDM_HT_GN2=16, .UDM_HT_GN1=16, .rsv_28=0}},
+    .nr_str    ={.bits={.UDM_N2_STR=0, .UDM_N1_STR=0, .UDM_N0_STR=0, .UDM_XTK_SL=5, .UDM_XTK_OFST=64, .UDM_XTK_RAT=16}},
+    .nr_act    ={.bits={.UDM_NGR=0, .UDM_NSL=10, .UDM_N2_OFST=0, .UDM_N1_OFST=0, .UDM_N0_OFST=0}},
+    .hf_str    ={.bits={.UDM_CORE_TH2=0, .UDM_HI_RAT=0, .UDM_H3_GN=5, .UDM_H2_GN=8, .UDM_H1_GN=10, .UDM_HA_STR=12}},
+    .hf_act1   ={.bits={.UDM_H2_UPB=136, .UDM_H2_LWB=60, .UDM_H1_UPB=128, .UDM_H1_LWB=56}},
+    .hf_act2   ={.bits={.UDM_HSLL=6, .UDM_HSLR=6, .UDM_H3_UPB=132, .UDM_H3_LWB=64, .rsv_24=0}},
+    .clip      ={.bits={.UDM_CLIP_TH=50, .UDM_UN_TH=30, .UDM_OV_TH=120, .rsv_24=0}},
+    .dsb       ={.bits={.UDM_SC_RAT=16, .UDM_SL_RAT=16, .UDM_FL_MODE=0, .rsv_11=0}},
+    .p1_act    ={.bits={.UDM_P1_UPB=255, .UDM_P1_LWB=75, .rsv_16=0}},
+    .lr_rat    ={.bits={.UDM_LR_RAT=15, .rsv_4=0}},
+    .hftd_ctl2 ={.bits={.UDM_HD_GN3=13, .UDM_HFRB_GN=16, .rsv_12=0}},
+    .est_ctl   ={.bits={.UDM_P2_CLIP=0, .UDM_P1_BLD=0, .rsv_6=0}},
+    .int_ctl   ={.bits={.UDM_INT_LTH=5, .UDM_INT_CDTH=3, .rsv_8=0}},
+    .ee        ={.bits={.UDM_HPOS_GN=16, .UDM_HNEG_GN=16, .rsv_10=0}}
+
+};
+const ISP_NVRAM_UDM_T ov16885mipiraw_UDM_0041 = {
+        .intp_crs  ={.bits={.UDM_CDG_SL=4, .UDM_CDG_OFST=0, .UDM_CDG_RAT=15, .UDM_CD_KNL=1, .rsv_18=0, .UDM_BYP=0, .UDM_MN_MODE=0}},
+    .intp_nat  ={.bits={.UDM_HL_OFST=63, .UDM_L0_SL=6, .UDM_L0_OFST=24, .UDM_CD_SLL=3, .UDM_CD_SLC=10, .rsv_30=0}},
+    .intp_aug  ={.bits={.UDM_DN_OFST=0, .UDM_L2_SL=6, .UDM_L2_OFST=0, .UDM_L1_SL=6, .UDM_L1_OFST=0}},
+    .luma_lut1 ={.bits={.UDM_LM_Y2=304, .UDM_LM_Y1=381, .UDM_LM_Y0=511, .rsv_27=0}},
+    .luma_lut2 ={.bits={.UDM_LM_Y5=79, .UDM_LM_Y4=137, .UDM_LM_Y3=216, .rsv_27=0}},
+    .sl_ctl    ={.bits={.UDM_SL_EN=0, .UDM_SL_HR=16, .UDM_SL_Y2=192, .UDM_SL_Y1=220, .rsv_22=0}},
+    .hftd_ctl  ={.bits={.UDM_CORE_TH1=4, .UDM_HD_GN2=16, .UDM_HD_GN1=16, .UDM_HT_GN2=16, .UDM_HT_GN1=16, .rsv_28=0}},
+    .nr_str    ={.bits={.UDM_N2_STR=0, .UDM_N1_STR=0, .UDM_N0_STR=4, .UDM_XTK_SL=5, .UDM_XTK_OFST=64, .UDM_XTK_RAT=16}},
+    .nr_act    ={.bits={.UDM_NGR=0, .UDM_NSL=10, .UDM_N2_OFST=0, .UDM_N1_OFST=0, .UDM_N0_OFST=32}},
+    .hf_str    ={.bits={.UDM_CORE_TH2=0, .UDM_HI_RAT=0, .UDM_H3_GN=4, .UDM_H2_GN=7, .UDM_H1_GN=9, .UDM_HA_STR=12}},
+    .hf_act1   ={.bits={.UDM_H2_UPB=163, .UDM_H2_LWB=68, .UDM_H1_UPB=145, .UDM_H1_LWB=64}},
+    .hf_act2   ={.bits={.UDM_HSLL=6, .UDM_HSLR=6, .UDM_H3_UPB=153, .UDM_H3_LWB=72, .rsv_24=0}},
+    .clip      ={.bits={.UDM_CLIP_TH=64, .UDM_UN_TH=20, .UDM_OV_TH=120, .rsv_24=0}},
+    .dsb       ={.bits={.UDM_SC_RAT=16, .UDM_SL_RAT=16, .UDM_FL_MODE=0, .rsv_11=0}},
+    .p1_act    ={.bits={.UDM_P1_UPB=255, .UDM_P1_LWB=75, .rsv_16=0}},
+    .lr_rat    ={.bits={.UDM_LR_RAT=15, .rsv_4=0}},
+    .hftd_ctl2 ={.bits={.UDM_HD_GN3=13, .UDM_HFRB_GN=16, .rsv_12=0}},
+    .est_ctl   ={.bits={.UDM_P2_CLIP=0, .UDM_P1_BLD=0, .rsv_6=0}},
+    .int_ctl   ={.bits={.UDM_INT_LTH=5, .UDM_INT_CDTH=3, .rsv_8=0}},
+    .ee        ={.bits={.UDM_HPOS_GN=16, .UDM_HNEG_GN=16, .rsv_10=0}}
+
+};
+const ISP_NVRAM_UDM_T ov16885mipiraw_UDM_0042 = {
+        .intp_crs  ={.bits={.UDM_CDG_SL=4, .UDM_CDG_OFST=0, .UDM_CDG_RAT=15, .UDM_CD_KNL=1, .rsv_18=0, .UDM_BYP=0, .UDM_MN_MODE=0}},
+    .intp_nat  ={.bits={.UDM_HL_OFST=63, .UDM_L0_SL=6, .UDM_L0_OFST=32, .UDM_CD_SLL=3, .UDM_CD_SLC=10, .rsv_30=0}},
+    .intp_aug  ={.bits={.UDM_DN_OFST=0, .UDM_L2_SL=6, .UDM_L2_OFST=0, .UDM_L1_SL=6, .UDM_L1_OFST=0}},
+    .luma_lut1 ={.bits={.UDM_LM_Y2=304, .UDM_LM_Y1=381, .UDM_LM_Y0=511, .rsv_27=0}},
+    .luma_lut2 ={.bits={.UDM_LM_Y5=79, .UDM_LM_Y4=137, .UDM_LM_Y3=216, .rsv_27=0}},
+    .sl_ctl    ={.bits={.UDM_SL_EN=1, .UDM_SL_HR=16, .UDM_SL_Y2=190, .UDM_SL_Y1=220, .rsv_22=0}},
+    .hftd_ctl  ={.bits={.UDM_CORE_TH1=4, .UDM_HD_GN2=16, .UDM_HD_GN1=16, .UDM_HT_GN2=16, .UDM_HT_GN1=16, .rsv_28=0}},
+    .nr_str    ={.bits={.UDM_N2_STR=0, .UDM_N1_STR=0, .UDM_N0_STR=0, .UDM_XTK_SL=5, .UDM_XTK_OFST=64, .UDM_XTK_RAT=16}},
+    .nr_act    ={.bits={.UDM_NGR=0, .UDM_NSL=10, .UDM_N2_OFST=0, .UDM_N1_OFST=0, .UDM_N0_OFST=0}},
+    .hf_str    ={.bits={.UDM_CORE_TH2=0, .UDM_HI_RAT=0, .UDM_H3_GN=7, .UDM_H2_GN=10, .UDM_H1_GN=8, .UDM_HA_STR=16}},
+    .hf_act1   ={.bits={.UDM_H2_UPB=180, .UDM_H2_LWB=80, .UDM_H1_UPB=145, .UDM_H1_LWB=75}},
+    .hf_act2   ={.bits={.UDM_HSLL=8, .UDM_HSLR=8, .UDM_H3_UPB=170, .UDM_H3_LWB=80, .rsv_24=0}},
+    .clip      ={.bits={.UDM_CLIP_TH=50, .UDM_UN_TH=50, .UDM_OV_TH=120, .rsv_24=0}},
+    .dsb       ={.bits={.UDM_SC_RAT=16, .UDM_SL_RAT=16, .UDM_FL_MODE=0, .rsv_11=0}},
+    .p1_act    ={.bits={.UDM_P1_UPB=255, .UDM_P1_LWB=75, .rsv_16=0}},
+    .lr_rat    ={.bits={.UDM_LR_RAT=15, .rsv_4=0}},
+    .hftd_ctl2 ={.bits={.UDM_HD_GN3=13, .UDM_HFRB_GN=16, .rsv_12=0}},
+    .est_ctl   ={.bits={.UDM_P2_CLIP=0, .UDM_P1_BLD=0, .rsv_6=0}},
+    .int_ctl   ={.bits={.UDM_INT_LTH=5, .UDM_INT_CDTH=3, .rsv_8=0}},
+    .ee        ={.bits={.UDM_HPOS_GN=16, .UDM_HNEG_GN=16, .rsv_10=0}}
+
+};
+const ISP_NVRAM_UDM_T ov16885mipiraw_UDM_0043 = {
+        .intp_crs  ={.bits={.UDM_CDG_SL=4, .UDM_CDG_OFST=0, .UDM_CDG_RAT=15, .UDM_CD_KNL=1, .rsv_18=0, .UDM_BYP=0, .UDM_MN_MODE=0}},
+    .intp_nat  ={.bits={.UDM_HL_OFST=63, .UDM_L0_SL=7, .UDM_L0_OFST=48, .UDM_CD_SLL=3, .UDM_CD_SLC=10, .rsv_30=0}},
+    .intp_aug  ={.bits={.UDM_DN_OFST=0, .UDM_L2_SL=5, .UDM_L2_OFST=0, .UDM_L1_SL=5, .UDM_L1_OFST=0}},
+    .luma_lut1 ={.bits={.UDM_LM_Y2=304, .UDM_LM_Y1=381, .UDM_LM_Y0=511, .rsv_27=0}},
+    .luma_lut2 ={.bits={.UDM_LM_Y5=79, .UDM_LM_Y4=137, .UDM_LM_Y3=216, .rsv_27=0}},
+    .sl_ctl    ={.bits={.UDM_SL_EN=1, .UDM_SL_HR=16, .UDM_SL_Y2=200, .UDM_SL_Y1=220, .rsv_22=0}},
+    .hftd_ctl  ={.bits={.UDM_CORE_TH1=0, .UDM_HD_GN2=6, .UDM_HD_GN1=6, .UDM_HT_GN2=6, .UDM_HT_GN1=6, .rsv_28=0}},
+    .nr_str    ={.bits={.UDM_N2_STR=0, .UDM_N1_STR=0, .UDM_N0_STR=0, .UDM_XTK_SL=5, .UDM_XTK_OFST=50, .UDM_XTK_RAT=16}},
+    .nr_act    ={.bits={.UDM_NGR=0, .UDM_NSL=7, .UDM_N2_OFST=0, .UDM_N1_OFST=0, .UDM_N0_OFST=0}},
+    .hf_str    ={.bits={.UDM_CORE_TH2=0, .UDM_HI_RAT=4, .UDM_H3_GN=5, .UDM_H2_GN=9, .UDM_H1_GN=7, .UDM_HA_STR=16}},
+    .hf_act1   ={.bits={.UDM_H2_UPB=200, .UDM_H2_LWB=84, .UDM_H1_UPB=160, .UDM_H1_LWB=72}},
+    .hf_act2   ={.bits={.UDM_HSLL=8, .UDM_HSLR=8, .UDM_H3_UPB=180, .UDM_H3_LWB=96, .rsv_24=0}},
+    .clip      ={.bits={.UDM_CLIP_TH=50, .UDM_UN_TH=36, .UDM_OV_TH=180, .rsv_24=0}},
+    .dsb       ={.bits={.UDM_SC_RAT=0, .UDM_SL_RAT=0, .UDM_FL_MODE=0, .rsv_11=0}},
+    .p1_act    ={.bits={.UDM_P1_UPB=255, .UDM_P1_LWB=75, .rsv_16=0}},
+    .lr_rat    ={.bits={.UDM_LR_RAT=15, .rsv_4=0}},
+    .hftd_ctl2 ={.bits={.UDM_HD_GN3=6, .UDM_HFRB_GN=16, .rsv_12=0}},
+    .est_ctl   ={.bits={.UDM_P2_CLIP=0, .UDM_P1_BLD=0, .rsv_6=0}},
+    .int_ctl   ={.bits={.UDM_INT_LTH=5, .UDM_INT_CDTH=3, .rsv_8=0}},
+    .ee        ={.bits={.UDM_HPOS_GN=16, .UDM_HNEG_GN=16, .rsv_10=0}}
+
+};
+const ISP_NVRAM_UDM_T ov16885mipiraw_UDM_0044 = {
+        .intp_crs  ={.bits={.UDM_CDG_SL=4, .UDM_CDG_OFST=0, .UDM_CDG_RAT=15, .UDM_CD_KNL=1, .rsv_18=0, .UDM_BYP=0, .UDM_MN_MODE=0}},
+    .intp_nat  ={.bits={.UDM_HL_OFST=63, .UDM_L0_SL=7, .UDM_L0_OFST=72, .UDM_CD_SLL=3, .UDM_CD_SLC=10, .rsv_30=0}},
+    .intp_aug  ={.bits={.UDM_DN_OFST=0, .UDM_L2_SL=5, .UDM_L2_OFST=0, .UDM_L1_SL=5, .UDM_L1_OFST=0}},
+    .luma_lut1 ={.bits={.UDM_LM_Y2=304, .UDM_LM_Y1=381, .UDM_LM_Y0=511, .rsv_27=0}},
+    .luma_lut2 ={.bits={.UDM_LM_Y5=79, .UDM_LM_Y4=137, .UDM_LM_Y3=216, .rsv_27=0}},
+    .sl_ctl    ={.bits={.UDM_SL_EN=1, .UDM_SL_HR=16, .UDM_SL_Y2=185, .UDM_SL_Y1=210, .rsv_22=0}},
+    .hftd_ctl  ={.bits={.UDM_CORE_TH1=0, .UDM_HD_GN2=6, .UDM_HD_GN1=6, .UDM_HT_GN2=6, .UDM_HT_GN1=6, .rsv_28=0}},
+    .nr_str    ={.bits={.UDM_N2_STR=0, .UDM_N1_STR=0, .UDM_N0_STR=5, .UDM_XTK_SL=5, .UDM_XTK_OFST=50, .UDM_XTK_RAT=16}},
+    .nr_act    ={.bits={.UDM_NGR=0, .UDM_NSL=7, .UDM_N2_OFST=0, .UDM_N1_OFST=0, .UDM_N0_OFST=64}},
+    .hf_str    ={.bits={.UDM_CORE_TH2=0, .UDM_HI_RAT=4, .UDM_H3_GN=5, .UDM_H2_GN=9, .UDM_H1_GN=7, .UDM_HA_STR=15}},
+    .hf_act1   ={.bits={.UDM_H2_UPB=200, .UDM_H2_LWB=92, .UDM_H1_UPB=160, .UDM_H1_LWB=82}},
+    .hf_act2   ={.bits={.UDM_HSLL=8, .UDM_HSLR=8, .UDM_H3_UPB=180, .UDM_H3_LWB=102, .rsv_24=0}},
+    .clip      ={.bits={.UDM_CLIP_TH=50, .UDM_UN_TH=36, .UDM_OV_TH=180, .rsv_24=0}},
+    .dsb       ={.bits={.UDM_SC_RAT=0, .UDM_SL_RAT=0, .UDM_FL_MODE=0, .rsv_11=0}},
+    .p1_act    ={.bits={.UDM_P1_UPB=255, .UDM_P1_LWB=75, .rsv_16=0}},
+    .lr_rat    ={.bits={.UDM_LR_RAT=15, .rsv_4=0}},
+    .hftd_ctl2 ={.bits={.UDM_HD_GN3=6, .UDM_HFRB_GN=16, .rsv_12=0}},
+    .est_ctl   ={.bits={.UDM_P2_CLIP=0, .UDM_P1_BLD=0, .rsv_6=0}},
+    .int_ctl   ={.bits={.UDM_INT_LTH=5, .UDM_INT_CDTH=3, .rsv_8=0}},
+    .ee        ={.bits={.UDM_HPOS_GN=16, .UDM_HNEG_GN=16, .rsv_10=0}}
+
+};
+const ISP_NVRAM_UDM_T ov16885mipiraw_UDM_0045 = {
+        .intp_crs  ={.bits={.UDM_CDG_SL=4, .UDM_CDG_OFST=0, .UDM_CDG_RAT=15, .UDM_CD_KNL=1, .rsv_18=0, .UDM_BYP=0, .UDM_MN_MODE=0}},
+    .intp_nat  ={.bits={.UDM_HL_OFST=63, .UDM_L0_SL=7, .UDM_L0_OFST=72, .UDM_CD_SLL=3, .UDM_CD_SLC=10, .rsv_30=0}},
+    .intp_aug  ={.bits={.UDM_DN_OFST=0, .UDM_L2_SL=5, .UDM_L2_OFST=0, .UDM_L1_SL=5, .UDM_L1_OFST=0}},
+    .luma_lut1 ={.bits={.UDM_LM_Y2=304, .UDM_LM_Y1=381, .UDM_LM_Y0=511, .rsv_27=0}},
+    .luma_lut2 ={.bits={.UDM_LM_Y5=79, .UDM_LM_Y4=137, .UDM_LM_Y3=216, .rsv_27=0}},
+    .sl_ctl    ={.bits={.UDM_SL_EN=1, .UDM_SL_HR=16, .UDM_SL_Y2=175, .UDM_SL_Y1=200, .rsv_22=0}},
+    .hftd_ctl  ={.bits={.UDM_CORE_TH1=0, .UDM_HD_GN2=6, .UDM_HD_GN1=6, .UDM_HT_GN2=6, .UDM_HT_GN1=6, .rsv_28=0}},
+    .nr_str    ={.bits={.UDM_N2_STR=0, .UDM_N1_STR=0, .UDM_N0_STR=6, .UDM_XTK_SL=5, .UDM_XTK_OFST=50, .UDM_XTK_RAT=16}},
+    .nr_act    ={.bits={.UDM_NGR=0, .UDM_NSL=7, .UDM_N2_OFST=0, .UDM_N1_OFST=0, .UDM_N0_OFST=80}},
+    .hf_str    ={.bits={.UDM_CORE_TH2=0, .UDM_HI_RAT=4, .UDM_H3_GN=5, .UDM_H2_GN=9, .UDM_H1_GN=7, .UDM_HA_STR=14}},
+    .hf_act1   ={.bits={.UDM_H2_UPB=210, .UDM_H2_LWB=98, .UDM_H1_UPB=170, .UDM_H1_LWB=88}},
+    .hf_act2   ={.bits={.UDM_HSLL=8, .UDM_HSLR=8, .UDM_H3_UPB=185, .UDM_H3_LWB=108, .rsv_24=0}},
+    .clip      ={.bits={.UDM_CLIP_TH=50, .UDM_UN_TH=36, .UDM_OV_TH=200, .rsv_24=0}},
+    .dsb       ={.bits={.UDM_SC_RAT=0, .UDM_SL_RAT=0, .UDM_FL_MODE=0, .rsv_11=0}},
+    .p1_act    ={.bits={.UDM_P1_UPB=255, .UDM_P1_LWB=75, .rsv_16=0}},
+    .lr_rat    ={.bits={.UDM_LR_RAT=15, .rsv_4=0}},
+    .hftd_ctl2 ={.bits={.UDM_HD_GN3=6, .UDM_HFRB_GN=16, .rsv_12=0}},
+    .est_ctl   ={.bits={.UDM_P2_CLIP=0, .UDM_P1_BLD=0, .rsv_6=0}},
+    .int_ctl   ={.bits={.UDM_INT_LTH=5, .UDM_INT_CDTH=3, .rsv_8=0}},
+    .ee        ={.bits={.UDM_HPOS_GN=16, .UDM_HNEG_GN=16, .rsv_10=0}}
+
+};
+const ISP_NVRAM_UDM_T ov16885mipiraw_UDM_0046 = {
+        .intp_crs  ={.bits={.UDM_CDG_SL=4, .UDM_CDG_OFST=0, .UDM_CDG_RAT=15, .UDM_CD_KNL=1, .rsv_18=0, .UDM_BYP=0, .UDM_MN_MODE=0}},
+    .intp_nat  ={.bits={.UDM_HL_OFST=63, .UDM_L0_SL=7, .UDM_L0_OFST=100, .UDM_CD_SLL=3, .UDM_CD_SLC=10, .rsv_30=0}},
+    .intp_aug  ={.bits={.UDM_DN_OFST=0, .UDM_L2_SL=5, .UDM_L2_OFST=0, .UDM_L1_SL=5, .UDM_L1_OFST=0}},
+    .luma_lut1 ={.bits={.UDM_LM_Y2=304, .UDM_LM_Y1=381, .UDM_LM_Y0=511, .rsv_27=0}},
+    .luma_lut2 ={.bits={.UDM_LM_Y5=79, .UDM_LM_Y4=137, .UDM_LM_Y3=216, .rsv_27=0}},
+    .sl_ctl    ={.bits={.UDM_SL_EN=1, .UDM_SL_HR=16, .UDM_SL_Y2=160, .UDM_SL_Y1=200, .rsv_22=0}},
+    .hftd_ctl  ={.bits={.UDM_CORE_TH1=0, .UDM_HD_GN2=8, .UDM_HD_GN1=8, .UDM_HT_GN2=8, .UDM_HT_GN1=8, .rsv_28=0}},
+    .nr_str    ={.bits={.UDM_N2_STR=0, .UDM_N1_STR=0, .UDM_N0_STR=6, .UDM_XTK_SL=5, .UDM_XTK_OFST=50, .UDM_XTK_RAT=16}},
+    .nr_act    ={.bits={.UDM_NGR=0, .UDM_NSL=7, .UDM_N2_OFST=0, .UDM_N1_OFST=0, .UDM_N0_OFST=80}},
+    .hf_str    ={.bits={.UDM_CORE_TH2=0, .UDM_HI_RAT=4, .UDM_H3_GN=3, .UDM_H2_GN=9, .UDM_H1_GN=7, .UDM_HA_STR=14}},
+    .hf_act1   ={.bits={.UDM_H2_UPB=200, .UDM_H2_LWB=100, .UDM_H1_UPB=173, .UDM_H1_LWB=92}},
+    .hf_act2   ={.bits={.UDM_HSLL=8, .UDM_HSLR=8, .UDM_H3_UPB=180, .UDM_H3_LWB=109, .rsv_24=0}},
+    .clip      ={.bits={.UDM_CLIP_TH=50, .UDM_UN_TH=34, .UDM_OV_TH=168, .rsv_24=0}},
+    .dsb       ={.bits={.UDM_SC_RAT=0, .UDM_SL_RAT=0, .UDM_FL_MODE=0, .rsv_11=0}},
+    .p1_act    ={.bits={.UDM_P1_UPB=255, .UDM_P1_LWB=75, .rsv_16=0}},
+    .lr_rat    ={.bits={.UDM_LR_RAT=15, .rsv_4=0}},
+    .hftd_ctl2 ={.bits={.UDM_HD_GN3=8, .UDM_HFRB_GN=16, .rsv_12=0}},
+    .est_ctl   ={.bits={.UDM_P2_CLIP=0, .UDM_P1_BLD=0, .rsv_6=0}},
+    .int_ctl   ={.bits={.UDM_INT_LTH=5, .UDM_INT_CDTH=3, .rsv_8=0}},
+    .ee        ={.bits={.UDM_HPOS_GN=16, .UDM_HNEG_GN=14, .rsv_10=0}}
+
+};
+const ISP_NVRAM_UDM_T ov16885mipiraw_UDM_0047 = {
+        .intp_crs  ={.bits={.UDM_CDG_SL=4, .UDM_CDG_OFST=0, .UDM_CDG_RAT=15, .UDM_CD_KNL=1, .rsv_18=0, .UDM_BYP=0, .UDM_MN_MODE=0}},
+    .intp_nat  ={.bits={.UDM_HL_OFST=63, .UDM_L0_SL=7, .UDM_L0_OFST=128, .UDM_CD_SLL=3, .UDM_CD_SLC=10, .rsv_30=0}},
+    .intp_aug  ={.bits={.UDM_DN_OFST=0, .UDM_L2_SL=5, .UDM_L2_OFST=0, .UDM_L1_SL=5, .UDM_L1_OFST=0}},
+    .luma_lut1 ={.bits={.UDM_LM_Y2=304, .UDM_LM_Y1=381, .UDM_LM_Y0=511, .rsv_27=0}},
+    .luma_lut2 ={.bits={.UDM_LM_Y5=79, .UDM_LM_Y4=137, .UDM_LM_Y3=216, .rsv_27=0}},
+    .sl_ctl    ={.bits={.UDM_SL_EN=1, .UDM_SL_HR=16, .UDM_SL_Y2=145, .UDM_SL_Y1=200, .rsv_22=0}},
+    .hftd_ctl  ={.bits={.UDM_CORE_TH1=0, .UDM_HD_GN2=10, .UDM_HD_GN1=10, .UDM_HT_GN2=10, .UDM_HT_GN1=10, .rsv_28=0}},
+    .nr_str    ={.bits={.UDM_N2_STR=0, .UDM_N1_STR=0, .UDM_N0_STR=6, .UDM_XTK_SL=5, .UDM_XTK_OFST=50, .UDM_XTK_RAT=16}},
+    .nr_act    ={.bits={.UDM_NGR=0, .UDM_NSL=7, .UDM_N2_OFST=0, .UDM_N1_OFST=0, .UDM_N0_OFST=80}},
+    .hf_str    ={.bits={.UDM_CORE_TH2=0, .UDM_HI_RAT=4, .UDM_H3_GN=1, .UDM_H2_GN=8, .UDM_H1_GN=6, .UDM_HA_STR=13}},
+    .hf_act1   ={.bits={.UDM_H2_UPB=190, .UDM_H2_LWB=102, .UDM_H1_UPB=175, .UDM_H1_LWB=96}},
+    .hf_act2   ={.bits={.UDM_HSLL=8, .UDM_HSLR=8, .UDM_H3_UPB=175, .UDM_H3_LWB=110, .rsv_24=0}},
+    .clip      ={.bits={.UDM_CLIP_TH=50, .UDM_UN_TH=32, .UDM_OV_TH=135, .rsv_24=0}},
+    .dsb       ={.bits={.UDM_SC_RAT=0, .UDM_SL_RAT=0, .UDM_FL_MODE=0, .rsv_11=0}},
+    .p1_act    ={.bits={.UDM_P1_UPB=255, .UDM_P1_LWB=75, .rsv_16=0}},
+    .lr_rat    ={.bits={.UDM_LR_RAT=15, .rsv_4=0}},
+    .hftd_ctl2 ={.bits={.UDM_HD_GN3=10, .UDM_HFRB_GN=16, .rsv_12=0}},
+    .est_ctl   ={.bits={.UDM_P2_CLIP=0, .UDM_P1_BLD=0, .rsv_6=0}},
+    .int_ctl   ={.bits={.UDM_INT_LTH=5, .UDM_INT_CDTH=3, .rsv_8=0}},
+    .ee        ={.bits={.UDM_HPOS_GN=16, .UDM_HNEG_GN=12, .rsv_10=0}}
+
+};
+const ISP_NVRAM_UDM_T ov16885mipiraw_UDM_0048 = {
+        .intp_crs  ={.bits={.UDM_CDG_SL=4, .UDM_CDG_OFST=0, .UDM_CDG_RAT=15, .UDM_CD_KNL=1, .rsv_18=0, .UDM_BYP=0, .UDM_MN_MODE=0}},
+    .intp_nat  ={.bits={.UDM_HL_OFST=63, .UDM_L0_SL=7, .UDM_L0_OFST=128, .UDM_CD_SLL=3, .UDM_CD_SLC=10, .rsv_30=0}},
+    .intp_aug  ={.bits={.UDM_DN_OFST=0, .UDM_L2_SL=5, .UDM_L2_OFST=0, .UDM_L1_SL=5, .UDM_L1_OFST=0}},
+    .luma_lut1 ={.bits={.UDM_LM_Y2=304, .UDM_LM_Y1=381, .UDM_LM_Y0=511, .rsv_27=0}},
+    .luma_lut2 ={.bits={.UDM_LM_Y5=79, .UDM_LM_Y4=137, .UDM_LM_Y3=216, .rsv_27=0}},
+    .sl_ctl    ={.bits={.UDM_SL_EN=1, .UDM_SL_HR=16, .UDM_SL_Y2=160, .UDM_SL_Y1=220, .rsv_22=0}},
+    .hftd_ctl  ={.bits={.UDM_CORE_TH1=0, .UDM_HD_GN2=13, .UDM_HD_GN1=13, .UDM_HT_GN2=13, .UDM_HT_GN1=13, .rsv_28=0}},
+    .nr_str    ={.bits={.UDM_N2_STR=0, .UDM_N1_STR=0, .UDM_N0_STR=6, .UDM_XTK_SL=5, .UDM_XTK_OFST=50, .UDM_XTK_RAT=16}},
+    .nr_act    ={.bits={.UDM_NGR=0, .UDM_NSL=7, .UDM_N2_OFST=0, .UDM_N1_OFST=0, .UDM_N0_OFST=80}},
+    .hf_str    ={.bits={.UDM_CORE_TH2=0, .UDM_HI_RAT=4, .UDM_H3_GN=4, .UDM_H2_GN=7, .UDM_H1_GN=6, .UDM_HA_STR=13}},
+    .hf_act1   ={.bits={.UDM_H2_UPB=160, .UDM_H2_LWB=88, .UDM_H1_UPB=136, .UDM_H1_LWB=64}},
+    .hf_act2   ={.bits={.UDM_HSLL=4, .UDM_HSLR=5, .UDM_H3_UPB=148, .UDM_H3_LWB=76, .rsv_24=0}},
+    .clip      ={.bits={.UDM_CLIP_TH=50, .UDM_UN_TH=50, .UDM_OV_TH=135, .rsv_24=0}},
+    .dsb       ={.bits={.UDM_SC_RAT=0, .UDM_SL_RAT=0, .UDM_FL_MODE=0, .rsv_11=0}},
+    .p1_act    ={.bits={.UDM_P1_UPB=255, .UDM_P1_LWB=75, .rsv_16=0}},
+    .lr_rat    ={.bits={.UDM_LR_RAT=15, .rsv_4=0}},
+    .hftd_ctl2 ={.bits={.UDM_HD_GN3=13, .UDM_HFRB_GN=16, .rsv_12=0}},
+    .est_ctl   ={.bits={.UDM_P2_CLIP=0, .UDM_P1_BLD=0, .rsv_6=0}},
+    .int_ctl   ={.bits={.UDM_INT_LTH=5, .UDM_INT_CDTH=3, .rsv_8=0}},
+    .ee        ={.bits={.UDM_HPOS_GN=16, .UDM_HNEG_GN=16, .rsv_10=0}}
+
+};
+const ISP_NVRAM_UDM_T ov16885mipiraw_UDM_0049 = {
+        .intp_crs  ={.bits={.UDM_CDG_SL=4, .UDM_CDG_OFST=0, .UDM_CDG_RAT=15, .UDM_CD_KNL=1, .rsv_18=0, .UDM_BYP=0, .UDM_MN_MODE=0}},
+    .intp_nat  ={.bits={.UDM_HL_OFST=63, .UDM_L0_SL=7, .UDM_L0_OFST=128, .UDM_CD_SLL=3, .UDM_CD_SLC=10, .rsv_30=0}},
+    .intp_aug  ={.bits={.UDM_DN_OFST=0, .UDM_L2_SL=5, .UDM_L2_OFST=0, .UDM_L1_SL=5, .UDM_L1_OFST=0}},
+    .luma_lut1 ={.bits={.UDM_LM_Y2=304, .UDM_LM_Y1=381, .UDM_LM_Y0=511, .rsv_27=0}},
+    .luma_lut2 ={.bits={.UDM_LM_Y5=79, .UDM_LM_Y4=137, .UDM_LM_Y3=216, .rsv_27=0}},
+    .sl_ctl    ={.bits={.UDM_SL_EN=1, .UDM_SL_HR=16, .UDM_SL_Y2=160, .UDM_SL_Y1=220, .rsv_22=0}},
+    .hftd_ctl  ={.bits={.UDM_CORE_TH1=0, .UDM_HD_GN2=13, .UDM_HD_GN1=13, .UDM_HT_GN2=13, .UDM_HT_GN1=13, .rsv_28=0}},
+    .nr_str    ={.bits={.UDM_N2_STR=0, .UDM_N1_STR=0, .UDM_N0_STR=6, .UDM_XTK_SL=5, .UDM_XTK_OFST=50, .UDM_XTK_RAT=16}},
+    .nr_act    ={.bits={.UDM_NGR=0, .UDM_NSL=7, .UDM_N2_OFST=0, .UDM_N1_OFST=0, .UDM_N0_OFST=80}},
+    .hf_str    ={.bits={.UDM_CORE_TH2=0, .UDM_HI_RAT=4, .UDM_H3_GN=4, .UDM_H2_GN=7, .UDM_H1_GN=6, .UDM_HA_STR=13}},
+    .hf_act1   ={.bits={.UDM_H2_UPB=160, .UDM_H2_LWB=88, .UDM_H1_UPB=136, .UDM_H1_LWB=64}},
+    .hf_act2   ={.bits={.UDM_HSLL=4, .UDM_HSLR=5, .UDM_H3_UPB=148, .UDM_H3_LWB=76, .rsv_24=0}},
+    .clip      ={.bits={.UDM_CLIP_TH=50, .UDM_UN_TH=50, .UDM_OV_TH=135, .rsv_24=0}},
+    .dsb       ={.bits={.UDM_SC_RAT=0, .UDM_SL_RAT=0, .UDM_FL_MODE=0, .rsv_11=0}},
+    .p1_act    ={.bits={.UDM_P1_UPB=255, .UDM_P1_LWB=75, .rsv_16=0}},
+    .lr_rat    ={.bits={.UDM_LR_RAT=15, .rsv_4=0}},
+    .hftd_ctl2 ={.bits={.UDM_HD_GN3=13, .UDM_HFRB_GN=16, .rsv_12=0}},
+    .est_ctl   ={.bits={.UDM_P2_CLIP=0, .UDM_P1_BLD=0, .rsv_6=0}},
+    .int_ctl   ={.bits={.UDM_INT_LTH=5, .UDM_INT_CDTH=3, .rsv_8=0}},
+    .ee        ={.bits={.UDM_HPOS_GN=16, .UDM_HNEG_GN=16, .rsv_10=0}}
+
+};
+const ISP_NVRAM_UDM_T ov16885mipiraw_UDM_0050 = {
+        .intp_crs  ={.bits={.UDM_CDG_SL=4, .UDM_CDG_OFST=0, .UDM_CDG_RAT=15, .UDM_CD_KNL=1, .rsv_18=0, .UDM_BYP=0, .UDM_MN_MODE=0}},
+    .intp_nat  ={.bits={.UDM_HL_OFST=63, .UDM_L0_SL=7, .UDM_L0_OFST=128, .UDM_CD_SLL=3, .UDM_CD_SLC=10, .rsv_30=0}},
+    .intp_aug  ={.bits={.UDM_DN_OFST=0, .UDM_L2_SL=5, .UDM_L2_OFST=0, .UDM_L1_SL=5, .UDM_L1_OFST=0}},
+    .luma_lut1 ={.bits={.UDM_LM_Y2=304, .UDM_LM_Y1=381, .UDM_LM_Y0=511, .rsv_27=0}},
+    .luma_lut2 ={.bits={.UDM_LM_Y5=79, .UDM_LM_Y4=137, .UDM_LM_Y3=216, .rsv_27=0}},
+    .sl_ctl    ={.bits={.UDM_SL_EN=1, .UDM_SL_HR=16, .UDM_SL_Y2=145, .UDM_SL_Y1=200, .rsv_22=0}},
+    .hftd_ctl  ={.bits={.UDM_CORE_TH1=0, .UDM_HD_GN2=10, .UDM_HD_GN1=10, .UDM_HT_GN2=10, .UDM_HT_GN1=10, .rsv_28=0}},
+    .nr_str    ={.bits={.UDM_N2_STR=0, .UDM_N1_STR=0, .UDM_N0_STR=6, .UDM_XTK_SL=5, .UDM_XTK_OFST=50, .UDM_XTK_RAT=16}},
+    .nr_act    ={.bits={.UDM_NGR=0, .UDM_NSL=7, .UDM_N2_OFST=0, .UDM_N1_OFST=0, .UDM_N0_OFST=80}},
+    .hf_str    ={.bits={.UDM_CORE_TH2=0, .UDM_HI_RAT=4, .UDM_H3_GN=1, .UDM_H2_GN=8, .UDM_H1_GN=6, .UDM_HA_STR=13}},
+    .hf_act1   ={.bits={.UDM_H2_UPB=190, .UDM_H2_LWB=102, .UDM_H1_UPB=175, .UDM_H1_LWB=96}},
+    .hf_act2   ={.bits={.UDM_HSLL=8, .UDM_HSLR=8, .UDM_H3_UPB=175, .UDM_H3_LWB=110, .rsv_24=0}},
+    .clip      ={.bits={.UDM_CLIP_TH=50, .UDM_UN_TH=32, .UDM_OV_TH=135, .rsv_24=0}},
+    .dsb       ={.bits={.UDM_SC_RAT=0, .UDM_SL_RAT=0, .UDM_FL_MODE=0, .rsv_11=0}},
+    .p1_act    ={.bits={.UDM_P1_UPB=255, .UDM_P1_LWB=75, .rsv_16=0}},
+    .lr_rat    ={.bits={.UDM_LR_RAT=15, .rsv_4=0}},
+    .hftd_ctl2 ={.bits={.UDM_HD_GN3=10, .UDM_HFRB_GN=16, .rsv_12=0}},
+    .est_ctl   ={.bits={.UDM_P2_CLIP=0, .UDM_P1_BLD=0, .rsv_6=0}},
+    .int_ctl   ={.bits={.UDM_INT_LTH=5, .UDM_INT_CDTH=3, .rsv_8=0}},
+    .ee        ={.bits={.UDM_HPOS_GN=16, .UDM_HNEG_GN=12, .rsv_10=0}}
+
+};
+const ISP_NVRAM_UDM_T ov16885mipiraw_UDM_0051 = {
+        .intp_crs  ={.bits={.UDM_CDG_SL=4, .UDM_CDG_OFST=0, .UDM_CDG_RAT=15, .UDM_CD_KNL=1, .rsv_18=0, .UDM_BYP=0, .UDM_MN_MODE=0}},
+    .intp_nat  ={.bits={.UDM_HL_OFST=63, .UDM_L0_SL=6, .UDM_L0_OFST=75, .UDM_CD_SLL=3, .UDM_CD_SLC=10, .rsv_30=0}},
+    .intp_aug  ={.bits={.UDM_DN_OFST=0, .UDM_L2_SL=5, .UDM_L2_OFST=0, .UDM_L1_SL=5, .UDM_L1_OFST=0}},
+    .luma_lut1 ={.bits={.UDM_LM_Y2=304, .UDM_LM_Y1=381, .UDM_LM_Y0=511, .rsv_27=0}},
+    .luma_lut2 ={.bits={.UDM_LM_Y5=79, .UDM_LM_Y4=137, .UDM_LM_Y3=216, .rsv_27=0}},
+    .sl_ctl    ={.bits={.UDM_SL_EN=1, .UDM_SL_HR=16, .UDM_SL_Y2=121, .UDM_SL_Y1=197, .rsv_22=0}},
+    .hftd_ctl  ={.bits={.UDM_CORE_TH1=0, .UDM_HD_GN2=3, .UDM_HD_GN1=3, .UDM_HT_GN2=3, .UDM_HT_GN1=3, .rsv_28=0}},
+    .nr_str    ={.bits={.UDM_N2_STR=0, .UDM_N1_STR=0, .UDM_N0_STR=13, .UDM_XTK_SL=5, .UDM_XTK_OFST=32, .UDM_XTK_RAT=16}},
+    .nr_act    ={.bits={.UDM_NGR=0, .UDM_NSL=8, .UDM_N2_OFST=0, .UDM_N1_OFST=0, .UDM_N0_OFST=255}},
+    .hf_str    ={.bits={.UDM_CORE_TH2=0, .UDM_HI_RAT=8, .UDM_H3_GN=4, .UDM_H2_GN=6, .UDM_H1_GN=7, .UDM_HA_STR=16}},
+    .hf_act1   ={.bits={.UDM_H2_UPB=255, .UDM_H2_LWB=110, .UDM_H1_UPB=255, .UDM_H1_LWB=87}},
+    .hf_act2   ={.bits={.UDM_HSLL=6, .UDM_HSLR=5, .UDM_H3_UPB=225, .UDM_H3_LWB=110, .rsv_24=0}},
+    .clip      ={.bits={.UDM_CLIP_TH=32, .UDM_UN_TH=33, .UDM_OV_TH=164, .rsv_24=0}},
+    .dsb       ={.bits={.UDM_SC_RAT=0, .UDM_SL_RAT=0, .UDM_FL_MODE=0, .rsv_11=0}},
+    .p1_act    ={.bits={.UDM_P1_UPB=255, .UDM_P1_LWB=75, .rsv_16=0}},
+    .lr_rat    ={.bits={.UDM_LR_RAT=15, .rsv_4=0}},
+    .hftd_ctl2 ={.bits={.UDM_HD_GN3=3, .UDM_HFRB_GN=16, .rsv_12=0}},
+    .est_ctl   ={.bits={.UDM_P2_CLIP=0, .UDM_P1_BLD=0, .rsv_6=0}},
+    .int_ctl   ={.bits={.UDM_INT_LTH=5, .UDM_INT_CDTH=3, .rsv_8=0}},
+    .ee        ={.bits={.UDM_HPOS_GN=16, .UDM_HNEG_GN=16, .rsv_10=0}}
+
+};
+const ISP_NVRAM_UDM_T ov16885mipiraw_UDM_0052 = {
+        .intp_crs  ={.bits={.UDM_CDG_SL=4, .UDM_CDG_OFST=0, .UDM_CDG_RAT=15, .UDM_CD_KNL=1, .rsv_18=0, .UDM_BYP=0, .UDM_MN_MODE=0}},
+    .intp_nat  ={.bits={.UDM_HL_OFST=63, .UDM_L0_SL=6, .UDM_L0_OFST=75, .UDM_CD_SLL=3, .UDM_CD_SLC=10, .rsv_30=0}},
+    .intp_aug  ={.bits={.UDM_DN_OFST=0, .UDM_L2_SL=5, .UDM_L2_OFST=0, .UDM_L1_SL=5, .UDM_L1_OFST=0}},
+    .luma_lut1 ={.bits={.UDM_LM_Y2=304, .UDM_LM_Y1=381, .UDM_LM_Y0=511, .rsv_27=0}},
+    .luma_lut2 ={.bits={.UDM_LM_Y5=79, .UDM_LM_Y4=137, .UDM_LM_Y3=216, .rsv_27=0}},
+    .sl_ctl    ={.bits={.UDM_SL_EN=1, .UDM_SL_HR=16, .UDM_SL_Y2=119, .UDM_SL_Y1=196, .rsv_22=0}},
+    .hftd_ctl  ={.bits={.UDM_CORE_TH1=0, .UDM_HD_GN2=3, .UDM_HD_GN1=3, .UDM_HT_GN2=3, .UDM_HT_GN1=3, .rsv_28=0}},
+    .nr_str    ={.bits={.UDM_N2_STR=0, .UDM_N1_STR=0, .UDM_N0_STR=12, .UDM_XTK_SL=5, .UDM_XTK_OFST=32, .UDM_XTK_RAT=16}},
+    .nr_act    ={.bits={.UDM_NGR=0, .UDM_NSL=8, .UDM_N2_OFST=0, .UDM_N1_OFST=0, .UDM_N0_OFST=255}},
+    .hf_str    ={.bits={.UDM_CORE_TH2=0, .UDM_HI_RAT=8, .UDM_H3_GN=3, .UDM_H2_GN=6, .UDM_H1_GN=8, .UDM_HA_STR=17}},
+    .hf_act1   ={.bits={.UDM_H2_UPB=255, .UDM_H2_LWB=110, .UDM_H1_UPB=255, .UDM_H1_LWB=87}},
+    .hf_act2   ={.bits={.UDM_HSLL=6, .UDM_HSLR=5, .UDM_H3_UPB=225, .UDM_H3_LWB=110, .rsv_24=0}},
+    .clip      ={.bits={.UDM_CLIP_TH=32, .UDM_UN_TH=30, .UDM_OV_TH=164, .rsv_24=0}},
+    .dsb       ={.bits={.UDM_SC_RAT=0, .UDM_SL_RAT=0, .UDM_FL_MODE=0, .rsv_11=0}},
+    .p1_act    ={.bits={.UDM_P1_UPB=255, .UDM_P1_LWB=75, .rsv_16=0}},
+    .lr_rat    ={.bits={.UDM_LR_RAT=15, .rsv_4=0}},
+    .hftd_ctl2 ={.bits={.UDM_HD_GN3=3, .UDM_HFRB_GN=16, .rsv_12=0}},
+    .est_ctl   ={.bits={.UDM_P2_CLIP=0, .UDM_P1_BLD=0, .rsv_6=0}},
+    .int_ctl   ={.bits={.UDM_INT_LTH=5, .UDM_INT_CDTH=3, .rsv_8=0}},
+    .ee        ={.bits={.UDM_HPOS_GN=16, .UDM_HNEG_GN=16, .rsv_10=0}}
+
+};
+const ISP_NVRAM_UDM_T ov16885mipiraw_UDM_0053 = {
+        .intp_crs  ={.bits={.UDM_CDG_SL=4, .UDM_CDG_OFST=0, .UDM_CDG_RAT=15, .UDM_CD_KNL=1, .rsv_18=0, .UDM_BYP=0, .UDM_MN_MODE=0}},
+    .intp_nat  ={.bits={.UDM_HL_OFST=63, .UDM_L0_SL=6, .UDM_L0_OFST=75, .UDM_CD_SLL=3, .UDM_CD_SLC=10, .rsv_30=0}},
+    .intp_aug  ={.bits={.UDM_DN_OFST=0, .UDM_L2_SL=5, .UDM_L2_OFST=0, .UDM_L1_SL=5, .UDM_L1_OFST=0}},
+    .luma_lut1 ={.bits={.UDM_LM_Y2=304, .UDM_LM_Y1=381, .UDM_LM_Y0=511, .rsv_27=0}},
+    .luma_lut2 ={.bits={.UDM_LM_Y5=79, .UDM_LM_Y4=137, .UDM_LM_Y3=216, .rsv_27=0}},
+    .sl_ctl    ={.bits={.UDM_SL_EN=1, .UDM_SL_HR=16, .UDM_SL_Y2=135, .UDM_SL_Y1=201, .rsv_22=0}},
+    .hftd_ctl  ={.bits={.UDM_CORE_TH1=0, .UDM_HD_GN2=3, .UDM_HD_GN1=3, .UDM_HT_GN2=3, .UDM_HT_GN1=3, .rsv_28=0}},
+    .nr_str    ={.bits={.UDM_N2_STR=0, .UDM_N1_STR=0, .UDM_N0_STR=12, .UDM_XTK_SL=5, .UDM_XTK_OFST=32, .UDM_XTK_RAT=16}},
+    .nr_act    ={.bits={.UDM_NGR=0, .UDM_NSL=8, .UDM_N2_OFST=0, .UDM_N1_OFST=0, .UDM_N0_OFST=255}},
+    .hf_str    ={.bits={.UDM_CORE_TH2=0, .UDM_HI_RAT=8, .UDM_H3_GN=3, .UDM_H2_GN=6, .UDM_H1_GN=8, .UDM_HA_STR=17}},
+    .hf_act1   ={.bits={.UDM_H2_UPB=255, .UDM_H2_LWB=110, .UDM_H1_UPB=255, .UDM_H1_LWB=87}},
+    .hf_act2   ={.bits={.UDM_HSLL=6, .UDM_HSLR=5, .UDM_H3_UPB=225, .UDM_H3_LWB=110, .rsv_24=0}},
+    .clip      ={.bits={.UDM_CLIP_TH=32, .UDM_UN_TH=36, .UDM_OV_TH=147, .rsv_24=0}},
+    .dsb       ={.bits={.UDM_SC_RAT=0, .UDM_SL_RAT=0, .UDM_FL_MODE=0, .rsv_11=0}},
+    .p1_act    ={.bits={.UDM_P1_UPB=255, .UDM_P1_LWB=75, .rsv_16=0}},
+    .lr_rat    ={.bits={.UDM_LR_RAT=15, .rsv_4=0}},
+    .hftd_ctl2 ={.bits={.UDM_HD_GN3=3, .UDM_HFRB_GN=16, .rsv_12=0}},
+    .est_ctl   ={.bits={.UDM_P2_CLIP=0, .UDM_P1_BLD=0, .rsv_6=0}},
+    .int_ctl   ={.bits={.UDM_INT_LTH=5, .UDM_INT_CDTH=3, .rsv_8=0}},
+    .ee        ={.bits={.UDM_HPOS_GN=16, .UDM_HNEG_GN=16, .rsv_10=0}}
+
+};
+const ISP_NVRAM_UDM_T ov16885mipiraw_UDM_0054 = {
+        .intp_crs  ={.bits={.UDM_CDG_SL=4, .UDM_CDG_OFST=0, .UDM_CDG_RAT=15, .UDM_CD_KNL=1, .rsv_18=0, .UDM_BYP=0, .UDM_MN_MODE=0}},
+    .intp_nat  ={.bits={.UDM_HL_OFST=63, .UDM_L0_SL=6, .UDM_L0_OFST=75, .UDM_CD_SLL=3, .UDM_CD_SLC=10, .rsv_30=0}},
+    .intp_aug  ={.bits={.UDM_DN_OFST=0, .UDM_L2_SL=5, .UDM_L2_OFST=0, .UDM_L1_SL=5, .UDM_L1_OFST=0}},
+    .luma_lut1 ={.bits={.UDM_LM_Y2=304, .UDM_LM_Y1=381, .UDM_LM_Y0=511, .rsv_27=0}},
+    .luma_lut2 ={.bits={.UDM_LM_Y5=79, .UDM_LM_Y4=137, .UDM_LM_Y3=216, .rsv_27=0}},
+    .sl_ctl    ={.bits={.UDM_SL_EN=1, .UDM_SL_HR=16, .UDM_SL_Y2=135, .UDM_SL_Y1=201, .rsv_22=0}},
+    .hftd_ctl  ={.bits={.UDM_CORE_TH1=0, .UDM_HD_GN2=3, .UDM_HD_GN1=3, .UDM_HT_GN2=3, .UDM_HT_GN1=3, .rsv_28=0}},
+    .nr_str    ={.bits={.UDM_N2_STR=0, .UDM_N1_STR=0, .UDM_N0_STR=12, .UDM_XTK_SL=5, .UDM_XTK_OFST=32, .UDM_XTK_RAT=16}},
+    .nr_act    ={.bits={.UDM_NGR=0, .UDM_NSL=8, .UDM_N2_OFST=0, .UDM_N1_OFST=0, .UDM_N0_OFST=255}},
+    .hf_str    ={.bits={.UDM_CORE_TH2=0, .UDM_HI_RAT=8, .UDM_H3_GN=3, .UDM_H2_GN=6, .UDM_H1_GN=8, .UDM_HA_STR=17}},
+    .hf_act1   ={.bits={.UDM_H2_UPB=255, .UDM_H2_LWB=110, .UDM_H1_UPB=255, .UDM_H1_LWB=87}},
+    .hf_act2   ={.bits={.UDM_HSLL=6, .UDM_HSLR=5, .UDM_H3_UPB=225, .UDM_H3_LWB=110, .rsv_24=0}},
+    .clip      ={.bits={.UDM_CLIP_TH=32, .UDM_UN_TH=36, .UDM_OV_TH=147, .rsv_24=0}},
+    .dsb       ={.bits={.UDM_SC_RAT=0, .UDM_SL_RAT=0, .UDM_FL_MODE=0, .rsv_11=0}},
+    .p1_act    ={.bits={.UDM_P1_UPB=255, .UDM_P1_LWB=75, .rsv_16=0}},
+    .lr_rat    ={.bits={.UDM_LR_RAT=15, .rsv_4=0}},
+    .hftd_ctl2 ={.bits={.UDM_HD_GN3=3, .UDM_HFRB_GN=16, .rsv_12=0}},
+    .est_ctl   ={.bits={.UDM_P2_CLIP=0, .UDM_P1_BLD=0, .rsv_6=0}},
+    .int_ctl   ={.bits={.UDM_INT_LTH=5, .UDM_INT_CDTH=3, .rsv_8=0}},
+    .ee        ={.bits={.UDM_HPOS_GN=16, .UDM_HNEG_GN=16, .rsv_10=0}}
+
+};
+const ISP_NVRAM_UDM_T ov16885mipiraw_UDM_0055 = {
+        .intp_crs  ={.bits={.UDM_CDG_SL=4, .UDM_CDG_OFST=0, .UDM_CDG_RAT=15, .UDM_CD_KNL=1, .rsv_18=0, .UDM_BYP=0, .UDM_MN_MODE=0}},
+    .intp_nat  ={.bits={.UDM_HL_OFST=63, .UDM_L0_SL=6, .UDM_L0_OFST=75, .UDM_CD_SLL=3, .UDM_CD_SLC=10, .rsv_30=0}},
+    .intp_aug  ={.bits={.UDM_DN_OFST=0, .UDM_L2_SL=5, .UDM_L2_OFST=0, .UDM_L1_SL=5, .UDM_L1_OFST=0}},
+    .luma_lut1 ={.bits={.UDM_LM_Y2=304, .UDM_LM_Y1=381, .UDM_LM_Y0=511, .rsv_27=0}},
+    .luma_lut2 ={.bits={.UDM_LM_Y5=79, .UDM_LM_Y4=137, .UDM_LM_Y3=216, .rsv_27=0}},
+    .sl_ctl    ={.bits={.UDM_SL_EN=1, .UDM_SL_HR=16, .UDM_SL_Y2=135, .UDM_SL_Y1=201, .rsv_22=0}},
+    .hftd_ctl  ={.bits={.UDM_CORE_TH1=0, .UDM_HD_GN2=3, .UDM_HD_GN1=3, .UDM_HT_GN2=3, .UDM_HT_GN1=3, .rsv_28=0}},
+    .nr_str    ={.bits={.UDM_N2_STR=0, .UDM_N1_STR=0, .UDM_N0_STR=12, .UDM_XTK_SL=5, .UDM_XTK_OFST=32, .UDM_XTK_RAT=16}},
+    .nr_act    ={.bits={.UDM_NGR=0, .UDM_NSL=8, .UDM_N2_OFST=0, .UDM_N1_OFST=0, .UDM_N0_OFST=255}},
+    .hf_str    ={.bits={.UDM_CORE_TH2=0, .UDM_HI_RAT=8, .UDM_H3_GN=3, .UDM_H2_GN=6, .UDM_H1_GN=8, .UDM_HA_STR=17}},
+    .hf_act1   ={.bits={.UDM_H2_UPB=255, .UDM_H2_LWB=110, .UDM_H1_UPB=255, .UDM_H1_LWB=87}},
+    .hf_act2   ={.bits={.UDM_HSLL=6, .UDM_HSLR=5, .UDM_H3_UPB=225, .UDM_H3_LWB=110, .rsv_24=0}},
+    .clip      ={.bits={.UDM_CLIP_TH=32, .UDM_UN_TH=36, .UDM_OV_TH=147, .rsv_24=0}},
+    .dsb       ={.bits={.UDM_SC_RAT=0, .UDM_SL_RAT=0, .UDM_FL_MODE=0, .rsv_11=0}},
+    .p1_act    ={.bits={.UDM_P1_UPB=255, .UDM_P1_LWB=75, .rsv_16=0}},
+    .lr_rat    ={.bits={.UDM_LR_RAT=15, .rsv_4=0}},
+    .hftd_ctl2 ={.bits={.UDM_HD_GN3=3, .UDM_HFRB_GN=16, .rsv_12=0}},
+    .est_ctl   ={.bits={.UDM_P2_CLIP=0, .UDM_P1_BLD=0, .rsv_6=0}},
+    .int_ctl   ={.bits={.UDM_INT_LTH=5, .UDM_INT_CDTH=3, .rsv_8=0}},
+    .ee        ={.bits={.UDM_HPOS_GN=16, .UDM_HNEG_GN=16, .rsv_10=0}}
+
+};
+const ISP_NVRAM_UDM_T ov16885mipiraw_UDM_0056 = {
+        .intp_crs  ={.bits={.UDM_CDG_SL=4, .UDM_CDG_OFST=0, .UDM_CDG_RAT=15, .UDM_CD_KNL=1, .rsv_18=0, .UDM_BYP=0, .UDM_MN_MODE=0}},
+    .intp_nat  ={.bits={.UDM_HL_OFST=63, .UDM_L0_SL=6, .UDM_L0_OFST=75, .UDM_CD_SLL=3, .UDM_CD_SLC=10, .rsv_30=0}},
+    .intp_aug  ={.bits={.UDM_DN_OFST=0, .UDM_L2_SL=5, .UDM_L2_OFST=0, .UDM_L1_SL=5, .UDM_L1_OFST=0}},
+    .luma_lut1 ={.bits={.UDM_LM_Y2=304, .UDM_LM_Y1=381, .UDM_LM_Y0=511, .rsv_27=0}},
+    .luma_lut2 ={.bits={.UDM_LM_Y5=79, .UDM_LM_Y4=137, .UDM_LM_Y3=216, .rsv_27=0}},
+    .sl_ctl    ={.bits={.UDM_SL_EN=1, .UDM_SL_HR=16, .UDM_SL_Y2=135, .UDM_SL_Y1=201, .rsv_22=0}},
+    .hftd_ctl  ={.bits={.UDM_CORE_TH1=0, .UDM_HD_GN2=3, .UDM_HD_GN1=3, .UDM_HT_GN2=3, .UDM_HT_GN1=3, .rsv_28=0}},
+    .nr_str    ={.bits={.UDM_N2_STR=0, .UDM_N1_STR=0, .UDM_N0_STR=12, .UDM_XTK_SL=5, .UDM_XTK_OFST=32, .UDM_XTK_RAT=16}},
+    .nr_act    ={.bits={.UDM_NGR=0, .UDM_NSL=8, .UDM_N2_OFST=0, .UDM_N1_OFST=0, .UDM_N0_OFST=255}},
+    .hf_str    ={.bits={.UDM_CORE_TH2=0, .UDM_HI_RAT=8, .UDM_H3_GN=3, .UDM_H2_GN=6, .UDM_H1_GN=8, .UDM_HA_STR=17}},
+    .hf_act1   ={.bits={.UDM_H2_UPB=255, .UDM_H2_LWB=110, .UDM_H1_UPB=255, .UDM_H1_LWB=87}},
+    .hf_act2   ={.bits={.UDM_HSLL=6, .UDM_HSLR=5, .UDM_H3_UPB=225, .UDM_H3_LWB=110, .rsv_24=0}},
+    .clip      ={.bits={.UDM_CLIP_TH=32, .UDM_UN_TH=36, .UDM_OV_TH=147, .rsv_24=0}},
+    .dsb       ={.bits={.UDM_SC_RAT=0, .UDM_SL_RAT=0, .UDM_FL_MODE=0, .rsv_11=0}},
+    .p1_act    ={.bits={.UDM_P1_UPB=255, .UDM_P1_LWB=75, .rsv_16=0}},
+    .lr_rat    ={.bits={.UDM_LR_RAT=15, .rsv_4=0}},
+    .hftd_ctl2 ={.bits={.UDM_HD_GN3=3, .UDM_HFRB_GN=16, .rsv_12=0}},
+    .est_ctl   ={.bits={.UDM_P2_CLIP=0, .UDM_P1_BLD=0, .rsv_6=0}},
+    .int_ctl   ={.bits={.UDM_INT_LTH=5, .UDM_INT_CDTH=3, .rsv_8=0}},
+    .ee        ={.bits={.UDM_HPOS_GN=16, .UDM_HNEG_GN=16, .rsv_10=0}}
+
+};
+const ISP_NVRAM_UDM_T ov16885mipiraw_UDM_0057 = {
+        .intp_crs  ={.bits={.UDM_CDG_SL=4, .UDM_CDG_OFST=0, .UDM_CDG_RAT=15, .UDM_CD_KNL=1, .rsv_18=0, .UDM_BYP=0, .UDM_MN_MODE=0}},
+    .intp_nat  ={.bits={.UDM_HL_OFST=63, .UDM_L0_SL=6, .UDM_L0_OFST=75, .UDM_CD_SLL=3, .UDM_CD_SLC=10, .rsv_30=0}},
+    .intp_aug  ={.bits={.UDM_DN_OFST=0, .UDM_L2_SL=5, .UDM_L2_OFST=0, .UDM_L1_SL=5, .UDM_L1_OFST=0}},
+    .luma_lut1 ={.bits={.UDM_LM_Y2=304, .UDM_LM_Y1=381, .UDM_LM_Y0=511, .rsv_27=0}},
+    .luma_lut2 ={.bits={.UDM_LM_Y5=79, .UDM_LM_Y4=137, .UDM_LM_Y3=216, .rsv_27=0}},
+    .sl_ctl    ={.bits={.UDM_SL_EN=1, .UDM_SL_HR=16, .UDM_SL_Y2=135, .UDM_SL_Y1=201, .rsv_22=0}},
+    .hftd_ctl  ={.bits={.UDM_CORE_TH1=0, .UDM_HD_GN2=3, .UDM_HD_GN1=3, .UDM_HT_GN2=3, .UDM_HT_GN1=3, .rsv_28=0}},
+    .nr_str    ={.bits={.UDM_N2_STR=0, .UDM_N1_STR=0, .UDM_N0_STR=12, .UDM_XTK_SL=5, .UDM_XTK_OFST=32, .UDM_XTK_RAT=16}},
+    .nr_act    ={.bits={.UDM_NGR=0, .UDM_NSL=8, .UDM_N2_OFST=0, .UDM_N1_OFST=0, .UDM_N0_OFST=255}},
+    .hf_str    ={.bits={.UDM_CORE_TH2=0, .UDM_HI_RAT=8, .UDM_H3_GN=3, .UDM_H2_GN=6, .UDM_H1_GN=8, .UDM_HA_STR=17}},
+    .hf_act1   ={.bits={.UDM_H2_UPB=255, .UDM_H2_LWB=110, .UDM_H1_UPB=255, .UDM_H1_LWB=87}},
+    .hf_act2   ={.bits={.UDM_HSLL=6, .UDM_HSLR=5, .UDM_H3_UPB=225, .UDM_H3_LWB=110, .rsv_24=0}},
+    .clip      ={.bits={.UDM_CLIP_TH=32, .UDM_UN_TH=36, .UDM_OV_TH=147, .rsv_24=0}},
+    .dsb       ={.bits={.UDM_SC_RAT=0, .UDM_SL_RAT=0, .UDM_FL_MODE=0, .rsv_11=0}},
+    .p1_act    ={.bits={.UDM_P1_UPB=255, .UDM_P1_LWB=75, .rsv_16=0}},
+    .lr_rat    ={.bits={.UDM_LR_RAT=15, .rsv_4=0}},
+    .hftd_ctl2 ={.bits={.UDM_HD_GN3=3, .UDM_HFRB_GN=16, .rsv_12=0}},
+    .est_ctl   ={.bits={.UDM_P2_CLIP=0, .UDM_P1_BLD=0, .rsv_6=0}},
+    .int_ctl   ={.bits={.UDM_INT_LTH=5, .UDM_INT_CDTH=3, .rsv_8=0}},
+    .ee        ={.bits={.UDM_HPOS_GN=16, .UDM_HNEG_GN=16, .rsv_10=0}}
+
+};
+const ISP_NVRAM_UDM_T ov16885mipiraw_UDM_0058 = {
+        .intp_crs  ={.bits={.UDM_CDG_SL=4, .UDM_CDG_OFST=0, .UDM_CDG_RAT=15, .UDM_CD_KNL=1, .rsv_18=0, .UDM_BYP=0, .UDM_MN_MODE=0}},
+    .intp_nat  ={.bits={.UDM_HL_OFST=63, .UDM_L0_SL=6, .UDM_L0_OFST=75, .UDM_CD_SLL=3, .UDM_CD_SLC=10, .rsv_30=0}},
+    .intp_aug  ={.bits={.UDM_DN_OFST=0, .UDM_L2_SL=5, .UDM_L2_OFST=0, .UDM_L1_SL=5, .UDM_L1_OFST=0}},
+    .luma_lut1 ={.bits={.UDM_LM_Y2=304, .UDM_LM_Y1=381, .UDM_LM_Y0=511, .rsv_27=0}},
+    .luma_lut2 ={.bits={.UDM_LM_Y5=79, .UDM_LM_Y4=137, .UDM_LM_Y3=216, .rsv_27=0}},
+    .sl_ctl    ={.bits={.UDM_SL_EN=1, .UDM_SL_HR=16, .UDM_SL_Y2=135, .UDM_SL_Y1=201, .rsv_22=0}},
+    .hftd_ctl  ={.bits={.UDM_CORE_TH1=0, .UDM_HD_GN2=3, .UDM_HD_GN1=3, .UDM_HT_GN2=3, .UDM_HT_GN1=3, .rsv_28=0}},
+    .nr_str    ={.bits={.UDM_N2_STR=0, .UDM_N1_STR=0, .UDM_N0_STR=12, .UDM_XTK_SL=5, .UDM_XTK_OFST=32, .UDM_XTK_RAT=16}},
+    .nr_act    ={.bits={.UDM_NGR=0, .UDM_NSL=8, .UDM_N2_OFST=0, .UDM_N1_OFST=0, .UDM_N0_OFST=255}},
+    .hf_str    ={.bits={.UDM_CORE_TH2=0, .UDM_HI_RAT=8, .UDM_H3_GN=3, .UDM_H2_GN=6, .UDM_H1_GN=8, .UDM_HA_STR=17}},
+    .hf_act1   ={.bits={.UDM_H2_UPB=255, .UDM_H2_LWB=110, .UDM_H1_UPB=255, .UDM_H1_LWB=87}},
+    .hf_act2   ={.bits={.UDM_HSLL=6, .UDM_HSLR=5, .UDM_H3_UPB=225, .UDM_H3_LWB=110, .rsv_24=0}},
+    .clip      ={.bits={.UDM_CLIP_TH=32, .UDM_UN_TH=36, .UDM_OV_TH=147, .rsv_24=0}},
+    .dsb       ={.bits={.UDM_SC_RAT=0, .UDM_SL_RAT=0, .UDM_FL_MODE=0, .rsv_11=0}},
+    .p1_act    ={.bits={.UDM_P1_UPB=255, .UDM_P1_LWB=75, .rsv_16=0}},
+    .lr_rat    ={.bits={.UDM_LR_RAT=15, .rsv_4=0}},
+    .hftd_ctl2 ={.bits={.UDM_HD_GN3=3, .UDM_HFRB_GN=16, .rsv_12=0}},
+    .est_ctl   ={.bits={.UDM_P2_CLIP=0, .UDM_P1_BLD=0, .rsv_6=0}},
+    .int_ctl   ={.bits={.UDM_INT_LTH=5, .UDM_INT_CDTH=3, .rsv_8=0}},
+    .ee        ={.bits={.UDM_HPOS_GN=16, .UDM_HNEG_GN=16, .rsv_10=0}}
+
+};
+const ISP_NVRAM_UDM_T ov16885mipiraw_UDM_0059 = {
+        .intp_crs  ={.bits={.UDM_CDG_SL=4, .UDM_CDG_OFST=0, .UDM_CDG_RAT=15, .UDM_CD_KNL=1, .rsv_18=0, .UDM_BYP=0, .UDM_MN_MODE=0}},
+    .intp_nat  ={.bits={.UDM_HL_OFST=63, .UDM_L0_SL=6, .UDM_L0_OFST=75, .UDM_CD_SLL=3, .UDM_CD_SLC=10, .rsv_30=0}},
+    .intp_aug  ={.bits={.UDM_DN_OFST=0, .UDM_L2_SL=5, .UDM_L2_OFST=0, .UDM_L1_SL=5, .UDM_L1_OFST=0}},
+    .luma_lut1 ={.bits={.UDM_LM_Y2=304, .UDM_LM_Y1=381, .UDM_LM_Y0=511, .rsv_27=0}},
+    .luma_lut2 ={.bits={.UDM_LM_Y5=79, .UDM_LM_Y4=137, .UDM_LM_Y3=216, .rsv_27=0}},
+    .sl_ctl    ={.bits={.UDM_SL_EN=1, .UDM_SL_HR=16, .UDM_SL_Y2=135, .UDM_SL_Y1=201, .rsv_22=0}},
+    .hftd_ctl  ={.bits={.UDM_CORE_TH1=0, .UDM_HD_GN2=3, .UDM_HD_GN1=3, .UDM_HT_GN2=3, .UDM_HT_GN1=3, .rsv_28=0}},
+    .nr_str    ={.bits={.UDM_N2_STR=0, .UDM_N1_STR=0, .UDM_N0_STR=12, .UDM_XTK_SL=5, .UDM_XTK_OFST=32, .UDM_XTK_RAT=16}},
+    .nr_act    ={.bits={.UDM_NGR=0, .UDM_NSL=8, .UDM_N2_OFST=0, .UDM_N1_OFST=0, .UDM_N0_OFST=255}},
+    .hf_str    ={.bits={.UDM_CORE_TH2=0, .UDM_HI_RAT=8, .UDM_H3_GN=3, .UDM_H2_GN=6, .UDM_H1_GN=8, .UDM_HA_STR=17}},
+    .hf_act1   ={.bits={.UDM_H2_UPB=255, .UDM_H2_LWB=110, .UDM_H1_UPB=255, .UDM_H1_LWB=87}},
+    .hf_act2   ={.bits={.UDM_HSLL=6, .UDM_HSLR=5, .UDM_H3_UPB=225, .UDM_H3_LWB=110, .rsv_24=0}},
+    .clip      ={.bits={.UDM_CLIP_TH=32, .UDM_UN_TH=36, .UDM_OV_TH=147, .rsv_24=0}},
+    .dsb       ={.bits={.UDM_SC_RAT=0, .UDM_SL_RAT=0, .UDM_FL_MODE=0, .rsv_11=0}},
+    .p1_act    ={.bits={.UDM_P1_UPB=255, .UDM_P1_LWB=75, .rsv_16=0}},
+    .lr_rat    ={.bits={.UDM_LR_RAT=15, .rsv_4=0}},
+    .hftd_ctl2 ={.bits={.UDM_HD_GN3=3, .UDM_HFRB_GN=16, .rsv_12=0}},
+    .est_ctl   ={.bits={.UDM_P2_CLIP=0, .UDM_P1_BLD=0, .rsv_6=0}},
+    .int_ctl   ={.bits={.UDM_INT_LTH=5, .UDM_INT_CDTH=3, .rsv_8=0}},
+    .ee        ={.bits={.UDM_HPOS_GN=16, .UDM_HNEG_GN=16, .rsv_10=0}}
+
+};
+const ISP_NVRAM_ANR_T ov16885mipiraw_NBC_ANR_0080 = {
+        .con1      ={.bits={.NBC_ANR_ENC=1, .NBC_ANR_ENY=1, .rsv_2=0, .NBC_ANR_Y_FLT0_IDX=0, .rsv_5=0, .NBC_ANR_Y_FLT1_IDX=1, .rsv_7=0, .NBC_ANR_Y_FLT2_IDX=0, .NBC_ANR_Y_FLT3_IDX=0, .NBC_ANR_ACT_LP_EN=0, .rsv_13=0, .NBC_ANR_TILE_EDGE=15, .NBC_ANR_LTM_LINK=1, .NBC_ANR_LTM_LUT_BYPASS=0, .rsv_22=0, .NBC_ANR_SL2_LINK=1, .rsv_25=0, .NBC_ANR_TABLE_EN=0, .NBC_ANR_TBL_PRC=0, .rsv_30=0}},
+    .con2      ={.bits={.NBC_ANR_IMPL_MODE=2, .rsv_2=0, .NBC_ANR_C_SM_EDGE=0, .rsv_10=0, .NBC_ANR_FLT_C=0, .rsv_13=0, .NBC_ANR_C_SM_EDGE_TH=4, .rsv_27=0}},
+    .yad1      ={.bits={.NBC_ANR_CEN_GAIN_LO_TH=3, .rsv_5=0, .NBC_ANR_CEN_GAIN_HI_TH=3, .rsv_13=0, .NBC_ANR_Y_SLOPE_V_TH=10, .NBC_ANR_Y_SLOPE_H_TH=8}},
+    .yad2      ={.bits={.NBC_ANR_Y_VERT_ACT_TH=7, .rsv_5=0, .NBC_ANR_PTY_GAIN_TH=0, .rsv_13=0, .NBC_ANR_Y_VERT_SIGMA=2, .rsv_24=0}},
+    .y4lut1    ={.bits={.NBC_ANR_Y_CPX1=32, .NBC_ANR_Y_CPX2=64, .NBC_ANR_Y_CPX3=96, .NBC_ANR_Y_CPX4=128}},
+    .y4lut2    ={.bits={.NBC_ANR_Y_SCALE_CPY0=8, .rsv_5=0, .NBC_ANR_Y_SCALE_CPY1=10, .rsv_13=0, .NBC_ANR_Y_SCALE_CPY2=13, .rsv_21=0, .NBC_ANR_Y_SCALE_CPY3=16, .rsv_29=0}},
+    .y4lut3    ={.bits={.NBC_ANR_Y_SCALE_SP0=8, .rsv_5=0, .NBC_ANR_Y_SCALE_SP1=12, .rsv_13=0, .NBC_ANR_Y_SCALE_SP2=12, .rsv_21=0, .NBC_ANR_Y_SCALE_SP3=24, .rsv_29=0}},
+    .c4lut1    ={.bits={.NBC_ANR_C_CPX1=64, .NBC_ANR_C_CPX2=128, .NBC_ANR_C_CPX3=192, .rsv_24=0}},
+    .c4lut2    ={.bits={.NBC_ANR_C_SCALE_CPY0=4, .rsv_5=0, .NBC_ANR_C_SCALE_CPY1=8, .rsv_13=0, .NBC_ANR_C_SCALE_CPY2=16, .rsv_21=0, .NBC_ANR_C_SCALE_CPY3=16, .rsv_29=0}},
+    .c4lut3    ={.bits={.NBC_ANR_C_SCALE_SP0=8, .rsv_5=0, .NBC_ANR_C_SCALE_SP1=15, .rsv_13=0, .NBC_ANR_C_SCALE_SP2=0, .rsv_21=0, .NBC_ANR_C_SCALE_SP3=0, .rsv_29=0}},
+    .a4lut2    ={.bits={.NBC_ANR_Y_ACT_CPY0=0, .NBC_ANR_Y_ACT_CPY1=0, .NBC_ANR_Y_ACT_CPY2=0, .NBC_ANR_Y_ACT_CPY3=0}},
+    .a4lut3    ={.bits={.NBC_ANR_Y_ACT_SP0=0, .rsv_6=0, .NBC_ANR_Y_ACT_SP1=0, .rsv_14=0, .NBC_ANR_Y_ACT_SP2=0, .rsv_22=0, .NBC_ANR_Y_ACT_SP3=0, .rsv_30=0}},
+    .l4lut1    ={.bits={.NBC_ANR_SL2_X1=64, .NBC_ANR_SL2_X2=128, .NBC_ANR_SL2_X3=192, .rsv_24=0}},
+    .l4lut2    ={.bits={.NBC_ANR_SL2_GAIN0=16, .rsv_6=0, .NBC_ANR_SL2_GAIN1=16, .rsv_14=0, .NBC_ANR_SL2_GAIN2=16, .rsv_22=0, .NBC_ANR_SL2_GAIN3=20, .rsv_30=0}},
+    .l4lut3    ={.bits={.NBC_ANR_SL2_SP0=0, .rsv_6=0, .NBC_ANR_SL2_SP1=0, .rsv_14=0, .NBC_ANR_SL2_SP2=8, .rsv_22=0, .NBC_ANR_SL2_SP3=8, .rsv_30=0}},
+    .pty0v     ={.bits={.NBC_ANR_Y_L0_V_RNG1=2, .NBC_ANR_Y_L0_V_RNG2=4, .NBC_ANR_Y_L0_V_RNG3=6, .NBC_ANR_Y_L0_V_RNG4=8}},
+    .cad       ={.bits={.rsv_0=0, .NBC_ANR_PTC_GAIN_TH=16, .rsv_13=0, .NBC_ANR_C_L_DIFF_TH=32, .rsv_24=0}},
+    .pty1v     ={.bits={.NBC_ANR_Y_L1_V_RNG1=2, .NBC_ANR_Y_L1_V_RNG2=3, .NBC_ANR_Y_L1_V_RNG3=4, .NBC_ANR_Y_L1_V_RNG4=6}},
+    .sl2       ={.bits={.NBC_ANR_SL2_C_GAIN=4, .NBC_ANR_SL2_SCALE_GAIN=0, .rsv_7=0}},
+    .pty2v     ={.bits={.NBC_ANR_Y_L2_V_RNG1=1, .NBC_ANR_Y_L2_V_RNG2=2, .NBC_ANR_Y_L2_V_RNG3=4, .NBC_ANR_Y_L2_V_RNG4=5}},
+    .pty3v     ={.bits={.NBC_ANR_Y_L3_V_RNG1=1, .NBC_ANR_Y_L3_V_RNG2=2, .NBC_ANR_Y_L3_V_RNG3=3, .NBC_ANR_Y_L3_V_RNG4=4}},
+    .pty0h     ={.bits={.NBC_ANR_Y_L0_H_RNG1=2, .NBC_ANR_Y_L0_H_RNG2=3, .NBC_ANR_Y_L0_H_RNG3=5, .NBC_ANR_Y_L0_H_RNG4=7}},
+    .pty1h     ={.bits={.NBC_ANR_Y_L1_H_RNG1=1, .NBC_ANR_Y_L1_H_RNG2=3, .NBC_ANR_Y_L1_H_RNG3=4, .NBC_ANR_Y_L1_H_RNG4=6}},
+    .pty2h     ={.bits={.NBC_ANR_Y_L2_H_RNG1=1, .NBC_ANR_Y_L2_H_RNG2=2, .NBC_ANR_Y_L2_H_RNG3=3, .NBC_ANR_Y_L2_H_RNG4=5}},
+    .t4lut1    ={.bits={.NBC_ANR_TBL_CPX1=64, .NBC_ANR_TBL_CPX2=128, .NBC_ANR_TBL_CPX3=192, .rsv_24=0}},
+    .t4lut2    ={.bits={.NBC_ANR_TBL_GAIN_CPY0=4, .rsv_5=0, .NBC_ANR_TBL_GAIN_CPY1=8, .rsv_13=0, .NBC_ANR_TBL_GAIN_CPY2=16, .rsv_21=0, .NBC_ANR_TBL_GAIN_CPY3=24, .rsv_29=0}},
+    .t4lut3    ={.bits={.NBC_ANR_TBL_GAIN_SP0=8, .rsv_5=0, .NBC_ANR_TBL_GAIN_SP1=15, .rsv_13=0, .NBC_ANR_TBL_GAIN_SP2=15, .rsv_21=0, .NBC_ANR_TBL_GAIN_SP3=0, .rsv_29=0}},
+    .act1      ={.bits={.NBC_ANR_ACT_SL2_GAIN=8, .rsv_4=0, .NBC_ANR_ACT_DIF_HI_TH=16, .rsv_13=0, .NBC_ANR_ACT_DIF_GAIN=0, .NBC_ANR_ACT_DIF_LO_TH=16, .rsv_29=0}},
+    .pty3h     ={.bits={.NBC_ANR_Y_L3_H_RNG1=1, .NBC_ANR_Y_L3_H_RNG2=2, .NBC_ANR_Y_L3_H_RNG3=2, .NBC_ANR_Y_L3_H_RNG4=4}},
+    .ptcv      ={.bits={.NBC_ANR_C_V_RNG1=1, .NBC_ANR_C_V_RNG2=2, .NBC_ANR_C_V_RNG3=3, .NBC_ANR_C_V_RNG4=5}},
+    .act4      ={.bits={.NBC_ANR_Y_ACT_CEN_OFT=32, .rsv_6=0, .NBC_ANR_Y_ACT_CEN_GAIN=0, .rsv_14=0, .NBC_ANR_Y_ACT_CEN_TH=32, .rsv_22=0}},
+    .ptch      ={.bits={.NBC_ANR_C_H_RNG1=1, .NBC_ANR_C_H_RNG2=2, .NBC_ANR_C_H_RNG3=3, .NBC_ANR_C_H_RNG4=5}},
+    .ylvl0     ={.bits={.NBC_ANR_Y_L0_RNG_RAT_TH=8, .NBC_ANR_Y_L1_RNG_RAT_TH=8, .NBC_ANR_Y_L2_RNG_RAT_TH=8, .NBC_ANR_Y_L3_RNG_RAT_TH=14, .NBC_ANR_Y_L0_RNG_RAT_SL=3, .rsv_18=0, .NBC_ANR_Y_L1_RNG_RAT_SL=3, .rsv_22=0, .NBC_ANR_Y_L2_RNG_RAT_SL=3, .rsv_26=0, .NBC_ANR_Y_L3_RNG_RAT_SL=3, .rsv_30=0}},
+    .ylvl1     ={.bits={.NBC_ANR_Y_L0_HF_W=16, .rsv_5=0, .NBC_ANR_Y_L1_HF_W=17, .rsv_13=0, .NBC_ANR_Y_L2_HF_W=18, .rsv_21=0, .NBC_ANR_Y_L3_HF_W=18, .rsv_29=0}},
+    .hf_cor    ={.bits={.NBC_ANR_Y_HF_CORE_TH=0, .NBC_ANR_Y_HF_CORE_SL=2, .rsv_10=0, .NBC_ANR_Y_HF_CLIP=255, .NBC_ANR_HF_BAL_MODE=2, .rsv_26=0}},
+    .hf_act0   ={.bits={.NBC_ANR_Y_HF_ACT_X1=16, .NBC_ANR_Y_HF_ACT_X2=20, .NBC_ANR_Y_HF_ACT_X3=28, .NBC_ANR_Y_HF_ACT_X4=40}},
+    .hf_act1   ={.bits={.NBC_ANR_Y_HF_ACT_Y0=32, .rsv_7=0, .NBC_ANR_Y_HF_ACT_Y1=36, .rsv_15=0, .NBC_ANR_Y_HF_ACT_Y2=44, .rsv_23=0, .NBC_ANR_Y_HF_ACT_Y3=50, .rsv_31=0}},
+    .actc      ={.bits={.rsv_0=0, .NBC_ANR_ACT_BLD_BASE_C=64, .rsv_15=0, .NBC_ANR_C_DITH_U=8, .rsv_21=0, .NBC_ANR_C_DITH_V=8, .rsv_29=0}},
+    .ylad      ={.bits={.NBC_ANR_CEN_GAIN_LO_TH_LPF=3, .rsv_5=0, .NBC_ANR_CEN_GAIN_HI_TH_LPF=3, .rsv_13=0}},
+    .hf_act2   ={.bits={.NBC_ANR_Y_HF_ACT_Y4=56, .rsv_7=0, .NBC_ANR_Y_HF_ACT_SP4=8, .rsv_14=0}},
+    .hf_act3   ={.bits={.NBC_ANR_Y_HF_ACT_SP0=2, .rsv_6=0, .NBC_ANR_Y_HF_ACT_SP1=16, .rsv_14=0, .NBC_ANR_Y_HF_ACT_SP2=6, .rsv_22=0, .NBC_ANR_Y_HF_ACT_SP3=4, .rsv_30=0}},
+    .hf_luma0  ={.bits={.NBC_ANR_Y_HF_LUMA_X1=0, .NBC_ANR_Y_HF_LUMA_X2=0, .NBC_ANR_Y_HF_LUMA_Y0=0, .rsv_23=0, .NBC_ANR_Y_HF_LUMA_Y1=0, .rsv_31=0}},
+    .hf_luma1  ={.bits={.NBC_ANR_Y_HF_LUMA_Y2=0, .rsv_7=0, .NBC_ANR_Y_HF_LUMA_SP0=0, .rsv_13=0, .NBC_ANR_Y_HF_LUMA_SP1=0, .rsv_21=0, .NBC_ANR_Y_HF_LUMA_SP2=0, .rsv_29=0}},
+    .y4lut4    ={.bits={.NBC_ANR_Y_CPX5=160, .NBC_ANR_Y_CPX6=192, .NBC_ANR_Y_CPX7=224, .NBC_ANR_Y_CPX8=255}},
+    .y4lut5    ={.bits={.NBC_ANR_Y_SCALE_CPY4=14, .rsv_5=0, .NBC_ANR_Y_SCALE_CPY5=12, .rsv_13=0, .NBC_ANR_Y_SCALE_CPY6=10, .rsv_21=0, .NBC_ANR_Y_SCALE_CPY7=8, .rsv_29=0}},
+    .y4lut6    ={.bits={.NBC_ANR_Y_SCALE_SP4=24, .rsv_5=0, .NBC_ANR_Y_SCALE_SP5=24, .rsv_13=0, .NBC_ANR_Y_SCALE_SP6=24, .rsv_21=0, .NBC_ANR_Y_SCALE_SP7=0, .rsv_29=0}},
+    .y4lut7    ={.bits={.NBC_ANR_Y_SCALE_CPY8=8, .rsv_5=0, .NBC_ANR_Y_SCALE_SP8=8, .rsv_13=0}},
+    .a4lut1    ={.bits={.NBC_ANR_Y_ACT_CPX1=40, .NBC_ANR_Y_ACT_CPX2=100, .NBC_ANR_Y_ACT_CPX3=160, .rsv_24=0}}
+
+};
+const ISP_NVRAM_ANR_T ov16885mipiraw_NBC_ANR_0081 = {
+        .con1      ={.bits={.NBC_ANR_ENC=1, .NBC_ANR_ENY=1, .rsv_2=0, .NBC_ANR_Y_FLT0_IDX=0, .rsv_5=0, .NBC_ANR_Y_FLT1_IDX=1, .rsv_7=0, .NBC_ANR_Y_FLT2_IDX=0, .NBC_ANR_Y_FLT3_IDX=0, .NBC_ANR_ACT_LP_EN=0, .rsv_13=0, .NBC_ANR_TILE_EDGE=15, .NBC_ANR_LTM_LINK=1, .NBC_ANR_LTM_LUT_BYPASS=0, .rsv_22=0, .NBC_ANR_SL2_LINK=1, .rsv_25=0, .NBC_ANR_TABLE_EN=0, .NBC_ANR_TBL_PRC=0, .rsv_30=0}},
+    .con2      ={.bits={.NBC_ANR_IMPL_MODE=2, .rsv_2=0, .NBC_ANR_C_SM_EDGE=0, .rsv_10=0, .NBC_ANR_FLT_C=0, .rsv_13=0, .NBC_ANR_C_SM_EDGE_TH=4, .rsv_27=0}},
+    .yad1      ={.bits={.NBC_ANR_CEN_GAIN_LO_TH=3, .rsv_5=0, .NBC_ANR_CEN_GAIN_HI_TH=3, .rsv_13=0, .NBC_ANR_Y_SLOPE_V_TH=13, .NBC_ANR_Y_SLOPE_H_TH=9}},
+    .yad2      ={.bits={.NBC_ANR_Y_VERT_ACT_TH=7, .rsv_5=0, .NBC_ANR_PTY_GAIN_TH=0, .rsv_13=0, .NBC_ANR_Y_VERT_SIGMA=2, .rsv_24=0}},
+    .y4lut1    ={.bits={.NBC_ANR_Y_CPX1=32, .NBC_ANR_Y_CPX2=64, .NBC_ANR_Y_CPX3=96, .NBC_ANR_Y_CPX4=128}},
+    .y4lut2    ={.bits={.NBC_ANR_Y_SCALE_CPY0=8, .rsv_5=0, .NBC_ANR_Y_SCALE_CPY1=12, .rsv_13=0, .NBC_ANR_Y_SCALE_CPY2=16, .rsv_21=0, .NBC_ANR_Y_SCALE_CPY3=16, .rsv_29=0}},
+    .y4lut3    ={.bits={.NBC_ANR_Y_SCALE_SP0=15, .rsv_5=0, .NBC_ANR_Y_SCALE_SP1=15, .rsv_13=0, .NBC_ANR_Y_SCALE_SP2=0, .rsv_21=0, .NBC_ANR_Y_SCALE_SP3=0, .rsv_29=0}},
+    .c4lut1    ={.bits={.NBC_ANR_C_CPX1=64, .NBC_ANR_C_CPX2=128, .NBC_ANR_C_CPX3=192, .rsv_24=0}},
+    .c4lut2    ={.bits={.NBC_ANR_C_SCALE_CPY0=4, .rsv_5=0, .NBC_ANR_C_SCALE_CPY1=8, .rsv_13=0, .NBC_ANR_C_SCALE_CPY2=16, .rsv_21=0, .NBC_ANR_C_SCALE_CPY3=16, .rsv_29=0}},
+    .c4lut3    ={.bits={.NBC_ANR_C_SCALE_SP0=8, .rsv_5=0, .NBC_ANR_C_SCALE_SP1=15, .rsv_13=0, .NBC_ANR_C_SCALE_SP2=0, .rsv_21=0, .NBC_ANR_C_SCALE_SP3=0, .rsv_29=0}},
+    .a4lut2    ={.bits={.NBC_ANR_Y_ACT_CPY0=0, .NBC_ANR_Y_ACT_CPY1=0, .NBC_ANR_Y_ACT_CPY2=0, .NBC_ANR_Y_ACT_CPY3=0}},
+    .a4lut3    ={.bits={.NBC_ANR_Y_ACT_SP0=0, .rsv_6=0, .NBC_ANR_Y_ACT_SP1=0, .rsv_14=0, .NBC_ANR_Y_ACT_SP2=0, .rsv_22=0, .NBC_ANR_Y_ACT_SP3=0, .rsv_30=0}},
+    .l4lut1    ={.bits={.NBC_ANR_SL2_X1=64, .NBC_ANR_SL2_X2=128, .NBC_ANR_SL2_X3=192, .rsv_24=0}},
+    .l4lut2    ={.bits={.NBC_ANR_SL2_GAIN0=16, .rsv_6=0, .NBC_ANR_SL2_GAIN1=16, .rsv_14=0, .NBC_ANR_SL2_GAIN2=16, .rsv_22=0, .NBC_ANR_SL2_GAIN3=20, .rsv_30=0}},
+    .l4lut3    ={.bits={.NBC_ANR_SL2_SP0=0, .rsv_6=0, .NBC_ANR_SL2_SP1=0, .rsv_14=0, .NBC_ANR_SL2_SP2=8, .rsv_22=0, .NBC_ANR_SL2_SP3=8, .rsv_30=0}},
+    .pty0v     ={.bits={.NBC_ANR_Y_L0_V_RNG1=4, .NBC_ANR_Y_L0_V_RNG2=7, .NBC_ANR_Y_L0_V_RNG3=10, .NBC_ANR_Y_L0_V_RNG4=15}},
+    .cad       ={.bits={.rsv_0=0, .NBC_ANR_PTC_GAIN_TH=16, .rsv_13=0, .NBC_ANR_C_L_DIFF_TH=32, .rsv_24=0}},
+    .pty1v     ={.bits={.NBC_ANR_Y_L1_V_RNG1=3, .NBC_ANR_Y_L1_V_RNG2=5, .NBC_ANR_Y_L1_V_RNG3=8, .NBC_ANR_Y_L1_V_RNG4=11}},
+    .sl2       ={.bits={.NBC_ANR_SL2_C_GAIN=4, .NBC_ANR_SL2_SCALE_GAIN=0, .rsv_7=0}},
+    .pty2v     ={.bits={.NBC_ANR_Y_L2_V_RNG1=2, .NBC_ANR_Y_L2_V_RNG2=4, .NBC_ANR_Y_L2_V_RNG3=6, .NBC_ANR_Y_L2_V_RNG4=9}},
+    .pty3v     ={.bits={.NBC_ANR_Y_L3_V_RNG1=2, .NBC_ANR_Y_L3_V_RNG2=4, .NBC_ANR_Y_L3_V_RNG3=5, .NBC_ANR_Y_L3_V_RNG4=7}},
+    .pty0h     ={.bits={.NBC_ANR_Y_L0_H_RNG1=3, .NBC_ANR_Y_L0_H_RNG2=6, .NBC_ANR_Y_L0_H_RNG3=9, .NBC_ANR_Y_L0_H_RNG4=13}},
+    .pty1h     ={.bits={.NBC_ANR_Y_L1_H_RNG1=3, .NBC_ANR_Y_L1_H_RNG2=5, .NBC_ANR_Y_L1_H_RNG3=7, .NBC_ANR_Y_L1_H_RNG4=10}},
+    .pty2h     ={.bits={.NBC_ANR_Y_L2_H_RNG1=2, .NBC_ANR_Y_L2_H_RNG2=4, .NBC_ANR_Y_L2_H_RNG3=6, .NBC_ANR_Y_L2_H_RNG4=8}},
+    .t4lut1    ={.bits={.NBC_ANR_TBL_CPX1=64, .NBC_ANR_TBL_CPX2=128, .NBC_ANR_TBL_CPX3=192, .rsv_24=0}},
+    .t4lut2    ={.bits={.NBC_ANR_TBL_GAIN_CPY0=4, .rsv_5=0, .NBC_ANR_TBL_GAIN_CPY1=8, .rsv_13=0, .NBC_ANR_TBL_GAIN_CPY2=16, .rsv_21=0, .NBC_ANR_TBL_GAIN_CPY3=24, .rsv_29=0}},
+    .t4lut3    ={.bits={.NBC_ANR_TBL_GAIN_SP0=8, .rsv_5=0, .NBC_ANR_TBL_GAIN_SP1=15, .rsv_13=0, .NBC_ANR_TBL_GAIN_SP2=15, .rsv_21=0, .NBC_ANR_TBL_GAIN_SP3=0, .rsv_29=0}},
+    .act1      ={.bits={.NBC_ANR_ACT_SL2_GAIN=8, .rsv_4=0, .NBC_ANR_ACT_DIF_HI_TH=16, .rsv_13=0, .NBC_ANR_ACT_DIF_GAIN=0, .NBC_ANR_ACT_DIF_LO_TH=16, .rsv_29=0}},
+    .pty3h     ={.bits={.NBC_ANR_Y_L3_H_RNG1=2, .NBC_ANR_Y_L3_H_RNG2=3, .NBC_ANR_Y_L3_H_RNG3=5, .NBC_ANR_Y_L3_H_RNG4=7}},
+    .ptcv      ={.bits={.NBC_ANR_C_V_RNG1=2, .NBC_ANR_C_V_RNG2=3, .NBC_ANR_C_V_RNG3=5, .NBC_ANR_C_V_RNG4=7}},
+    .act4      ={.bits={.NBC_ANR_Y_ACT_CEN_OFT=32, .rsv_6=0, .NBC_ANR_Y_ACT_CEN_GAIN=0, .rsv_14=0, .NBC_ANR_Y_ACT_CEN_TH=32, .rsv_22=0}},
+    .ptch      ={.bits={.NBC_ANR_C_H_RNG1=1, .NBC_ANR_C_H_RNG2=3, .NBC_ANR_C_H_RNG3=5, .NBC_ANR_C_H_RNG4=7}},
+    .ylvl0     ={.bits={.NBC_ANR_Y_L0_RNG_RAT_TH=8, .NBC_ANR_Y_L1_RNG_RAT_TH=8, .NBC_ANR_Y_L2_RNG_RAT_TH=8, .NBC_ANR_Y_L3_RNG_RAT_TH=14, .NBC_ANR_Y_L0_RNG_RAT_SL=3, .rsv_18=0, .NBC_ANR_Y_L1_RNG_RAT_SL=3, .rsv_22=0, .NBC_ANR_Y_L2_RNG_RAT_SL=3, .rsv_26=0, .NBC_ANR_Y_L3_RNG_RAT_SL=3, .rsv_30=0}},
+    .ylvl1     ={.bits={.NBC_ANR_Y_L0_HF_W=16, .rsv_5=0, .NBC_ANR_Y_L1_HF_W=16, .rsv_13=0, .NBC_ANR_Y_L2_HF_W=16, .rsv_21=0, .NBC_ANR_Y_L3_HF_W=16, .rsv_29=0}},
+    .hf_cor    ={.bits={.NBC_ANR_Y_HF_CORE_TH=0, .NBC_ANR_Y_HF_CORE_SL=2, .rsv_10=0, .NBC_ANR_Y_HF_CLIP=255, .NBC_ANR_HF_BAL_MODE=2, .rsv_26=0}},
+    .hf_act0   ={.bits={.NBC_ANR_Y_HF_ACT_X1=16, .NBC_ANR_Y_HF_ACT_X2=20, .NBC_ANR_Y_HF_ACT_X3=28, .NBC_ANR_Y_HF_ACT_X4=40}},
+    .hf_act1   ={.bits={.NBC_ANR_Y_HF_ACT_Y0=28, .rsv_7=0, .NBC_ANR_Y_HF_ACT_Y1=32, .rsv_15=0, .NBC_ANR_Y_HF_ACT_Y2=40, .rsv_23=0, .NBC_ANR_Y_HF_ACT_Y3=48, .rsv_31=0}},
+    .actc      ={.bits={.rsv_0=0, .NBC_ANR_ACT_BLD_BASE_C=64, .rsv_15=0, .NBC_ANR_C_DITH_U=8, .rsv_21=0, .NBC_ANR_C_DITH_V=8, .rsv_29=0}},
+    .ylad      ={.bits={.NBC_ANR_CEN_GAIN_LO_TH_LPF=3, .rsv_5=0, .NBC_ANR_CEN_GAIN_HI_TH_LPF=3, .rsv_13=0}},
+    .hf_act2   ={.bits={.NBC_ANR_Y_HF_ACT_Y4=52, .rsv_7=0, .NBC_ANR_Y_HF_ACT_SP4=8, .rsv_14=0}},
+    .hf_act3   ={.bits={.NBC_ANR_Y_HF_ACT_SP0=2, .rsv_6=0, .NBC_ANR_Y_HF_ACT_SP1=16, .rsv_14=0, .NBC_ANR_Y_HF_ACT_SP2=8, .rsv_22=0, .NBC_ANR_Y_HF_ACT_SP3=2, .rsv_30=0}},
+    .hf_luma0  ={.bits={.NBC_ANR_Y_HF_LUMA_X1=0, .NBC_ANR_Y_HF_LUMA_X2=0, .NBC_ANR_Y_HF_LUMA_Y0=0, .rsv_23=0, .NBC_ANR_Y_HF_LUMA_Y1=0, .rsv_31=0}},
+    .hf_luma1  ={.bits={.NBC_ANR_Y_HF_LUMA_Y2=0, .rsv_7=0, .NBC_ANR_Y_HF_LUMA_SP0=0, .rsv_13=0, .NBC_ANR_Y_HF_LUMA_SP1=0, .rsv_21=0, .NBC_ANR_Y_HF_LUMA_SP2=0, .rsv_29=0}},
+    .y4lut4    ={.bits={.NBC_ANR_Y_CPX5=160, .NBC_ANR_Y_CPX6=192, .NBC_ANR_Y_CPX7=224, .NBC_ANR_Y_CPX8=255}},
+    .y4lut5    ={.bits={.NBC_ANR_Y_SCALE_CPY4=16, .rsv_5=0, .NBC_ANR_Y_SCALE_CPY5=16, .rsv_13=0, .NBC_ANR_Y_SCALE_CPY6=14, .rsv_21=0, .NBC_ANR_Y_SCALE_CPY7=12, .rsv_29=0}},
+    .y4lut6    ={.bits={.NBC_ANR_Y_SCALE_SP4=0, .rsv_5=0, .NBC_ANR_Y_SCALE_SP5=24, .rsv_13=0, .NBC_ANR_Y_SCALE_SP6=24, .rsv_21=0, .NBC_ANR_Y_SCALE_SP7=17, .rsv_29=0}},
+    .y4lut7    ={.bits={.NBC_ANR_Y_SCALE_CPY8=8, .rsv_5=0, .NBC_ANR_Y_SCALE_SP8=8, .rsv_13=0}},
+    .a4lut1    ={.bits={.NBC_ANR_Y_ACT_CPX1=40, .NBC_ANR_Y_ACT_CPX2=100, .NBC_ANR_Y_ACT_CPX3=160, .rsv_24=0}}
+
+};
+const ISP_NVRAM_ANR_T ov16885mipiraw_NBC_ANR_0082 = {
+        .con1      ={.bits={.NBC_ANR_ENC=1, .NBC_ANR_ENY=1, .rsv_2=0, .NBC_ANR_Y_FLT0_IDX=0, .rsv_5=0, .NBC_ANR_Y_FLT1_IDX=1, .rsv_7=0, .NBC_ANR_Y_FLT2_IDX=0, .NBC_ANR_Y_FLT3_IDX=0, .NBC_ANR_ACT_LP_EN=0, .rsv_13=0, .NBC_ANR_TILE_EDGE=15, .NBC_ANR_LTM_LINK=1, .NBC_ANR_LTM_LUT_BYPASS=0, .rsv_22=0, .NBC_ANR_SL2_LINK=1, .rsv_25=0, .NBC_ANR_TABLE_EN=0, .NBC_ANR_TBL_PRC=0, .rsv_30=0}},
+    .con2      ={.bits={.NBC_ANR_IMPL_MODE=2, .rsv_2=0, .NBC_ANR_C_SM_EDGE=0, .rsv_10=0, .NBC_ANR_FLT_C=0, .rsv_13=0, .NBC_ANR_C_SM_EDGE_TH=4, .rsv_27=0}},
+    .yad1      ={.bits={.NBC_ANR_CEN_GAIN_LO_TH=2, .rsv_5=0, .NBC_ANR_CEN_GAIN_HI_TH=3, .rsv_13=0, .NBC_ANR_Y_SLOPE_V_TH=13, .NBC_ANR_Y_SLOPE_H_TH=9}},
+    .yad2      ={.bits={.NBC_ANR_Y_VERT_ACT_TH=7, .rsv_5=0, .NBC_ANR_PTY_GAIN_TH=0, .rsv_13=0, .NBC_ANR_Y_VERT_SIGMA=2, .rsv_24=0}},
+    .y4lut1    ={.bits={.NBC_ANR_Y_CPX1=40, .NBC_ANR_Y_CPX2=100, .NBC_ANR_Y_CPX3=160, .NBC_ANR_Y_CPX4=255}},
+    .y4lut2    ={.bits={.NBC_ANR_Y_SCALE_CPY0=16, .rsv_5=0, .NBC_ANR_Y_SCALE_CPY1=16, .rsv_13=0, .NBC_ANR_Y_SCALE_CPY2=16, .rsv_21=0, .NBC_ANR_Y_SCALE_CPY3=16, .rsv_29=0}},
+    .y4lut3    ={.bits={.NBC_ANR_Y_SCALE_SP0=0, .rsv_5=0, .NBC_ANR_Y_SCALE_SP1=0, .rsv_13=0, .NBC_ANR_Y_SCALE_SP2=0, .rsv_21=0, .NBC_ANR_Y_SCALE_SP3=0, .rsv_29=0}},
+    .c4lut1    ={.bits={.NBC_ANR_C_CPX1=64, .NBC_ANR_C_CPX2=128, .NBC_ANR_C_CPX3=192, .rsv_24=0}},
+    .c4lut2    ={.bits={.NBC_ANR_C_SCALE_CPY0=4, .rsv_5=0, .NBC_ANR_C_SCALE_CPY1=8, .rsv_13=0, .NBC_ANR_C_SCALE_CPY2=16, .rsv_21=0, .NBC_ANR_C_SCALE_CPY3=16, .rsv_29=0}},
+    .c4lut3    ={.bits={.NBC_ANR_C_SCALE_SP0=8, .rsv_5=0, .NBC_ANR_C_SCALE_SP1=15, .rsv_13=0, .NBC_ANR_C_SCALE_SP2=0, .rsv_21=0, .NBC_ANR_C_SCALE_SP3=0, .rsv_29=0}},
+    .a4lut2    ={.bits={.NBC_ANR_Y_ACT_CPY0=0, .NBC_ANR_Y_ACT_CPY1=0, .NBC_ANR_Y_ACT_CPY2=0, .NBC_ANR_Y_ACT_CPY3=0}},
+    .a4lut3    ={.bits={.NBC_ANR_Y_ACT_SP0=0, .rsv_6=0, .NBC_ANR_Y_ACT_SP1=0, .rsv_14=0, .NBC_ANR_Y_ACT_SP2=0, .rsv_22=0, .NBC_ANR_Y_ACT_SP3=0, .rsv_30=0}},
+    .l4lut1    ={.bits={.NBC_ANR_SL2_X1=64, .NBC_ANR_SL2_X2=128, .NBC_ANR_SL2_X3=192, .rsv_24=0}},
+    .l4lut2    ={.bits={.NBC_ANR_SL2_GAIN0=16, .rsv_6=0, .NBC_ANR_SL2_GAIN1=20, .rsv_14=0, .NBC_ANR_SL2_GAIN2=24, .rsv_22=0, .NBC_ANR_SL2_GAIN3=32, .rsv_30=0}},
+    .l4lut3    ={.bits={.NBC_ANR_SL2_SP0=8, .rsv_6=0, .NBC_ANR_SL2_SP1=8, .rsv_14=0, .NBC_ANR_SL2_SP2=15, .rsv_22=0, .NBC_ANR_SL2_SP3=6, .rsv_30=0}},
+    .pty0v     ={.bits={.NBC_ANR_Y_L0_V_RNG1=5, .NBC_ANR_Y_L0_V_RNG2=10, .NBC_ANR_Y_L0_V_RNG3=14, .NBC_ANR_Y_L0_V_RNG4=21}},
+    .cad       ={.bits={.rsv_0=0, .NBC_ANR_PTC_GAIN_TH=16, .rsv_13=0, .NBC_ANR_C_L_DIFF_TH=30, .rsv_24=0}},
+    .pty1v     ={.bits={.NBC_ANR_Y_L1_V_RNG1=5, .NBC_ANR_Y_L1_V_RNG2=9, .NBC_ANR_Y_L1_V_RNG3=13, .NBC_ANR_Y_L1_V_RNG4=18}},
+    .sl2       ={.bits={.NBC_ANR_SL2_C_GAIN=4, .NBC_ANR_SL2_SCALE_GAIN=0, .rsv_7=0}},
+    .pty2v     ={.bits={.NBC_ANR_Y_L2_V_RNG1=4, .NBC_ANR_Y_L2_V_RNG2=7, .NBC_ANR_Y_L2_V_RNG3=9, .NBC_ANR_Y_L2_V_RNG4=14}},
+    .pty3v     ={.bits={.NBC_ANR_Y_L3_V_RNG1=3, .NBC_ANR_Y_L3_V_RNG2=5, .NBC_ANR_Y_L3_V_RNG3=7, .NBC_ANR_Y_L3_V_RNG4=11}},
+    .pty0h     ={.bits={.NBC_ANR_Y_L0_H_RNG1=5, .NBC_ANR_Y_L0_H_RNG2=9, .NBC_ANR_Y_L0_H_RNG3=13, .NBC_ANR_Y_L0_H_RNG4=18}},
+    .pty1h     ={.bits={.NBC_ANR_Y_L1_H_RNG1=4, .NBC_ANR_Y_L1_H_RNG2=8, .NBC_ANR_Y_L1_H_RNG3=11, .NBC_ANR_Y_L1_H_RNG4=16}},
+    .pty2h     ={.bits={.NBC_ANR_Y_L2_H_RNG1=3, .NBC_ANR_Y_L2_H_RNG2=6, .NBC_ANR_Y_L2_H_RNG3=8, .NBC_ANR_Y_L2_H_RNG4=12}},
+    .t4lut1    ={.bits={.NBC_ANR_TBL_CPX1=64, .NBC_ANR_TBL_CPX2=128, .NBC_ANR_TBL_CPX3=192, .rsv_24=0}},
+    .t4lut2    ={.bits={.NBC_ANR_TBL_GAIN_CPY0=4, .rsv_5=0, .NBC_ANR_TBL_GAIN_CPY1=8, .rsv_13=0, .NBC_ANR_TBL_GAIN_CPY2=16, .rsv_21=0, .NBC_ANR_TBL_GAIN_CPY3=24, .rsv_29=0}},
+    .t4lut3    ={.bits={.NBC_ANR_TBL_GAIN_SP0=8, .rsv_5=0, .NBC_ANR_TBL_GAIN_SP1=15, .rsv_13=0, .NBC_ANR_TBL_GAIN_SP2=15, .rsv_21=0, .NBC_ANR_TBL_GAIN_SP3=0, .rsv_29=0}},
+    .act1      ={.bits={.NBC_ANR_ACT_SL2_GAIN=8, .rsv_4=0, .NBC_ANR_ACT_DIF_HI_TH=16, .rsv_13=0, .NBC_ANR_ACT_DIF_GAIN=0, .NBC_ANR_ACT_DIF_LO_TH=16, .rsv_29=0}},
+    .pty3h     ={.bits={.NBC_ANR_Y_L3_H_RNG1=2, .NBC_ANR_Y_L3_H_RNG2=5, .NBC_ANR_Y_L3_H_RNG3=7, .NBC_ANR_Y_L3_H_RNG4=10}},
+    .ptcv      ={.bits={.NBC_ANR_C_V_RNG1=1, .NBC_ANR_C_V_RNG2=3, .NBC_ANR_C_V_RNG3=5, .NBC_ANR_C_V_RNG4=7}},
+    .act4      ={.bits={.NBC_ANR_Y_ACT_CEN_OFT=32, .rsv_6=0, .NBC_ANR_Y_ACT_CEN_GAIN=0, .rsv_14=0, .NBC_ANR_Y_ACT_CEN_TH=32, .rsv_22=0}},
+    .ptch      ={.bits={.NBC_ANR_C_H_RNG1=1, .NBC_ANR_C_H_RNG2=3, .NBC_ANR_C_H_RNG3=5, .NBC_ANR_C_H_RNG4=7}},
+    .ylvl0     ={.bits={.NBC_ANR_Y_L0_RNG_RAT_TH=8, .NBC_ANR_Y_L1_RNG_RAT_TH=8, .NBC_ANR_Y_L2_RNG_RAT_TH=8, .NBC_ANR_Y_L3_RNG_RAT_TH=14, .NBC_ANR_Y_L0_RNG_RAT_SL=3, .rsv_18=0, .NBC_ANR_Y_L1_RNG_RAT_SL=3, .rsv_22=0, .NBC_ANR_Y_L2_RNG_RAT_SL=3, .rsv_26=0, .NBC_ANR_Y_L3_RNG_RAT_SL=3, .rsv_30=0}},
+    .ylvl1     ={.bits={.NBC_ANR_Y_L0_HF_W=16, .rsv_5=0, .NBC_ANR_Y_L1_HF_W=16, .rsv_13=0, .NBC_ANR_Y_L2_HF_W=16, .rsv_21=0, .NBC_ANR_Y_L3_HF_W=16, .rsv_29=0}},
+    .hf_cor    ={.bits={.NBC_ANR_Y_HF_CORE_TH=0, .NBC_ANR_Y_HF_CORE_SL=2, .rsv_10=0, .NBC_ANR_Y_HF_CLIP=255, .NBC_ANR_HF_BAL_MODE=2, .rsv_26=0}},
+    .hf_act0   ={.bits={.NBC_ANR_Y_HF_ACT_X1=20, .NBC_ANR_Y_HF_ACT_X2=26, .NBC_ANR_Y_HF_ACT_X3=32, .NBC_ANR_Y_HF_ACT_X4=40}},
+    .hf_act1   ={.bits={.NBC_ANR_Y_HF_ACT_Y0=0, .rsv_7=0, .NBC_ANR_Y_HF_ACT_Y1=22, .rsv_15=0, .NBC_ANR_Y_HF_ACT_Y2=36, .rsv_23=0, .NBC_ANR_Y_HF_ACT_Y3=42, .rsv_31=0}},
+    .actc      ={.bits={.rsv_0=0, .NBC_ANR_ACT_BLD_BASE_C=64, .rsv_15=0, .NBC_ANR_C_DITH_U=8, .rsv_21=0, .NBC_ANR_C_DITH_V=8, .rsv_29=0}},
+    .ylad      ={.bits={.NBC_ANR_CEN_GAIN_LO_TH_LPF=2, .rsv_5=0, .NBC_ANR_CEN_GAIN_HI_TH_LPF=3, .rsv_13=0}},
+    .hf_act2   ={.bits={.NBC_ANR_Y_HF_ACT_Y4=42, .rsv_7=0, .NBC_ANR_Y_HF_ACT_SP4=0, .rsv_14=0}},
+    .hf_act3   ={.bits={.NBC_ANR_Y_HF_ACT_SP0=8, .rsv_6=0, .NBC_ANR_Y_HF_ACT_SP1=18, .rsv_14=0, .NBC_ANR_Y_HF_ACT_SP2=8, .rsv_22=0, .NBC_ANR_Y_HF_ACT_SP3=0, .rsv_30=0}},
+    .hf_luma0  ={.bits={.NBC_ANR_Y_HF_LUMA_X1=0, .NBC_ANR_Y_HF_LUMA_X2=0, .NBC_ANR_Y_HF_LUMA_Y0=0, .rsv_23=0, .NBC_ANR_Y_HF_LUMA_Y1=0, .rsv_31=0}},
+    .hf_luma1  ={.bits={.NBC_ANR_Y_HF_LUMA_Y2=0, .rsv_7=0, .NBC_ANR_Y_HF_LUMA_SP0=0, .rsv_13=0, .NBC_ANR_Y_HF_LUMA_SP1=2, .rsv_21=0, .NBC_ANR_Y_HF_LUMA_SP2=0, .rsv_29=0}},
+    .y4lut4    ={.bits={.NBC_ANR_Y_CPX5=255, .NBC_ANR_Y_CPX6=255, .NBC_ANR_Y_CPX7=255, .NBC_ANR_Y_CPX8=255}},
+    .y4lut5    ={.bits={.NBC_ANR_Y_SCALE_CPY4=16, .rsv_5=0, .NBC_ANR_Y_SCALE_CPY5=16, .rsv_13=0, .NBC_ANR_Y_SCALE_CPY6=16, .rsv_21=0, .NBC_ANR_Y_SCALE_CPY7=16, .rsv_29=0}},
+    .y4lut6    ={.bits={.NBC_ANR_Y_SCALE_SP4=0, .rsv_5=0, .NBC_ANR_Y_SCALE_SP5=0, .rsv_13=0, .NBC_ANR_Y_SCALE_SP6=0, .rsv_21=0, .NBC_ANR_Y_SCALE_SP7=0, .rsv_29=0}},
+    .y4lut7    ={.bits={.NBC_ANR_Y_SCALE_CPY8=16, .rsv_5=0, .NBC_ANR_Y_SCALE_SP8=0, .rsv_13=0}},
+    .a4lut1    ={.bits={.NBC_ANR_Y_ACT_CPX1=40, .NBC_ANR_Y_ACT_CPX2=100, .NBC_ANR_Y_ACT_CPX3=160, .rsv_24=0}}
+
+};
+const ISP_NVRAM_ANR_T ov16885mipiraw_NBC_ANR_0083 = {
+        .con1      ={.bits={.NBC_ANR_ENC=1, .NBC_ANR_ENY=1, .rsv_2=0, .NBC_ANR_Y_FLT0_IDX=0, .rsv_5=0, .NBC_ANR_Y_FLT1_IDX=0, .rsv_7=0, .NBC_ANR_Y_FLT2_IDX=2, .NBC_ANR_Y_FLT3_IDX=3, .NBC_ANR_ACT_LP_EN=0, .rsv_13=0, .NBC_ANR_TILE_EDGE=15, .NBC_ANR_LTM_LINK=1, .NBC_ANR_LTM_LUT_BYPASS=0, .rsv_22=0, .NBC_ANR_SL2_LINK=1, .rsv_25=0, .NBC_ANR_TABLE_EN=0, .NBC_ANR_TBL_PRC=0, .rsv_30=0}},
+    .con2      ={.bits={.NBC_ANR_IMPL_MODE=2, .rsv_2=0, .NBC_ANR_C_SM_EDGE=1, .rsv_10=0, .NBC_ANR_FLT_C=0, .rsv_13=0, .NBC_ANR_C_SM_EDGE_TH=2, .rsv_27=0}},
+    .yad1      ={.bits={.NBC_ANR_CEN_GAIN_LO_TH=2, .rsv_5=0, .NBC_ANR_CEN_GAIN_HI_TH=3, .rsv_13=0, .NBC_ANR_Y_SLOPE_V_TH=15, .NBC_ANR_Y_SLOPE_H_TH=12}},
+    .yad2      ={.bits={.NBC_ANR_Y_VERT_ACT_TH=7, .rsv_5=0, .NBC_ANR_PTY_GAIN_TH=0, .rsv_13=0, .NBC_ANR_Y_VERT_SIGMA=2, .rsv_24=0}},
+    .y4lut1    ={.bits={.NBC_ANR_Y_CPX1=64, .NBC_ANR_Y_CPX2=128, .NBC_ANR_Y_CPX3=192, .NBC_ANR_Y_CPX4=255}},
+    .y4lut2    ={.bits={.NBC_ANR_Y_SCALE_CPY0=16, .rsv_5=0, .NBC_ANR_Y_SCALE_CPY1=16, .rsv_13=0, .NBC_ANR_Y_SCALE_CPY2=16, .rsv_21=0, .NBC_ANR_Y_SCALE_CPY3=12, .rsv_29=0}},
+    .y4lut3    ={.bits={.NBC_ANR_Y_SCALE_SP0=0, .rsv_5=0, .NBC_ANR_Y_SCALE_SP1=0, .rsv_13=0, .NBC_ANR_Y_SCALE_SP2=24, .rsv_21=0, .NBC_ANR_Y_SCALE_SP3=24, .rsv_29=0}},
+    .c4lut1    ={.bits={.NBC_ANR_C_CPX1=40, .NBC_ANR_C_CPX2=120, .NBC_ANR_C_CPX3=160, .rsv_24=0}},
+    .c4lut2    ={.bits={.NBC_ANR_C_SCALE_CPY0=16, .rsv_5=0, .NBC_ANR_C_SCALE_CPY1=16, .rsv_13=0, .NBC_ANR_C_SCALE_CPY2=16, .rsv_21=0, .NBC_ANR_C_SCALE_CPY3=8, .rsv_29=0}},
+    .c4lut3    ={.bits={.NBC_ANR_C_SCALE_SP0=0, .rsv_5=0, .NBC_ANR_C_SCALE_SP1=0, .rsv_13=0, .NBC_ANR_C_SCALE_SP2=17, .rsv_21=0, .NBC_ANR_C_SCALE_SP3=30, .rsv_29=0}},
+    .a4lut2    ={.bits={.NBC_ANR_Y_ACT_CPY0=0, .NBC_ANR_Y_ACT_CPY1=0, .NBC_ANR_Y_ACT_CPY2=0, .NBC_ANR_Y_ACT_CPY3=0}},
+    .a4lut3    ={.bits={.NBC_ANR_Y_ACT_SP0=0, .rsv_6=0, .NBC_ANR_Y_ACT_SP1=0, .rsv_14=0, .NBC_ANR_Y_ACT_SP2=0, .rsv_22=0, .NBC_ANR_Y_ACT_SP3=0, .rsv_30=0}},
+    .l4lut1    ={.bits={.NBC_ANR_SL2_X1=64, .NBC_ANR_SL2_X2=128, .NBC_ANR_SL2_X3=192, .rsv_24=0}},
+    .l4lut2    ={.bits={.NBC_ANR_SL2_GAIN0=16, .rsv_6=0, .NBC_ANR_SL2_GAIN1=20, .rsv_14=0, .NBC_ANR_SL2_GAIN2=24, .rsv_22=0, .NBC_ANR_SL2_GAIN3=30, .rsv_30=0}},
+    .l4lut3    ={.bits={.NBC_ANR_SL2_SP0=8, .rsv_6=0, .NBC_ANR_SL2_SP1=8, .rsv_14=0, .NBC_ANR_SL2_SP2=12, .rsv_22=0, .NBC_ANR_SL2_SP3=4, .rsv_30=0}},
+    .pty0v     ={.bits={.NBC_ANR_Y_L0_V_RNG1=5, .NBC_ANR_Y_L0_V_RNG2=10, .NBC_ANR_Y_L0_V_RNG3=14, .NBC_ANR_Y_L0_V_RNG4=21}},
+    .cad       ={.bits={.rsv_0=0, .NBC_ANR_PTC_GAIN_TH=6, .rsv_13=0, .NBC_ANR_C_L_DIFF_TH=32, .rsv_24=0}},
+    .pty1v     ={.bits={.NBC_ANR_Y_L1_V_RNG1=5, .NBC_ANR_Y_L1_V_RNG2=9, .NBC_ANR_Y_L1_V_RNG3=13, .NBC_ANR_Y_L1_V_RNG4=19}},
+    .sl2       ={.bits={.NBC_ANR_SL2_C_GAIN=6, .NBC_ANR_SL2_SCALE_GAIN=0, .rsv_7=0}},
+    .pty2v     ={.bits={.NBC_ANR_Y_L2_V_RNG1=4, .NBC_ANR_Y_L2_V_RNG2=8, .NBC_ANR_Y_L2_V_RNG3=12, .NBC_ANR_Y_L2_V_RNG4=17}},
+    .pty3v     ={.bits={.NBC_ANR_Y_L3_V_RNG1=3, .NBC_ANR_Y_L3_V_RNG2=6, .NBC_ANR_Y_L3_V_RNG3=9, .NBC_ANR_Y_L3_V_RNG4=13}},
+    .pty0h     ={.bits={.NBC_ANR_Y_L0_H_RNG1=5, .NBC_ANR_Y_L0_H_RNG2=9, .NBC_ANR_Y_L0_H_RNG3=13, .NBC_ANR_Y_L0_H_RNG4=18}},
+    .pty1h     ={.bits={.NBC_ANR_Y_L1_H_RNG1=4, .NBC_ANR_Y_L1_H_RNG2=8, .NBC_ANR_Y_L1_H_RNG3=12, .NBC_ANR_Y_L1_H_RNG4=17}},
+    .pty2h     ={.bits={.NBC_ANR_Y_L2_H_RNG1=4, .NBC_ANR_Y_L2_H_RNG2=7, .NBC_ANR_Y_L2_H_RNG3=11, .NBC_ANR_Y_L2_H_RNG4=15}},
+    .t4lut1    ={.bits={.NBC_ANR_TBL_CPX1=64, .NBC_ANR_TBL_CPX2=128, .NBC_ANR_TBL_CPX3=192, .rsv_24=0}},
+    .t4lut2    ={.bits={.NBC_ANR_TBL_GAIN_CPY0=1, .rsv_5=0, .NBC_ANR_TBL_GAIN_CPY1=8, .rsv_13=0, .NBC_ANR_TBL_GAIN_CPY2=16, .rsv_21=0, .NBC_ANR_TBL_GAIN_CPY3=24, .rsv_29=0}},
+    .t4lut3    ={.bits={.NBC_ANR_TBL_GAIN_SP0=14, .rsv_5=0, .NBC_ANR_TBL_GAIN_SP1=15, .rsv_13=0, .NBC_ANR_TBL_GAIN_SP2=15, .rsv_21=0, .NBC_ANR_TBL_GAIN_SP3=15, .rsv_29=0}},
+    .act1      ={.bits={.NBC_ANR_ACT_SL2_GAIN=8, .rsv_4=0, .NBC_ANR_ACT_DIF_HI_TH=16, .rsv_13=0, .NBC_ANR_ACT_DIF_GAIN=4, .NBC_ANR_ACT_DIF_LO_TH=16, .rsv_29=0}},
+    .pty3h     ={.bits={.NBC_ANR_Y_L3_H_RNG1=3, .NBC_ANR_Y_L3_H_RNG2=5, .NBC_ANR_Y_L3_H_RNG3=8, .NBC_ANR_Y_L3_H_RNG4=11}},
+    .ptcv      ={.bits={.NBC_ANR_C_V_RNG1=3, .NBC_ANR_C_V_RNG2=5, .NBC_ANR_C_V_RNG3=9, .NBC_ANR_C_V_RNG4=11}},
+    .act4      ={.bits={.NBC_ANR_Y_ACT_CEN_OFT=32, .rsv_6=0, .NBC_ANR_Y_ACT_CEN_GAIN=0, .rsv_14=0, .NBC_ANR_Y_ACT_CEN_TH=32, .rsv_22=0}},
+    .ptch      ={.bits={.NBC_ANR_C_H_RNG1=3, .NBC_ANR_C_H_RNG2=5, .NBC_ANR_C_H_RNG3=8, .NBC_ANR_C_H_RNG4=10}},
+    .ylvl0     ={.bits={.NBC_ANR_Y_L0_RNG_RAT_TH=8, .NBC_ANR_Y_L1_RNG_RAT_TH=12, .NBC_ANR_Y_L2_RNG_RAT_TH=12, .NBC_ANR_Y_L3_RNG_RAT_TH=15, .NBC_ANR_Y_L0_RNG_RAT_SL=3, .rsv_18=0, .NBC_ANR_Y_L1_RNG_RAT_SL=3, .rsv_22=0, .NBC_ANR_Y_L2_RNG_RAT_SL=3, .rsv_26=0, .NBC_ANR_Y_L3_RNG_RAT_SL=3, .rsv_30=0}},
+    .ylvl1     ={.bits={.NBC_ANR_Y_L0_HF_W=16, .rsv_5=0, .NBC_ANR_Y_L1_HF_W=15, .rsv_13=0, .NBC_ANR_Y_L2_HF_W=15, .rsv_21=0, .NBC_ANR_Y_L3_HF_W=14, .rsv_29=0}},
+    .hf_cor    ={.bits={.NBC_ANR_Y_HF_CORE_TH=0, .NBC_ANR_Y_HF_CORE_SL=2, .rsv_10=0, .NBC_ANR_Y_HF_CLIP=255, .NBC_ANR_HF_BAL_MODE=1, .rsv_26=0}},
+    .hf_act0   ={.bits={.NBC_ANR_Y_HF_ACT_X1=20, .NBC_ANR_Y_HF_ACT_X2=26, .NBC_ANR_Y_HF_ACT_X3=32, .NBC_ANR_Y_HF_ACT_X4=40}},
+    .hf_act1   ={.bits={.NBC_ANR_Y_HF_ACT_Y0=0, .rsv_7=0, .NBC_ANR_Y_HF_ACT_Y1=24, .rsv_15=0, .NBC_ANR_Y_HF_ACT_Y2=32, .rsv_23=0, .NBC_ANR_Y_HF_ACT_Y3=40, .rsv_31=0}},
+    .actc      ={.bits={.rsv_0=0, .NBC_ANR_ACT_BLD_BASE_C=64, .rsv_15=0, .NBC_ANR_C_DITH_U=8, .rsv_21=0, .NBC_ANR_C_DITH_V=8, .rsv_29=0}},
+    .ylad      ={.bits={.NBC_ANR_CEN_GAIN_LO_TH_LPF=1, .rsv_5=0, .NBC_ANR_CEN_GAIN_HI_TH_LPF=6, .rsv_13=0}},
+    .hf_act2   ={.bits={.NBC_ANR_Y_HF_ACT_Y4=40, .rsv_7=0, .NBC_ANR_Y_HF_ACT_SP4=0, .rsv_14=0}},
+    .hf_act3   ={.bits={.NBC_ANR_Y_HF_ACT_SP0=9, .rsv_6=0, .NBC_ANR_Y_HF_ACT_SP1=10, .rsv_14=0, .NBC_ANR_Y_HF_ACT_SP2=10, .rsv_22=0, .NBC_ANR_Y_HF_ACT_SP3=0, .rsv_30=0}},
+    .hf_luma0  ={.bits={.NBC_ANR_Y_HF_LUMA_X1=192, .NBC_ANR_Y_HF_LUMA_X2=224, .NBC_ANR_Y_HF_LUMA_Y0=0, .rsv_23=0, .NBC_ANR_Y_HF_LUMA_Y1=0, .rsv_31=0}},
+    .hf_luma1  ={.bits={.NBC_ANR_Y_HF_LUMA_Y2=4, .rsv_7=0, .NBC_ANR_Y_HF_LUMA_SP0=0, .rsv_13=0, .NBC_ANR_Y_HF_LUMA_SP1=1, .rsv_21=0, .NBC_ANR_Y_HF_LUMA_SP2=0, .rsv_29=0}},
+    .y4lut4    ={.bits={.NBC_ANR_Y_CPX5=255, .NBC_ANR_Y_CPX6=255, .NBC_ANR_Y_CPX7=255, .NBC_ANR_Y_CPX8=255}},
+    .y4lut5    ={.bits={.NBC_ANR_Y_SCALE_CPY4=8, .rsv_5=0, .NBC_ANR_Y_SCALE_CPY5=8, .rsv_13=0, .NBC_ANR_Y_SCALE_CPY6=8, .rsv_21=0, .NBC_ANR_Y_SCALE_CPY7=8, .rsv_29=0}},
+    .y4lut6    ={.bits={.NBC_ANR_Y_SCALE_SP4=0, .rsv_5=0, .NBC_ANR_Y_SCALE_SP5=0, .rsv_13=0, .NBC_ANR_Y_SCALE_SP6=0, .rsv_21=0, .NBC_ANR_Y_SCALE_SP7=0, .rsv_29=0}},
+    .y4lut7    ={.bits={.NBC_ANR_Y_SCALE_CPY8=8, .rsv_5=0, .NBC_ANR_Y_SCALE_SP8=0, .rsv_13=0}},
+    .a4lut1    ={.bits={.NBC_ANR_Y_ACT_CPX1=64, .NBC_ANR_Y_ACT_CPX2=128, .NBC_ANR_Y_ACT_CPX3=192, .rsv_24=0}}
+
+};
+const ISP_NVRAM_ANR_T ov16885mipiraw_NBC_ANR_0084 = {
+        .con1      ={.bits={.NBC_ANR_ENC=1, .NBC_ANR_ENY=1, .rsv_2=0, .NBC_ANR_Y_FLT0_IDX=0, .rsv_5=0, .NBC_ANR_Y_FLT1_IDX=0, .rsv_7=0, .NBC_ANR_Y_FLT2_IDX=2, .NBC_ANR_Y_FLT3_IDX=3, .NBC_ANR_ACT_LP_EN=0, .rsv_13=0, .NBC_ANR_TILE_EDGE=15, .NBC_ANR_LTM_LINK=1, .NBC_ANR_LTM_LUT_BYPASS=0, .rsv_22=0, .NBC_ANR_SL2_LINK=1, .rsv_25=0, .NBC_ANR_TABLE_EN=0, .NBC_ANR_TBL_PRC=0, .rsv_30=0}},
+    .con2      ={.bits={.NBC_ANR_IMPL_MODE=2, .rsv_2=0, .NBC_ANR_C_SM_EDGE=1, .rsv_10=0, .NBC_ANR_FLT_C=0, .rsv_13=0, .NBC_ANR_C_SM_EDGE_TH=2, .rsv_27=0}},
+    .yad1      ={.bits={.NBC_ANR_CEN_GAIN_LO_TH=3, .rsv_5=0, .NBC_ANR_CEN_GAIN_HI_TH=3, .rsv_13=0, .NBC_ANR_Y_SLOPE_V_TH=18, .NBC_ANR_Y_SLOPE_H_TH=14}},
+    .yad2      ={.bits={.NBC_ANR_Y_VERT_ACT_TH=7, .rsv_5=0, .NBC_ANR_PTY_GAIN_TH=0, .rsv_13=0, .NBC_ANR_Y_VERT_SIGMA=2, .rsv_24=0}},
+    .y4lut1    ={.bits={.NBC_ANR_Y_CPX1=64, .NBC_ANR_Y_CPX2=128, .NBC_ANR_Y_CPX3=192, .NBC_ANR_Y_CPX4=255}},
+    .y4lut2    ={.bits={.NBC_ANR_Y_SCALE_CPY0=16, .rsv_5=0, .NBC_ANR_Y_SCALE_CPY1=16, .rsv_13=0, .NBC_ANR_Y_SCALE_CPY2=16, .rsv_21=0, .NBC_ANR_Y_SCALE_CPY3=12, .rsv_29=0}},
+    .y4lut3    ={.bits={.NBC_ANR_Y_SCALE_SP0=0, .rsv_5=0, .NBC_ANR_Y_SCALE_SP1=0, .rsv_13=0, .NBC_ANR_Y_SCALE_SP2=24, .rsv_21=0, .NBC_ANR_Y_SCALE_SP3=24, .rsv_29=0}},
+    .c4lut1    ={.bits={.NBC_ANR_C_CPX1=40, .NBC_ANR_C_CPX2=120, .NBC_ANR_C_CPX3=160, .rsv_24=0}},
+    .c4lut2    ={.bits={.NBC_ANR_C_SCALE_CPY0=16, .rsv_5=0, .NBC_ANR_C_SCALE_CPY1=16, .rsv_13=0, .NBC_ANR_C_SCALE_CPY2=16, .rsv_21=0, .NBC_ANR_C_SCALE_CPY3=8, .rsv_29=0}},
+    .c4lut3    ={.bits={.NBC_ANR_C_SCALE_SP0=0, .rsv_5=0, .NBC_ANR_C_SCALE_SP1=0, .rsv_13=0, .NBC_ANR_C_SCALE_SP2=17, .rsv_21=0, .NBC_ANR_C_SCALE_SP3=30, .rsv_29=0}},
+    .a4lut2    ={.bits={.NBC_ANR_Y_ACT_CPY0=0, .NBC_ANR_Y_ACT_CPY1=0, .NBC_ANR_Y_ACT_CPY2=0, .NBC_ANR_Y_ACT_CPY3=0}},
+    .a4lut3    ={.bits={.NBC_ANR_Y_ACT_SP0=0, .rsv_6=0, .NBC_ANR_Y_ACT_SP1=0, .rsv_14=0, .NBC_ANR_Y_ACT_SP2=0, .rsv_22=0, .NBC_ANR_Y_ACT_SP3=0, .rsv_30=0}},
+    .l4lut1    ={.bits={.NBC_ANR_SL2_X1=64, .NBC_ANR_SL2_X2=128, .NBC_ANR_SL2_X3=192, .rsv_24=0}},
+    .l4lut2    ={.bits={.NBC_ANR_SL2_GAIN0=16, .rsv_6=0, .NBC_ANR_SL2_GAIN1=20, .rsv_14=0, .NBC_ANR_SL2_GAIN2=24, .rsv_22=0, .NBC_ANR_SL2_GAIN3=28, .rsv_30=0}},
+    .l4lut3    ={.bits={.NBC_ANR_SL2_SP0=8, .rsv_6=0, .NBC_ANR_SL2_SP1=8, .rsv_14=0, .NBC_ANR_SL2_SP2=8, .rsv_22=0, .NBC_ANR_SL2_SP3=0, .rsv_30=0}},
+    .pty0v     ={.bits={.NBC_ANR_Y_L0_V_RNG1=6, .NBC_ANR_Y_L0_V_RNG2=11, .NBC_ANR_Y_L0_V_RNG3=17, .NBC_ANR_Y_L0_V_RNG4=24}},
+    .cad       ={.bits={.rsv_0=0, .NBC_ANR_PTC_GAIN_TH=6, .rsv_13=0, .NBC_ANR_C_L_DIFF_TH=32, .rsv_24=0}},
+    .pty1v     ={.bits={.NBC_ANR_Y_L1_V_RNG1=6, .NBC_ANR_Y_L1_V_RNG2=11, .NBC_ANR_Y_L1_V_RNG3=16, .NBC_ANR_Y_L1_V_RNG4=24}},
+    .sl2       ={.bits={.NBC_ANR_SL2_C_GAIN=6, .NBC_ANR_SL2_SCALE_GAIN=0, .rsv_7=0}},
+    .pty2v     ={.bits={.NBC_ANR_Y_L2_V_RNG1=5, .NBC_ANR_Y_L2_V_RNG2=10, .NBC_ANR_Y_L2_V_RNG3=14, .NBC_ANR_Y_L2_V_RNG4=21}},
+    .pty3v     ={.bits={.NBC_ANR_Y_L3_V_RNG1=4, .NBC_ANR_Y_L3_V_RNG2=7, .NBC_ANR_Y_L3_V_RNG3=10, .NBC_ANR_Y_L3_V_RNG4=14}},
+    .pty0h     ={.bits={.NBC_ANR_Y_L0_H_RNG1=5, .NBC_ANR_Y_L0_H_RNG2=10, .NBC_ANR_Y_L0_H_RNG3=15, .NBC_ANR_Y_L0_H_RNG4=21}},
+    .pty1h     ={.bits={.NBC_ANR_Y_L1_H_RNG1=5, .NBC_ANR_Y_L1_H_RNG2=10, .NBC_ANR_Y_L1_H_RNG3=14, .NBC_ANR_Y_L1_H_RNG4=21}},
+    .pty2h     ={.bits={.NBC_ANR_Y_L2_H_RNG1=5, .NBC_ANR_Y_L2_H_RNG2=9, .NBC_ANR_Y_L2_H_RNG3=13, .NBC_ANR_Y_L2_H_RNG4=18}},
+    .t4lut1    ={.bits={.NBC_ANR_TBL_CPX1=64, .NBC_ANR_TBL_CPX2=128, .NBC_ANR_TBL_CPX3=192, .rsv_24=0}},
+    .t4lut2    ={.bits={.NBC_ANR_TBL_GAIN_CPY0=1, .rsv_5=0, .NBC_ANR_TBL_GAIN_CPY1=8, .rsv_13=0, .NBC_ANR_TBL_GAIN_CPY2=16, .rsv_21=0, .NBC_ANR_TBL_GAIN_CPY3=24, .rsv_29=0}},
+    .t4lut3    ={.bits={.NBC_ANR_TBL_GAIN_SP0=14, .rsv_5=0, .NBC_ANR_TBL_GAIN_SP1=15, .rsv_13=0, .NBC_ANR_TBL_GAIN_SP2=15, .rsv_21=0, .NBC_ANR_TBL_GAIN_SP3=15, .rsv_29=0}},
+    .act1      ={.bits={.NBC_ANR_ACT_SL2_GAIN=8, .rsv_4=0, .NBC_ANR_ACT_DIF_HI_TH=16, .rsv_13=0, .NBC_ANR_ACT_DIF_GAIN=4, .NBC_ANR_ACT_DIF_LO_TH=16, .rsv_29=0}},
+    .pty3h     ={.bits={.NBC_ANR_Y_L3_H_RNG1=3, .NBC_ANR_Y_L3_H_RNG2=6, .NBC_ANR_Y_L3_H_RNG3=9, .NBC_ANR_Y_L3_H_RNG4=13}},
+    .ptcv      ={.bits={.NBC_ANR_C_V_RNG1=3, .NBC_ANR_C_V_RNG2=6, .NBC_ANR_C_V_RNG3=10, .NBC_ANR_C_V_RNG4=13}},
+    .act4      ={.bits={.NBC_ANR_Y_ACT_CEN_OFT=32, .rsv_6=0, .NBC_ANR_Y_ACT_CEN_GAIN=0, .rsv_14=0, .NBC_ANR_Y_ACT_CEN_TH=32, .rsv_22=0}},
+    .ptch      ={.bits={.NBC_ANR_C_H_RNG1=3, .NBC_ANR_C_H_RNG2=6, .NBC_ANR_C_H_RNG3=9, .NBC_ANR_C_H_RNG4=12}},
+    .ylvl0     ={.bits={.NBC_ANR_Y_L0_RNG_RAT_TH=8, .NBC_ANR_Y_L1_RNG_RAT_TH=12, .NBC_ANR_Y_L2_RNG_RAT_TH=12, .NBC_ANR_Y_L3_RNG_RAT_TH=15, .NBC_ANR_Y_L0_RNG_RAT_SL=3, .rsv_18=0, .NBC_ANR_Y_L1_RNG_RAT_SL=3, .rsv_22=0, .NBC_ANR_Y_L2_RNG_RAT_SL=3, .rsv_26=0, .NBC_ANR_Y_L3_RNG_RAT_SL=3, .rsv_30=0}},
+    .ylvl1     ={.bits={.NBC_ANR_Y_L0_HF_W=16, .rsv_5=0, .NBC_ANR_Y_L1_HF_W=15, .rsv_13=0, .NBC_ANR_Y_L2_HF_W=14, .rsv_21=0, .NBC_ANR_Y_L3_HF_W=14, .rsv_29=0}},
+    .hf_cor    ={.bits={.NBC_ANR_Y_HF_CORE_TH=0, .NBC_ANR_Y_HF_CORE_SL=2, .rsv_10=0, .NBC_ANR_Y_HF_CLIP=255, .NBC_ANR_HF_BAL_MODE=1, .rsv_26=0}},
+    .hf_act0   ={.bits={.NBC_ANR_Y_HF_ACT_X1=20, .NBC_ANR_Y_HF_ACT_X2=26, .NBC_ANR_Y_HF_ACT_X3=32, .NBC_ANR_Y_HF_ACT_X4=40}},
+    .hf_act1   ={.bits={.NBC_ANR_Y_HF_ACT_Y0=0, .rsv_7=0, .NBC_ANR_Y_HF_ACT_Y1=16, .rsv_15=0, .NBC_ANR_Y_HF_ACT_Y2=32, .rsv_23=0, .NBC_ANR_Y_HF_ACT_Y3=32, .rsv_31=0}},
+    .actc      ={.bits={.rsv_0=0, .NBC_ANR_ACT_BLD_BASE_C=64, .rsv_15=0, .NBC_ANR_C_DITH_U=8, .rsv_21=0, .NBC_ANR_C_DITH_V=8, .rsv_29=0}},
+    .ylad      ={.bits={.NBC_ANR_CEN_GAIN_LO_TH_LPF=1, .rsv_5=0, .NBC_ANR_CEN_GAIN_HI_TH_LPF=6, .rsv_13=0}},
+    .hf_act2   ={.bits={.NBC_ANR_Y_HF_ACT_Y4=32, .rsv_7=0, .NBC_ANR_Y_HF_ACT_SP4=0, .rsv_14=0}},
+    .hf_act3   ={.bits={.NBC_ANR_Y_HF_ACT_SP0=6, .rsv_6=0, .NBC_ANR_Y_HF_ACT_SP1=21, .rsv_14=0, .NBC_ANR_Y_HF_ACT_SP2=0, .rsv_22=0, .NBC_ANR_Y_HF_ACT_SP3=0, .rsv_30=0}},
+    .hf_luma0  ={.bits={.NBC_ANR_Y_HF_LUMA_X1=192, .NBC_ANR_Y_HF_LUMA_X2=224, .NBC_ANR_Y_HF_LUMA_Y0=0, .rsv_23=0, .NBC_ANR_Y_HF_LUMA_Y1=0, .rsv_31=0}},
+    .hf_luma1  ={.bits={.NBC_ANR_Y_HF_LUMA_Y2=4, .rsv_7=0, .NBC_ANR_Y_HF_LUMA_SP0=0, .rsv_13=0, .NBC_ANR_Y_HF_LUMA_SP1=1, .rsv_21=0, .NBC_ANR_Y_HF_LUMA_SP2=0, .rsv_29=0}},
+    .y4lut4    ={.bits={.NBC_ANR_Y_CPX5=255, .NBC_ANR_Y_CPX6=255, .NBC_ANR_Y_CPX7=255, .NBC_ANR_Y_CPX8=255}},
+    .y4lut5    ={.bits={.NBC_ANR_Y_SCALE_CPY4=8, .rsv_5=0, .NBC_ANR_Y_SCALE_CPY5=8, .rsv_13=0, .NBC_ANR_Y_SCALE_CPY6=8, .rsv_21=0, .NBC_ANR_Y_SCALE_CPY7=8, .rsv_29=0}},
+    .y4lut6    ={.bits={.NBC_ANR_Y_SCALE_SP4=0, .rsv_5=0, .NBC_ANR_Y_SCALE_SP5=0, .rsv_13=0, .NBC_ANR_Y_SCALE_SP6=0, .rsv_21=0, .NBC_ANR_Y_SCALE_SP7=0, .rsv_29=0}},
+    .y4lut7    ={.bits={.NBC_ANR_Y_SCALE_CPY8=8, .rsv_5=0, .NBC_ANR_Y_SCALE_SP8=0, .rsv_13=0}},
+    .a4lut1    ={.bits={.NBC_ANR_Y_ACT_CPX1=64, .NBC_ANR_Y_ACT_CPX2=128, .NBC_ANR_Y_ACT_CPX3=192, .rsv_24=0}}
+
+};
+const ISP_NVRAM_ANR_T ov16885mipiraw_NBC_ANR_0085 = {
+        .con1      ={.bits={.NBC_ANR_ENC=1, .NBC_ANR_ENY=1, .rsv_2=0, .NBC_ANR_Y_FLT0_IDX=0, .rsv_5=0, .NBC_ANR_Y_FLT1_IDX=1, .rsv_7=0, .NBC_ANR_Y_FLT2_IDX=2, .NBC_ANR_Y_FLT3_IDX=1, .NBC_ANR_ACT_LP_EN=0, .rsv_13=0, .NBC_ANR_TILE_EDGE=15, .NBC_ANR_LTM_LINK=1, .NBC_ANR_LTM_LUT_BYPASS=0, .rsv_22=0, .NBC_ANR_SL2_LINK=1, .rsv_25=0, .NBC_ANR_TABLE_EN=0, .NBC_ANR_TBL_PRC=0, .rsv_30=0}},
+    .con2      ={.bits={.NBC_ANR_IMPL_MODE=2, .rsv_2=0, .NBC_ANR_C_SM_EDGE=1, .rsv_10=0, .NBC_ANR_FLT_C=0, .rsv_13=0, .NBC_ANR_C_SM_EDGE_TH=4, .rsv_27=0}},
+    .yad1      ={.bits={.NBC_ANR_CEN_GAIN_LO_TH=3, .rsv_5=0, .NBC_ANR_CEN_GAIN_HI_TH=3, .rsv_13=0, .NBC_ANR_Y_SLOPE_V_TH=20, .NBC_ANR_Y_SLOPE_H_TH=16}},
+    .yad2      ={.bits={.NBC_ANR_Y_VERT_ACT_TH=7, .rsv_5=0, .NBC_ANR_PTY_GAIN_TH=0, .rsv_13=0, .NBC_ANR_Y_VERT_SIGMA=2, .rsv_24=0}},
+    .y4lut1    ={.bits={.NBC_ANR_Y_CPX1=34, .NBC_ANR_Y_CPX2=74, .NBC_ANR_Y_CPX3=160, .NBC_ANR_Y_CPX4=255}},
+    .y4lut2    ={.bits={.NBC_ANR_Y_SCALE_CPY0=16, .rsv_5=0, .NBC_ANR_Y_SCALE_CPY1=16, .rsv_13=0, .NBC_ANR_Y_SCALE_CPY2=16, .rsv_21=0, .NBC_ANR_Y_SCALE_CPY3=12, .rsv_29=0}},
+    .y4lut3    ={.bits={.NBC_ANR_Y_SCALE_SP0=0, .rsv_5=0, .NBC_ANR_Y_SCALE_SP1=0, .rsv_13=0, .NBC_ANR_Y_SCALE_SP2=26, .rsv_21=0, .NBC_ANR_Y_SCALE_SP3=28, .rsv_29=0}},
+    .c4lut1    ={.bits={.NBC_ANR_C_CPX1=40, .NBC_ANR_C_CPX2=100, .NBC_ANR_C_CPX3=160, .rsv_24=0}},
+    .c4lut2    ={.bits={.NBC_ANR_C_SCALE_CPY0=16, .rsv_5=0, .NBC_ANR_C_SCALE_CPY1=16, .rsv_13=0, .NBC_ANR_C_SCALE_CPY2=16, .rsv_21=0, .NBC_ANR_C_SCALE_CPY3=16, .rsv_29=0}},
+    .c4lut3    ={.bits={.NBC_ANR_C_SCALE_SP0=0, .rsv_5=0, .NBC_ANR_C_SCALE_SP1=0, .rsv_13=0, .NBC_ANR_C_SCALE_SP2=0, .rsv_21=0, .NBC_ANR_C_SCALE_SP3=0, .rsv_29=0}},
+    .a4lut2    ={.bits={.NBC_ANR_Y_ACT_CPY0=0, .NBC_ANR_Y_ACT_CPY1=0, .NBC_ANR_Y_ACT_CPY2=0, .NBC_ANR_Y_ACT_CPY3=0}},
+    .a4lut3    ={.bits={.NBC_ANR_Y_ACT_SP0=0, .rsv_6=0, .NBC_ANR_Y_ACT_SP1=0, .rsv_14=0, .NBC_ANR_Y_ACT_SP2=0, .rsv_22=0, .NBC_ANR_Y_ACT_SP3=0, .rsv_30=0}},
+    .l4lut1    ={.bits={.NBC_ANR_SL2_X1=64, .NBC_ANR_SL2_X2=128, .NBC_ANR_SL2_X3=192, .rsv_24=0}},
+    .l4lut2    ={.bits={.NBC_ANR_SL2_GAIN0=16, .rsv_6=0, .NBC_ANR_SL2_GAIN1=20, .rsv_14=0, .NBC_ANR_SL2_GAIN2=24, .rsv_22=0, .NBC_ANR_SL2_GAIN3=28, .rsv_30=0}},
+    .l4lut3    ={.bits={.NBC_ANR_SL2_SP0=8, .rsv_6=0, .NBC_ANR_SL2_SP1=8, .rsv_14=0, .NBC_ANR_SL2_SP2=8, .rsv_22=0, .NBC_ANR_SL2_SP3=0, .rsv_30=0}},
+    .pty0v     ={.bits={.NBC_ANR_Y_L0_V_RNG1=6, .NBC_ANR_Y_L0_V_RNG2=11, .NBC_ANR_Y_L0_V_RNG3=17, .NBC_ANR_Y_L0_V_RNG4=24}},
+    .cad       ={.bits={.rsv_0=0, .NBC_ANR_PTC_GAIN_TH=12, .rsv_13=0, .NBC_ANR_C_L_DIFF_TH=32, .rsv_24=0}},
+    .pty1v     ={.bits={.NBC_ANR_Y_L1_V_RNG1=6, .NBC_ANR_Y_L1_V_RNG2=11, .NBC_ANR_Y_L1_V_RNG3=17, .NBC_ANR_Y_L1_V_RNG4=24}},
+    .sl2       ={.bits={.NBC_ANR_SL2_C_GAIN=6, .NBC_ANR_SL2_SCALE_GAIN=0, .rsv_7=0}},
+    .pty2v     ={.bits={.NBC_ANR_Y_L2_V_RNG1=5, .NBC_ANR_Y_L2_V_RNG2=10, .NBC_ANR_Y_L2_V_RNG3=14, .NBC_ANR_Y_L2_V_RNG4=20}},
+    .pty3v     ={.bits={.NBC_ANR_Y_L3_V_RNG1=4, .NBC_ANR_Y_L3_V_RNG2=7, .NBC_ANR_Y_L3_V_RNG3=10, .NBC_ANR_Y_L3_V_RNG4=16}},
+    .pty0h     ={.bits={.NBC_ANR_Y_L0_H_RNG1=5, .NBC_ANR_Y_L0_H_RNG2=10, .NBC_ANR_Y_L0_H_RNG3=15, .NBC_ANR_Y_L0_H_RNG4=21}},
+    .pty1h     ={.bits={.NBC_ANR_Y_L1_H_RNG1=5, .NBC_ANR_Y_L1_H_RNG2=10, .NBC_ANR_Y_L1_H_RNG3=15, .NBC_ANR_Y_L1_H_RNG4=21}},
+    .pty2h     ={.bits={.NBC_ANR_Y_L2_H_RNG1=5, .NBC_ANR_Y_L2_H_RNG2=9, .NBC_ANR_Y_L2_H_RNG3=12, .NBC_ANR_Y_L2_H_RNG4=18}},
+    .t4lut1    ={.bits={.NBC_ANR_TBL_CPX1=40, .NBC_ANR_TBL_CPX2=120, .NBC_ANR_TBL_CPX3=160, .rsv_24=0}},
+    .t4lut2    ={.bits={.NBC_ANR_TBL_GAIN_CPY0=8, .rsv_5=0, .NBC_ANR_TBL_GAIN_CPY1=8, .rsv_13=0, .NBC_ANR_TBL_GAIN_CPY2=8, .rsv_21=0, .NBC_ANR_TBL_GAIN_CPY3=8, .rsv_29=0}},
+    .t4lut3    ={.bits={.NBC_ANR_TBL_GAIN_SP0=0, .rsv_5=0, .NBC_ANR_TBL_GAIN_SP1=0, .rsv_13=0, .NBC_ANR_TBL_GAIN_SP2=0, .rsv_21=0, .NBC_ANR_TBL_GAIN_SP3=0, .rsv_29=0}},
+    .act1      ={.bits={.NBC_ANR_ACT_SL2_GAIN=8, .rsv_4=0, .NBC_ANR_ACT_DIF_HI_TH=16, .rsv_13=0, .NBC_ANR_ACT_DIF_GAIN=0, .NBC_ANR_ACT_DIF_LO_TH=16, .rsv_29=0}},
+    .pty3h     ={.bits={.NBC_ANR_Y_L3_H_RNG1=4, .NBC_ANR_Y_L3_H_RNG2=6, .NBC_ANR_Y_L3_H_RNG3=9, .NBC_ANR_Y_L3_H_RNG4=14}},
+    .ptcv      ={.bits={.NBC_ANR_C_V_RNG1=4, .NBC_ANR_C_V_RNG2=9, .NBC_ANR_C_V_RNG3=13, .NBC_ANR_C_V_RNG4=18}},
+    .act4      ={.bits={.NBC_ANR_Y_ACT_CEN_OFT=32, .rsv_6=0, .NBC_ANR_Y_ACT_CEN_GAIN=0, .rsv_14=0, .NBC_ANR_Y_ACT_CEN_TH=32, .rsv_22=0}},
+    .ptch      ={.bits={.NBC_ANR_C_H_RNG1=4, .NBC_ANR_C_H_RNG2=8, .NBC_ANR_C_H_RNG3=12, .NBC_ANR_C_H_RNG4=16}},
+    .ylvl0     ={.bits={.NBC_ANR_Y_L0_RNG_RAT_TH=8, .NBC_ANR_Y_L1_RNG_RAT_TH=8, .NBC_ANR_Y_L2_RNG_RAT_TH=8, .NBC_ANR_Y_L3_RNG_RAT_TH=14, .NBC_ANR_Y_L0_RNG_RAT_SL=3, .rsv_18=0, .NBC_ANR_Y_L1_RNG_RAT_SL=3, .rsv_22=0, .NBC_ANR_Y_L2_RNG_RAT_SL=3, .rsv_26=0, .NBC_ANR_Y_L3_RNG_RAT_SL=3, .rsv_30=0}},
+    .ylvl1     ={.bits={.NBC_ANR_Y_L0_HF_W=16, .rsv_5=0, .NBC_ANR_Y_L1_HF_W=14, .rsv_13=0, .NBC_ANR_Y_L2_HF_W=13, .rsv_21=0, .NBC_ANR_Y_L3_HF_W=13, .rsv_29=0}},
+    .hf_cor    ={.bits={.NBC_ANR_Y_HF_CORE_TH=0, .NBC_ANR_Y_HF_CORE_SL=2, .rsv_10=0, .NBC_ANR_Y_HF_CLIP=255, .NBC_ANR_HF_BAL_MODE=2, .rsv_26=0}},
+    .hf_act0   ={.bits={.NBC_ANR_Y_HF_ACT_X1=20, .NBC_ANR_Y_HF_ACT_X2=26, .NBC_ANR_Y_HF_ACT_X3=32, .NBC_ANR_Y_HF_ACT_X4=40}},
+    .hf_act1   ={.bits={.NBC_ANR_Y_HF_ACT_Y0=0, .rsv_7=0, .NBC_ANR_Y_HF_ACT_Y1=16, .rsv_15=0, .NBC_ANR_Y_HF_ACT_Y2=32, .rsv_23=0, .NBC_ANR_Y_HF_ACT_Y3=40, .rsv_31=0}},
+    .actc      ={.bits={.rsv_0=0, .NBC_ANR_ACT_BLD_BASE_C=63, .rsv_15=0, .NBC_ANR_C_DITH_U=8, .rsv_21=0, .NBC_ANR_C_DITH_V=8, .rsv_29=0}},
+    .ylad      ={.bits={.NBC_ANR_CEN_GAIN_LO_TH_LPF=1, .rsv_5=0, .NBC_ANR_CEN_GAIN_HI_TH_LPF=6, .rsv_13=0}},
+    .hf_act2   ={.bits={.NBC_ANR_Y_HF_ACT_Y4=40, .rsv_7=0, .NBC_ANR_Y_HF_ACT_SP4=0, .rsv_14=0}},
+    .hf_act3   ={.bits={.NBC_ANR_Y_HF_ACT_SP0=6, .rsv_6=0, .NBC_ANR_Y_HF_ACT_SP1=21, .rsv_14=0, .NBC_ANR_Y_HF_ACT_SP2=10, .rsv_22=0, .NBC_ANR_Y_HF_ACT_SP3=0, .rsv_30=0}},
+    .hf_luma0  ={.bits={.NBC_ANR_Y_HF_LUMA_X1=64, .NBC_ANR_Y_HF_LUMA_X2=128, .NBC_ANR_Y_HF_LUMA_Y0=0, .rsv_23=0, .NBC_ANR_Y_HF_LUMA_Y1=0, .rsv_31=0}},
+    .hf_luma1  ={.bits={.NBC_ANR_Y_HF_LUMA_Y2=8, .rsv_7=0, .NBC_ANR_Y_HF_LUMA_SP0=0, .rsv_13=0, .NBC_ANR_Y_HF_LUMA_SP1=0, .rsv_21=0, .NBC_ANR_Y_HF_LUMA_SP2=0, .rsv_29=0}},
+    .y4lut4    ={.bits={.NBC_ANR_Y_CPX5=255, .NBC_ANR_Y_CPX6=255, .NBC_ANR_Y_CPX7=255, .NBC_ANR_Y_CPX8=255}},
+    .y4lut5    ={.bits={.NBC_ANR_Y_SCALE_CPY4=9, .rsv_5=0, .NBC_ANR_Y_SCALE_CPY5=9, .rsv_13=0, .NBC_ANR_Y_SCALE_CPY6=9, .rsv_21=0, .NBC_ANR_Y_SCALE_CPY7=9, .rsv_29=0}},
+    .y4lut6    ={.bits={.NBC_ANR_Y_SCALE_SP4=0, .rsv_5=0, .NBC_ANR_Y_SCALE_SP5=0, .rsv_13=0, .NBC_ANR_Y_SCALE_SP6=0, .rsv_21=0, .NBC_ANR_Y_SCALE_SP7=0, .rsv_29=0}},
+    .y4lut7    ={.bits={.NBC_ANR_Y_SCALE_CPY8=9, .rsv_5=0, .NBC_ANR_Y_SCALE_SP8=0, .rsv_13=0}},
+    .a4lut1    ={.bits={.NBC_ANR_Y_ACT_CPX1=34, .NBC_ANR_Y_ACT_CPX2=74, .NBC_ANR_Y_ACT_CPX3=160, .rsv_24=0}}
+
+};
+const ISP_NVRAM_ANR_T ov16885mipiraw_NBC_ANR_0086 = {
+        .con1      ={.bits={.NBC_ANR_ENC=1, .NBC_ANR_ENY=1, .rsv_2=0, .NBC_ANR_Y_FLT0_IDX=0, .rsv_5=0, .NBC_ANR_Y_FLT1_IDX=1, .rsv_7=0, .NBC_ANR_Y_FLT2_IDX=2, .NBC_ANR_Y_FLT3_IDX=2, .NBC_ANR_ACT_LP_EN=0, .rsv_13=0, .NBC_ANR_TILE_EDGE=15, .NBC_ANR_LTM_LINK=1, .NBC_ANR_LTM_LUT_BYPASS=0, .rsv_22=0, .NBC_ANR_SL2_LINK=1, .rsv_25=0, .NBC_ANR_TABLE_EN=0, .NBC_ANR_TBL_PRC=0, .rsv_30=0}},
+    .con2      ={.bits={.NBC_ANR_IMPL_MODE=2, .rsv_2=0, .NBC_ANR_C_SM_EDGE=1, .rsv_10=0, .NBC_ANR_FLT_C=0, .rsv_13=0, .NBC_ANR_C_SM_EDGE_TH=4, .rsv_27=0}},
+    .yad1      ={.bits={.NBC_ANR_CEN_GAIN_LO_TH=4, .rsv_5=0, .NBC_ANR_CEN_GAIN_HI_TH=4, .rsv_13=0, .NBC_ANR_Y_SLOPE_V_TH=20, .NBC_ANR_Y_SLOPE_H_TH=16}},
+    .yad2      ={.bits={.NBC_ANR_Y_VERT_ACT_TH=7, .rsv_5=0, .NBC_ANR_PTY_GAIN_TH=0, .rsv_13=0, .NBC_ANR_Y_VERT_SIGMA=2, .rsv_24=0}},
+    .y4lut1    ={.bits={.NBC_ANR_Y_CPX1=37, .NBC_ANR_Y_CPX2=87, .NBC_ANR_Y_CPX3=160, .NBC_ANR_Y_CPX4=255}},
+    .y4lut2    ={.bits={.NBC_ANR_Y_SCALE_CPY0=16, .rsv_5=0, .NBC_ANR_Y_SCALE_CPY1=16, .rsv_13=0, .NBC_ANR_Y_SCALE_CPY2=16, .rsv_21=0, .NBC_ANR_Y_SCALE_CPY3=12, .rsv_29=0}},
+    .y4lut3    ={.bits={.NBC_ANR_Y_SCALE_SP0=0, .rsv_5=0, .NBC_ANR_Y_SCALE_SP1=0, .rsv_13=0, .NBC_ANR_Y_SCALE_SP2=25, .rsv_21=0, .NBC_ANR_Y_SCALE_SP3=28, .rsv_29=0}},
+    .c4lut1    ={.bits={.NBC_ANR_C_CPX1=52, .NBC_ANR_C_CPX2=114, .NBC_ANR_C_CPX3=176, .rsv_24=0}},
+    .c4lut2    ={.bits={.NBC_ANR_C_SCALE_CPY0=10, .rsv_5=0, .NBC_ANR_C_SCALE_CPY1=12, .rsv_13=0, .NBC_ANR_C_SCALE_CPY2=16, .rsv_21=0, .NBC_ANR_C_SCALE_CPY3=16, .rsv_29=0}},
+    .c4lut3    ={.bits={.NBC_ANR_C_SCALE_SP0=5, .rsv_5=0, .NBC_ANR_C_SCALE_SP1=8, .rsv_13=0, .NBC_ANR_C_SCALE_SP2=0, .rsv_21=0, .NBC_ANR_C_SCALE_SP3=0, .rsv_29=0}},
+    .a4lut2    ={.bits={.NBC_ANR_Y_ACT_CPY0=0, .NBC_ANR_Y_ACT_CPY1=0, .NBC_ANR_Y_ACT_CPY2=0, .NBC_ANR_Y_ACT_CPY3=0}},
+    .a4lut3    ={.bits={.NBC_ANR_Y_ACT_SP0=0, .rsv_6=0, .NBC_ANR_Y_ACT_SP1=0, .rsv_14=0, .NBC_ANR_Y_ACT_SP2=0, .rsv_22=0, .NBC_ANR_Y_ACT_SP3=0, .rsv_30=0}},
+    .l4lut1    ={.bits={.NBC_ANR_SL2_X1=64, .NBC_ANR_SL2_X2=128, .NBC_ANR_SL2_X3=192, .rsv_24=0}},
+    .l4lut2    ={.bits={.NBC_ANR_SL2_GAIN0=16, .rsv_6=0, .NBC_ANR_SL2_GAIN1=19, .rsv_14=0, .NBC_ANR_SL2_GAIN2=24, .rsv_22=0, .NBC_ANR_SL2_GAIN3=30, .rsv_30=0}},
+    .l4lut3    ={.bits={.NBC_ANR_SL2_SP0=6, .rsv_6=0, .NBC_ANR_SL2_SP1=10, .rsv_14=0, .NBC_ANR_SL2_SP2=12, .rsv_22=0, .NBC_ANR_SL2_SP3=0, .rsv_30=0}},
+    .pty0v     ={.bits={.NBC_ANR_Y_L0_V_RNG1=6, .NBC_ANR_Y_L0_V_RNG2=11, .NBC_ANR_Y_L0_V_RNG3=17, .NBC_ANR_Y_L0_V_RNG4=24}},
+    .cad       ={.bits={.rsv_0=0, .NBC_ANR_PTC_GAIN_TH=14, .rsv_13=0, .NBC_ANR_C_L_DIFF_TH=36, .rsv_24=0}},
+    .pty1v     ={.bits={.NBC_ANR_Y_L1_V_RNG1=6, .NBC_ANR_Y_L1_V_RNG2=11, .NBC_ANR_Y_L1_V_RNG3=16, .NBC_ANR_Y_L1_V_RNG4=23}},
+    .sl2       ={.bits={.NBC_ANR_SL2_C_GAIN=5, .NBC_ANR_SL2_SCALE_GAIN=0, .rsv_7=0}},
+    .pty2v     ={.bits={.NBC_ANR_Y_L2_V_RNG1=5, .NBC_ANR_Y_L2_V_RNG2=9, .NBC_ANR_Y_L2_V_RNG3=13, .NBC_ANR_Y_L2_V_RNG4=19}},
+    .pty3v     ={.bits={.NBC_ANR_Y_L3_V_RNG1=4, .NBC_ANR_Y_L3_V_RNG2=7, .NBC_ANR_Y_L3_V_RNG3=10, .NBC_ANR_Y_L3_V_RNG4=15}},
+    .pty0h     ={.bits={.NBC_ANR_Y_L0_H_RNG1=5, .NBC_ANR_Y_L0_H_RNG2=10, .NBC_ANR_Y_L0_H_RNG3=15, .NBC_ANR_Y_L0_H_RNG4=21}},
+    .pty1h     ={.bits={.NBC_ANR_Y_L1_H_RNG1=5, .NBC_ANR_Y_L1_H_RNG2=10, .NBC_ANR_Y_L1_H_RNG3=14, .NBC_ANR_Y_L1_H_RNG4=20}},
+    .pty2h     ={.bits={.NBC_ANR_Y_L2_H_RNG1=5, .NBC_ANR_Y_L2_H_RNG2=8, .NBC_ANR_Y_L2_H_RNG3=12, .NBC_ANR_Y_L2_H_RNG4=17}},
+    .t4lut1    ={.bits={.NBC_ANR_TBL_CPX1=52, .NBC_ANR_TBL_CPX2=124, .NBC_ANR_TBL_CPX3=176, .rsv_24=0}},
+    .t4lut2    ={.bits={.NBC_ANR_TBL_GAIN_CPY0=6, .rsv_5=0, .NBC_ANR_TBL_GAIN_CPY1=8, .rsv_13=0, .NBC_ANR_TBL_GAIN_CPY2=12, .rsv_21=0, .NBC_ANR_TBL_GAIN_CPY3=16, .rsv_29=0}},
+    .t4lut3    ={.bits={.NBC_ANR_TBL_GAIN_SP0=5, .rsv_5=0, .NBC_ANR_TBL_GAIN_SP1=7, .rsv_13=0, .NBC_ANR_TBL_GAIN_SP2=10, .rsv_21=0, .NBC_ANR_TBL_GAIN_SP3=0, .rsv_29=0}},
+    .act1      ={.bits={.NBC_ANR_ACT_SL2_GAIN=8, .rsv_4=0, .NBC_ANR_ACT_DIF_HI_TH=16, .rsv_13=0, .NBC_ANR_ACT_DIF_GAIN=0, .NBC_ANR_ACT_DIF_LO_TH=16, .rsv_29=0}},
+    .pty3h     ={.bits={.NBC_ANR_Y_L3_H_RNG1=4, .NBC_ANR_Y_L3_H_RNG2=6, .NBC_ANR_Y_L3_H_RNG3=9, .NBC_ANR_Y_L3_H_RNG4=13}},
+    .ptcv      ={.bits={.NBC_ANR_C_V_RNG1=4, .NBC_ANR_C_V_RNG2=9, .NBC_ANR_C_V_RNG3=13, .NBC_ANR_C_V_RNG4=18}},
+    .act4      ={.bits={.NBC_ANR_Y_ACT_CEN_OFT=32, .rsv_6=0, .NBC_ANR_Y_ACT_CEN_GAIN=0, .rsv_14=0, .NBC_ANR_Y_ACT_CEN_TH=32, .rsv_22=0}},
+    .ptch      ={.bits={.NBC_ANR_C_H_RNG1=4, .NBC_ANR_C_H_RNG2=8, .NBC_ANR_C_H_RNG3=12, .NBC_ANR_C_H_RNG4=16}},
+    .ylvl0     ={.bits={.NBC_ANR_Y_L0_RNG_RAT_TH=8, .NBC_ANR_Y_L1_RNG_RAT_TH=8, .NBC_ANR_Y_L2_RNG_RAT_TH=8, .NBC_ANR_Y_L3_RNG_RAT_TH=14, .NBC_ANR_Y_L0_RNG_RAT_SL=3, .rsv_18=0, .NBC_ANR_Y_L1_RNG_RAT_SL=3, .rsv_22=0, .NBC_ANR_Y_L2_RNG_RAT_SL=3, .rsv_26=0, .NBC_ANR_Y_L3_RNG_RAT_SL=3, .rsv_30=0}},
+    .ylvl1     ={.bits={.NBC_ANR_Y_L0_HF_W=16, .rsv_5=0, .NBC_ANR_Y_L1_HF_W=15, .rsv_13=0, .NBC_ANR_Y_L2_HF_W=15, .rsv_21=0, .NBC_ANR_Y_L3_HF_W=15, .rsv_29=0}},
+    .hf_cor    ={.bits={.NBC_ANR_Y_HF_CORE_TH=0, .NBC_ANR_Y_HF_CORE_SL=2, .rsv_10=0, .NBC_ANR_Y_HF_CLIP=255, .NBC_ANR_HF_BAL_MODE=2, .rsv_26=0}},
+    .hf_act0   ={.bits={.NBC_ANR_Y_HF_ACT_X1=20, .NBC_ANR_Y_HF_ACT_X2=26, .NBC_ANR_Y_HF_ACT_X3=32, .NBC_ANR_Y_HF_ACT_X4=40}},
+    .hf_act1   ={.bits={.NBC_ANR_Y_HF_ACT_Y0=20, .rsv_7=0, .NBC_ANR_Y_HF_ACT_Y1=24, .rsv_15=0, .NBC_ANR_Y_HF_ACT_Y2=26, .rsv_23=0, .NBC_ANR_Y_HF_ACT_Y3=26, .rsv_31=0}},
+    .actc      ={.bits={.rsv_0=0, .NBC_ANR_ACT_BLD_BASE_C=64, .rsv_15=0, .NBC_ANR_C_DITH_U=8, .rsv_21=0, .NBC_ANR_C_DITH_V=8, .rsv_29=0}},
+    .ylad      ={.bits={.NBC_ANR_CEN_GAIN_LO_TH_LPF=3, .rsv_5=0, .NBC_ANR_CEN_GAIN_HI_TH_LPF=5, .rsv_13=0}},
+    .hf_act2   ={.bits={.NBC_ANR_Y_HF_ACT_Y4=24, .rsv_7=0, .NBC_ANR_Y_HF_ACT_SP4=0, .rsv_14=0}},
+    .hf_act3   ={.bits={.NBC_ANR_Y_HF_ACT_SP0=1, .rsv_6=0, .NBC_ANR_Y_HF_ACT_SP1=2, .rsv_14=0, .NBC_ANR_Y_HF_ACT_SP2=0, .rsv_22=0, .NBC_ANR_Y_HF_ACT_SP3=62, .rsv_30=0}},
+    .hf_luma0  ={.bits={.NBC_ANR_Y_HF_LUMA_X1=32, .NBC_ANR_Y_HF_LUMA_X2=64, .NBC_ANR_Y_HF_LUMA_Y0=0, .rsv_23=0, .NBC_ANR_Y_HF_LUMA_Y1=0, .rsv_31=0}},
+    .hf_luma1  ={.bits={.NBC_ANR_Y_HF_LUMA_Y2=4, .rsv_7=0, .NBC_ANR_Y_HF_LUMA_SP0=0, .rsv_13=0, .NBC_ANR_Y_HF_LUMA_SP1=1, .rsv_21=0, .NBC_ANR_Y_HF_LUMA_SP2=0, .rsv_29=0}},
+    .y4lut4    ={.bits={.NBC_ANR_Y_CPX5=255, .NBC_ANR_Y_CPX6=255, .NBC_ANR_Y_CPX7=255, .NBC_ANR_Y_CPX8=255}},
+    .y4lut5    ={.bits={.NBC_ANR_Y_SCALE_CPY4=9, .rsv_5=0, .NBC_ANR_Y_SCALE_CPY5=9, .rsv_13=0, .NBC_ANR_Y_SCALE_CPY6=9, .rsv_21=0, .NBC_ANR_Y_SCALE_CPY7=9, .rsv_29=0}},
+    .y4lut6    ={.bits={.NBC_ANR_Y_SCALE_SP4=0, .rsv_5=0, .NBC_ANR_Y_SCALE_SP5=0, .rsv_13=0, .NBC_ANR_Y_SCALE_SP6=0, .rsv_21=0, .NBC_ANR_Y_SCALE_SP7=0, .rsv_29=0}},
+    .y4lut7    ={.bits={.NBC_ANR_Y_SCALE_CPY8=9, .rsv_5=0, .NBC_ANR_Y_SCALE_SP8=0, .rsv_13=0}},
+    .a4lut1    ={.bits={.NBC_ANR_Y_ACT_CPX1=37, .NBC_ANR_Y_ACT_CPX2=87, .NBC_ANR_Y_ACT_CPX3=160, .rsv_24=0}}
+
+};
+const ISP_NVRAM_ANR_T ov16885mipiraw_NBC_ANR_0087 = {
+        .con1      ={.bits={.NBC_ANR_ENC=1, .NBC_ANR_ENY=1, .rsv_2=0, .NBC_ANR_Y_FLT0_IDX=0, .rsv_5=0, .NBC_ANR_Y_FLT1_IDX=1, .rsv_7=0, .NBC_ANR_Y_FLT2_IDX=2, .NBC_ANR_Y_FLT3_IDX=3, .NBC_ANR_ACT_LP_EN=0, .rsv_13=0, .NBC_ANR_TILE_EDGE=15, .NBC_ANR_LTM_LINK=1, .NBC_ANR_LTM_LUT_BYPASS=0, .rsv_22=0, .NBC_ANR_SL2_LINK=1, .rsv_25=0, .NBC_ANR_TABLE_EN=0, .NBC_ANR_TBL_PRC=0, .rsv_30=0}},
+    .con2      ={.bits={.NBC_ANR_IMPL_MODE=2, .rsv_2=0, .NBC_ANR_C_SM_EDGE=1, .rsv_10=0, .NBC_ANR_FLT_C=0, .rsv_13=0, .NBC_ANR_C_SM_EDGE_TH=4, .rsv_27=0}},
+    .yad1      ={.bits={.NBC_ANR_CEN_GAIN_LO_TH=4, .rsv_5=0, .NBC_ANR_CEN_GAIN_HI_TH=4, .rsv_13=0, .NBC_ANR_Y_SLOPE_V_TH=20, .NBC_ANR_Y_SLOPE_H_TH=16}},
+    .yad2      ={.bits={.NBC_ANR_Y_VERT_ACT_TH=7, .rsv_5=0, .NBC_ANR_PTY_GAIN_TH=0, .rsv_13=0, .NBC_ANR_Y_VERT_SIGMA=2, .rsv_24=0}},
+    .y4lut1    ={.bits={.NBC_ANR_Y_CPX1=40, .NBC_ANR_Y_CPX2=100, .NBC_ANR_Y_CPX3=160, .NBC_ANR_Y_CPX4=255}},
+    .y4lut2    ={.bits={.NBC_ANR_Y_SCALE_CPY0=16, .rsv_5=0, .NBC_ANR_Y_SCALE_CPY1=16, .rsv_13=0, .NBC_ANR_Y_SCALE_CPY2=16, .rsv_21=0, .NBC_ANR_Y_SCALE_CPY3=12, .rsv_29=0}},
+    .y4lut3    ={.bits={.NBC_ANR_Y_SCALE_SP0=0, .rsv_5=0, .NBC_ANR_Y_SCALE_SP1=0, .rsv_13=0, .NBC_ANR_Y_SCALE_SP2=24, .rsv_21=0, .NBC_ANR_Y_SCALE_SP3=28, .rsv_29=0}},
+    .c4lut1    ={.bits={.NBC_ANR_C_CPX1=64, .NBC_ANR_C_CPX2=128, .NBC_ANR_C_CPX3=192, .rsv_24=0}},
+    .c4lut2    ={.bits={.NBC_ANR_C_SCALE_CPY0=4, .rsv_5=0, .NBC_ANR_C_SCALE_CPY1=8, .rsv_13=0, .NBC_ANR_C_SCALE_CPY2=16, .rsv_21=0, .NBC_ANR_C_SCALE_CPY3=16, .rsv_29=0}},
+    .c4lut3    ={.bits={.NBC_ANR_C_SCALE_SP0=0, .rsv_5=0, .NBC_ANR_C_SCALE_SP1=0, .rsv_13=0, .NBC_ANR_C_SCALE_SP2=0, .rsv_21=0, .NBC_ANR_C_SCALE_SP3=0, .rsv_29=0}},
+    .a4lut2    ={.bits={.NBC_ANR_Y_ACT_CPY0=0, .NBC_ANR_Y_ACT_CPY1=0, .NBC_ANR_Y_ACT_CPY2=0, .NBC_ANR_Y_ACT_CPY3=0}},
+    .a4lut3    ={.bits={.NBC_ANR_Y_ACT_SP0=0, .rsv_6=0, .NBC_ANR_Y_ACT_SP1=0, .rsv_14=0, .NBC_ANR_Y_ACT_SP2=0, .rsv_22=0, .NBC_ANR_Y_ACT_SP3=0, .rsv_30=0}},
+    .l4lut1    ={.bits={.NBC_ANR_SL2_X1=64, .NBC_ANR_SL2_X2=128, .NBC_ANR_SL2_X3=192, .rsv_24=0}},
+    .l4lut2    ={.bits={.NBC_ANR_SL2_GAIN0=16, .rsv_6=0, .NBC_ANR_SL2_GAIN1=18, .rsv_14=0, .NBC_ANR_SL2_GAIN2=24, .rsv_22=0, .NBC_ANR_SL2_GAIN3=32, .rsv_30=0}},
+    .l4lut3    ={.bits={.NBC_ANR_SL2_SP0=4, .rsv_6=0, .NBC_ANR_SL2_SP1=12, .rsv_14=0, .NBC_ANR_SL2_SP2=15, .rsv_22=0, .NBC_ANR_SL2_SP3=0, .rsv_30=0}},
+    .pty0v     ={.bits={.NBC_ANR_Y_L0_V_RNG1=6, .NBC_ANR_Y_L0_V_RNG2=11, .NBC_ANR_Y_L0_V_RNG3=17, .NBC_ANR_Y_L0_V_RNG4=24}},
+    .cad       ={.bits={.rsv_0=0, .NBC_ANR_PTC_GAIN_TH=16, .rsv_13=0, .NBC_ANR_C_L_DIFF_TH=40, .rsv_24=0}},
+    .pty1v     ={.bits={.NBC_ANR_Y_L1_V_RNG1=5, .NBC_ANR_Y_L1_V_RNG2=10, .NBC_ANR_Y_L1_V_RNG3=14, .NBC_ANR_Y_L1_V_RNG4=21}},
+    .sl2       ={.bits={.NBC_ANR_SL2_C_GAIN=4, .NBC_ANR_SL2_SCALE_GAIN=0, .rsv_7=0}},
+    .pty2v     ={.bits={.NBC_ANR_Y_L2_V_RNG1=4, .NBC_ANR_Y_L2_V_RNG2=8, .NBC_ANR_Y_L2_V_RNG3=12, .NBC_ANR_Y_L2_V_RNG4=17}},
+    .pty3v     ={.bits={.NBC_ANR_Y_L3_V_RNG1=3, .NBC_ANR_Y_L3_V_RNG2=6, .NBC_ANR_Y_L3_V_RNG3=9, .NBC_ANR_Y_L3_V_RNG4=13}},
+    .pty0h     ={.bits={.NBC_ANR_Y_L0_H_RNG1=5, .NBC_ANR_Y_L0_H_RNG2=10, .NBC_ANR_Y_L0_H_RNG3=15, .NBC_ANR_Y_L0_H_RNG4=21}},
+    .pty1h     ={.bits={.NBC_ANR_Y_L1_H_RNG1=5, .NBC_ANR_Y_L1_H_RNG2=9, .NBC_ANR_Y_L1_H_RNG3=13, .NBC_ANR_Y_L1_H_RNG4=18}},
+    .pty2h     ={.bits={.NBC_ANR_Y_L2_H_RNG1=4, .NBC_ANR_Y_L2_H_RNG2=7, .NBC_ANR_Y_L2_H_RNG3=11, .NBC_ANR_Y_L2_H_RNG4=15}},
+    .t4lut1    ={.bits={.NBC_ANR_TBL_CPX1=64, .NBC_ANR_TBL_CPX2=128, .NBC_ANR_TBL_CPX3=192, .rsv_24=0}},
+    .t4lut2    ={.bits={.NBC_ANR_TBL_GAIN_CPY0=4, .rsv_5=0, .NBC_ANR_TBL_GAIN_CPY1=8, .rsv_13=0, .NBC_ANR_TBL_GAIN_CPY2=16, .rsv_21=0, .NBC_ANR_TBL_GAIN_CPY3=24, .rsv_29=0}},
+    .t4lut3    ={.bits={.NBC_ANR_TBL_GAIN_SP0=0, .rsv_5=0, .NBC_ANR_TBL_GAIN_SP1=0, .rsv_13=0, .NBC_ANR_TBL_GAIN_SP2=0, .rsv_21=0, .NBC_ANR_TBL_GAIN_SP3=0, .rsv_29=0}},
+    .act1      ={.bits={.NBC_ANR_ACT_SL2_GAIN=8, .rsv_4=0, .NBC_ANR_ACT_DIF_HI_TH=16, .rsv_13=0, .NBC_ANR_ACT_DIF_GAIN=0, .NBC_ANR_ACT_DIF_LO_TH=16, .rsv_29=0}},
+    .pty3h     ={.bits={.NBC_ANR_Y_L3_H_RNG1=3, .NBC_ANR_Y_L3_H_RNG2=6, .NBC_ANR_Y_L3_H_RNG3=8, .NBC_ANR_Y_L3_H_RNG4=12}},
+    .ptcv      ={.bits={.NBC_ANR_C_V_RNG1=4, .NBC_ANR_C_V_RNG2=9, .NBC_ANR_C_V_RNG3=12, .NBC_ANR_C_V_RNG4=16}},
+    .act4      ={.bits={.NBC_ANR_Y_ACT_CEN_OFT=32, .rsv_6=0, .NBC_ANR_Y_ACT_CEN_GAIN=0, .rsv_14=0, .NBC_ANR_Y_ACT_CEN_TH=32, .rsv_22=0}},
+    .ptch      ={.bits={.NBC_ANR_C_H_RNG1=4, .NBC_ANR_C_H_RNG2=8, .NBC_ANR_C_H_RNG3=11, .NBC_ANR_C_H_RNG4=15}},
+    .ylvl0     ={.bits={.NBC_ANR_Y_L0_RNG_RAT_TH=8, .NBC_ANR_Y_L1_RNG_RAT_TH=8, .NBC_ANR_Y_L2_RNG_RAT_TH=8, .NBC_ANR_Y_L3_RNG_RAT_TH=14, .NBC_ANR_Y_L0_RNG_RAT_SL=3, .rsv_18=0, .NBC_ANR_Y_L1_RNG_RAT_SL=3, .rsv_22=0, .NBC_ANR_Y_L2_RNG_RAT_SL=3, .rsv_26=0, .NBC_ANR_Y_L3_RNG_RAT_SL=3, .rsv_30=0}},
+    .ylvl1     ={.bits={.NBC_ANR_Y_L0_HF_W=16, .rsv_5=0, .NBC_ANR_Y_L1_HF_W=16, .rsv_13=0, .NBC_ANR_Y_L2_HF_W=16, .rsv_21=0, .NBC_ANR_Y_L3_HF_W=16, .rsv_29=0}},
+    .hf_cor    ={.bits={.NBC_ANR_Y_HF_CORE_TH=0, .NBC_ANR_Y_HF_CORE_SL=2, .rsv_10=0, .NBC_ANR_Y_HF_CLIP=255, .NBC_ANR_HF_BAL_MODE=2, .rsv_26=0}},
+    .hf_act0   ={.bits={.NBC_ANR_Y_HF_ACT_X1=20, .NBC_ANR_Y_HF_ACT_X2=26, .NBC_ANR_Y_HF_ACT_X3=32, .NBC_ANR_Y_HF_ACT_X4=40}},
+    .hf_act1   ={.bits={.NBC_ANR_Y_HF_ACT_Y0=40, .rsv_7=0, .NBC_ANR_Y_HF_ACT_Y1=32, .rsv_15=0, .NBC_ANR_Y_HF_ACT_Y2=20, .rsv_23=0, .NBC_ANR_Y_HF_ACT_Y3=12, .rsv_31=0}},
+    .actc      ={.bits={.rsv_0=0, .NBC_ANR_ACT_BLD_BASE_C=64, .rsv_15=0, .NBC_ANR_C_DITH_U=8, .rsv_21=0, .NBC_ANR_C_DITH_V=8, .rsv_29=0}},
+    .ylad      ={.bits={.NBC_ANR_CEN_GAIN_LO_TH_LPF=4, .rsv_5=0, .NBC_ANR_CEN_GAIN_HI_TH_LPF=4, .rsv_13=0}},
+    .hf_act2   ={.bits={.NBC_ANR_Y_HF_ACT_Y4=8, .rsv_7=0, .NBC_ANR_Y_HF_ACT_SP4=0, .rsv_14=0}},
+    .hf_act3   ={.bits={.NBC_ANR_Y_HF_ACT_SP0=61, .rsv_6=0, .NBC_ANR_Y_HF_ACT_SP1=48, .rsv_14=0, .NBC_ANR_Y_HF_ACT_SP2=54, .rsv_22=0, .NBC_ANR_Y_HF_ACT_SP3=60, .rsv_30=0}},
+    .hf_luma0  ={.bits={.NBC_ANR_Y_HF_LUMA_X1=0, .NBC_ANR_Y_HF_LUMA_X2=0, .NBC_ANR_Y_HF_LUMA_Y0=0, .rsv_23=0, .NBC_ANR_Y_HF_LUMA_Y1=0, .rsv_31=0}},
+    .hf_luma1  ={.bits={.NBC_ANR_Y_HF_LUMA_Y2=0, .rsv_7=0, .NBC_ANR_Y_HF_LUMA_SP0=0, .rsv_13=0, .NBC_ANR_Y_HF_LUMA_SP1=2, .rsv_21=0, .NBC_ANR_Y_HF_LUMA_SP2=0, .rsv_29=0}},
+    .y4lut4    ={.bits={.NBC_ANR_Y_CPX5=255, .NBC_ANR_Y_CPX6=255, .NBC_ANR_Y_CPX7=255, .NBC_ANR_Y_CPX8=255}},
+    .y4lut5    ={.bits={.NBC_ANR_Y_SCALE_CPY4=9, .rsv_5=0, .NBC_ANR_Y_SCALE_CPY5=9, .rsv_13=0, .NBC_ANR_Y_SCALE_CPY6=9, .rsv_21=0, .NBC_ANR_Y_SCALE_CPY7=9, .rsv_29=0}},
+    .y4lut6    ={.bits={.NBC_ANR_Y_SCALE_SP4=0, .rsv_5=0, .NBC_ANR_Y_SCALE_SP5=0, .rsv_13=0, .NBC_ANR_Y_SCALE_SP6=0, .rsv_21=0, .NBC_ANR_Y_SCALE_SP7=0, .rsv_29=0}},
+    .y4lut7    ={.bits={.NBC_ANR_Y_SCALE_CPY8=9, .rsv_5=0, .NBC_ANR_Y_SCALE_SP8=0, .rsv_13=0}},
+    .a4lut1    ={.bits={.NBC_ANR_Y_ACT_CPX1=40, .NBC_ANR_Y_ACT_CPX2=100, .NBC_ANR_Y_ACT_CPX3=160, .rsv_24=0}}
+
+};
+const ISP_NVRAM_ANR_T ov16885mipiraw_NBC_ANR_0088 = {
+        .con1      ={.bits={.NBC_ANR_ENC=1, .NBC_ANR_ENY=1, .rsv_2=0, .NBC_ANR_Y_FLT0_IDX=0, .rsv_5=0, .NBC_ANR_Y_FLT1_IDX=1, .rsv_7=0, .NBC_ANR_Y_FLT2_IDX=2, .NBC_ANR_Y_FLT3_IDX=3, .NBC_ANR_ACT_LP_EN=0, .rsv_13=0, .NBC_ANR_TILE_EDGE=15, .NBC_ANR_LTM_LINK=1, .NBC_ANR_LTM_LUT_BYPASS=0, .rsv_22=0, .NBC_ANR_SL2_LINK=1, .rsv_25=0, .NBC_ANR_TABLE_EN=0, .NBC_ANR_TBL_PRC=0, .rsv_30=0}},
+    .con2      ={.bits={.NBC_ANR_IMPL_MODE=2, .rsv_2=0, .NBC_ANR_C_SM_EDGE=0, .rsv_10=0, .NBC_ANR_FLT_C=0, .rsv_13=0, .NBC_ANR_C_SM_EDGE_TH=4, .rsv_27=0}},
+    .yad1      ={.bits={.NBC_ANR_CEN_GAIN_LO_TH=7, .rsv_5=0, .NBC_ANR_CEN_GAIN_HI_TH=7, .rsv_13=0, .NBC_ANR_Y_SLOPE_V_TH=17, .NBC_ANR_Y_SLOPE_H_TH=14}},
+    .yad2      ={.bits={.NBC_ANR_Y_VERT_ACT_TH=7, .rsv_5=0, .NBC_ANR_PTY_GAIN_TH=0, .rsv_13=0, .NBC_ANR_Y_VERT_SIGMA=2, .rsv_24=0}},
+    .y4lut1    ={.bits={.NBC_ANR_Y_CPX1=32, .NBC_ANR_Y_CPX2=64, .NBC_ANR_Y_CPX3=96, .NBC_ANR_Y_CPX4=128}},
+    .y4lut2    ={.bits={.NBC_ANR_Y_SCALE_CPY0=10, .rsv_5=0, .NBC_ANR_Y_SCALE_CPY1=13, .rsv_13=0, .NBC_ANR_Y_SCALE_CPY2=16, .rsv_21=0, .NBC_ANR_Y_SCALE_CPY3=16, .rsv_29=0}},
+    .y4lut3    ={.bits={.NBC_ANR_Y_SCALE_SP0=12, .rsv_5=0, .NBC_ANR_Y_SCALE_SP1=12, .rsv_13=0, .NBC_ANR_Y_SCALE_SP2=0, .rsv_21=0, .NBC_ANR_Y_SCALE_SP3=0, .rsv_29=0}},
+    .c4lut1    ={.bits={.NBC_ANR_C_CPX1=64, .NBC_ANR_C_CPX2=128, .NBC_ANR_C_CPX3=192, .rsv_24=0}},
+    .c4lut2    ={.bits={.NBC_ANR_C_SCALE_CPY0=4, .rsv_5=0, .NBC_ANR_C_SCALE_CPY1=8, .rsv_13=0, .NBC_ANR_C_SCALE_CPY2=16, .rsv_21=0, .NBC_ANR_C_SCALE_CPY3=16, .rsv_29=0}},
+    .c4lut3    ={.bits={.NBC_ANR_C_SCALE_SP0=8, .rsv_5=0, .NBC_ANR_C_SCALE_SP1=15, .rsv_13=0, .NBC_ANR_C_SCALE_SP2=0, .rsv_21=0, .NBC_ANR_C_SCALE_SP3=0, .rsv_29=0}},
+    .a4lut2    ={.bits={.NBC_ANR_Y_ACT_CPY0=0, .NBC_ANR_Y_ACT_CPY1=0, .NBC_ANR_Y_ACT_CPY2=0, .NBC_ANR_Y_ACT_CPY3=0}},
+    .a4lut3    ={.bits={.NBC_ANR_Y_ACT_SP0=0, .rsv_6=0, .NBC_ANR_Y_ACT_SP1=0, .rsv_14=0, .NBC_ANR_Y_ACT_SP2=0, .rsv_22=0, .NBC_ANR_Y_ACT_SP3=0, .rsv_30=0}},
+    .l4lut1    ={.bits={.NBC_ANR_SL2_X1=64, .NBC_ANR_SL2_X2=128, .NBC_ANR_SL2_X3=192, .rsv_24=0}},
+    .l4lut2    ={.bits={.NBC_ANR_SL2_GAIN0=16, .rsv_6=0, .NBC_ANR_SL2_GAIN1=16, .rsv_14=0, .NBC_ANR_SL2_GAIN2=20, .rsv_22=0, .NBC_ANR_SL2_GAIN3=28, .rsv_30=0}},
+    .l4lut3    ={.bits={.NBC_ANR_SL2_SP0=4, .rsv_6=0, .NBC_ANR_SL2_SP1=12, .rsv_14=0, .NBC_ANR_SL2_SP2=15, .rsv_22=0, .NBC_ANR_SL2_SP3=0, .rsv_30=0}},
+    .pty0v     ={.bits={.NBC_ANR_Y_L0_V_RNG1=9, .NBC_ANR_Y_L0_V_RNG2=17, .NBC_ANR_Y_L0_V_RNG3=24, .NBC_ANR_Y_L0_V_RNG4=35}},
+    .cad       ={.bits={.rsv_0=0, .NBC_ANR_PTC_GAIN_TH=16, .rsv_13=0, .NBC_ANR_C_L_DIFF_TH=40, .rsv_24=0}},
+    .pty1v     ={.bits={.NBC_ANR_Y_L1_V_RNG1=7, .NBC_ANR_Y_L1_V_RNG2=13, .NBC_ANR_Y_L1_V_RNG3=19, .NBC_ANR_Y_L1_V_RNG4=28}},
+    .sl2       ={.bits={.NBC_ANR_SL2_C_GAIN=4, .NBC_ANR_SL2_SCALE_GAIN=0, .rsv_7=0}},
+    .pty2v     ={.bits={.NBC_ANR_Y_L2_V_RNG1=5, .NBC_ANR_Y_L2_V_RNG2=10, .NBC_ANR_Y_L2_V_RNG3=14, .NBC_ANR_Y_L2_V_RNG4=21}},
+    .pty3v     ={.bits={.NBC_ANR_Y_L3_V_RNG1=4, .NBC_ANR_Y_L3_V_RNG2=7, .NBC_ANR_Y_L3_V_RNG3=9, .NBC_ANR_Y_L3_V_RNG4=14}},
+    .pty0h     ={.bits={.NBC_ANR_Y_L0_H_RNG1=8, .NBC_ANR_Y_L0_H_RNG2=15, .NBC_ANR_Y_L0_H_RNG3=21, .NBC_ANR_Y_L0_H_RNG4=31}},
+    .pty1h     ={.bits={.NBC_ANR_Y_L1_H_RNG1=6, .NBC_ANR_Y_L1_H_RNG2=12, .NBC_ANR_Y_L1_H_RNG3=17, .NBC_ANR_Y_L1_H_RNG4=25}},
+    .pty2h     ={.bits={.NBC_ANR_Y_L2_H_RNG1=5, .NBC_ANR_Y_L2_H_RNG2=9, .NBC_ANR_Y_L2_H_RNG3=13, .NBC_ANR_Y_L2_H_RNG4=18}},
+    .t4lut1    ={.bits={.NBC_ANR_TBL_CPX1=64, .NBC_ANR_TBL_CPX2=128, .NBC_ANR_TBL_CPX3=192, .rsv_24=0}},
+    .t4lut2    ={.bits={.NBC_ANR_TBL_GAIN_CPY0=4, .rsv_5=0, .NBC_ANR_TBL_GAIN_CPY1=8, .rsv_13=0, .NBC_ANR_TBL_GAIN_CPY2=16, .rsv_21=0, .NBC_ANR_TBL_GAIN_CPY3=24, .rsv_29=0}},
+    .t4lut3    ={.bits={.NBC_ANR_TBL_GAIN_SP0=8, .rsv_5=0, .NBC_ANR_TBL_GAIN_SP1=15, .rsv_13=0, .NBC_ANR_TBL_GAIN_SP2=15, .rsv_21=0, .NBC_ANR_TBL_GAIN_SP3=0, .rsv_29=0}},
+    .act1      ={.bits={.NBC_ANR_ACT_SL2_GAIN=8, .rsv_4=0, .NBC_ANR_ACT_DIF_HI_TH=16, .rsv_13=0, .NBC_ANR_ACT_DIF_GAIN=0, .NBC_ANR_ACT_DIF_LO_TH=16, .rsv_29=0}},
+    .pty3h     ={.bits={.NBC_ANR_Y_L3_H_RNG1=3, .NBC_ANR_Y_L3_H_RNG2=6, .NBC_ANR_Y_L3_H_RNG3=8, .NBC_ANR_Y_L3_H_RNG4=12}},
+    .ptcv      ={.bits={.NBC_ANR_C_V_RNG1=4, .NBC_ANR_C_V_RNG2=9, .NBC_ANR_C_V_RNG3=12, .NBC_ANR_C_V_RNG4=16}},
+    .act4      ={.bits={.NBC_ANR_Y_ACT_CEN_OFT=32, .rsv_6=0, .NBC_ANR_Y_ACT_CEN_GAIN=0, .rsv_14=0, .NBC_ANR_Y_ACT_CEN_TH=32, .rsv_22=0}},
+    .ptch      ={.bits={.NBC_ANR_C_H_RNG1=4, .NBC_ANR_C_H_RNG2=8, .NBC_ANR_C_H_RNG3=11, .NBC_ANR_C_H_RNG4=15}},
+    .ylvl0     ={.bits={.NBC_ANR_Y_L0_RNG_RAT_TH=8, .NBC_ANR_Y_L1_RNG_RAT_TH=8, .NBC_ANR_Y_L2_RNG_RAT_TH=8, .NBC_ANR_Y_L3_RNG_RAT_TH=14, .NBC_ANR_Y_L0_RNG_RAT_SL=3, .rsv_18=0, .NBC_ANR_Y_L1_RNG_RAT_SL=3, .rsv_22=0, .NBC_ANR_Y_L2_RNG_RAT_SL=3, .rsv_26=0, .NBC_ANR_Y_L3_RNG_RAT_SL=3, .rsv_30=0}},
+    .ylvl1     ={.bits={.NBC_ANR_Y_L0_HF_W=12, .rsv_5=0, .NBC_ANR_Y_L1_HF_W=14, .rsv_13=0, .NBC_ANR_Y_L2_HF_W=16, .rsv_21=0, .NBC_ANR_Y_L3_HF_W=16, .rsv_29=0}},
+    .hf_cor    ={.bits={.NBC_ANR_Y_HF_CORE_TH=0, .NBC_ANR_Y_HF_CORE_SL=2, .rsv_10=0, .NBC_ANR_Y_HF_CLIP=255, .NBC_ANR_HF_BAL_MODE=2, .rsv_26=0}},
+    .hf_act0   ={.bits={.NBC_ANR_Y_HF_ACT_X1=16, .NBC_ANR_Y_HF_ACT_X2=20, .NBC_ANR_Y_HF_ACT_X3=24, .NBC_ANR_Y_HF_ACT_X4=28}},
+    .hf_act1   ={.bits={.NBC_ANR_Y_HF_ACT_Y0=16, .rsv_7=0, .NBC_ANR_Y_HF_ACT_Y1=20, .rsv_15=0, .NBC_ANR_Y_HF_ACT_Y2=30, .rsv_23=0, .NBC_ANR_Y_HF_ACT_Y3=40, .rsv_31=0}},
+    .actc      ={.bits={.rsv_0=0, .NBC_ANR_ACT_BLD_BASE_C=64, .rsv_15=0, .NBC_ANR_C_DITH_U=8, .rsv_21=0, .NBC_ANR_C_DITH_V=8, .rsv_29=0}},
+    .ylad      ={.bits={.NBC_ANR_CEN_GAIN_LO_TH_LPF=7, .rsv_5=0, .NBC_ANR_CEN_GAIN_HI_TH_LPF=7, .rsv_13=0}},
+    .hf_act2   ={.bits={.NBC_ANR_Y_HF_ACT_Y4=40, .rsv_7=0, .NBC_ANR_Y_HF_ACT_SP4=0, .rsv_14=0}},
+    .hf_act3   ={.bits={.NBC_ANR_Y_HF_ACT_SP0=2, .rsv_6=0, .NBC_ANR_Y_HF_ACT_SP1=20, .rsv_14=0, .NBC_ANR_Y_HF_ACT_SP2=20, .rsv_22=0, .NBC_ANR_Y_HF_ACT_SP3=0, .rsv_30=0}},
+    .hf_luma0  ={.bits={.NBC_ANR_Y_HF_LUMA_X1=0, .NBC_ANR_Y_HF_LUMA_X2=0, .NBC_ANR_Y_HF_LUMA_Y0=0, .rsv_23=0, .NBC_ANR_Y_HF_LUMA_Y1=0, .rsv_31=0}},
+    .hf_luma1  ={.bits={.NBC_ANR_Y_HF_LUMA_Y2=0, .rsv_7=0, .NBC_ANR_Y_HF_LUMA_SP0=0, .rsv_13=0, .NBC_ANR_Y_HF_LUMA_SP1=0, .rsv_21=0, .NBC_ANR_Y_HF_LUMA_SP2=0, .rsv_29=0}},
+    .y4lut4    ={.bits={.NBC_ANR_Y_CPX5=160, .NBC_ANR_Y_CPX6=192, .NBC_ANR_Y_CPX7=224, .NBC_ANR_Y_CPX8=255}},
+    .y4lut5    ={.bits={.NBC_ANR_Y_SCALE_CPY4=16, .rsv_5=0, .NBC_ANR_Y_SCALE_CPY5=16, .rsv_13=0, .NBC_ANR_Y_SCALE_CPY6=16, .rsv_21=0, .NBC_ANR_Y_SCALE_CPY7=12, .rsv_29=0}},
+    .y4lut6    ={.bits={.NBC_ANR_Y_SCALE_SP4=0, .rsv_5=0, .NBC_ANR_Y_SCALE_SP5=0, .rsv_13=0, .NBC_ANR_Y_SCALE_SP6=17, .rsv_21=0, .NBC_ANR_Y_SCALE_SP7=17, .rsv_29=0}},
+    .y4lut7    ={.bits={.NBC_ANR_Y_SCALE_CPY8=8, .rsv_5=0, .NBC_ANR_Y_SCALE_SP8=0, .rsv_13=0}},
+    .a4lut1    ={.bits={.NBC_ANR_Y_ACT_CPX1=40, .NBC_ANR_Y_ACT_CPX2=100, .NBC_ANR_Y_ACT_CPX3=160, .rsv_24=0}}
+
+};
+const ISP_NVRAM_ANR_T ov16885mipiraw_NBC_ANR_0089 = {
+        .con1      ={.bits={.NBC_ANR_ENC=1, .NBC_ANR_ENY=1, .rsv_2=0, .NBC_ANR_Y_FLT0_IDX=0, .rsv_5=0, .NBC_ANR_Y_FLT1_IDX=1, .rsv_7=0, .NBC_ANR_Y_FLT2_IDX=2, .NBC_ANR_Y_FLT3_IDX=3, .NBC_ANR_ACT_LP_EN=0, .rsv_13=0, .NBC_ANR_TILE_EDGE=15, .NBC_ANR_LTM_LINK=1, .NBC_ANR_LTM_LUT_BYPASS=0, .rsv_22=0, .NBC_ANR_SL2_LINK=1, .rsv_25=0, .NBC_ANR_TABLE_EN=0, .NBC_ANR_TBL_PRC=0, .rsv_30=0}},
+    .con2      ={.bits={.NBC_ANR_IMPL_MODE=2, .rsv_2=0, .NBC_ANR_C_SM_EDGE=0, .rsv_10=0, .NBC_ANR_FLT_C=0, .rsv_13=0, .NBC_ANR_C_SM_EDGE_TH=4, .rsv_27=0}},
+    .yad1      ={.bits={.NBC_ANR_CEN_GAIN_LO_TH=7, .rsv_5=0, .NBC_ANR_CEN_GAIN_HI_TH=7, .rsv_13=0, .NBC_ANR_Y_SLOPE_V_TH=17, .NBC_ANR_Y_SLOPE_H_TH=14}},
+    .yad2      ={.bits={.NBC_ANR_Y_VERT_ACT_TH=7, .rsv_5=0, .NBC_ANR_PTY_GAIN_TH=0, .rsv_13=0, .NBC_ANR_Y_VERT_SIGMA=2, .rsv_24=0}},
+    .y4lut1    ={.bits={.NBC_ANR_Y_CPX1=32, .NBC_ANR_Y_CPX2=64, .NBC_ANR_Y_CPX3=96, .NBC_ANR_Y_CPX4=128}},
+    .y4lut2    ={.bits={.NBC_ANR_Y_SCALE_CPY0=10, .rsv_5=0, .NBC_ANR_Y_SCALE_CPY1=13, .rsv_13=0, .NBC_ANR_Y_SCALE_CPY2=16, .rsv_21=0, .NBC_ANR_Y_SCALE_CPY3=16, .rsv_29=0}},
+    .y4lut3    ={.bits={.NBC_ANR_Y_SCALE_SP0=12, .rsv_5=0, .NBC_ANR_Y_SCALE_SP1=12, .rsv_13=0, .NBC_ANR_Y_SCALE_SP2=0, .rsv_21=0, .NBC_ANR_Y_SCALE_SP3=0, .rsv_29=0}},
+    .c4lut1    ={.bits={.NBC_ANR_C_CPX1=64, .NBC_ANR_C_CPX2=128, .NBC_ANR_C_CPX3=192, .rsv_24=0}},
+    .c4lut2    ={.bits={.NBC_ANR_C_SCALE_CPY0=4, .rsv_5=0, .NBC_ANR_C_SCALE_CPY1=8, .rsv_13=0, .NBC_ANR_C_SCALE_CPY2=16, .rsv_21=0, .NBC_ANR_C_SCALE_CPY3=16, .rsv_29=0}},
+    .c4lut3    ={.bits={.NBC_ANR_C_SCALE_SP0=8, .rsv_5=0, .NBC_ANR_C_SCALE_SP1=15, .rsv_13=0, .NBC_ANR_C_SCALE_SP2=0, .rsv_21=0, .NBC_ANR_C_SCALE_SP3=0, .rsv_29=0}},
+    .a4lut2    ={.bits={.NBC_ANR_Y_ACT_CPY0=0, .NBC_ANR_Y_ACT_CPY1=0, .NBC_ANR_Y_ACT_CPY2=0, .NBC_ANR_Y_ACT_CPY3=0}},
+    .a4lut3    ={.bits={.NBC_ANR_Y_ACT_SP0=0, .rsv_6=0, .NBC_ANR_Y_ACT_SP1=0, .rsv_14=0, .NBC_ANR_Y_ACT_SP2=0, .rsv_22=0, .NBC_ANR_Y_ACT_SP3=0, .rsv_30=0}},
+    .l4lut1    ={.bits={.NBC_ANR_SL2_X1=64, .NBC_ANR_SL2_X2=128, .NBC_ANR_SL2_X3=192, .rsv_24=0}},
+    .l4lut2    ={.bits={.NBC_ANR_SL2_GAIN0=16, .rsv_6=0, .NBC_ANR_SL2_GAIN1=16, .rsv_14=0, .NBC_ANR_SL2_GAIN2=20, .rsv_22=0, .NBC_ANR_SL2_GAIN3=28, .rsv_30=0}},
+    .l4lut3    ={.bits={.NBC_ANR_SL2_SP0=4, .rsv_6=0, .NBC_ANR_SL2_SP1=12, .rsv_14=0, .NBC_ANR_SL2_SP2=15, .rsv_22=0, .NBC_ANR_SL2_SP3=0, .rsv_30=0}},
+    .pty0v     ={.bits={.NBC_ANR_Y_L0_V_RNG1=9, .NBC_ANR_Y_L0_V_RNG2=17, .NBC_ANR_Y_L0_V_RNG3=24, .NBC_ANR_Y_L0_V_RNG4=35}},
+    .cad       ={.bits={.rsv_0=0, .NBC_ANR_PTC_GAIN_TH=16, .rsv_13=0, .NBC_ANR_C_L_DIFF_TH=40, .rsv_24=0}},
+    .pty1v     ={.bits={.NBC_ANR_Y_L1_V_RNG1=7, .NBC_ANR_Y_L1_V_RNG2=13, .NBC_ANR_Y_L1_V_RNG3=19, .NBC_ANR_Y_L1_V_RNG4=28}},
+    .sl2       ={.bits={.NBC_ANR_SL2_C_GAIN=4, .NBC_ANR_SL2_SCALE_GAIN=0, .rsv_7=0}},
+    .pty2v     ={.bits={.NBC_ANR_Y_L2_V_RNG1=5, .NBC_ANR_Y_L2_V_RNG2=10, .NBC_ANR_Y_L2_V_RNG3=14, .NBC_ANR_Y_L2_V_RNG4=21}},
+    .pty3v     ={.bits={.NBC_ANR_Y_L3_V_RNG1=4, .NBC_ANR_Y_L3_V_RNG2=7, .NBC_ANR_Y_L3_V_RNG3=9, .NBC_ANR_Y_L3_V_RNG4=14}},
+    .pty0h     ={.bits={.NBC_ANR_Y_L0_H_RNG1=8, .NBC_ANR_Y_L0_H_RNG2=15, .NBC_ANR_Y_L0_H_RNG3=21, .NBC_ANR_Y_L0_H_RNG4=31}},
+    .pty1h     ={.bits={.NBC_ANR_Y_L1_H_RNG1=6, .NBC_ANR_Y_L1_H_RNG2=12, .NBC_ANR_Y_L1_H_RNG3=17, .NBC_ANR_Y_L1_H_RNG4=25}},
+    .pty2h     ={.bits={.NBC_ANR_Y_L2_H_RNG1=5, .NBC_ANR_Y_L2_H_RNG2=9, .NBC_ANR_Y_L2_H_RNG3=13, .NBC_ANR_Y_L2_H_RNG4=18}},
+    .t4lut1    ={.bits={.NBC_ANR_TBL_CPX1=64, .NBC_ANR_TBL_CPX2=128, .NBC_ANR_TBL_CPX3=192, .rsv_24=0}},
+    .t4lut2    ={.bits={.NBC_ANR_TBL_GAIN_CPY0=4, .rsv_5=0, .NBC_ANR_TBL_GAIN_CPY1=8, .rsv_13=0, .NBC_ANR_TBL_GAIN_CPY2=16, .rsv_21=0, .NBC_ANR_TBL_GAIN_CPY3=24, .rsv_29=0}},
+    .t4lut3    ={.bits={.NBC_ANR_TBL_GAIN_SP0=8, .rsv_5=0, .NBC_ANR_TBL_GAIN_SP1=15, .rsv_13=0, .NBC_ANR_TBL_GAIN_SP2=15, .rsv_21=0, .NBC_ANR_TBL_GAIN_SP3=0, .rsv_29=0}},
+    .act1      ={.bits={.NBC_ANR_ACT_SL2_GAIN=8, .rsv_4=0, .NBC_ANR_ACT_DIF_HI_TH=16, .rsv_13=0, .NBC_ANR_ACT_DIF_GAIN=0, .NBC_ANR_ACT_DIF_LO_TH=16, .rsv_29=0}},
+    .pty3h     ={.bits={.NBC_ANR_Y_L3_H_RNG1=3, .NBC_ANR_Y_L3_H_RNG2=6, .NBC_ANR_Y_L3_H_RNG3=8, .NBC_ANR_Y_L3_H_RNG4=12}},
+    .ptcv      ={.bits={.NBC_ANR_C_V_RNG1=4, .NBC_ANR_C_V_RNG2=9, .NBC_ANR_C_V_RNG3=12, .NBC_ANR_C_V_RNG4=16}},
+    .act4      ={.bits={.NBC_ANR_Y_ACT_CEN_OFT=32, .rsv_6=0, .NBC_ANR_Y_ACT_CEN_GAIN=0, .rsv_14=0, .NBC_ANR_Y_ACT_CEN_TH=32, .rsv_22=0}},
+    .ptch      ={.bits={.NBC_ANR_C_H_RNG1=4, .NBC_ANR_C_H_RNG2=8, .NBC_ANR_C_H_RNG3=11, .NBC_ANR_C_H_RNG4=15}},
+    .ylvl0     ={.bits={.NBC_ANR_Y_L0_RNG_RAT_TH=8, .NBC_ANR_Y_L1_RNG_RAT_TH=8, .NBC_ANR_Y_L2_RNG_RAT_TH=8, .NBC_ANR_Y_L3_RNG_RAT_TH=14, .NBC_ANR_Y_L0_RNG_RAT_SL=3, .rsv_18=0, .NBC_ANR_Y_L1_RNG_RAT_SL=3, .rsv_22=0, .NBC_ANR_Y_L2_RNG_RAT_SL=3, .rsv_26=0, .NBC_ANR_Y_L3_RNG_RAT_SL=3, .rsv_30=0}},
+    .ylvl1     ={.bits={.NBC_ANR_Y_L0_HF_W=12, .rsv_5=0, .NBC_ANR_Y_L1_HF_W=14, .rsv_13=0, .NBC_ANR_Y_L2_HF_W=16, .rsv_21=0, .NBC_ANR_Y_L3_HF_W=16, .rsv_29=0}},
+    .hf_cor    ={.bits={.NBC_ANR_Y_HF_CORE_TH=0, .NBC_ANR_Y_HF_CORE_SL=2, .rsv_10=0, .NBC_ANR_Y_HF_CLIP=255, .NBC_ANR_HF_BAL_MODE=2, .rsv_26=0}},
+    .hf_act0   ={.bits={.NBC_ANR_Y_HF_ACT_X1=16, .NBC_ANR_Y_HF_ACT_X2=20, .NBC_ANR_Y_HF_ACT_X3=24, .NBC_ANR_Y_HF_ACT_X4=28}},
+    .hf_act1   ={.bits={.NBC_ANR_Y_HF_ACT_Y0=16, .rsv_7=0, .NBC_ANR_Y_HF_ACT_Y1=20, .rsv_15=0, .NBC_ANR_Y_HF_ACT_Y2=30, .rsv_23=0, .NBC_ANR_Y_HF_ACT_Y3=40, .rsv_31=0}},
+    .actc      ={.bits={.rsv_0=0, .NBC_ANR_ACT_BLD_BASE_C=64, .rsv_15=0, .NBC_ANR_C_DITH_U=8, .rsv_21=0, .NBC_ANR_C_DITH_V=8, .rsv_29=0}},
+    .ylad      ={.bits={.NBC_ANR_CEN_GAIN_LO_TH_LPF=7, .rsv_5=0, .NBC_ANR_CEN_GAIN_HI_TH_LPF=7, .rsv_13=0}},
+    .hf_act2   ={.bits={.NBC_ANR_Y_HF_ACT_Y4=40, .rsv_7=0, .NBC_ANR_Y_HF_ACT_SP4=0, .rsv_14=0}},
+    .hf_act3   ={.bits={.NBC_ANR_Y_HF_ACT_SP0=2, .rsv_6=0, .NBC_ANR_Y_HF_ACT_SP1=20, .rsv_14=0, .NBC_ANR_Y_HF_ACT_SP2=20, .rsv_22=0, .NBC_ANR_Y_HF_ACT_SP3=0, .rsv_30=0}},
+    .hf_luma0  ={.bits={.NBC_ANR_Y_HF_LUMA_X1=0, .NBC_ANR_Y_HF_LUMA_X2=0, .NBC_ANR_Y_HF_LUMA_Y0=0, .rsv_23=0, .NBC_ANR_Y_HF_LUMA_Y1=0, .rsv_31=0}},
+    .hf_luma1  ={.bits={.NBC_ANR_Y_HF_LUMA_Y2=0, .rsv_7=0, .NBC_ANR_Y_HF_LUMA_SP0=0, .rsv_13=0, .NBC_ANR_Y_HF_LUMA_SP1=0, .rsv_21=0, .NBC_ANR_Y_HF_LUMA_SP2=0, .rsv_29=0}},
+    .y4lut4    ={.bits={.NBC_ANR_Y_CPX5=160, .NBC_ANR_Y_CPX6=192, .NBC_ANR_Y_CPX7=224, .NBC_ANR_Y_CPX8=255}},
+    .y4lut5    ={.bits={.NBC_ANR_Y_SCALE_CPY4=16, .rsv_5=0, .NBC_ANR_Y_SCALE_CPY5=16, .rsv_13=0, .NBC_ANR_Y_SCALE_CPY6=16, .rsv_21=0, .NBC_ANR_Y_SCALE_CPY7=12, .rsv_29=0}},
+    .y4lut6    ={.bits={.NBC_ANR_Y_SCALE_SP4=0, .rsv_5=0, .NBC_ANR_Y_SCALE_SP5=0, .rsv_13=0, .NBC_ANR_Y_SCALE_SP6=17, .rsv_21=0, .NBC_ANR_Y_SCALE_SP7=17, .rsv_29=0}},
+    .y4lut7    ={.bits={.NBC_ANR_Y_SCALE_CPY8=8, .rsv_5=0, .NBC_ANR_Y_SCALE_SP8=0, .rsv_13=0}},
+    .a4lut1    ={.bits={.NBC_ANR_Y_ACT_CPX1=40, .NBC_ANR_Y_ACT_CPX2=100, .NBC_ANR_Y_ACT_CPX3=160, .rsv_24=0}}
+
+};
+const ISP_NVRAM_ANR_T ov16885mipiraw_NBC_ANR_0090 = {
+        .con1      ={.bits={.NBC_ANR_ENC=1, .NBC_ANR_ENY=1, .rsv_2=0, .NBC_ANR_Y_FLT0_IDX=0, .rsv_5=0, .NBC_ANR_Y_FLT1_IDX=1, .rsv_7=0, .NBC_ANR_Y_FLT2_IDX=2, .NBC_ANR_Y_FLT3_IDX=3, .NBC_ANR_ACT_LP_EN=0, .rsv_13=0, .NBC_ANR_TILE_EDGE=15, .NBC_ANR_LTM_LINK=1, .NBC_ANR_LTM_LUT_BYPASS=0, .rsv_22=0, .NBC_ANR_SL2_LINK=1, .rsv_25=0, .NBC_ANR_TABLE_EN=0, .NBC_ANR_TBL_PRC=0, .rsv_30=0}},
+    .con2      ={.bits={.NBC_ANR_IMPL_MODE=2, .rsv_2=0, .NBC_ANR_C_SM_EDGE=1, .rsv_10=0, .NBC_ANR_FLT_C=0, .rsv_13=0, .NBC_ANR_C_SM_EDGE_TH=4, .rsv_27=0}},
+    .yad1      ={.bits={.NBC_ANR_CEN_GAIN_LO_TH=4, .rsv_5=0, .NBC_ANR_CEN_GAIN_HI_TH=4, .rsv_13=0, .NBC_ANR_Y_SLOPE_V_TH=20, .NBC_ANR_Y_SLOPE_H_TH=16}},
+    .yad2      ={.bits={.NBC_ANR_Y_VERT_ACT_TH=7, .rsv_5=0, .NBC_ANR_PTY_GAIN_TH=0, .rsv_13=0, .NBC_ANR_Y_VERT_SIGMA=2, .rsv_24=0}},
+    .y4lut1    ={.bits={.NBC_ANR_Y_CPX1=40, .NBC_ANR_Y_CPX2=100, .NBC_ANR_Y_CPX3=160, .NBC_ANR_Y_CPX4=255}},
+    .y4lut2    ={.bits={.NBC_ANR_Y_SCALE_CPY0=16, .rsv_5=0, .NBC_ANR_Y_SCALE_CPY1=16, .rsv_13=0, .NBC_ANR_Y_SCALE_CPY2=16, .rsv_21=0, .NBC_ANR_Y_SCALE_CPY3=12, .rsv_29=0}},
+    .y4lut3    ={.bits={.NBC_ANR_Y_SCALE_SP0=0, .rsv_5=0, .NBC_ANR_Y_SCALE_SP1=0, .rsv_13=0, .NBC_ANR_Y_SCALE_SP2=24, .rsv_21=0, .NBC_ANR_Y_SCALE_SP3=28, .rsv_29=0}},
+    .c4lut1    ={.bits={.NBC_ANR_C_CPX1=64, .NBC_ANR_C_CPX2=128, .NBC_ANR_C_CPX3=192, .rsv_24=0}},
+    .c4lut2    ={.bits={.NBC_ANR_C_SCALE_CPY0=4, .rsv_5=0, .NBC_ANR_C_SCALE_CPY1=8, .rsv_13=0, .NBC_ANR_C_SCALE_CPY2=16, .rsv_21=0, .NBC_ANR_C_SCALE_CPY3=16, .rsv_29=0}},
+    .c4lut3    ={.bits={.NBC_ANR_C_SCALE_SP0=0, .rsv_5=0, .NBC_ANR_C_SCALE_SP1=0, .rsv_13=0, .NBC_ANR_C_SCALE_SP2=0, .rsv_21=0, .NBC_ANR_C_SCALE_SP3=0, .rsv_29=0}},
+    .a4lut2    ={.bits={.NBC_ANR_Y_ACT_CPY0=0, .NBC_ANR_Y_ACT_CPY1=0, .NBC_ANR_Y_ACT_CPY2=0, .NBC_ANR_Y_ACT_CPY3=0}},
+    .a4lut3    ={.bits={.NBC_ANR_Y_ACT_SP0=0, .rsv_6=0, .NBC_ANR_Y_ACT_SP1=0, .rsv_14=0, .NBC_ANR_Y_ACT_SP2=0, .rsv_22=0, .NBC_ANR_Y_ACT_SP3=0, .rsv_30=0}},
+    .l4lut1    ={.bits={.NBC_ANR_SL2_X1=64, .NBC_ANR_SL2_X2=128, .NBC_ANR_SL2_X3=192, .rsv_24=0}},
+    .l4lut2    ={.bits={.NBC_ANR_SL2_GAIN0=16, .rsv_6=0, .NBC_ANR_SL2_GAIN1=18, .rsv_14=0, .NBC_ANR_SL2_GAIN2=24, .rsv_22=0, .NBC_ANR_SL2_GAIN3=32, .rsv_30=0}},
+    .l4lut3    ={.bits={.NBC_ANR_SL2_SP0=4, .rsv_6=0, .NBC_ANR_SL2_SP1=12, .rsv_14=0, .NBC_ANR_SL2_SP2=15, .rsv_22=0, .NBC_ANR_SL2_SP3=0, .rsv_30=0}},
+    .pty0v     ={.bits={.NBC_ANR_Y_L0_V_RNG1=6, .NBC_ANR_Y_L0_V_RNG2=11, .NBC_ANR_Y_L0_V_RNG3=17, .NBC_ANR_Y_L0_V_RNG4=24}},
+    .cad       ={.bits={.rsv_0=0, .NBC_ANR_PTC_GAIN_TH=16, .rsv_13=0, .NBC_ANR_C_L_DIFF_TH=40, .rsv_24=0}},
+    .pty1v     ={.bits={.NBC_ANR_Y_L1_V_RNG1=5, .NBC_ANR_Y_L1_V_RNG2=10, .NBC_ANR_Y_L1_V_RNG3=14, .NBC_ANR_Y_L1_V_RNG4=21}},
+    .sl2       ={.bits={.NBC_ANR_SL2_C_GAIN=4, .NBC_ANR_SL2_SCALE_GAIN=0, .rsv_7=0}},
+    .pty2v     ={.bits={.NBC_ANR_Y_L2_V_RNG1=4, .NBC_ANR_Y_L2_V_RNG2=8, .NBC_ANR_Y_L2_V_RNG3=12, .NBC_ANR_Y_L2_V_RNG4=17}},
+    .pty3v     ={.bits={.NBC_ANR_Y_L3_V_RNG1=3, .NBC_ANR_Y_L3_V_RNG2=6, .NBC_ANR_Y_L3_V_RNG3=9, .NBC_ANR_Y_L3_V_RNG4=13}},
+    .pty0h     ={.bits={.NBC_ANR_Y_L0_H_RNG1=5, .NBC_ANR_Y_L0_H_RNG2=10, .NBC_ANR_Y_L0_H_RNG3=15, .NBC_ANR_Y_L0_H_RNG4=21}},
+    .pty1h     ={.bits={.NBC_ANR_Y_L1_H_RNG1=5, .NBC_ANR_Y_L1_H_RNG2=9, .NBC_ANR_Y_L1_H_RNG3=13, .NBC_ANR_Y_L1_H_RNG4=18}},
+    .pty2h     ={.bits={.NBC_ANR_Y_L2_H_RNG1=4, .NBC_ANR_Y_L2_H_RNG2=7, .NBC_ANR_Y_L2_H_RNG3=11, .NBC_ANR_Y_L2_H_RNG4=15}},
+    .t4lut1    ={.bits={.NBC_ANR_TBL_CPX1=64, .NBC_ANR_TBL_CPX2=128, .NBC_ANR_TBL_CPX3=192, .rsv_24=0}},
+    .t4lut2    ={.bits={.NBC_ANR_TBL_GAIN_CPY0=4, .rsv_5=0, .NBC_ANR_TBL_GAIN_CPY1=8, .rsv_13=0, .NBC_ANR_TBL_GAIN_CPY2=16, .rsv_21=0, .NBC_ANR_TBL_GAIN_CPY3=24, .rsv_29=0}},
+    .t4lut3    ={.bits={.NBC_ANR_TBL_GAIN_SP0=0, .rsv_5=0, .NBC_ANR_TBL_GAIN_SP1=0, .rsv_13=0, .NBC_ANR_TBL_GAIN_SP2=0, .rsv_21=0, .NBC_ANR_TBL_GAIN_SP3=0, .rsv_29=0}},
+    .act1      ={.bits={.NBC_ANR_ACT_SL2_GAIN=8, .rsv_4=0, .NBC_ANR_ACT_DIF_HI_TH=16, .rsv_13=0, .NBC_ANR_ACT_DIF_GAIN=0, .NBC_ANR_ACT_DIF_LO_TH=16, .rsv_29=0}},
+    .pty3h     ={.bits={.NBC_ANR_Y_L3_H_RNG1=3, .NBC_ANR_Y_L3_H_RNG2=6, .NBC_ANR_Y_L3_H_RNG3=8, .NBC_ANR_Y_L3_H_RNG4=12}},
+    .ptcv      ={.bits={.NBC_ANR_C_V_RNG1=4, .NBC_ANR_C_V_RNG2=9, .NBC_ANR_C_V_RNG3=12, .NBC_ANR_C_V_RNG4=16}},
+    .act4      ={.bits={.NBC_ANR_Y_ACT_CEN_OFT=32, .rsv_6=0, .NBC_ANR_Y_ACT_CEN_GAIN=0, .rsv_14=0, .NBC_ANR_Y_ACT_CEN_TH=32, .rsv_22=0}},
+    .ptch      ={.bits={.NBC_ANR_C_H_RNG1=4, .NBC_ANR_C_H_RNG2=8, .NBC_ANR_C_H_RNG3=11, .NBC_ANR_C_H_RNG4=15}},
+    .ylvl0     ={.bits={.NBC_ANR_Y_L0_RNG_RAT_TH=8, .NBC_ANR_Y_L1_RNG_RAT_TH=8, .NBC_ANR_Y_L2_RNG_RAT_TH=8, .NBC_ANR_Y_L3_RNG_RAT_TH=14, .NBC_ANR_Y_L0_RNG_RAT_SL=3, .rsv_18=0, .NBC_ANR_Y_L1_RNG_RAT_SL=3, .rsv_22=0, .NBC_ANR_Y_L2_RNG_RAT_SL=3, .rsv_26=0, .NBC_ANR_Y_L3_RNG_RAT_SL=3, .rsv_30=0}},
+    .ylvl1     ={.bits={.NBC_ANR_Y_L0_HF_W=16, .rsv_5=0, .NBC_ANR_Y_L1_HF_W=16, .rsv_13=0, .NBC_ANR_Y_L2_HF_W=16, .rsv_21=0, .NBC_ANR_Y_L3_HF_W=16, .rsv_29=0}},
+    .hf_cor    ={.bits={.NBC_ANR_Y_HF_CORE_TH=0, .NBC_ANR_Y_HF_CORE_SL=2, .rsv_10=0, .NBC_ANR_Y_HF_CLIP=255, .NBC_ANR_HF_BAL_MODE=2, .rsv_26=0}},
+    .hf_act0   ={.bits={.NBC_ANR_Y_HF_ACT_X1=20, .NBC_ANR_Y_HF_ACT_X2=26, .NBC_ANR_Y_HF_ACT_X3=32, .NBC_ANR_Y_HF_ACT_X4=40}},
+    .hf_act1   ={.bits={.NBC_ANR_Y_HF_ACT_Y0=40, .rsv_7=0, .NBC_ANR_Y_HF_ACT_Y1=32, .rsv_15=0, .NBC_ANR_Y_HF_ACT_Y2=20, .rsv_23=0, .NBC_ANR_Y_HF_ACT_Y3=12, .rsv_31=0}},
+    .actc      ={.bits={.rsv_0=0, .NBC_ANR_ACT_BLD_BASE_C=64, .rsv_15=0, .NBC_ANR_C_DITH_U=8, .rsv_21=0, .NBC_ANR_C_DITH_V=8, .rsv_29=0}},
+    .ylad      ={.bits={.NBC_ANR_CEN_GAIN_LO_TH_LPF=4, .rsv_5=0, .NBC_ANR_CEN_GAIN_HI_TH_LPF=4, .rsv_13=0}},
+    .hf_act2   ={.bits={.NBC_ANR_Y_HF_ACT_Y4=8, .rsv_7=0, .NBC_ANR_Y_HF_ACT_SP4=0, .rsv_14=0}},
+    .hf_act3   ={.bits={.NBC_ANR_Y_HF_ACT_SP0=61, .rsv_6=0, .NBC_ANR_Y_HF_ACT_SP1=48, .rsv_14=0, .NBC_ANR_Y_HF_ACT_SP2=54, .rsv_22=0, .NBC_ANR_Y_HF_ACT_SP3=60, .rsv_30=0}},
+    .hf_luma0  ={.bits={.NBC_ANR_Y_HF_LUMA_X1=0, .NBC_ANR_Y_HF_LUMA_X2=0, .NBC_ANR_Y_HF_LUMA_Y0=0, .rsv_23=0, .NBC_ANR_Y_HF_LUMA_Y1=0, .rsv_31=0}},
+    .hf_luma1  ={.bits={.NBC_ANR_Y_HF_LUMA_Y2=0, .rsv_7=0, .NBC_ANR_Y_HF_LUMA_SP0=0, .rsv_13=0, .NBC_ANR_Y_HF_LUMA_SP1=2, .rsv_21=0, .NBC_ANR_Y_HF_LUMA_SP2=0, .rsv_29=0}},
+    .y4lut4    ={.bits={.NBC_ANR_Y_CPX5=255, .NBC_ANR_Y_CPX6=255, .NBC_ANR_Y_CPX7=255, .NBC_ANR_Y_CPX8=255}},
+    .y4lut5    ={.bits={.NBC_ANR_Y_SCALE_CPY4=9, .rsv_5=0, .NBC_ANR_Y_SCALE_CPY5=9, .rsv_13=0, .NBC_ANR_Y_SCALE_CPY6=9, .rsv_21=0, .NBC_ANR_Y_SCALE_CPY7=9, .rsv_29=0}},
+    .y4lut6    ={.bits={.NBC_ANR_Y_SCALE_SP4=0, .rsv_5=0, .NBC_ANR_Y_SCALE_SP5=0, .rsv_13=0, .NBC_ANR_Y_SCALE_SP6=0, .rsv_21=0, .NBC_ANR_Y_SCALE_SP7=0, .rsv_29=0}},
+    .y4lut7    ={.bits={.NBC_ANR_Y_SCALE_CPY8=9, .rsv_5=0, .NBC_ANR_Y_SCALE_SP8=0, .rsv_13=0}},
+    .a4lut1    ={.bits={.NBC_ANR_Y_ACT_CPX1=40, .NBC_ANR_Y_ACT_CPX2=100, .NBC_ANR_Y_ACT_CPX3=160, .rsv_24=0}}
+
+};
+const ISP_NVRAM_ANR_T ov16885mipiraw_NBC_ANR_0091 = {
+        .con1      ={.bits={.NBC_ANR_ENC=1, .NBC_ANR_ENY=1, .rsv_2=0, .NBC_ANR_Y_FLT0_IDX=0, .rsv_5=0, .NBC_ANR_Y_FLT1_IDX=1, .rsv_7=0, .NBC_ANR_Y_FLT2_IDX=2, .NBC_ANR_Y_FLT3_IDX=1, .NBC_ANR_ACT_LP_EN=0, .rsv_13=0, .NBC_ANR_TILE_EDGE=15, .NBC_ANR_LTM_LINK=0, .NBC_ANR_LTM_LUT_BYPASS=0, .rsv_22=0, .NBC_ANR_SL2_LINK=1, .rsv_25=0, .NBC_ANR_TABLE_EN=0, .NBC_ANR_TBL_PRC=0, .rsv_30=0}},
+    .con2      ={.bits={.NBC_ANR_IMPL_MODE=2, .rsv_2=0, .NBC_ANR_C_SM_EDGE=1, .rsv_10=0, .NBC_ANR_FLT_C=0, .rsv_13=0, .NBC_ANR_C_SM_EDGE_TH=4, .rsv_27=0}},
+    .yad1      ={.bits={.NBC_ANR_CEN_GAIN_LO_TH=10, .rsv_5=0, .NBC_ANR_CEN_GAIN_HI_TH=10, .rsv_13=0, .NBC_ANR_Y_SLOPE_V_TH=35, .NBC_ANR_Y_SLOPE_H_TH=28}},
+    .yad2      ={.bits={.NBC_ANR_Y_VERT_ACT_TH=7, .rsv_5=0, .NBC_ANR_PTY_GAIN_TH=0, .rsv_13=0, .NBC_ANR_Y_VERT_SIGMA=2, .rsv_24=0}},
+    .y4lut1    ={.bits={.NBC_ANR_Y_CPX1=39, .NBC_ANR_Y_CPX2=94, .NBC_ANR_Y_CPX3=160, .NBC_ANR_Y_CPX4=255}},
+    .y4lut2    ={.bits={.NBC_ANR_Y_SCALE_CPY0=15, .rsv_5=0, .NBC_ANR_Y_SCALE_CPY1=15, .rsv_13=0, .NBC_ANR_Y_SCALE_CPY2=15, .rsv_21=0, .NBC_ANR_Y_SCALE_CPY3=13, .rsv_29=0}},
+    .y4lut3    ={.bits={.NBC_ANR_Y_SCALE_SP0=0, .rsv_5=0, .NBC_ANR_Y_SCALE_SP1=0, .rsv_13=0, .NBC_ANR_Y_SCALE_SP2=28, .rsv_21=0, .NBC_ANR_Y_SCALE_SP3=24, .rsv_29=0}},
+    .c4lut1    ={.bits={.NBC_ANR_C_CPX1=40, .NBC_ANR_C_CPX2=100, .NBC_ANR_C_CPX3=160, .rsv_24=0}},
+    .c4lut2    ={.bits={.NBC_ANR_C_SCALE_CPY0=16, .rsv_5=0, .NBC_ANR_C_SCALE_CPY1=16, .rsv_13=0, .NBC_ANR_C_SCALE_CPY2=16, .rsv_21=0, .NBC_ANR_C_SCALE_CPY3=16, .rsv_29=0}},
+    .c4lut3    ={.bits={.NBC_ANR_C_SCALE_SP0=0, .rsv_5=0, .NBC_ANR_C_SCALE_SP1=0, .rsv_13=0, .NBC_ANR_C_SCALE_SP2=0, .rsv_21=0, .NBC_ANR_C_SCALE_SP3=0, .rsv_29=0}},
+    .a4lut2    ={.bits={.NBC_ANR_Y_ACT_CPY0=0, .NBC_ANR_Y_ACT_CPY1=0, .NBC_ANR_Y_ACT_CPY2=0, .NBC_ANR_Y_ACT_CPY3=0}},
+    .a4lut3    ={.bits={.NBC_ANR_Y_ACT_SP0=0, .rsv_6=0, .NBC_ANR_Y_ACT_SP1=0, .rsv_14=0, .NBC_ANR_Y_ACT_SP2=0, .rsv_22=0, .NBC_ANR_Y_ACT_SP3=0, .rsv_30=0}},
+    .l4lut1    ={.bits={.NBC_ANR_SL2_X1=64, .NBC_ANR_SL2_X2=128, .NBC_ANR_SL2_X3=192, .rsv_24=0}},
+    .l4lut2    ={.bits={.NBC_ANR_SL2_GAIN0=16, .rsv_6=0, .NBC_ANR_SL2_GAIN1=23, .rsv_14=0, .NBC_ANR_SL2_GAIN2=30, .rsv_22=0, .NBC_ANR_SL2_GAIN3=41, .rsv_30=0}},
+    .l4lut3    ={.bits={.NBC_ANR_SL2_SP0=14, .rsv_6=0, .NBC_ANR_SL2_SP1=14, .rsv_14=0, .NBC_ANR_SL2_SP2=22, .rsv_22=0, .NBC_ANR_SL2_SP3=12, .rsv_30=0}},
+    .pty0v     ={.bits={.NBC_ANR_Y_L0_V_RNG1=8, .NBC_ANR_Y_L0_V_RNG2=16, .NBC_ANR_Y_L0_V_RNG3=24, .NBC_ANR_Y_L0_V_RNG4=32}},
+    .cad       ={.bits={.rsv_0=0, .NBC_ANR_PTC_GAIN_TH=16, .rsv_13=0, .NBC_ANR_C_L_DIFF_TH=44, .rsv_24=0}},
+    .pty1v     ={.bits={.NBC_ANR_Y_L1_V_RNG1=8, .NBC_ANR_Y_L1_V_RNG2=16, .NBC_ANR_Y_L1_V_RNG3=24, .NBC_ANR_Y_L1_V_RNG4=32}},
+    .sl2       ={.bits={.NBC_ANR_SL2_C_GAIN=6, .NBC_ANR_SL2_SCALE_GAIN=0, .rsv_7=0}},
+    .pty2v     ={.bits={.NBC_ANR_Y_L2_V_RNG1=8, .NBC_ANR_Y_L2_V_RNG2=16, .NBC_ANR_Y_L2_V_RNG3=24, .NBC_ANR_Y_L2_V_RNG4=32}},
+    .pty3v     ={.bits={.NBC_ANR_Y_L3_V_RNG1=7, .NBC_ANR_Y_L3_V_RNG2=13, .NBC_ANR_Y_L3_V_RNG3=20, .NBC_ANR_Y_L3_V_RNG4=27}},
+    .pty0h     ={.bits={.NBC_ANR_Y_L0_H_RNG1=7, .NBC_ANR_Y_L0_H_RNG2=14, .NBC_ANR_Y_L0_H_RNG3=21, .NBC_ANR_Y_L0_H_RNG4=28}},
+    .pty1h     ={.bits={.NBC_ANR_Y_L1_H_RNG1=7, .NBC_ANR_Y_L1_H_RNG2=14, .NBC_ANR_Y_L1_H_RNG3=21, .NBC_ANR_Y_L1_H_RNG4=28}},
+    .pty2h     ={.bits={.NBC_ANR_Y_L2_H_RNG1=7, .NBC_ANR_Y_L2_H_RNG2=14, .NBC_ANR_Y_L2_H_RNG3=21, .NBC_ANR_Y_L2_H_RNG4=28}},
+    .t4lut1    ={.bits={.NBC_ANR_TBL_CPX1=40, .NBC_ANR_TBL_CPX2=120, .NBC_ANR_TBL_CPX3=160, .rsv_24=0}},
+    .t4lut2    ={.bits={.NBC_ANR_TBL_GAIN_CPY0=8, .rsv_5=0, .NBC_ANR_TBL_GAIN_CPY1=8, .rsv_13=0, .NBC_ANR_TBL_GAIN_CPY2=8, .rsv_21=0, .NBC_ANR_TBL_GAIN_CPY3=8, .rsv_29=0}},
+    .t4lut3    ={.bits={.NBC_ANR_TBL_GAIN_SP0=0, .rsv_5=0, .NBC_ANR_TBL_GAIN_SP1=0, .rsv_13=0, .NBC_ANR_TBL_GAIN_SP2=0, .rsv_21=0, .NBC_ANR_TBL_GAIN_SP3=0, .rsv_29=0}},
+    .act1      ={.bits={.NBC_ANR_ACT_SL2_GAIN=8, .rsv_4=0, .NBC_ANR_ACT_DIF_HI_TH=16, .rsv_13=0, .NBC_ANR_ACT_DIF_GAIN=0, .NBC_ANR_ACT_DIF_LO_TH=16, .rsv_29=0}},
+    .pty3h     ={.bits={.NBC_ANR_Y_L3_H_RNG1=6, .NBC_ANR_Y_L3_H_RNG2=12, .NBC_ANR_Y_L3_H_RNG3=18, .NBC_ANR_Y_L3_H_RNG4=24}},
+    .ptcv      ={.bits={.NBC_ANR_C_V_RNG1=14, .NBC_ANR_C_V_RNG2=26, .NBC_ANR_C_V_RNG3=37, .NBC_ANR_C_V_RNG4=50}},
+    .act4      ={.bits={.NBC_ANR_Y_ACT_CEN_OFT=32, .rsv_6=0, .NBC_ANR_Y_ACT_CEN_GAIN=0, .rsv_14=0, .NBC_ANR_Y_ACT_CEN_TH=32, .rsv_22=0}},
+    .ptch      ={.bits={.NBC_ANR_C_H_RNG1=12, .NBC_ANR_C_H_RNG2=23, .NBC_ANR_C_H_RNG3=33, .NBC_ANR_C_H_RNG4=44}},
+    .ylvl0     ={.bits={.NBC_ANR_Y_L0_RNG_RAT_TH=8, .NBC_ANR_Y_L1_RNG_RAT_TH=8, .NBC_ANR_Y_L2_RNG_RAT_TH=8, .NBC_ANR_Y_L3_RNG_RAT_TH=14, .NBC_ANR_Y_L0_RNG_RAT_SL=3, .rsv_18=0, .NBC_ANR_Y_L1_RNG_RAT_SL=3, .rsv_22=0, .NBC_ANR_Y_L2_RNG_RAT_SL=3, .rsv_26=0, .NBC_ANR_Y_L3_RNG_RAT_SL=3, .rsv_30=0}},
+    .ylvl1     ={.bits={.NBC_ANR_Y_L0_HF_W=16, .rsv_5=0, .NBC_ANR_Y_L1_HF_W=13, .rsv_13=0, .NBC_ANR_Y_L2_HF_W=13, .rsv_21=0, .NBC_ANR_Y_L3_HF_W=13, .rsv_29=0}},
+    .hf_cor    ={.bits={.NBC_ANR_Y_HF_CORE_TH=0, .NBC_ANR_Y_HF_CORE_SL=2, .rsv_10=0, .NBC_ANR_Y_HF_CLIP=255, .NBC_ANR_HF_BAL_MODE=2, .rsv_26=0}},
+    .hf_act0   ={.bits={.NBC_ANR_Y_HF_ACT_X1=16, .NBC_ANR_Y_HF_ACT_X2=20, .NBC_ANR_Y_HF_ACT_X3=24, .NBC_ANR_Y_HF_ACT_X4=28}},
+    .hf_act1   ={.bits={.NBC_ANR_Y_HF_ACT_Y0=20, .rsv_7=0, .NBC_ANR_Y_HF_ACT_Y1=20, .rsv_15=0, .NBC_ANR_Y_HF_ACT_Y2=20, .rsv_23=0, .NBC_ANR_Y_HF_ACT_Y3=20, .rsv_31=0}},
+    .actc      ={.bits={.rsv_0=0, .NBC_ANR_ACT_BLD_BASE_C=64, .rsv_15=0, .NBC_ANR_C_DITH_U=8, .rsv_21=0, .NBC_ANR_C_DITH_V=8, .rsv_29=0}},
+    .ylad      ={.bits={.NBC_ANR_CEN_GAIN_LO_TH_LPF=10, .rsv_5=0, .NBC_ANR_CEN_GAIN_HI_TH_LPF=10, .rsv_13=0}},
+    .hf_act2   ={.bits={.NBC_ANR_Y_HF_ACT_Y4=20, .rsv_7=0, .NBC_ANR_Y_HF_ACT_SP4=0, .rsv_14=0}},
+    .hf_act3   ={.bits={.NBC_ANR_Y_HF_ACT_SP0=0, .rsv_6=0, .NBC_ANR_Y_HF_ACT_SP1=0, .rsv_14=0, .NBC_ANR_Y_HF_ACT_SP2=0, .rsv_22=0, .NBC_ANR_Y_HF_ACT_SP3=0, .rsv_30=0}},
+    .hf_luma0  ={.bits={.NBC_ANR_Y_HF_LUMA_X1=8, .NBC_ANR_Y_HF_LUMA_X2=8, .NBC_ANR_Y_HF_LUMA_Y0=0, .rsv_23=0, .NBC_ANR_Y_HF_LUMA_Y1=0, .rsv_31=0}},
+    .hf_luma1  ={.bits={.NBC_ANR_Y_HF_LUMA_Y2=2, .rsv_7=0, .NBC_ANR_Y_HF_LUMA_SP0=0, .rsv_13=0, .NBC_ANR_Y_HF_LUMA_SP1=2, .rsv_21=0, .NBC_ANR_Y_HF_LUMA_SP2=0, .rsv_29=0}},
+    .y4lut4    ={.bits={.NBC_ANR_Y_CPX5=255, .NBC_ANR_Y_CPX6=255, .NBC_ANR_Y_CPX7=255, .NBC_ANR_Y_CPX8=255}},
+    .y4lut5    ={.bits={.NBC_ANR_Y_SCALE_CPY4=7, .rsv_5=0, .NBC_ANR_Y_SCALE_CPY5=7, .rsv_13=0, .NBC_ANR_Y_SCALE_CPY6=7, .rsv_21=0, .NBC_ANR_Y_SCALE_CPY7=7, .rsv_29=0}},
+    .y4lut6    ={.bits={.NBC_ANR_Y_SCALE_SP4=0, .rsv_5=0, .NBC_ANR_Y_SCALE_SP5=0, .rsv_13=0, .NBC_ANR_Y_SCALE_SP6=0, .rsv_21=0, .NBC_ANR_Y_SCALE_SP7=0, .rsv_29=0}},
+    .y4lut7    ={.bits={.NBC_ANR_Y_SCALE_CPY8=7, .rsv_5=0, .NBC_ANR_Y_SCALE_SP8=0, .rsv_13=0}},
+    .a4lut1    ={.bits={.NBC_ANR_Y_ACT_CPX1=39, .NBC_ANR_Y_ACT_CPX2=94, .NBC_ANR_Y_ACT_CPX3=160, .rsv_24=0}}
+
+};
+const ISP_NVRAM_ANR_T ov16885mipiraw_NBC_ANR_0092 = {
+        .con1      ={.bits={.NBC_ANR_ENC=1, .NBC_ANR_ENY=1, .rsv_2=0, .NBC_ANR_Y_FLT0_IDX=0, .rsv_5=0, .NBC_ANR_Y_FLT1_IDX=1, .rsv_7=0, .NBC_ANR_Y_FLT2_IDX=2, .NBC_ANR_Y_FLT3_IDX=1, .NBC_ANR_ACT_LP_EN=0, .rsv_13=0, .NBC_ANR_TILE_EDGE=15, .NBC_ANR_LTM_LINK=0, .NBC_ANR_LTM_LUT_BYPASS=0, .rsv_22=0, .NBC_ANR_SL2_LINK=1, .rsv_25=0, .NBC_ANR_TABLE_EN=0, .NBC_ANR_TBL_PRC=0, .rsv_30=0}},
+    .con2      ={.bits={.NBC_ANR_IMPL_MODE=2, .rsv_2=0, .NBC_ANR_C_SM_EDGE=1, .rsv_10=0, .NBC_ANR_FLT_C=0, .rsv_13=0, .NBC_ANR_C_SM_EDGE_TH=4, .rsv_27=0}},
+    .yad1      ={.bits={.NBC_ANR_CEN_GAIN_LO_TH=11, .rsv_5=0, .NBC_ANR_CEN_GAIN_HI_TH=11, .rsv_13=0, .NBC_ANR_Y_SLOPE_V_TH=40, .NBC_ANR_Y_SLOPE_H_TH=32}},
+    .yad2      ={.bits={.NBC_ANR_Y_VERT_ACT_TH=7, .rsv_5=0, .NBC_ANR_PTY_GAIN_TH=0, .rsv_13=0, .NBC_ANR_Y_VERT_SIGMA=2, .rsv_24=0}},
+    .y4lut1    ={.bits={.NBC_ANR_Y_CPX1=40, .NBC_ANR_Y_CPX2=100, .NBC_ANR_Y_CPX3=160, .NBC_ANR_Y_CPX4=255}},
+    .y4lut2    ={.bits={.NBC_ANR_Y_SCALE_CPY0=15, .rsv_5=0, .NBC_ANR_Y_SCALE_CPY1=15, .rsv_13=0, .NBC_ANR_Y_SCALE_CPY2=15, .rsv_21=0, .NBC_ANR_Y_SCALE_CPY3=13, .rsv_29=0}},
+    .y4lut3    ={.bits={.NBC_ANR_Y_SCALE_SP0=0, .rsv_5=0, .NBC_ANR_Y_SCALE_SP1=0, .rsv_13=0, .NBC_ANR_Y_SCALE_SP2=28, .rsv_21=0, .NBC_ANR_Y_SCALE_SP3=24, .rsv_29=0}},
+    .c4lut1    ={.bits={.NBC_ANR_C_CPX1=40, .NBC_ANR_C_CPX2=100, .NBC_ANR_C_CPX3=160, .rsv_24=0}},
+    .c4lut2    ={.bits={.NBC_ANR_C_SCALE_CPY0=16, .rsv_5=0, .NBC_ANR_C_SCALE_CPY1=16, .rsv_13=0, .NBC_ANR_C_SCALE_CPY2=16, .rsv_21=0, .NBC_ANR_C_SCALE_CPY3=16, .rsv_29=0}},
+    .c4lut3    ={.bits={.NBC_ANR_C_SCALE_SP0=0, .rsv_5=0, .NBC_ANR_C_SCALE_SP1=0, .rsv_13=0, .NBC_ANR_C_SCALE_SP2=0, .rsv_21=0, .NBC_ANR_C_SCALE_SP3=0, .rsv_29=0}},
+    .a4lut2    ={.bits={.NBC_ANR_Y_ACT_CPY0=0, .NBC_ANR_Y_ACT_CPY1=0, .NBC_ANR_Y_ACT_CPY2=0, .NBC_ANR_Y_ACT_CPY3=0}},
+    .a4lut3    ={.bits={.NBC_ANR_Y_ACT_SP0=0, .rsv_6=0, .NBC_ANR_Y_ACT_SP1=0, .rsv_14=0, .NBC_ANR_Y_ACT_SP2=0, .rsv_22=0, .NBC_ANR_Y_ACT_SP3=0, .rsv_30=0}},
+    .l4lut1    ={.bits={.NBC_ANR_SL2_X1=64, .NBC_ANR_SL2_X2=128, .NBC_ANR_SL2_X3=192, .rsv_24=0}},
+    .l4lut2    ={.bits={.NBC_ANR_SL2_GAIN0=16, .rsv_6=0, .NBC_ANR_SL2_GAIN1=23, .rsv_14=0, .NBC_ANR_SL2_GAIN2=29, .rsv_22=0, .NBC_ANR_SL2_GAIN3=41, .rsv_30=0}},
+    .l4lut3    ={.bits={.NBC_ANR_SL2_SP0=14, .rsv_6=0, .NBC_ANR_SL2_SP1=12, .rsv_14=0, .NBC_ANR_SL2_SP2=24, .rsv_22=0, .NBC_ANR_SL2_SP3=11, .rsv_30=0}},
+    .pty0v     ={.bits={.NBC_ANR_Y_L0_V_RNG1=10, .NBC_ANR_Y_L0_V_RNG2=19, .NBC_ANR_Y_L0_V_RNG3=29, .NBC_ANR_Y_L0_V_RNG4=37}},
+    .cad       ={.bits={.rsv_0=0, .NBC_ANR_PTC_GAIN_TH=16, .rsv_13=0, .NBC_ANR_C_L_DIFF_TH=47, .rsv_24=0}},
+    .pty1v     ={.bits={.NBC_ANR_Y_L1_V_RNG1=10, .NBC_ANR_Y_L1_V_RNG2=19, .NBC_ANR_Y_L1_V_RNG3=29, .NBC_ANR_Y_L1_V_RNG4=37}},
+    .sl2       ={.bits={.NBC_ANR_SL2_C_GAIN=6, .NBC_ANR_SL2_SCALE_GAIN=0, .rsv_7=0}},
+    .pty2v     ={.bits={.NBC_ANR_Y_L2_V_RNG1=9, .NBC_ANR_Y_L2_V_RNG2=18, .NBC_ANR_Y_L2_V_RNG3=27, .NBC_ANR_Y_L2_V_RNG4=36}},
+    .pty3v     ={.bits={.NBC_ANR_Y_L3_V_RNG1=8, .NBC_ANR_Y_L3_V_RNG2=15, .NBC_ANR_Y_L3_V_RNG3=23, .NBC_ANR_Y_L3_V_RNG4=30}},
+    .pty0h     ={.bits={.NBC_ANR_Y_L0_H_RNG1=9, .NBC_ANR_Y_L0_H_RNG2=17, .NBC_ANR_Y_L0_H_RNG3=26, .NBC_ANR_Y_L0_H_RNG4=33}},
+    .pty1h     ={.bits={.NBC_ANR_Y_L1_H_RNG1=9, .NBC_ANR_Y_L1_H_RNG2=17, .NBC_ANR_Y_L1_H_RNG3=26, .NBC_ANR_Y_L1_H_RNG4=33}},
+    .pty2h     ={.bits={.NBC_ANR_Y_L2_H_RNG1=8, .NBC_ANR_Y_L2_H_RNG2=16, .NBC_ANR_Y_L2_H_RNG3=24, .NBC_ANR_Y_L2_H_RNG4=32}},
+    .t4lut1    ={.bits={.NBC_ANR_TBL_CPX1=40, .NBC_ANR_TBL_CPX2=120, .NBC_ANR_TBL_CPX3=160, .rsv_24=0}},
+    .t4lut2    ={.bits={.NBC_ANR_TBL_GAIN_CPY0=8, .rsv_5=0, .NBC_ANR_TBL_GAIN_CPY1=8, .rsv_13=0, .NBC_ANR_TBL_GAIN_CPY2=8, .rsv_21=0, .NBC_ANR_TBL_GAIN_CPY3=8, .rsv_29=0}},
+    .t4lut3    ={.bits={.NBC_ANR_TBL_GAIN_SP0=0, .rsv_5=0, .NBC_ANR_TBL_GAIN_SP1=0, .rsv_13=0, .NBC_ANR_TBL_GAIN_SP2=0, .rsv_21=0, .NBC_ANR_TBL_GAIN_SP3=0, .rsv_29=0}},
+    .act1      ={.bits={.NBC_ANR_ACT_SL2_GAIN=8, .rsv_4=0, .NBC_ANR_ACT_DIF_HI_TH=16, .rsv_13=0, .NBC_ANR_ACT_DIF_GAIN=0, .NBC_ANR_ACT_DIF_LO_TH=16, .rsv_29=0}},
+    .pty3h     ={.bits={.NBC_ANR_Y_L3_H_RNG1=7, .NBC_ANR_Y_L3_H_RNG2=14, .NBC_ANR_Y_L3_H_RNG3=20, .NBC_ANR_Y_L3_H_RNG4=27}},
+    .ptcv      ={.bits={.NBC_ANR_C_V_RNG1=14, .NBC_ANR_C_V_RNG2=27, .NBC_ANR_C_V_RNG3=39, .NBC_ANR_C_V_RNG4=52}},
+    .act4      ={.bits={.NBC_ANR_Y_ACT_CEN_OFT=32, .rsv_6=0, .NBC_ANR_Y_ACT_CEN_GAIN=0, .rsv_14=0, .NBC_ANR_Y_ACT_CEN_TH=32, .rsv_22=0}},
+    .ptch      ={.bits={.NBC_ANR_C_H_RNG1=12, .NBC_ANR_C_H_RNG2=24, .NBC_ANR_C_H_RNG3=35, .NBC_ANR_C_H_RNG4=46}},
+    .ylvl0     ={.bits={.NBC_ANR_Y_L0_RNG_RAT_TH=8, .NBC_ANR_Y_L1_RNG_RAT_TH=8, .NBC_ANR_Y_L2_RNG_RAT_TH=8, .NBC_ANR_Y_L3_RNG_RAT_TH=14, .NBC_ANR_Y_L0_RNG_RAT_SL=3, .rsv_18=0, .NBC_ANR_Y_L1_RNG_RAT_SL=3, .rsv_22=0, .NBC_ANR_Y_L2_RNG_RAT_SL=3, .rsv_26=0, .NBC_ANR_Y_L3_RNG_RAT_SL=3, .rsv_30=0}},
+    .ylvl1     ={.bits={.NBC_ANR_Y_L0_HF_W=16, .rsv_5=0, .NBC_ANR_Y_L1_HF_W=11, .rsv_13=0, .NBC_ANR_Y_L2_HF_W=11, .rsv_21=0, .NBC_ANR_Y_L3_HF_W=11, .rsv_29=0}},
+    .hf_cor    ={.bits={.NBC_ANR_Y_HF_CORE_TH=0, .NBC_ANR_Y_HF_CORE_SL=2, .rsv_10=0, .NBC_ANR_Y_HF_CLIP=255, .NBC_ANR_HF_BAL_MODE=2, .rsv_26=0}},
+    .hf_act0   ={.bits={.NBC_ANR_Y_HF_ACT_X1=16, .NBC_ANR_Y_HF_ACT_X2=20, .NBC_ANR_Y_HF_ACT_X3=24, .NBC_ANR_Y_HF_ACT_X4=28}},
+    .hf_act1   ={.bits={.NBC_ANR_Y_HF_ACT_Y0=19, .rsv_7=0, .NBC_ANR_Y_HF_ACT_Y1=19, .rsv_15=0, .NBC_ANR_Y_HF_ACT_Y2=19, .rsv_23=0, .NBC_ANR_Y_HF_ACT_Y3=19, .rsv_31=0}},
+    .actc      ={.bits={.rsv_0=0, .NBC_ANR_ACT_BLD_BASE_C=64, .rsv_15=0, .NBC_ANR_C_DITH_U=8, .rsv_21=0, .NBC_ANR_C_DITH_V=8, .rsv_29=0}},
+    .ylad      ={.bits={.NBC_ANR_CEN_GAIN_LO_TH_LPF=11, .rsv_5=0, .NBC_ANR_CEN_GAIN_HI_TH_LPF=11, .rsv_13=0}},
+    .hf_act2   ={.bits={.NBC_ANR_Y_HF_ACT_Y4=19, .rsv_7=0, .NBC_ANR_Y_HF_ACT_SP4=0, .rsv_14=0}},
+    .hf_act3   ={.bits={.NBC_ANR_Y_HF_ACT_SP0=0, .rsv_6=0, .NBC_ANR_Y_HF_ACT_SP1=0, .rsv_14=0, .NBC_ANR_Y_HF_ACT_SP2=0, .rsv_22=0, .NBC_ANR_Y_HF_ACT_SP3=0, .rsv_30=0}},
+    .hf_luma0  ={.bits={.NBC_ANR_Y_HF_LUMA_X1=0, .NBC_ANR_Y_HF_LUMA_X2=0, .NBC_ANR_Y_HF_LUMA_Y0=0, .rsv_23=0, .NBC_ANR_Y_HF_LUMA_Y1=0, .rsv_31=0}},
+    .hf_luma1  ={.bits={.NBC_ANR_Y_HF_LUMA_Y2=0, .rsv_7=0, .NBC_ANR_Y_HF_LUMA_SP0=0, .rsv_13=0, .NBC_ANR_Y_HF_LUMA_SP1=2, .rsv_21=0, .NBC_ANR_Y_HF_LUMA_SP2=0, .rsv_29=0}},
+    .y4lut4    ={.bits={.NBC_ANR_Y_CPX5=255, .NBC_ANR_Y_CPX6=255, .NBC_ANR_Y_CPX7=255, .NBC_ANR_Y_CPX8=255}},
+    .y4lut5    ={.bits={.NBC_ANR_Y_SCALE_CPY4=7, .rsv_5=0, .NBC_ANR_Y_SCALE_CPY5=7, .rsv_13=0, .NBC_ANR_Y_SCALE_CPY6=7, .rsv_21=0, .NBC_ANR_Y_SCALE_CPY7=7, .rsv_29=0}},
+    .y4lut6    ={.bits={.NBC_ANR_Y_SCALE_SP4=0, .rsv_5=0, .NBC_ANR_Y_SCALE_SP5=0, .rsv_13=0, .NBC_ANR_Y_SCALE_SP6=0, .rsv_21=0, .NBC_ANR_Y_SCALE_SP7=0, .rsv_29=0}},
+    .y4lut7    ={.bits={.NBC_ANR_Y_SCALE_CPY8=7, .rsv_5=0, .NBC_ANR_Y_SCALE_SP8=0, .rsv_13=0}},
+    .a4lut1    ={.bits={.NBC_ANR_Y_ACT_CPX1=40, .NBC_ANR_Y_ACT_CPX2=100, .NBC_ANR_Y_ACT_CPX3=160, .rsv_24=0}}
+
+};
+const ISP_NVRAM_ANR_T ov16885mipiraw_NBC_ANR_0093 = {
+        .con1      ={.bits={.NBC_ANR_ENC=1, .NBC_ANR_ENY=1, .rsv_2=0, .NBC_ANR_Y_FLT0_IDX=0, .rsv_5=0, .NBC_ANR_Y_FLT1_IDX=1, .rsv_7=0, .NBC_ANR_Y_FLT2_IDX=2, .NBC_ANR_Y_FLT3_IDX=1, .NBC_ANR_ACT_LP_EN=0, .rsv_13=0, .NBC_ANR_TILE_EDGE=15, .NBC_ANR_LTM_LINK=0, .NBC_ANR_LTM_LUT_BYPASS=0, .rsv_22=0, .NBC_ANR_SL2_LINK=1, .rsv_25=0, .NBC_ANR_TABLE_EN=0, .NBC_ANR_TBL_PRC=0, .rsv_30=0}},
+    .con2      ={.bits={.NBC_ANR_IMPL_MODE=2, .rsv_2=0, .NBC_ANR_C_SM_EDGE=1, .rsv_10=0, .NBC_ANR_FLT_C=0, .rsv_13=0, .NBC_ANR_C_SM_EDGE_TH=4, .rsv_27=0}},
+    .yad1      ={.bits={.NBC_ANR_CEN_GAIN_LO_TH=12, .rsv_5=0, .NBC_ANR_CEN_GAIN_HI_TH=12, .rsv_13=0, .NBC_ANR_Y_SLOPE_V_TH=41, .NBC_ANR_Y_SLOPE_H_TH=33}},
+    .yad2      ={.bits={.NBC_ANR_Y_VERT_ACT_TH=7, .rsv_5=0, .NBC_ANR_PTY_GAIN_TH=0, .rsv_13=0, .NBC_ANR_Y_VERT_SIGMA=2, .rsv_24=0}},
+    .y4lut1    ={.bits={.NBC_ANR_Y_CPX1=40, .NBC_ANR_Y_CPX2=100, .NBC_ANR_Y_CPX3=160, .NBC_ANR_Y_CPX4=255}},
+    .y4lut2    ={.bits={.NBC_ANR_Y_SCALE_CPY0=15, .rsv_5=0, .NBC_ANR_Y_SCALE_CPY1=15, .rsv_13=0, .NBC_ANR_Y_SCALE_CPY2=15, .rsv_21=0, .NBC_ANR_Y_SCALE_CPY3=12, .rsv_29=0}},
+    .y4lut3    ={.bits={.NBC_ANR_Y_SCALE_SP0=0, .rsv_5=0, .NBC_ANR_Y_SCALE_SP1=0, .rsv_13=0, .NBC_ANR_Y_SCALE_SP2=26, .rsv_21=0, .NBC_ANR_Y_SCALE_SP3=24, .rsv_29=0}},
+    .c4lut1    ={.bits={.NBC_ANR_C_CPX1=40, .NBC_ANR_C_CPX2=100, .NBC_ANR_C_CPX3=160, .rsv_24=0}},
+    .c4lut2    ={.bits={.NBC_ANR_C_SCALE_CPY0=16, .rsv_5=0, .NBC_ANR_C_SCALE_CPY1=16, .rsv_13=0, .NBC_ANR_C_SCALE_CPY2=16, .rsv_21=0, .NBC_ANR_C_SCALE_CPY3=16, .rsv_29=0}},
+    .c4lut3    ={.bits={.NBC_ANR_C_SCALE_SP0=0, .rsv_5=0, .NBC_ANR_C_SCALE_SP1=0, .rsv_13=0, .NBC_ANR_C_SCALE_SP2=0, .rsv_21=0, .NBC_ANR_C_SCALE_SP3=0, .rsv_29=0}},
+    .a4lut2    ={.bits={.NBC_ANR_Y_ACT_CPY0=0, .NBC_ANR_Y_ACT_CPY1=0, .NBC_ANR_Y_ACT_CPY2=0, .NBC_ANR_Y_ACT_CPY3=0}},
+    .a4lut3    ={.bits={.NBC_ANR_Y_ACT_SP0=0, .rsv_6=0, .NBC_ANR_Y_ACT_SP1=0, .rsv_14=0, .NBC_ANR_Y_ACT_SP2=0, .rsv_22=0, .NBC_ANR_Y_ACT_SP3=0, .rsv_30=0}},
+    .l4lut1    ={.bits={.NBC_ANR_SL2_X1=64, .NBC_ANR_SL2_X2=128, .NBC_ANR_SL2_X3=192, .rsv_24=0}},
+    .l4lut2    ={.bits={.NBC_ANR_SL2_GAIN0=16, .rsv_6=0, .NBC_ANR_SL2_GAIN1=21, .rsv_14=0, .NBC_ANR_SL2_GAIN2=27, .rsv_22=0, .NBC_ANR_SL2_GAIN3=39, .rsv_30=0}},
+    .l4lut3    ={.bits={.NBC_ANR_SL2_SP0=10, .rsv_6=0, .NBC_ANR_SL2_SP1=12, .rsv_14=0, .NBC_ANR_SL2_SP2=24, .rsv_22=0, .NBC_ANR_SL2_SP3=11, .rsv_30=0}},
+    .pty0v     ={.bits={.NBC_ANR_Y_L0_V_RNG1=10, .NBC_ANR_Y_L0_V_RNG2=20, .NBC_ANR_Y_L0_V_RNG3=29, .NBC_ANR_Y_L0_V_RNG4=39}},
+    .cad       ={.bits={.rsv_0=0, .NBC_ANR_PTC_GAIN_TH=16, .rsv_13=0, .NBC_ANR_C_L_DIFF_TH=51, .rsv_24=0}},
+    .pty1v     ={.bits={.NBC_ANR_Y_L1_V_RNG1=10, .NBC_ANR_Y_L1_V_RNG2=20, .NBC_ANR_Y_L1_V_RNG3=29, .NBC_ANR_Y_L1_V_RNG4=39}},
+    .sl2       ={.bits={.NBC_ANR_SL2_C_GAIN=6, .NBC_ANR_SL2_SCALE_GAIN=0, .rsv_7=0}},
+    .pty2v     ={.bits={.NBC_ANR_Y_L2_V_RNG1=10, .NBC_ANR_Y_L2_V_RNG2=18, .NBC_ANR_Y_L2_V_RNG3=27, .NBC_ANR_Y_L2_V_RNG4=37}},
+    .pty3v     ={.bits={.NBC_ANR_Y_L3_V_RNG1=9, .NBC_ANR_Y_L3_V_RNG2=17, .NBC_ANR_Y_L3_V_RNG3=25, .NBC_ANR_Y_L3_V_RNG4=35}},
+    .pty0h     ={.bits={.NBC_ANR_Y_L0_H_RNG1=9, .NBC_ANR_Y_L0_H_RNG2=18, .NBC_ANR_Y_L0_H_RNG3=26, .NBC_ANR_Y_L0_H_RNG4=35}},
+    .pty1h     ={.bits={.NBC_ANR_Y_L1_H_RNG1=9, .NBC_ANR_Y_L1_H_RNG2=18, .NBC_ANR_Y_L1_H_RNG3=26, .NBC_ANR_Y_L1_H_RNG4=35}},
+    .pty2h     ={.bits={.NBC_ANR_Y_L2_H_RNG1=9, .NBC_ANR_Y_L2_H_RNG2=16, .NBC_ANR_Y_L2_H_RNG3=24, .NBC_ANR_Y_L2_H_RNG4=33}},
+    .t4lut1    ={.bits={.NBC_ANR_TBL_CPX1=40, .NBC_ANR_TBL_CPX2=120, .NBC_ANR_TBL_CPX3=160, .rsv_24=0}},
+    .t4lut2    ={.bits={.NBC_ANR_TBL_GAIN_CPY0=8, .rsv_5=0, .NBC_ANR_TBL_GAIN_CPY1=8, .rsv_13=0, .NBC_ANR_TBL_GAIN_CPY2=8, .rsv_21=0, .NBC_ANR_TBL_GAIN_CPY3=8, .rsv_29=0}},
+    .t4lut3    ={.bits={.NBC_ANR_TBL_GAIN_SP0=0, .rsv_5=0, .NBC_ANR_TBL_GAIN_SP1=0, .rsv_13=0, .NBC_ANR_TBL_GAIN_SP2=0, .rsv_21=0, .NBC_ANR_TBL_GAIN_SP3=0, .rsv_29=0}},
+    .act1      ={.bits={.NBC_ANR_ACT_SL2_GAIN=8, .rsv_4=0, .NBC_ANR_ACT_DIF_HI_TH=16, .rsv_13=0, .NBC_ANR_ACT_DIF_GAIN=0, .NBC_ANR_ACT_DIF_LO_TH=16, .rsv_29=0}},
+    .pty3h     ={.bits={.NBC_ANR_Y_L3_H_RNG1=8, .NBC_ANR_Y_L3_H_RNG2=15, .NBC_ANR_Y_L3_H_RNG3=22, .NBC_ANR_Y_L3_H_RNG4=31}},
+    .ptcv      ={.bits={.NBC_ANR_C_V_RNG1=14, .NBC_ANR_C_V_RNG2=27, .NBC_ANR_C_V_RNG3=40, .NBC_ANR_C_V_RNG4=54}},
+    .act4      ={.bits={.NBC_ANR_Y_ACT_CEN_OFT=32, .rsv_6=0, .NBC_ANR_Y_ACT_CEN_GAIN=0, .rsv_14=0, .NBC_ANR_Y_ACT_CEN_TH=32, .rsv_22=0}},
+    .ptch      ={.bits={.NBC_ANR_C_H_RNG1=12, .NBC_ANR_C_H_RNG2=24, .NBC_ANR_C_H_RNG3=36, .NBC_ANR_C_H_RNG4=48}},
+    .ylvl0     ={.bits={.NBC_ANR_Y_L0_RNG_RAT_TH=8, .NBC_ANR_Y_L1_RNG_RAT_TH=8, .NBC_ANR_Y_L2_RNG_RAT_TH=8, .NBC_ANR_Y_L3_RNG_RAT_TH=14, .NBC_ANR_Y_L0_RNG_RAT_SL=3, .rsv_18=0, .NBC_ANR_Y_L1_RNG_RAT_SL=3, .rsv_22=0, .NBC_ANR_Y_L2_RNG_RAT_SL=3, .rsv_26=0, .NBC_ANR_Y_L3_RNG_RAT_SL=3, .rsv_30=0}},
+    .ylvl1     ={.bits={.NBC_ANR_Y_L0_HF_W=16, .rsv_5=0, .NBC_ANR_Y_L1_HF_W=10, .rsv_13=0, .NBC_ANR_Y_L2_HF_W=10, .rsv_21=0, .NBC_ANR_Y_L3_HF_W=10, .rsv_29=0}},
+    .hf_cor    ={.bits={.NBC_ANR_Y_HF_CORE_TH=0, .NBC_ANR_Y_HF_CORE_SL=2, .rsv_10=0, .NBC_ANR_Y_HF_CLIP=255, .NBC_ANR_HF_BAL_MODE=2, .rsv_26=0}},
+    .hf_act0   ={.bits={.NBC_ANR_Y_HF_ACT_X1=16, .NBC_ANR_Y_HF_ACT_X2=20, .NBC_ANR_Y_HF_ACT_X3=24, .NBC_ANR_Y_HF_ACT_X4=28}},
+    .hf_act1   ={.bits={.NBC_ANR_Y_HF_ACT_Y0=18, .rsv_7=0, .NBC_ANR_Y_HF_ACT_Y1=18, .rsv_15=0, .NBC_ANR_Y_HF_ACT_Y2=18, .rsv_23=0, .NBC_ANR_Y_HF_ACT_Y3=18, .rsv_31=0}},
+    .actc      ={.bits={.rsv_0=0, .NBC_ANR_ACT_BLD_BASE_C=64, .rsv_15=0, .NBC_ANR_C_DITH_U=8, .rsv_21=0, .NBC_ANR_C_DITH_V=8, .rsv_29=0}},
+    .ylad      ={.bits={.NBC_ANR_CEN_GAIN_LO_TH_LPF=12, .rsv_5=0, .NBC_ANR_CEN_GAIN_HI_TH_LPF=12, .rsv_13=0}},
+    .hf_act2   ={.bits={.NBC_ANR_Y_HF_ACT_Y4=18, .rsv_7=0, .NBC_ANR_Y_HF_ACT_SP4=0, .rsv_14=0}},
+    .hf_act3   ={.bits={.NBC_ANR_Y_HF_ACT_SP0=0, .rsv_6=0, .NBC_ANR_Y_HF_ACT_SP1=0, .rsv_14=0, .NBC_ANR_Y_HF_ACT_SP2=0, .rsv_22=0, .NBC_ANR_Y_HF_ACT_SP3=0, .rsv_30=0}},
+    .hf_luma0  ={.bits={.NBC_ANR_Y_HF_LUMA_X1=0, .NBC_ANR_Y_HF_LUMA_X2=0, .NBC_ANR_Y_HF_LUMA_Y0=0, .rsv_23=0, .NBC_ANR_Y_HF_LUMA_Y1=0, .rsv_31=0}},
+    .hf_luma1  ={.bits={.NBC_ANR_Y_HF_LUMA_Y2=0, .rsv_7=0, .NBC_ANR_Y_HF_LUMA_SP0=0, .rsv_13=0, .NBC_ANR_Y_HF_LUMA_SP1=2, .rsv_21=0, .NBC_ANR_Y_HF_LUMA_SP2=0, .rsv_29=0}},
+    .y4lut4    ={.bits={.NBC_ANR_Y_CPX5=255, .NBC_ANR_Y_CPX6=255, .NBC_ANR_Y_CPX7=255, .NBC_ANR_Y_CPX8=255}},
+    .y4lut5    ={.bits={.NBC_ANR_Y_SCALE_CPY4=6, .rsv_5=0, .NBC_ANR_Y_SCALE_CPY5=6, .rsv_13=0, .NBC_ANR_Y_SCALE_CPY6=6, .rsv_21=0, .NBC_ANR_Y_SCALE_CPY7=6, .rsv_29=0}},
+    .y4lut6    ={.bits={.NBC_ANR_Y_SCALE_SP4=0, .rsv_5=0, .NBC_ANR_Y_SCALE_SP5=0, .rsv_13=0, .NBC_ANR_Y_SCALE_SP6=0, .rsv_21=0, .NBC_ANR_Y_SCALE_SP7=0, .rsv_29=0}},
+    .y4lut7    ={.bits={.NBC_ANR_Y_SCALE_CPY8=6, .rsv_5=0, .NBC_ANR_Y_SCALE_SP8=0, .rsv_13=0}},
+    .a4lut1    ={.bits={.NBC_ANR_Y_ACT_CPX1=40, .NBC_ANR_Y_ACT_CPX2=100, .NBC_ANR_Y_ACT_CPX3=160, .rsv_24=0}}
+
+};
+const ISP_NVRAM_ANR_T ov16885mipiraw_NBC_ANR_0094 = {
+        .con1      ={.bits={.NBC_ANR_ENC=1, .NBC_ANR_ENY=1, .rsv_2=0, .NBC_ANR_Y_FLT0_IDX=0, .rsv_5=0, .NBC_ANR_Y_FLT1_IDX=1, .rsv_7=0, .NBC_ANR_Y_FLT2_IDX=2, .NBC_ANR_Y_FLT3_IDX=1, .NBC_ANR_ACT_LP_EN=0, .rsv_13=0, .NBC_ANR_TILE_EDGE=15, .NBC_ANR_LTM_LINK=0, .NBC_ANR_LTM_LUT_BYPASS=0, .rsv_22=0, .NBC_ANR_SL2_LINK=1, .rsv_25=0, .NBC_ANR_TABLE_EN=0, .NBC_ANR_TBL_PRC=0, .rsv_30=0}},
+    .con2      ={.bits={.NBC_ANR_IMPL_MODE=2, .rsv_2=0, .NBC_ANR_C_SM_EDGE=1, .rsv_10=0, .NBC_ANR_FLT_C=0, .rsv_13=0, .NBC_ANR_C_SM_EDGE_TH=4, .rsv_27=0}},
+    .yad1      ={.bits={.NBC_ANR_CEN_GAIN_LO_TH=12, .rsv_5=0, .NBC_ANR_CEN_GAIN_HI_TH=12, .rsv_13=0, .NBC_ANR_Y_SLOPE_V_TH=42, .NBC_ANR_Y_SLOPE_H_TH=34}},
+    .yad2      ={.bits={.NBC_ANR_Y_VERT_ACT_TH=7, .rsv_5=0, .NBC_ANR_PTY_GAIN_TH=0, .rsv_13=0, .NBC_ANR_Y_VERT_SIGMA=2, .rsv_24=0}},
+    .y4lut1    ={.bits={.NBC_ANR_Y_CPX1=40, .NBC_ANR_Y_CPX2=100, .NBC_ANR_Y_CPX3=160, .NBC_ANR_Y_CPX4=255}},
+    .y4lut2    ={.bits={.NBC_ANR_Y_SCALE_CPY0=15, .rsv_5=0, .NBC_ANR_Y_SCALE_CPY1=15, .rsv_13=0, .NBC_ANR_Y_SCALE_CPY2=15, .rsv_21=0, .NBC_ANR_Y_SCALE_CPY3=12, .rsv_29=0}},
+    .y4lut3    ={.bits={.NBC_ANR_Y_SCALE_SP0=0, .rsv_5=0, .NBC_ANR_Y_SCALE_SP1=0, .rsv_13=0, .NBC_ANR_Y_SCALE_SP2=26, .rsv_21=0, .NBC_ANR_Y_SCALE_SP3=24, .rsv_29=0}},
+    .c4lut1    ={.bits={.NBC_ANR_C_CPX1=40, .NBC_ANR_C_CPX2=100, .NBC_ANR_C_CPX3=160, .rsv_24=0}},
+    .c4lut2    ={.bits={.NBC_ANR_C_SCALE_CPY0=16, .rsv_5=0, .NBC_ANR_C_SCALE_CPY1=16, .rsv_13=0, .NBC_ANR_C_SCALE_CPY2=16, .rsv_21=0, .NBC_ANR_C_SCALE_CPY3=16, .rsv_29=0}},
+    .c4lut3    ={.bits={.NBC_ANR_C_SCALE_SP0=0, .rsv_5=0, .NBC_ANR_C_SCALE_SP1=0, .rsv_13=0, .NBC_ANR_C_SCALE_SP2=0, .rsv_21=0, .NBC_ANR_C_SCALE_SP3=0, .rsv_29=0}},
+    .a4lut2    ={.bits={.NBC_ANR_Y_ACT_CPY0=0, .NBC_ANR_Y_ACT_CPY1=0, .NBC_ANR_Y_ACT_CPY2=0, .NBC_ANR_Y_ACT_CPY3=0}},
+    .a4lut3    ={.bits={.NBC_ANR_Y_ACT_SP0=0, .rsv_6=0, .NBC_ANR_Y_ACT_SP1=0, .rsv_14=0, .NBC_ANR_Y_ACT_SP2=0, .rsv_22=0, .NBC_ANR_Y_ACT_SP3=0, .rsv_30=0}},
+    .l4lut1    ={.bits={.NBC_ANR_SL2_X1=64, .NBC_ANR_SL2_X2=128, .NBC_ANR_SL2_X3=192, .rsv_24=0}},
+    .l4lut2    ={.bits={.NBC_ANR_SL2_GAIN0=16, .rsv_6=0, .NBC_ANR_SL2_GAIN1=21, .rsv_14=0, .NBC_ANR_SL2_GAIN2=27, .rsv_22=0, .NBC_ANR_SL2_GAIN3=39, .rsv_30=0}},
+    .l4lut3    ={.bits={.NBC_ANR_SL2_SP0=10, .rsv_6=0, .NBC_ANR_SL2_SP1=12, .rsv_14=0, .NBC_ANR_SL2_SP2=24, .rsv_22=0, .NBC_ANR_SL2_SP3=11, .rsv_30=0}},
+    .pty0v     ={.bits={.NBC_ANR_Y_L0_V_RNG1=12, .NBC_ANR_Y_L0_V_RNG2=23, .NBC_ANR_Y_L0_V_RNG3=35, .NBC_ANR_Y_L0_V_RNG4=47}},
+    .cad       ={.bits={.rsv_0=0, .NBC_ANR_PTC_GAIN_TH=16, .rsv_13=0, .NBC_ANR_C_L_DIFF_TH=51, .rsv_24=0}},
+    .pty1v     ={.bits={.NBC_ANR_Y_L1_V_RNG1=10, .NBC_ANR_Y_L1_V_RNG2=20, .NBC_ANR_Y_L1_V_RNG3=30, .NBC_ANR_Y_L1_V_RNG4=40}},
+    .sl2       ={.bits={.NBC_ANR_SL2_C_GAIN=6, .NBC_ANR_SL2_SCALE_GAIN=0, .rsv_7=0}},
+    .pty2v     ={.bits={.NBC_ANR_Y_L2_V_RNG1=10, .NBC_ANR_Y_L2_V_RNG2=18, .NBC_ANR_Y_L2_V_RNG3=27, .NBC_ANR_Y_L2_V_RNG4=38}},
+    .pty3v     ={.bits={.NBC_ANR_Y_L3_V_RNG1=9, .NBC_ANR_Y_L3_V_RNG2=16, .NBC_ANR_Y_L3_V_RNG3=24, .NBC_ANR_Y_L3_V_RNG4=35}},
+    .pty0h     ={.bits={.NBC_ANR_Y_L0_H_RNG1=10, .NBC_ANR_Y_L0_H_RNG2=21, .NBC_ANR_Y_L0_H_RNG3=31, .NBC_ANR_Y_L0_H_RNG4=42}},
+    .pty1h     ={.bits={.NBC_ANR_Y_L1_H_RNG1=9, .NBC_ANR_Y_L1_H_RNG2=18, .NBC_ANR_Y_L1_H_RNG3=27, .NBC_ANR_Y_L1_H_RNG4=36}},
+    .pty2h     ={.bits={.NBC_ANR_Y_L2_H_RNG1=9, .NBC_ANR_Y_L2_H_RNG2=16, .NBC_ANR_Y_L2_H_RNG3=24, .NBC_ANR_Y_L2_H_RNG4=34}},
+    .t4lut1    ={.bits={.NBC_ANR_TBL_CPX1=40, .NBC_ANR_TBL_CPX2=120, .NBC_ANR_TBL_CPX3=160, .rsv_24=0}},
+    .t4lut2    ={.bits={.NBC_ANR_TBL_GAIN_CPY0=8, .rsv_5=0, .NBC_ANR_TBL_GAIN_CPY1=8, .rsv_13=0, .NBC_ANR_TBL_GAIN_CPY2=8, .rsv_21=0, .NBC_ANR_TBL_GAIN_CPY3=8, .rsv_29=0}},
+    .t4lut3    ={.bits={.NBC_ANR_TBL_GAIN_SP0=0, .rsv_5=0, .NBC_ANR_TBL_GAIN_SP1=0, .rsv_13=0, .NBC_ANR_TBL_GAIN_SP2=0, .rsv_21=0, .NBC_ANR_TBL_GAIN_SP3=0, .rsv_29=0}},
+    .act1      ={.bits={.NBC_ANR_ACT_SL2_GAIN=8, .rsv_4=0, .NBC_ANR_ACT_DIF_HI_TH=16, .rsv_13=0, .NBC_ANR_ACT_DIF_GAIN=0, .NBC_ANR_ACT_DIF_LO_TH=16, .rsv_29=0}},
+    .pty3h     ={.bits={.NBC_ANR_Y_L3_H_RNG1=8, .NBC_ANR_Y_L3_H_RNG2=14, .NBC_ANR_Y_L3_H_RNG3=22, .NBC_ANR_Y_L3_H_RNG4=31}},
+    .ptcv      ={.bits={.NBC_ANR_C_V_RNG1=14, .NBC_ANR_C_V_RNG2=27, .NBC_ANR_C_V_RNG3=40, .NBC_ANR_C_V_RNG4=54}},
+    .act4      ={.bits={.NBC_ANR_Y_ACT_CEN_OFT=32, .rsv_6=0, .NBC_ANR_Y_ACT_CEN_GAIN=0, .rsv_14=0, .NBC_ANR_Y_ACT_CEN_TH=32, .rsv_22=0}},
+    .ptch      ={.bits={.NBC_ANR_C_H_RNG1=12, .NBC_ANR_C_H_RNG2=24, .NBC_ANR_C_H_RNG3=36, .NBC_ANR_C_H_RNG4=48}},
+    .ylvl0     ={.bits={.NBC_ANR_Y_L0_RNG_RAT_TH=8, .NBC_ANR_Y_L1_RNG_RAT_TH=8, .NBC_ANR_Y_L2_RNG_RAT_TH=8, .NBC_ANR_Y_L3_RNG_RAT_TH=14, .NBC_ANR_Y_L0_RNG_RAT_SL=3, .rsv_18=0, .NBC_ANR_Y_L1_RNG_RAT_SL=3, .rsv_22=0, .NBC_ANR_Y_L2_RNG_RAT_SL=3, .rsv_26=0, .NBC_ANR_Y_L3_RNG_RAT_SL=3, .rsv_30=0}},
+    .ylvl1     ={.bits={.NBC_ANR_Y_L0_HF_W=16, .rsv_5=0, .NBC_ANR_Y_L1_HF_W=11, .rsv_13=0, .NBC_ANR_Y_L2_HF_W=11, .rsv_21=0, .NBC_ANR_Y_L3_HF_W=11, .rsv_29=0}},
+    .hf_cor    ={.bits={.NBC_ANR_Y_HF_CORE_TH=0, .NBC_ANR_Y_HF_CORE_SL=2, .rsv_10=0, .NBC_ANR_Y_HF_CLIP=255, .NBC_ANR_HF_BAL_MODE=2, .rsv_26=0}},
+    .hf_act0   ={.bits={.NBC_ANR_Y_HF_ACT_X1=16, .NBC_ANR_Y_HF_ACT_X2=20, .NBC_ANR_Y_HF_ACT_X3=24, .NBC_ANR_Y_HF_ACT_X4=28}},
+    .hf_act1   ={.bits={.NBC_ANR_Y_HF_ACT_Y0=17, .rsv_7=0, .NBC_ANR_Y_HF_ACT_Y1=17, .rsv_15=0, .NBC_ANR_Y_HF_ACT_Y2=17, .rsv_23=0, .NBC_ANR_Y_HF_ACT_Y3=17, .rsv_31=0}},
+    .actc      ={.bits={.rsv_0=0, .NBC_ANR_ACT_BLD_BASE_C=64, .rsv_15=0, .NBC_ANR_C_DITH_U=8, .rsv_21=0, .NBC_ANR_C_DITH_V=8, .rsv_29=0}},
+    .ylad      ={.bits={.NBC_ANR_CEN_GAIN_LO_TH_LPF=12, .rsv_5=0, .NBC_ANR_CEN_GAIN_HI_TH_LPF=12, .rsv_13=0}},
+    .hf_act2   ={.bits={.NBC_ANR_Y_HF_ACT_Y4=17, .rsv_7=0, .NBC_ANR_Y_HF_ACT_SP4=0, .rsv_14=0}},
+    .hf_act3   ={.bits={.NBC_ANR_Y_HF_ACT_SP0=0, .rsv_6=0, .NBC_ANR_Y_HF_ACT_SP1=0, .rsv_14=0, .NBC_ANR_Y_HF_ACT_SP2=0, .rsv_22=0, .NBC_ANR_Y_HF_ACT_SP3=0, .rsv_30=0}},
+    .hf_luma0  ={.bits={.NBC_ANR_Y_HF_LUMA_X1=39, .NBC_ANR_Y_HF_LUMA_X2=5, .NBC_ANR_Y_HF_LUMA_Y0=0, .rsv_23=0, .NBC_ANR_Y_HF_LUMA_Y1=0, .rsv_31=0}},
+    .hf_luma1  ={.bits={.NBC_ANR_Y_HF_LUMA_Y2=1, .rsv_7=0, .NBC_ANR_Y_HF_LUMA_SP0=0, .rsv_13=0, .NBC_ANR_Y_HF_LUMA_SP1=2, .rsv_21=0, .NBC_ANR_Y_HF_LUMA_SP2=0, .rsv_29=0}},
+    .y4lut4    ={.bits={.NBC_ANR_Y_CPX5=255, .NBC_ANR_Y_CPX6=255, .NBC_ANR_Y_CPX7=255, .NBC_ANR_Y_CPX8=255}},
+    .y4lut5    ={.bits={.NBC_ANR_Y_SCALE_CPY4=6, .rsv_5=0, .NBC_ANR_Y_SCALE_CPY5=6, .rsv_13=0, .NBC_ANR_Y_SCALE_CPY6=6, .rsv_21=0, .NBC_ANR_Y_SCALE_CPY7=6, .rsv_29=0}},
+    .y4lut6    ={.bits={.NBC_ANR_Y_SCALE_SP4=0, .rsv_5=0, .NBC_ANR_Y_SCALE_SP5=0, .rsv_13=0, .NBC_ANR_Y_SCALE_SP6=0, .rsv_21=0, .NBC_ANR_Y_SCALE_SP7=0, .rsv_29=0}},
+    .y4lut7    ={.bits={.NBC_ANR_Y_SCALE_CPY8=6, .rsv_5=0, .NBC_ANR_Y_SCALE_SP8=0, .rsv_13=0}},
+    .a4lut1    ={.bits={.NBC_ANR_Y_ACT_CPX1=40, .NBC_ANR_Y_ACT_CPX2=100, .NBC_ANR_Y_ACT_CPX3=160, .rsv_24=0}}
+
+};
+const ISP_NVRAM_ANR_T ov16885mipiraw_NBC_ANR_0095 = {
+        .con1      ={.bits={.NBC_ANR_ENC=1, .NBC_ANR_ENY=1, .rsv_2=0, .NBC_ANR_Y_FLT0_IDX=0, .rsv_5=0, .NBC_ANR_Y_FLT1_IDX=1, .rsv_7=0, .NBC_ANR_Y_FLT2_IDX=2, .NBC_ANR_Y_FLT3_IDX=1, .NBC_ANR_ACT_LP_EN=0, .rsv_13=0, .NBC_ANR_TILE_EDGE=15, .NBC_ANR_LTM_LINK=0, .NBC_ANR_LTM_LUT_BYPASS=0, .rsv_22=0, .NBC_ANR_SL2_LINK=1, .rsv_25=0, .NBC_ANR_TABLE_EN=0, .NBC_ANR_TBL_PRC=0, .rsv_30=0}},
+    .con2      ={.bits={.NBC_ANR_IMPL_MODE=2, .rsv_2=0, .NBC_ANR_C_SM_EDGE=1, .rsv_10=0, .NBC_ANR_FLT_C=0, .rsv_13=0, .NBC_ANR_C_SM_EDGE_TH=4, .rsv_27=0}},
+    .yad1      ={.bits={.NBC_ANR_CEN_GAIN_LO_TH=13, .rsv_5=0, .NBC_ANR_CEN_GAIN_HI_TH=13, .rsv_13=0, .NBC_ANR_Y_SLOPE_V_TH=42, .NBC_ANR_Y_SLOPE_H_TH=34}},
+    .yad2      ={.bits={.NBC_ANR_Y_VERT_ACT_TH=7, .rsv_5=0, .NBC_ANR_PTY_GAIN_TH=0, .rsv_13=0, .NBC_ANR_Y_VERT_SIGMA=2, .rsv_24=0}},
+    .y4lut1    ={.bits={.NBC_ANR_Y_CPX1=40, .NBC_ANR_Y_CPX2=100, .NBC_ANR_Y_CPX3=160, .NBC_ANR_Y_CPX4=255}},
+    .y4lut2    ={.bits={.NBC_ANR_Y_SCALE_CPY0=15, .rsv_5=0, .NBC_ANR_Y_SCALE_CPY1=15, .rsv_13=0, .NBC_ANR_Y_SCALE_CPY2=15, .rsv_21=0, .NBC_ANR_Y_SCALE_CPY3=12, .rsv_29=0}},
+    .y4lut3    ={.bits={.NBC_ANR_Y_SCALE_SP0=0, .rsv_5=0, .NBC_ANR_Y_SCALE_SP1=0, .rsv_13=0, .NBC_ANR_Y_SCALE_SP2=26, .rsv_21=0, .NBC_ANR_Y_SCALE_SP3=24, .rsv_29=0}},
+    .c4lut1    ={.bits={.NBC_ANR_C_CPX1=40, .NBC_ANR_C_CPX2=100, .NBC_ANR_C_CPX3=160, .rsv_24=0}},
+    .c4lut2    ={.bits={.NBC_ANR_C_SCALE_CPY0=16, .rsv_5=0, .NBC_ANR_C_SCALE_CPY1=16, .rsv_13=0, .NBC_ANR_C_SCALE_CPY2=16, .rsv_21=0, .NBC_ANR_C_SCALE_CPY3=16, .rsv_29=0}},
+    .c4lut3    ={.bits={.NBC_ANR_C_SCALE_SP0=0, .rsv_5=0, .NBC_ANR_C_SCALE_SP1=0, .rsv_13=0, .NBC_ANR_C_SCALE_SP2=0, .rsv_21=0, .NBC_ANR_C_SCALE_SP3=0, .rsv_29=0}},
+    .a4lut2    ={.bits={.NBC_ANR_Y_ACT_CPY0=0, .NBC_ANR_Y_ACT_CPY1=0, .NBC_ANR_Y_ACT_CPY2=0, .NBC_ANR_Y_ACT_CPY3=0}},
+    .a4lut3    ={.bits={.NBC_ANR_Y_ACT_SP0=0, .rsv_6=0, .NBC_ANR_Y_ACT_SP1=0, .rsv_14=0, .NBC_ANR_Y_ACT_SP2=0, .rsv_22=0, .NBC_ANR_Y_ACT_SP3=0, .rsv_30=0}},
+    .l4lut1    ={.bits={.NBC_ANR_SL2_X1=64, .NBC_ANR_SL2_X2=128, .NBC_ANR_SL2_X3=192, .rsv_24=0}},
+    .l4lut2    ={.bits={.NBC_ANR_SL2_GAIN0=16, .rsv_6=0, .NBC_ANR_SL2_GAIN1=21, .rsv_14=0, .NBC_ANR_SL2_GAIN2=27, .rsv_22=0, .NBC_ANR_SL2_GAIN3=39, .rsv_30=0}},
+    .l4lut3    ={.bits={.NBC_ANR_SL2_SP0=10, .rsv_6=0, .NBC_ANR_SL2_SP1=12, .rsv_14=0, .NBC_ANR_SL2_SP2=24, .rsv_22=0, .NBC_ANR_SL2_SP3=11, .rsv_30=0}},
+    .pty0v     ={.bits={.NBC_ANR_Y_L0_V_RNG1=13, .NBC_ANR_Y_L0_V_RNG2=27, .NBC_ANR_Y_L0_V_RNG3=40, .NBC_ANR_Y_L0_V_RNG4=53}},
+    .cad       ={.bits={.rsv_0=0, .NBC_ANR_PTC_GAIN_TH=16, .rsv_13=0, .NBC_ANR_C_L_DIFF_TH=51, .rsv_24=0}},
+    .pty1v     ={.bits={.NBC_ANR_Y_L1_V_RNG1=10, .NBC_ANR_Y_L1_V_RNG2=20, .NBC_ANR_Y_L1_V_RNG3=30, .NBC_ANR_Y_L1_V_RNG4=40}},
+    .sl2       ={.bits={.NBC_ANR_SL2_C_GAIN=6, .NBC_ANR_SL2_SCALE_GAIN=0, .rsv_7=0}},
+    .pty2v     ={.bits={.NBC_ANR_Y_L2_V_RNG1=10, .NBC_ANR_Y_L2_V_RNG2=19, .NBC_ANR_Y_L2_V_RNG3=28, .NBC_ANR_Y_L2_V_RNG4=38}},
+    .pty3v     ={.bits={.NBC_ANR_Y_L3_V_RNG1=9, .NBC_ANR_Y_L3_V_RNG2=17, .NBC_ANR_Y_L3_V_RNG3=25, .NBC_ANR_Y_L3_V_RNG4=35}},
+    .pty0h     ={.bits={.NBC_ANR_Y_L0_H_RNG1=12, .NBC_ANR_Y_L0_H_RNG2=24, .NBC_ANR_Y_L0_H_RNG3=35, .NBC_ANR_Y_L0_H_RNG4=47}},
+    .pty1h     ={.bits={.NBC_ANR_Y_L1_H_RNG1=9, .NBC_ANR_Y_L1_H_RNG2=18, .NBC_ANR_Y_L1_H_RNG3=27, .NBC_ANR_Y_L1_H_RNG4=36}},
+    .pty2h     ={.bits={.NBC_ANR_Y_L2_H_RNG1=9, .NBC_ANR_Y_L2_H_RNG2=17, .NBC_ANR_Y_L2_H_RNG3=25, .NBC_ANR_Y_L2_H_RNG4=34}},
+    .t4lut1    ={.bits={.NBC_ANR_TBL_CPX1=40, .NBC_ANR_TBL_CPX2=120, .NBC_ANR_TBL_CPX3=160, .rsv_24=0}},
+    .t4lut2    ={.bits={.NBC_ANR_TBL_GAIN_CPY0=8, .rsv_5=0, .NBC_ANR_TBL_GAIN_CPY1=8, .rsv_13=0, .NBC_ANR_TBL_GAIN_CPY2=8, .rsv_21=0, .NBC_ANR_TBL_GAIN_CPY3=8, .rsv_29=0}},
+    .t4lut3    ={.bits={.NBC_ANR_TBL_GAIN_SP0=0, .rsv_5=0, .NBC_ANR_TBL_GAIN_SP1=0, .rsv_13=0, .NBC_ANR_TBL_GAIN_SP2=0, .rsv_21=0, .NBC_ANR_TBL_GAIN_SP3=0, .rsv_29=0}},
+    .act1      ={.bits={.NBC_ANR_ACT_SL2_GAIN=8, .rsv_4=0, .NBC_ANR_ACT_DIF_HI_TH=16, .rsv_13=0, .NBC_ANR_ACT_DIF_GAIN=0, .NBC_ANR_ACT_DIF_LO_TH=16, .rsv_29=0}},
+    .pty3h     ={.bits={.NBC_ANR_Y_L3_H_RNG1=8, .NBC_ANR_Y_L3_H_RNG2=15, .NBC_ANR_Y_L3_H_RNG3=23, .NBC_ANR_Y_L3_H_RNG4=31}},
+    .ptcv      ={.bits={.NBC_ANR_C_V_RNG1=14, .NBC_ANR_C_V_RNG2=27, .NBC_ANR_C_V_RNG3=40, .NBC_ANR_C_V_RNG4=54}},
+    .act4      ={.bits={.NBC_ANR_Y_ACT_CEN_OFT=32, .rsv_6=0, .NBC_ANR_Y_ACT_CEN_GAIN=0, .rsv_14=0, .NBC_ANR_Y_ACT_CEN_TH=32, .rsv_22=0}},
+    .ptch      ={.bits={.NBC_ANR_C_H_RNG1=12, .NBC_ANR_C_H_RNG2=24, .NBC_ANR_C_H_RNG3=36, .NBC_ANR_C_H_RNG4=48}},
+    .ylvl0     ={.bits={.NBC_ANR_Y_L0_RNG_RAT_TH=8, .NBC_ANR_Y_L1_RNG_RAT_TH=8, .NBC_ANR_Y_L2_RNG_RAT_TH=8, .NBC_ANR_Y_L3_RNG_RAT_TH=14, .NBC_ANR_Y_L0_RNG_RAT_SL=3, .rsv_18=0, .NBC_ANR_Y_L1_RNG_RAT_SL=3, .rsv_22=0, .NBC_ANR_Y_L2_RNG_RAT_SL=3, .rsv_26=0, .NBC_ANR_Y_L3_RNG_RAT_SL=3, .rsv_30=0}},
+    .ylvl1     ={.bits={.NBC_ANR_Y_L0_HF_W=16, .rsv_5=0, .NBC_ANR_Y_L1_HF_W=13, .rsv_13=0, .NBC_ANR_Y_L2_HF_W=13, .rsv_21=0, .NBC_ANR_Y_L3_HF_W=13, .rsv_29=0}},
+    .hf_cor    ={.bits={.NBC_ANR_Y_HF_CORE_TH=0, .NBC_ANR_Y_HF_CORE_SL=2, .rsv_10=0, .NBC_ANR_Y_HF_CLIP=255, .NBC_ANR_HF_BAL_MODE=2, .rsv_26=0}},
+    .hf_act0   ={.bits={.NBC_ANR_Y_HF_ACT_X1=16, .NBC_ANR_Y_HF_ACT_X2=20, .NBC_ANR_Y_HF_ACT_X3=24, .NBC_ANR_Y_HF_ACT_X4=28}},
+    .hf_act1   ={.bits={.NBC_ANR_Y_HF_ACT_Y0=15, .rsv_7=0, .NBC_ANR_Y_HF_ACT_Y1=15, .rsv_15=0, .NBC_ANR_Y_HF_ACT_Y2=15, .rsv_23=0, .NBC_ANR_Y_HF_ACT_Y3=15, .rsv_31=0}},
+    .actc      ={.bits={.rsv_0=0, .NBC_ANR_ACT_BLD_BASE_C=64, .rsv_15=0, .NBC_ANR_C_DITH_U=8, .rsv_21=0, .NBC_ANR_C_DITH_V=8, .rsv_29=0}},
+    .ylad      ={.bits={.NBC_ANR_CEN_GAIN_LO_TH_LPF=13, .rsv_5=0, .NBC_ANR_CEN_GAIN_HI_TH_LPF=13, .rsv_13=0}},
+    .hf_act2   ={.bits={.NBC_ANR_Y_HF_ACT_Y4=15, .rsv_7=0, .NBC_ANR_Y_HF_ACT_SP4=0, .rsv_14=0}},
+    .hf_act3   ={.bits={.NBC_ANR_Y_HF_ACT_SP0=0, .rsv_6=0, .NBC_ANR_Y_HF_ACT_SP1=0, .rsv_14=0, .NBC_ANR_Y_HF_ACT_SP2=0, .rsv_22=0, .NBC_ANR_Y_HF_ACT_SP3=0, .rsv_30=0}},
+    .hf_luma0  ={.bits={.NBC_ANR_Y_HF_LUMA_X1=79, .NBC_ANR_Y_HF_LUMA_X2=11, .NBC_ANR_Y_HF_LUMA_Y0=0, .rsv_23=0, .NBC_ANR_Y_HF_LUMA_Y1=0, .rsv_31=0}},
+    .hf_luma1  ={.bits={.NBC_ANR_Y_HF_LUMA_Y2=2, .rsv_7=0, .NBC_ANR_Y_HF_LUMA_SP0=0, .rsv_13=0, .NBC_ANR_Y_HF_LUMA_SP1=2, .rsv_21=0, .NBC_ANR_Y_HF_LUMA_SP2=0, .rsv_29=0}},
+    .y4lut4    ={.bits={.NBC_ANR_Y_CPX5=255, .NBC_ANR_Y_CPX6=255, .NBC_ANR_Y_CPX7=255, .NBC_ANR_Y_CPX8=255}},
+    .y4lut5    ={.bits={.NBC_ANR_Y_SCALE_CPY4=6, .rsv_5=0, .NBC_ANR_Y_SCALE_CPY5=6, .rsv_13=0, .NBC_ANR_Y_SCALE_CPY6=6, .rsv_21=0, .NBC_ANR_Y_SCALE_CPY7=6, .rsv_29=0}},
+    .y4lut6    ={.bits={.NBC_ANR_Y_SCALE_SP4=0, .rsv_5=0, .NBC_ANR_Y_SCALE_SP5=0, .rsv_13=0, .NBC_ANR_Y_SCALE_SP6=0, .rsv_21=0, .NBC_ANR_Y_SCALE_SP7=0, .rsv_29=0}},
+    .y4lut7    ={.bits={.NBC_ANR_Y_SCALE_CPY8=6, .rsv_5=0, .NBC_ANR_Y_SCALE_SP8=0, .rsv_13=0}},
+    .a4lut1    ={.bits={.NBC_ANR_Y_ACT_CPX1=40, .NBC_ANR_Y_ACT_CPX2=100, .NBC_ANR_Y_ACT_CPX3=160, .rsv_24=0}}
+
+};
+const ISP_NVRAM_ANR_T ov16885mipiraw_NBC_ANR_0096 = {
+        .con1      ={.bits={.NBC_ANR_ENC=1, .NBC_ANR_ENY=1, .rsv_2=0, .NBC_ANR_Y_FLT0_IDX=0, .rsv_5=0, .NBC_ANR_Y_FLT1_IDX=1, .rsv_7=0, .NBC_ANR_Y_FLT2_IDX=2, .NBC_ANR_Y_FLT3_IDX=1, .NBC_ANR_ACT_LP_EN=0, .rsv_13=0, .NBC_ANR_TILE_EDGE=15, .NBC_ANR_LTM_LINK=0, .NBC_ANR_LTM_LUT_BYPASS=0, .rsv_22=0, .NBC_ANR_SL2_LINK=1, .rsv_25=0, .NBC_ANR_TABLE_EN=0, .NBC_ANR_TBL_PRC=0, .rsv_30=0}},
+    .con2      ={.bits={.NBC_ANR_IMPL_MODE=2, .rsv_2=0, .NBC_ANR_C_SM_EDGE=1, .rsv_10=0, .NBC_ANR_FLT_C=0, .rsv_13=0, .NBC_ANR_C_SM_EDGE_TH=4, .rsv_27=0}},
+    .yad1      ={.bits={.NBC_ANR_CEN_GAIN_LO_TH=13, .rsv_5=0, .NBC_ANR_CEN_GAIN_HI_TH=13, .rsv_13=0, .NBC_ANR_Y_SLOPE_V_TH=44, .NBC_ANR_Y_SLOPE_H_TH=35}},
+    .yad2      ={.bits={.NBC_ANR_Y_VERT_ACT_TH=7, .rsv_5=0, .NBC_ANR_PTY_GAIN_TH=0, .rsv_13=0, .NBC_ANR_Y_VERT_SIGMA=2, .rsv_24=0}},
+    .y4lut1    ={.bits={.NBC_ANR_Y_CPX1=40, .NBC_ANR_Y_CPX2=100, .NBC_ANR_Y_CPX3=160, .NBC_ANR_Y_CPX4=255}},
+    .y4lut2    ={.bits={.NBC_ANR_Y_SCALE_CPY0=15, .rsv_5=0, .NBC_ANR_Y_SCALE_CPY1=15, .rsv_13=0, .NBC_ANR_Y_SCALE_CPY2=15, .rsv_21=0, .NBC_ANR_Y_SCALE_CPY3=12, .rsv_29=0}},
+    .y4lut3    ={.bits={.NBC_ANR_Y_SCALE_SP0=0, .rsv_5=0, .NBC_ANR_Y_SCALE_SP1=0, .rsv_13=0, .NBC_ANR_Y_SCALE_SP2=26, .rsv_21=0, .NBC_ANR_Y_SCALE_SP3=24, .rsv_29=0}},
+    .c4lut1    ={.bits={.NBC_ANR_C_CPX1=40, .NBC_ANR_C_CPX2=100, .NBC_ANR_C_CPX3=160, .rsv_24=0}},
+    .c4lut2    ={.bits={.NBC_ANR_C_SCALE_CPY0=16, .rsv_5=0, .NBC_ANR_C_SCALE_CPY1=16, .rsv_13=0, .NBC_ANR_C_SCALE_CPY2=16, .rsv_21=0, .NBC_ANR_C_SCALE_CPY3=16, .rsv_29=0}},
+    .c4lut3    ={.bits={.NBC_ANR_C_SCALE_SP0=0, .rsv_5=0, .NBC_ANR_C_SCALE_SP1=0, .rsv_13=0, .NBC_ANR_C_SCALE_SP2=0, .rsv_21=0, .NBC_ANR_C_SCALE_SP3=0, .rsv_29=0}},
+    .a4lut2    ={.bits={.NBC_ANR_Y_ACT_CPY0=0, .NBC_ANR_Y_ACT_CPY1=0, .NBC_ANR_Y_ACT_CPY2=0, .NBC_ANR_Y_ACT_CPY3=0}},
+    .a4lut3    ={.bits={.NBC_ANR_Y_ACT_SP0=0, .rsv_6=0, .NBC_ANR_Y_ACT_SP1=0, .rsv_14=0, .NBC_ANR_Y_ACT_SP2=0, .rsv_22=0, .NBC_ANR_Y_ACT_SP3=0, .rsv_30=0}},
+    .l4lut1    ={.bits={.NBC_ANR_SL2_X1=64, .NBC_ANR_SL2_X2=128, .NBC_ANR_SL2_X3=192, .rsv_24=0}},
+    .l4lut2    ={.bits={.NBC_ANR_SL2_GAIN0=16, .rsv_6=0, .NBC_ANR_SL2_GAIN1=21, .rsv_14=0, .NBC_ANR_SL2_GAIN2=27, .rsv_22=0, .NBC_ANR_SL2_GAIN3=39, .rsv_30=0}},
+    .l4lut3    ={.bits={.NBC_ANR_SL2_SP0=10, .rsv_6=0, .NBC_ANR_SL2_SP1=12, .rsv_14=0, .NBC_ANR_SL2_SP2=24, .rsv_22=0, .NBC_ANR_SL2_SP3=11, .rsv_30=0}},
+    .pty0v     ={.bits={.NBC_ANR_Y_L0_V_RNG1=15, .NBC_ANR_Y_L0_V_RNG2=30, .NBC_ANR_Y_L0_V_RNG3=46, .NBC_ANR_Y_L0_V_RNG4=61}},
+    .cad       ={.bits={.rsv_0=0, .NBC_ANR_PTC_GAIN_TH=16, .rsv_13=0, .NBC_ANR_C_L_DIFF_TH=51, .rsv_24=0}},
+    .pty1v     ={.bits={.NBC_ANR_Y_L1_V_RNG1=10, .NBC_ANR_Y_L1_V_RNG2=20, .NBC_ANR_Y_L1_V_RNG3=32, .NBC_ANR_Y_L1_V_RNG4=42}},
+    .sl2       ={.bits={.NBC_ANR_SL2_C_GAIN=6, .NBC_ANR_SL2_SCALE_GAIN=0, .rsv_7=0}},
+    .pty2v     ={.bits={.NBC_ANR_Y_L2_V_RNG1=10, .NBC_ANR_Y_L2_V_RNG2=19, .NBC_ANR_Y_L2_V_RNG3=28, .NBC_ANR_Y_L2_V_RNG4=39}},
+    .pty3v     ={.bits={.NBC_ANR_Y_L3_V_RNG1=9, .NBC_ANR_Y_L3_V_RNG2=17, .NBC_ANR_Y_L3_V_RNG3=25, .NBC_ANR_Y_L3_V_RNG4=34}},
+    .pty0h     ={.bits={.NBC_ANR_Y_L0_H_RNG1=13, .NBC_ANR_Y_L0_H_RNG2=26, .NBC_ANR_Y_L0_H_RNG3=41, .NBC_ANR_Y_L0_H_RNG4=54}},
+    .pty1h     ={.bits={.NBC_ANR_Y_L1_H_RNG1=9, .NBC_ANR_Y_L1_H_RNG2=18, .NBC_ANR_Y_L1_H_RNG3=28, .NBC_ANR_Y_L1_H_RNG4=37}},
+    .pty2h     ={.bits={.NBC_ANR_Y_L2_H_RNG1=9, .NBC_ANR_Y_L2_H_RNG2=17, .NBC_ANR_Y_L2_H_RNG3=25, .NBC_ANR_Y_L2_H_RNG4=35}},
+    .t4lut1    ={.bits={.NBC_ANR_TBL_CPX1=40, .NBC_ANR_TBL_CPX2=120, .NBC_ANR_TBL_CPX3=160, .rsv_24=0}},
+    .t4lut2    ={.bits={.NBC_ANR_TBL_GAIN_CPY0=8, .rsv_5=0, .NBC_ANR_TBL_GAIN_CPY1=8, .rsv_13=0, .NBC_ANR_TBL_GAIN_CPY2=8, .rsv_21=0, .NBC_ANR_TBL_GAIN_CPY3=8, .rsv_29=0}},
+    .t4lut3    ={.bits={.NBC_ANR_TBL_GAIN_SP0=0, .rsv_5=0, .NBC_ANR_TBL_GAIN_SP1=0, .rsv_13=0, .NBC_ANR_TBL_GAIN_SP2=0, .rsv_21=0, .NBC_ANR_TBL_GAIN_SP3=0, .rsv_29=0}},
+    .act1      ={.bits={.NBC_ANR_ACT_SL2_GAIN=8, .rsv_4=0, .NBC_ANR_ACT_DIF_HI_TH=16, .rsv_13=0, .NBC_ANR_ACT_DIF_GAIN=0, .NBC_ANR_ACT_DIF_LO_TH=16, .rsv_29=0}},
+    .pty3h     ={.bits={.NBC_ANR_Y_L3_H_RNG1=8, .NBC_ANR_Y_L3_H_RNG2=15, .NBC_ANR_Y_L3_H_RNG3=22, .NBC_ANR_Y_L3_H_RNG4=31}},
+    .ptcv      ={.bits={.NBC_ANR_C_V_RNG1=14, .NBC_ANR_C_V_RNG2=27, .NBC_ANR_C_V_RNG3=40, .NBC_ANR_C_V_RNG4=54}},
+    .act4      ={.bits={.NBC_ANR_Y_ACT_CEN_OFT=32, .rsv_6=0, .NBC_ANR_Y_ACT_CEN_GAIN=0, .rsv_14=0, .NBC_ANR_Y_ACT_CEN_TH=32, .rsv_22=0}},
+    .ptch      ={.bits={.NBC_ANR_C_H_RNG1=12, .NBC_ANR_C_H_RNG2=24, .NBC_ANR_C_H_RNG3=36, .NBC_ANR_C_H_RNG4=48}},
+    .ylvl0     ={.bits={.NBC_ANR_Y_L0_RNG_RAT_TH=8, .NBC_ANR_Y_L1_RNG_RAT_TH=8, .NBC_ANR_Y_L2_RNG_RAT_TH=8, .NBC_ANR_Y_L3_RNG_RAT_TH=14, .NBC_ANR_Y_L0_RNG_RAT_SL=3, .rsv_18=0, .NBC_ANR_Y_L1_RNG_RAT_SL=3, .rsv_22=0, .NBC_ANR_Y_L2_RNG_RAT_SL=3, .rsv_26=0, .NBC_ANR_Y_L3_RNG_RAT_SL=3, .rsv_30=0}},
+    .ylvl1     ={.bits={.NBC_ANR_Y_L0_HF_W=16, .rsv_5=0, .NBC_ANR_Y_L1_HF_W=14, .rsv_13=0, .NBC_ANR_Y_L2_HF_W=14, .rsv_21=0, .NBC_ANR_Y_L3_HF_W=14, .rsv_29=0}},
+    .hf_cor    ={.bits={.NBC_ANR_Y_HF_CORE_TH=0, .NBC_ANR_Y_HF_CORE_SL=2, .rsv_10=0, .NBC_ANR_Y_HF_CLIP=255, .NBC_ANR_HF_BAL_MODE=2, .rsv_26=0}},
+    .hf_act0   ={.bits={.NBC_ANR_Y_HF_ACT_X1=16, .NBC_ANR_Y_HF_ACT_X2=20, .NBC_ANR_Y_HF_ACT_X3=24, .NBC_ANR_Y_HF_ACT_X4=28}},
+    .hf_act1   ={.bits={.NBC_ANR_Y_HF_ACT_Y0=14, .rsv_7=0, .NBC_ANR_Y_HF_ACT_Y1=14, .rsv_15=0, .NBC_ANR_Y_HF_ACT_Y2=14, .rsv_23=0, .NBC_ANR_Y_HF_ACT_Y3=14, .rsv_31=0}},
+    .actc      ={.bits={.rsv_0=0, .NBC_ANR_ACT_BLD_BASE_C=64, .rsv_15=0, .NBC_ANR_C_DITH_U=8, .rsv_21=0, .NBC_ANR_C_DITH_V=8, .rsv_29=0}},
+    .ylad      ={.bits={.NBC_ANR_CEN_GAIN_LO_TH_LPF=13, .rsv_5=0, .NBC_ANR_CEN_GAIN_HI_TH_LPF=13, .rsv_13=0}},
+    .hf_act2   ={.bits={.NBC_ANR_Y_HF_ACT_Y4=14, .rsv_7=0, .NBC_ANR_Y_HF_ACT_SP4=0, .rsv_14=0}},
+    .hf_act3   ={.bits={.NBC_ANR_Y_HF_ACT_SP0=0, .rsv_6=0, .NBC_ANR_Y_HF_ACT_SP1=0, .rsv_14=0, .NBC_ANR_Y_HF_ACT_SP2=0, .rsv_22=0, .NBC_ANR_Y_HF_ACT_SP3=0, .rsv_30=0}},
+    .hf_luma0  ={.bits={.NBC_ANR_Y_HF_LUMA_X1=118, .NBC_ANR_Y_HF_LUMA_X2=32, .NBC_ANR_Y_HF_LUMA_Y0=0, .rsv_23=0, .NBC_ANR_Y_HF_LUMA_Y1=0, .rsv_31=0}},
+    .hf_luma1  ={.bits={.NBC_ANR_Y_HF_LUMA_Y2=4, .rsv_7=0, .NBC_ANR_Y_HF_LUMA_SP0=0, .rsv_13=0, .NBC_ANR_Y_HF_LUMA_SP1=1, .rsv_21=0, .NBC_ANR_Y_HF_LUMA_SP2=0, .rsv_29=0}},
+    .y4lut4    ={.bits={.NBC_ANR_Y_CPX5=255, .NBC_ANR_Y_CPX6=255, .NBC_ANR_Y_CPX7=255, .NBC_ANR_Y_CPX8=255}},
+    .y4lut5    ={.bits={.NBC_ANR_Y_SCALE_CPY4=6, .rsv_5=0, .NBC_ANR_Y_SCALE_CPY5=6, .rsv_13=0, .NBC_ANR_Y_SCALE_CPY6=6, .rsv_21=0, .NBC_ANR_Y_SCALE_CPY7=6, .rsv_29=0}},
+    .y4lut6    ={.bits={.NBC_ANR_Y_SCALE_SP4=0, .rsv_5=0, .NBC_ANR_Y_SCALE_SP5=0, .rsv_13=0, .NBC_ANR_Y_SCALE_SP6=0, .rsv_21=0, .NBC_ANR_Y_SCALE_SP7=0, .rsv_29=0}},
+    .y4lut7    ={.bits={.NBC_ANR_Y_SCALE_CPY8=6, .rsv_5=0, .NBC_ANR_Y_SCALE_SP8=0, .rsv_13=0}},
+    .a4lut1    ={.bits={.NBC_ANR_Y_ACT_CPX1=40, .NBC_ANR_Y_ACT_CPX2=100, .NBC_ANR_Y_ACT_CPX3=160, .rsv_24=0}}
+
+};
+const ISP_NVRAM_ANR_T ov16885mipiraw_NBC_ANR_0097 = {
+        .con1      ={.bits={.NBC_ANR_ENC=1, .NBC_ANR_ENY=1, .rsv_2=0, .NBC_ANR_Y_FLT0_IDX=0, .rsv_5=0, .NBC_ANR_Y_FLT1_IDX=1, .rsv_7=0, .NBC_ANR_Y_FLT2_IDX=2, .NBC_ANR_Y_FLT3_IDX=1, .NBC_ANR_ACT_LP_EN=0, .rsv_13=0, .NBC_ANR_TILE_EDGE=15, .NBC_ANR_LTM_LINK=0, .NBC_ANR_LTM_LUT_BYPASS=0, .rsv_22=0, .NBC_ANR_SL2_LINK=1, .rsv_25=0, .NBC_ANR_TABLE_EN=0, .NBC_ANR_TBL_PRC=0, .rsv_30=0}},
+    .con2      ={.bits={.NBC_ANR_IMPL_MODE=2, .rsv_2=0, .NBC_ANR_C_SM_EDGE=1, .rsv_10=0, .NBC_ANR_FLT_C=0, .rsv_13=0, .NBC_ANR_C_SM_EDGE_TH=4, .rsv_27=0}},
+    .yad1      ={.bits={.NBC_ANR_CEN_GAIN_LO_TH=13, .rsv_5=0, .NBC_ANR_CEN_GAIN_HI_TH=13, .rsv_13=0, .NBC_ANR_Y_SLOPE_V_TH=44, .NBC_ANR_Y_SLOPE_H_TH=35}},
+    .yad2      ={.bits={.NBC_ANR_Y_VERT_ACT_TH=7, .rsv_5=0, .NBC_ANR_PTY_GAIN_TH=0, .rsv_13=0, .NBC_ANR_Y_VERT_SIGMA=2, .rsv_24=0}},
+    .y4lut1    ={.bits={.NBC_ANR_Y_CPX1=40, .NBC_ANR_Y_CPX2=100, .NBC_ANR_Y_CPX3=160, .NBC_ANR_Y_CPX4=255}},
+    .y4lut2    ={.bits={.NBC_ANR_Y_SCALE_CPY0=15, .rsv_5=0, .NBC_ANR_Y_SCALE_CPY1=15, .rsv_13=0, .NBC_ANR_Y_SCALE_CPY2=15, .rsv_21=0, .NBC_ANR_Y_SCALE_CPY3=12, .rsv_29=0}},
+    .y4lut3    ={.bits={.NBC_ANR_Y_SCALE_SP0=0, .rsv_5=0, .NBC_ANR_Y_SCALE_SP1=0, .rsv_13=0, .NBC_ANR_Y_SCALE_SP2=26, .rsv_21=0, .NBC_ANR_Y_SCALE_SP3=24, .rsv_29=0}},
+    .c4lut1    ={.bits={.NBC_ANR_C_CPX1=40, .NBC_ANR_C_CPX2=100, .NBC_ANR_C_CPX3=160, .rsv_24=0}},
+    .c4lut2    ={.bits={.NBC_ANR_C_SCALE_CPY0=16, .rsv_5=0, .NBC_ANR_C_SCALE_CPY1=16, .rsv_13=0, .NBC_ANR_C_SCALE_CPY2=16, .rsv_21=0, .NBC_ANR_C_SCALE_CPY3=16, .rsv_29=0}},
+    .c4lut3    ={.bits={.NBC_ANR_C_SCALE_SP0=0, .rsv_5=0, .NBC_ANR_C_SCALE_SP1=0, .rsv_13=0, .NBC_ANR_C_SCALE_SP2=0, .rsv_21=0, .NBC_ANR_C_SCALE_SP3=0, .rsv_29=0}},
+    .a4lut2    ={.bits={.NBC_ANR_Y_ACT_CPY0=0, .NBC_ANR_Y_ACT_CPY1=0, .NBC_ANR_Y_ACT_CPY2=0, .NBC_ANR_Y_ACT_CPY3=0}},
+    .a4lut3    ={.bits={.NBC_ANR_Y_ACT_SP0=0, .rsv_6=0, .NBC_ANR_Y_ACT_SP1=0, .rsv_14=0, .NBC_ANR_Y_ACT_SP2=0, .rsv_22=0, .NBC_ANR_Y_ACT_SP3=0, .rsv_30=0}},
+    .l4lut1    ={.bits={.NBC_ANR_SL2_X1=64, .NBC_ANR_SL2_X2=128, .NBC_ANR_SL2_X3=192, .rsv_24=0}},
+    .l4lut2    ={.bits={.NBC_ANR_SL2_GAIN0=16, .rsv_6=0, .NBC_ANR_SL2_GAIN1=21, .rsv_14=0, .NBC_ANR_SL2_GAIN2=27, .rsv_22=0, .NBC_ANR_SL2_GAIN3=39, .rsv_30=0}},
+    .l4lut3    ={.bits={.NBC_ANR_SL2_SP0=10, .rsv_6=0, .NBC_ANR_SL2_SP1=12, .rsv_14=0, .NBC_ANR_SL2_SP2=24, .rsv_22=0, .NBC_ANR_SL2_SP3=11, .rsv_30=0}},
+    .pty0v     ={.bits={.NBC_ANR_Y_L0_V_RNG1=15, .NBC_ANR_Y_L0_V_RNG2=30, .NBC_ANR_Y_L0_V_RNG3=47, .NBC_ANR_Y_L0_V_RNG4=62}},
+    .cad       ={.bits={.rsv_0=0, .NBC_ANR_PTC_GAIN_TH=16, .rsv_13=0, .NBC_ANR_C_L_DIFF_TH=51, .rsv_24=0}},
+    .pty1v     ={.bits={.NBC_ANR_Y_L1_V_RNG1=10, .NBC_ANR_Y_L1_V_RNG2=20, .NBC_ANR_Y_L1_V_RNG3=32, .NBC_ANR_Y_L1_V_RNG4=42}},
+    .sl2       ={.bits={.NBC_ANR_SL2_C_GAIN=6, .NBC_ANR_SL2_SCALE_GAIN=0, .rsv_7=0}},
+    .pty2v     ={.bits={.NBC_ANR_Y_L2_V_RNG1=10, .NBC_ANR_Y_L2_V_RNG2=19, .NBC_ANR_Y_L2_V_RNG3=28, .NBC_ANR_Y_L2_V_RNG4=39}},
+    .pty3v     ={.bits={.NBC_ANR_Y_L3_V_RNG1=9, .NBC_ANR_Y_L3_V_RNG2=17, .NBC_ANR_Y_L3_V_RNG3=25, .NBC_ANR_Y_L3_V_RNG4=34}},
+    .pty0h     ={.bits={.NBC_ANR_Y_L0_H_RNG1=14, .NBC_ANR_Y_L0_H_RNG2=27, .NBC_ANR_Y_L0_H_RNG3=42, .NBC_ANR_Y_L0_H_RNG4=56}},
+    .pty1h     ={.bits={.NBC_ANR_Y_L1_H_RNG1=9, .NBC_ANR_Y_L1_H_RNG2=18, .NBC_ANR_Y_L1_H_RNG3=28, .NBC_ANR_Y_L1_H_RNG4=37}},
+    .pty2h     ={.bits={.NBC_ANR_Y_L2_H_RNG1=9, .NBC_ANR_Y_L2_H_RNG2=17, .NBC_ANR_Y_L2_H_RNG3=25, .NBC_ANR_Y_L2_H_RNG4=35}},
+    .t4lut1    ={.bits={.NBC_ANR_TBL_CPX1=40, .NBC_ANR_TBL_CPX2=120, .NBC_ANR_TBL_CPX3=160, .rsv_24=0}},
+    .t4lut2    ={.bits={.NBC_ANR_TBL_GAIN_CPY0=8, .rsv_5=0, .NBC_ANR_TBL_GAIN_CPY1=8, .rsv_13=0, .NBC_ANR_TBL_GAIN_CPY2=8, .rsv_21=0, .NBC_ANR_TBL_GAIN_CPY3=8, .rsv_29=0}},
+    .t4lut3    ={.bits={.NBC_ANR_TBL_GAIN_SP0=0, .rsv_5=0, .NBC_ANR_TBL_GAIN_SP1=0, .rsv_13=0, .NBC_ANR_TBL_GAIN_SP2=0, .rsv_21=0, .NBC_ANR_TBL_GAIN_SP3=0, .rsv_29=0}},
+    .act1      ={.bits={.NBC_ANR_ACT_SL2_GAIN=8, .rsv_4=0, .NBC_ANR_ACT_DIF_HI_TH=16, .rsv_13=0, .NBC_ANR_ACT_DIF_GAIN=0, .NBC_ANR_ACT_DIF_LO_TH=16, .rsv_29=0}},
+    .pty3h     ={.bits={.NBC_ANR_Y_L3_H_RNG1=8, .NBC_ANR_Y_L3_H_RNG2=15, .NBC_ANR_Y_L3_H_RNG3=22, .NBC_ANR_Y_L3_H_RNG4=31}},
+    .ptcv      ={.bits={.NBC_ANR_C_V_RNG1=14, .NBC_ANR_C_V_RNG2=27, .NBC_ANR_C_V_RNG3=40, .NBC_ANR_C_V_RNG4=54}},
+    .act4      ={.bits={.NBC_ANR_Y_ACT_CEN_OFT=32, .rsv_6=0, .NBC_ANR_Y_ACT_CEN_GAIN=0, .rsv_14=0, .NBC_ANR_Y_ACT_CEN_TH=32, .rsv_22=0}},
+    .ptch      ={.bits={.NBC_ANR_C_H_RNG1=12, .NBC_ANR_C_H_RNG2=24, .NBC_ANR_C_H_RNG3=36, .NBC_ANR_C_H_RNG4=48}},
+    .ylvl0     ={.bits={.NBC_ANR_Y_L0_RNG_RAT_TH=8, .NBC_ANR_Y_L1_RNG_RAT_TH=8, .NBC_ANR_Y_L2_RNG_RAT_TH=8, .NBC_ANR_Y_L3_RNG_RAT_TH=14, .NBC_ANR_Y_L0_RNG_RAT_SL=3, .rsv_18=0, .NBC_ANR_Y_L1_RNG_RAT_SL=3, .rsv_22=0, .NBC_ANR_Y_L2_RNG_RAT_SL=3, .rsv_26=0, .NBC_ANR_Y_L3_RNG_RAT_SL=3, .rsv_30=0}},
+    .ylvl1     ={.bits={.NBC_ANR_Y_L0_HF_W=16, .rsv_5=0, .NBC_ANR_Y_L1_HF_W=15, .rsv_13=0, .NBC_ANR_Y_L2_HF_W=15, .rsv_21=0, .NBC_ANR_Y_L3_HF_W=15, .rsv_29=0}},
+    .hf_cor    ={.bits={.NBC_ANR_Y_HF_CORE_TH=0, .NBC_ANR_Y_HF_CORE_SL=2, .rsv_10=0, .NBC_ANR_Y_HF_CLIP=255, .NBC_ANR_HF_BAL_MODE=2, .rsv_26=0}},
+    .hf_act0   ={.bits={.NBC_ANR_Y_HF_ACT_X1=16, .NBC_ANR_Y_HF_ACT_X2=20, .NBC_ANR_Y_HF_ACT_X3=24, .NBC_ANR_Y_HF_ACT_X4=28}},
+    .hf_act1   ={.bits={.NBC_ANR_Y_HF_ACT_Y0=13, .rsv_7=0, .NBC_ANR_Y_HF_ACT_Y1=13, .rsv_15=0, .NBC_ANR_Y_HF_ACT_Y2=13, .rsv_23=0, .NBC_ANR_Y_HF_ACT_Y3=13, .rsv_31=0}},
+    .actc      ={.bits={.rsv_0=0, .NBC_ANR_ACT_BLD_BASE_C=64, .rsv_15=0, .NBC_ANR_C_DITH_U=8, .rsv_21=0, .NBC_ANR_C_DITH_V=8, .rsv_29=0}},
+    .ylad      ={.bits={.NBC_ANR_CEN_GAIN_LO_TH_LPF=13, .rsv_5=0, .NBC_ANR_CEN_GAIN_HI_TH_LPF=13, .rsv_13=0}},
+    .hf_act2   ={.bits={.NBC_ANR_Y_HF_ACT_Y4=13, .rsv_7=0, .NBC_ANR_Y_HF_ACT_SP4=0, .rsv_14=0}},
+    .hf_act3   ={.bits={.NBC_ANR_Y_HF_ACT_SP0=0, .rsv_6=0, .NBC_ANR_Y_HF_ACT_SP1=0, .rsv_14=0, .NBC_ANR_Y_HF_ACT_SP2=0, .rsv_22=0, .NBC_ANR_Y_HF_ACT_SP3=0, .rsv_30=0}},
+    .hf_luma0  ={.bits={.NBC_ANR_Y_HF_LUMA_X1=128, .NBC_ANR_Y_HF_LUMA_X2=32, .NBC_ANR_Y_HF_LUMA_Y0=0, .rsv_23=0, .NBC_ANR_Y_HF_LUMA_Y1=0, .rsv_31=0}},
+    .hf_luma1  ={.bits={.NBC_ANR_Y_HF_LUMA_Y2=4, .rsv_7=0, .NBC_ANR_Y_HF_LUMA_SP0=0, .rsv_13=0, .NBC_ANR_Y_HF_LUMA_SP1=1, .rsv_21=0, .NBC_ANR_Y_HF_LUMA_SP2=0, .rsv_29=0}},
+    .y4lut4    ={.bits={.NBC_ANR_Y_CPX5=255, .NBC_ANR_Y_CPX6=255, .NBC_ANR_Y_CPX7=255, .NBC_ANR_Y_CPX8=255}},
+    .y4lut5    ={.bits={.NBC_ANR_Y_SCALE_CPY4=6, .rsv_5=0, .NBC_ANR_Y_SCALE_CPY5=6, .rsv_13=0, .NBC_ANR_Y_SCALE_CPY6=6, .rsv_21=0, .NBC_ANR_Y_SCALE_CPY7=6, .rsv_29=0}},
+    .y4lut6    ={.bits={.NBC_ANR_Y_SCALE_SP4=0, .rsv_5=0, .NBC_ANR_Y_SCALE_SP5=0, .rsv_13=0, .NBC_ANR_Y_SCALE_SP6=0, .rsv_21=0, .NBC_ANR_Y_SCALE_SP7=0, .rsv_29=0}},
+    .y4lut7    ={.bits={.NBC_ANR_Y_SCALE_CPY8=6, .rsv_5=0, .NBC_ANR_Y_SCALE_SP8=0, .rsv_13=0}},
+    .a4lut1    ={.bits={.NBC_ANR_Y_ACT_CPX1=40, .NBC_ANR_Y_ACT_CPX2=100, .NBC_ANR_Y_ACT_CPX3=160, .rsv_24=0}}
+
+};
+const ISP_NVRAM_ANR_T ov16885mipiraw_NBC_ANR_0098 = {
+        .con1      ={.bits={.NBC_ANR_ENC=1, .NBC_ANR_ENY=1, .rsv_2=0, .NBC_ANR_Y_FLT0_IDX=0, .rsv_5=0, .NBC_ANR_Y_FLT1_IDX=1, .rsv_7=0, .NBC_ANR_Y_FLT2_IDX=2, .NBC_ANR_Y_FLT3_IDX=1, .NBC_ANR_ACT_LP_EN=0, .rsv_13=0, .NBC_ANR_TILE_EDGE=15, .NBC_ANR_LTM_LINK=0, .NBC_ANR_LTM_LUT_BYPASS=0, .rsv_22=0, .NBC_ANR_SL2_LINK=1, .rsv_25=0, .NBC_ANR_TABLE_EN=0, .NBC_ANR_TBL_PRC=0, .rsv_30=0}},
+    .con2      ={.bits={.NBC_ANR_IMPL_MODE=2, .rsv_2=0, .NBC_ANR_C_SM_EDGE=1, .rsv_10=0, .NBC_ANR_FLT_C=0, .rsv_13=0, .NBC_ANR_C_SM_EDGE_TH=4, .rsv_27=0}},
+    .yad1      ={.bits={.NBC_ANR_CEN_GAIN_LO_TH=13, .rsv_5=0, .NBC_ANR_CEN_GAIN_HI_TH=13, .rsv_13=0, .NBC_ANR_Y_SLOPE_V_TH=44, .NBC_ANR_Y_SLOPE_H_TH=35}},
+    .yad2      ={.bits={.NBC_ANR_Y_VERT_ACT_TH=7, .rsv_5=0, .NBC_ANR_PTY_GAIN_TH=0, .rsv_13=0, .NBC_ANR_Y_VERT_SIGMA=2, .rsv_24=0}},
+    .y4lut1    ={.bits={.NBC_ANR_Y_CPX1=40, .NBC_ANR_Y_CPX2=100, .NBC_ANR_Y_CPX3=160, .NBC_ANR_Y_CPX4=255}},
+    .y4lut2    ={.bits={.NBC_ANR_Y_SCALE_CPY0=15, .rsv_5=0, .NBC_ANR_Y_SCALE_CPY1=15, .rsv_13=0, .NBC_ANR_Y_SCALE_CPY2=15, .rsv_21=0, .NBC_ANR_Y_SCALE_CPY3=12, .rsv_29=0}},
+    .y4lut3    ={.bits={.NBC_ANR_Y_SCALE_SP0=0, .rsv_5=0, .NBC_ANR_Y_SCALE_SP1=0, .rsv_13=0, .NBC_ANR_Y_SCALE_SP2=26, .rsv_21=0, .NBC_ANR_Y_SCALE_SP3=24, .rsv_29=0}},
+    .c4lut1    ={.bits={.NBC_ANR_C_CPX1=40, .NBC_ANR_C_CPX2=100, .NBC_ANR_C_CPX3=160, .rsv_24=0}},
+    .c4lut2    ={.bits={.NBC_ANR_C_SCALE_CPY0=16, .rsv_5=0, .NBC_ANR_C_SCALE_CPY1=16, .rsv_13=0, .NBC_ANR_C_SCALE_CPY2=16, .rsv_21=0, .NBC_ANR_C_SCALE_CPY3=16, .rsv_29=0}},
+    .c4lut3    ={.bits={.NBC_ANR_C_SCALE_SP0=0, .rsv_5=0, .NBC_ANR_C_SCALE_SP1=0, .rsv_13=0, .NBC_ANR_C_SCALE_SP2=0, .rsv_21=0, .NBC_ANR_C_SCALE_SP3=0, .rsv_29=0}},
+    .a4lut2    ={.bits={.NBC_ANR_Y_ACT_CPY0=0, .NBC_ANR_Y_ACT_CPY1=0, .NBC_ANR_Y_ACT_CPY2=0, .NBC_ANR_Y_ACT_CPY3=0}},
+    .a4lut3    ={.bits={.NBC_ANR_Y_ACT_SP0=0, .rsv_6=0, .NBC_ANR_Y_ACT_SP1=0, .rsv_14=0, .NBC_ANR_Y_ACT_SP2=0, .rsv_22=0, .NBC_ANR_Y_ACT_SP3=0, .rsv_30=0}},
+    .l4lut1    ={.bits={.NBC_ANR_SL2_X1=64, .NBC_ANR_SL2_X2=128, .NBC_ANR_SL2_X3=192, .rsv_24=0}},
+    .l4lut2    ={.bits={.NBC_ANR_SL2_GAIN0=16, .rsv_6=0, .NBC_ANR_SL2_GAIN1=21, .rsv_14=0, .NBC_ANR_SL2_GAIN2=27, .rsv_22=0, .NBC_ANR_SL2_GAIN3=39, .rsv_30=0}},
+    .l4lut3    ={.bits={.NBC_ANR_SL2_SP0=10, .rsv_6=0, .NBC_ANR_SL2_SP1=12, .rsv_14=0, .NBC_ANR_SL2_SP2=24, .rsv_22=0, .NBC_ANR_SL2_SP3=11, .rsv_30=0}},
+    .pty0v     ={.bits={.NBC_ANR_Y_L0_V_RNG1=15, .NBC_ANR_Y_L0_V_RNG2=30, .NBC_ANR_Y_L0_V_RNG3=47, .NBC_ANR_Y_L0_V_RNG4=62}},
+    .cad       ={.bits={.rsv_0=0, .NBC_ANR_PTC_GAIN_TH=16, .rsv_13=0, .NBC_ANR_C_L_DIFF_TH=51, .rsv_24=0}},
+    .pty1v     ={.bits={.NBC_ANR_Y_L1_V_RNG1=10, .NBC_ANR_Y_L1_V_RNG2=20, .NBC_ANR_Y_L1_V_RNG3=32, .NBC_ANR_Y_L1_V_RNG4=42}},
+    .sl2       ={.bits={.NBC_ANR_SL2_C_GAIN=6, .NBC_ANR_SL2_SCALE_GAIN=0, .rsv_7=0}},
+    .pty2v     ={.bits={.NBC_ANR_Y_L2_V_RNG1=10, .NBC_ANR_Y_L2_V_RNG2=19, .NBC_ANR_Y_L2_V_RNG3=28, .NBC_ANR_Y_L2_V_RNG4=39}},
+    .pty3v     ={.bits={.NBC_ANR_Y_L3_V_RNG1=9, .NBC_ANR_Y_L3_V_RNG2=17, .NBC_ANR_Y_L3_V_RNG3=25, .NBC_ANR_Y_L3_V_RNG4=34}},
+    .pty0h     ={.bits={.NBC_ANR_Y_L0_H_RNG1=14, .NBC_ANR_Y_L0_H_RNG2=27, .NBC_ANR_Y_L0_H_RNG3=42, .NBC_ANR_Y_L0_H_RNG4=56}},
+    .pty1h     ={.bits={.NBC_ANR_Y_L1_H_RNG1=9, .NBC_ANR_Y_L1_H_RNG2=18, .NBC_ANR_Y_L1_H_RNG3=28, .NBC_ANR_Y_L1_H_RNG4=37}},
+    .pty2h     ={.bits={.NBC_ANR_Y_L2_H_RNG1=9, .NBC_ANR_Y_L2_H_RNG2=17, .NBC_ANR_Y_L2_H_RNG3=25, .NBC_ANR_Y_L2_H_RNG4=35}},
+    .t4lut1    ={.bits={.NBC_ANR_TBL_CPX1=40, .NBC_ANR_TBL_CPX2=120, .NBC_ANR_TBL_CPX3=160, .rsv_24=0}},
+    .t4lut2    ={.bits={.NBC_ANR_TBL_GAIN_CPY0=8, .rsv_5=0, .NBC_ANR_TBL_GAIN_CPY1=8, .rsv_13=0, .NBC_ANR_TBL_GAIN_CPY2=8, .rsv_21=0, .NBC_ANR_TBL_GAIN_CPY3=8, .rsv_29=0}},
+    .t4lut3    ={.bits={.NBC_ANR_TBL_GAIN_SP0=0, .rsv_5=0, .NBC_ANR_TBL_GAIN_SP1=0, .rsv_13=0, .NBC_ANR_TBL_GAIN_SP2=0, .rsv_21=0, .NBC_ANR_TBL_GAIN_SP3=0, .rsv_29=0}},
+    .act1      ={.bits={.NBC_ANR_ACT_SL2_GAIN=8, .rsv_4=0, .NBC_ANR_ACT_DIF_HI_TH=16, .rsv_13=0, .NBC_ANR_ACT_DIF_GAIN=0, .NBC_ANR_ACT_DIF_LO_TH=16, .rsv_29=0}},
+    .pty3h     ={.bits={.NBC_ANR_Y_L3_H_RNG1=8, .NBC_ANR_Y_L3_H_RNG2=15, .NBC_ANR_Y_L3_H_RNG3=22, .NBC_ANR_Y_L3_H_RNG4=31}},
+    .ptcv      ={.bits={.NBC_ANR_C_V_RNG1=14, .NBC_ANR_C_V_RNG2=27, .NBC_ANR_C_V_RNG3=40, .NBC_ANR_C_V_RNG4=54}},
+    .act4      ={.bits={.NBC_ANR_Y_ACT_CEN_OFT=32, .rsv_6=0, .NBC_ANR_Y_ACT_CEN_GAIN=0, .rsv_14=0, .NBC_ANR_Y_ACT_CEN_TH=32, .rsv_22=0}},
+    .ptch      ={.bits={.NBC_ANR_C_H_RNG1=12, .NBC_ANR_C_H_RNG2=24, .NBC_ANR_C_H_RNG3=36, .NBC_ANR_C_H_RNG4=48}},
+    .ylvl0     ={.bits={.NBC_ANR_Y_L0_RNG_RAT_TH=8, .NBC_ANR_Y_L1_RNG_RAT_TH=8, .NBC_ANR_Y_L2_RNG_RAT_TH=8, .NBC_ANR_Y_L3_RNG_RAT_TH=14, .NBC_ANR_Y_L0_RNG_RAT_SL=3, .rsv_18=0, .NBC_ANR_Y_L1_RNG_RAT_SL=3, .rsv_22=0, .NBC_ANR_Y_L2_RNG_RAT_SL=3, .rsv_26=0, .NBC_ANR_Y_L3_RNG_RAT_SL=3, .rsv_30=0}},
+    .ylvl1     ={.bits={.NBC_ANR_Y_L0_HF_W=16, .rsv_5=0, .NBC_ANR_Y_L1_HF_W=15, .rsv_13=0, .NBC_ANR_Y_L2_HF_W=15, .rsv_21=0, .NBC_ANR_Y_L3_HF_W=15, .rsv_29=0}},
+    .hf_cor    ={.bits={.NBC_ANR_Y_HF_CORE_TH=0, .NBC_ANR_Y_HF_CORE_SL=2, .rsv_10=0, .NBC_ANR_Y_HF_CLIP=255, .NBC_ANR_HF_BAL_MODE=2, .rsv_26=0}},
+    .hf_act0   ={.bits={.NBC_ANR_Y_HF_ACT_X1=16, .NBC_ANR_Y_HF_ACT_X2=20, .NBC_ANR_Y_HF_ACT_X3=24, .NBC_ANR_Y_HF_ACT_X4=28}},
+    .hf_act1   ={.bits={.NBC_ANR_Y_HF_ACT_Y0=13, .rsv_7=0, .NBC_ANR_Y_HF_ACT_Y1=13, .rsv_15=0, .NBC_ANR_Y_HF_ACT_Y2=13, .rsv_23=0, .NBC_ANR_Y_HF_ACT_Y3=13, .rsv_31=0}},
+    .actc      ={.bits={.rsv_0=0, .NBC_ANR_ACT_BLD_BASE_C=64, .rsv_15=0, .NBC_ANR_C_DITH_U=8, .rsv_21=0, .NBC_ANR_C_DITH_V=8, .rsv_29=0}},
+    .ylad      ={.bits={.NBC_ANR_CEN_GAIN_LO_TH_LPF=13, .rsv_5=0, .NBC_ANR_CEN_GAIN_HI_TH_LPF=13, .rsv_13=0}},
+    .hf_act2   ={.bits={.NBC_ANR_Y_HF_ACT_Y4=13, .rsv_7=0, .NBC_ANR_Y_HF_ACT_SP4=0, .rsv_14=0}},
+    .hf_act3   ={.bits={.NBC_ANR_Y_HF_ACT_SP0=0, .rsv_6=0, .NBC_ANR_Y_HF_ACT_SP1=0, .rsv_14=0, .NBC_ANR_Y_HF_ACT_SP2=0, .rsv_22=0, .NBC_ANR_Y_HF_ACT_SP3=0, .rsv_30=0}},
+    .hf_luma0  ={.bits={.NBC_ANR_Y_HF_LUMA_X1=128, .NBC_ANR_Y_HF_LUMA_X2=32, .NBC_ANR_Y_HF_LUMA_Y0=0, .rsv_23=0, .NBC_ANR_Y_HF_LUMA_Y1=0, .rsv_31=0}},
+    .hf_luma1  ={.bits={.NBC_ANR_Y_HF_LUMA_Y2=4, .rsv_7=0, .NBC_ANR_Y_HF_LUMA_SP0=0, .rsv_13=0, .NBC_ANR_Y_HF_LUMA_SP1=1, .rsv_21=0, .NBC_ANR_Y_HF_LUMA_SP2=0, .rsv_29=0}},
+    .y4lut4    ={.bits={.NBC_ANR_Y_CPX5=255, .NBC_ANR_Y_CPX6=255, .NBC_ANR_Y_CPX7=255, .NBC_ANR_Y_CPX8=255}},
+    .y4lut5    ={.bits={.NBC_ANR_Y_SCALE_CPY4=6, .rsv_5=0, .NBC_ANR_Y_SCALE_CPY5=6, .rsv_13=0, .NBC_ANR_Y_SCALE_CPY6=6, .rsv_21=0, .NBC_ANR_Y_SCALE_CPY7=6, .rsv_29=0}},
+    .y4lut6    ={.bits={.NBC_ANR_Y_SCALE_SP4=0, .rsv_5=0, .NBC_ANR_Y_SCALE_SP5=0, .rsv_13=0, .NBC_ANR_Y_SCALE_SP6=0, .rsv_21=0, .NBC_ANR_Y_SCALE_SP7=0, .rsv_29=0}},
+    .y4lut7    ={.bits={.NBC_ANR_Y_SCALE_CPY8=6, .rsv_5=0, .NBC_ANR_Y_SCALE_SP8=0, .rsv_13=0}},
+    .a4lut1    ={.bits={.NBC_ANR_Y_ACT_CPX1=40, .NBC_ANR_Y_ACT_CPX2=100, .NBC_ANR_Y_ACT_CPX3=160, .rsv_24=0}}
+
+};
+const ISP_NVRAM_ANR_T ov16885mipiraw_NBC_ANR_0099 = {
+        .con1      ={.bits={.NBC_ANR_ENC=1, .NBC_ANR_ENY=1, .rsv_2=0, .NBC_ANR_Y_FLT0_IDX=0, .rsv_5=0, .NBC_ANR_Y_FLT1_IDX=1, .rsv_7=0, .NBC_ANR_Y_FLT2_IDX=2, .NBC_ANR_Y_FLT3_IDX=1, .NBC_ANR_ACT_LP_EN=0, .rsv_13=0, .NBC_ANR_TILE_EDGE=15, .NBC_ANR_LTM_LINK=0, .NBC_ANR_LTM_LUT_BYPASS=0, .rsv_22=0, .NBC_ANR_SL2_LINK=1, .rsv_25=0, .NBC_ANR_TABLE_EN=0, .NBC_ANR_TBL_PRC=0, .rsv_30=0}},
+    .con2      ={.bits={.NBC_ANR_IMPL_MODE=2, .rsv_2=0, .NBC_ANR_C_SM_EDGE=1, .rsv_10=0, .NBC_ANR_FLT_C=0, .rsv_13=0, .NBC_ANR_C_SM_EDGE_TH=4, .rsv_27=0}},
+    .yad1      ={.bits={.NBC_ANR_CEN_GAIN_LO_TH=13, .rsv_5=0, .NBC_ANR_CEN_GAIN_HI_TH=13, .rsv_13=0, .NBC_ANR_Y_SLOPE_V_TH=44, .NBC_ANR_Y_SLOPE_H_TH=35}},
+    .yad2      ={.bits={.NBC_ANR_Y_VERT_ACT_TH=7, .rsv_5=0, .NBC_ANR_PTY_GAIN_TH=0, .rsv_13=0, .NBC_ANR_Y_VERT_SIGMA=2, .rsv_24=0}},
+    .y4lut1    ={.bits={.NBC_ANR_Y_CPX1=40, .NBC_ANR_Y_CPX2=100, .NBC_ANR_Y_CPX3=160, .NBC_ANR_Y_CPX4=255}},
+    .y4lut2    ={.bits={.NBC_ANR_Y_SCALE_CPY0=15, .rsv_5=0, .NBC_ANR_Y_SCALE_CPY1=15, .rsv_13=0, .NBC_ANR_Y_SCALE_CPY2=15, .rsv_21=0, .NBC_ANR_Y_SCALE_CPY3=12, .rsv_29=0}},
+    .y4lut3    ={.bits={.NBC_ANR_Y_SCALE_SP0=0, .rsv_5=0, .NBC_ANR_Y_SCALE_SP1=0, .rsv_13=0, .NBC_ANR_Y_SCALE_SP2=26, .rsv_21=0, .NBC_ANR_Y_SCALE_SP3=24, .rsv_29=0}},
+    .c4lut1    ={.bits={.NBC_ANR_C_CPX1=40, .NBC_ANR_C_CPX2=100, .NBC_ANR_C_CPX3=160, .rsv_24=0}},
+    .c4lut2    ={.bits={.NBC_ANR_C_SCALE_CPY0=16, .rsv_5=0, .NBC_ANR_C_SCALE_CPY1=16, .rsv_13=0, .NBC_ANR_C_SCALE_CPY2=16, .rsv_21=0, .NBC_ANR_C_SCALE_CPY3=16, .rsv_29=0}},
+    .c4lut3    ={.bits={.NBC_ANR_C_SCALE_SP0=0, .rsv_5=0, .NBC_ANR_C_SCALE_SP1=0, .rsv_13=0, .NBC_ANR_C_SCALE_SP2=0, .rsv_21=0, .NBC_ANR_C_SCALE_SP3=0, .rsv_29=0}},
+    .a4lut2    ={.bits={.NBC_ANR_Y_ACT_CPY0=0, .NBC_ANR_Y_ACT_CPY1=0, .NBC_ANR_Y_ACT_CPY2=0, .NBC_ANR_Y_ACT_CPY3=0}},
+    .a4lut3    ={.bits={.NBC_ANR_Y_ACT_SP0=0, .rsv_6=0, .NBC_ANR_Y_ACT_SP1=0, .rsv_14=0, .NBC_ANR_Y_ACT_SP2=0, .rsv_22=0, .NBC_ANR_Y_ACT_SP3=0, .rsv_30=0}},
+    .l4lut1    ={.bits={.NBC_ANR_SL2_X1=64, .NBC_ANR_SL2_X2=128, .NBC_ANR_SL2_X3=192, .rsv_24=0}},
+    .l4lut2    ={.bits={.NBC_ANR_SL2_GAIN0=16, .rsv_6=0, .NBC_ANR_SL2_GAIN1=21, .rsv_14=0, .NBC_ANR_SL2_GAIN2=27, .rsv_22=0, .NBC_ANR_SL2_GAIN3=39, .rsv_30=0}},
+    .l4lut3    ={.bits={.NBC_ANR_SL2_SP0=10, .rsv_6=0, .NBC_ANR_SL2_SP1=12, .rsv_14=0, .NBC_ANR_SL2_SP2=24, .rsv_22=0, .NBC_ANR_SL2_SP3=11, .rsv_30=0}},
+    .pty0v     ={.bits={.NBC_ANR_Y_L0_V_RNG1=15, .NBC_ANR_Y_L0_V_RNG2=30, .NBC_ANR_Y_L0_V_RNG3=47, .NBC_ANR_Y_L0_V_RNG4=62}},
+    .cad       ={.bits={.rsv_0=0, .NBC_ANR_PTC_GAIN_TH=16, .rsv_13=0, .NBC_ANR_C_L_DIFF_TH=51, .rsv_24=0}},
+    .pty1v     ={.bits={.NBC_ANR_Y_L1_V_RNG1=10, .NBC_ANR_Y_L1_V_RNG2=20, .NBC_ANR_Y_L1_V_RNG3=32, .NBC_ANR_Y_L1_V_RNG4=42}},
+    .sl2       ={.bits={.NBC_ANR_SL2_C_GAIN=6, .NBC_ANR_SL2_SCALE_GAIN=0, .rsv_7=0}},
+    .pty2v     ={.bits={.NBC_ANR_Y_L2_V_RNG1=10, .NBC_ANR_Y_L2_V_RNG2=19, .NBC_ANR_Y_L2_V_RNG3=28, .NBC_ANR_Y_L2_V_RNG4=39}},
+    .pty3v     ={.bits={.NBC_ANR_Y_L3_V_RNG1=9, .NBC_ANR_Y_L3_V_RNG2=17, .NBC_ANR_Y_L3_V_RNG3=25, .NBC_ANR_Y_L3_V_RNG4=34}},
+    .pty0h     ={.bits={.NBC_ANR_Y_L0_H_RNG1=14, .NBC_ANR_Y_L0_H_RNG2=27, .NBC_ANR_Y_L0_H_RNG3=42, .NBC_ANR_Y_L0_H_RNG4=56}},
+    .pty1h     ={.bits={.NBC_ANR_Y_L1_H_RNG1=9, .NBC_ANR_Y_L1_H_RNG2=18, .NBC_ANR_Y_L1_H_RNG3=28, .NBC_ANR_Y_L1_H_RNG4=37}},
+    .pty2h     ={.bits={.NBC_ANR_Y_L2_H_RNG1=9, .NBC_ANR_Y_L2_H_RNG2=17, .NBC_ANR_Y_L2_H_RNG3=25, .NBC_ANR_Y_L2_H_RNG4=35}},
+    .t4lut1    ={.bits={.NBC_ANR_TBL_CPX1=40, .NBC_ANR_TBL_CPX2=120, .NBC_ANR_TBL_CPX3=160, .rsv_24=0}},
+    .t4lut2    ={.bits={.NBC_ANR_TBL_GAIN_CPY0=8, .rsv_5=0, .NBC_ANR_TBL_GAIN_CPY1=8, .rsv_13=0, .NBC_ANR_TBL_GAIN_CPY2=8, .rsv_21=0, .NBC_ANR_TBL_GAIN_CPY3=8, .rsv_29=0}},
+    .t4lut3    ={.bits={.NBC_ANR_TBL_GAIN_SP0=0, .rsv_5=0, .NBC_ANR_TBL_GAIN_SP1=0, .rsv_13=0, .NBC_ANR_TBL_GAIN_SP2=0, .rsv_21=0, .NBC_ANR_TBL_GAIN_SP3=0, .rsv_29=0}},
+    .act1      ={.bits={.NBC_ANR_ACT_SL2_GAIN=8, .rsv_4=0, .NBC_ANR_ACT_DIF_HI_TH=16, .rsv_13=0, .NBC_ANR_ACT_DIF_GAIN=0, .NBC_ANR_ACT_DIF_LO_TH=16, .rsv_29=0}},
+    .pty3h     ={.bits={.NBC_ANR_Y_L3_H_RNG1=8, .NBC_ANR_Y_L3_H_RNG2=15, .NBC_ANR_Y_L3_H_RNG3=22, .NBC_ANR_Y_L3_H_RNG4=31}},
+    .ptcv      ={.bits={.NBC_ANR_C_V_RNG1=14, .NBC_ANR_C_V_RNG2=27, .NBC_ANR_C_V_RNG3=40, .NBC_ANR_C_V_RNG4=54}},
+    .act4      ={.bits={.NBC_ANR_Y_ACT_CEN_OFT=32, .rsv_6=0, .NBC_ANR_Y_ACT_CEN_GAIN=0, .rsv_14=0, .NBC_ANR_Y_ACT_CEN_TH=32, .rsv_22=0}},
+    .ptch      ={.bits={.NBC_ANR_C_H_RNG1=12, .NBC_ANR_C_H_RNG2=24, .NBC_ANR_C_H_RNG3=36, .NBC_ANR_C_H_RNG4=48}},
+    .ylvl0     ={.bits={.NBC_ANR_Y_L0_RNG_RAT_TH=8, .NBC_ANR_Y_L1_RNG_RAT_TH=8, .NBC_ANR_Y_L2_RNG_RAT_TH=8, .NBC_ANR_Y_L3_RNG_RAT_TH=14, .NBC_ANR_Y_L0_RNG_RAT_SL=3, .rsv_18=0, .NBC_ANR_Y_L1_RNG_RAT_SL=3, .rsv_22=0, .NBC_ANR_Y_L2_RNG_RAT_SL=3, .rsv_26=0, .NBC_ANR_Y_L3_RNG_RAT_SL=3, .rsv_30=0}},
+    .ylvl1     ={.bits={.NBC_ANR_Y_L0_HF_W=16, .rsv_5=0, .NBC_ANR_Y_L1_HF_W=15, .rsv_13=0, .NBC_ANR_Y_L2_HF_W=15, .rsv_21=0, .NBC_ANR_Y_L3_HF_W=15, .rsv_29=0}},
+    .hf_cor    ={.bits={.NBC_ANR_Y_HF_CORE_TH=0, .NBC_ANR_Y_HF_CORE_SL=2, .rsv_10=0, .NBC_ANR_Y_HF_CLIP=255, .NBC_ANR_HF_BAL_MODE=2, .rsv_26=0}},
+    .hf_act0   ={.bits={.NBC_ANR_Y_HF_ACT_X1=16, .NBC_ANR_Y_HF_ACT_X2=20, .NBC_ANR_Y_HF_ACT_X3=24, .NBC_ANR_Y_HF_ACT_X4=28}},
+    .hf_act1   ={.bits={.NBC_ANR_Y_HF_ACT_Y0=13, .rsv_7=0, .NBC_ANR_Y_HF_ACT_Y1=13, .rsv_15=0, .NBC_ANR_Y_HF_ACT_Y2=13, .rsv_23=0, .NBC_ANR_Y_HF_ACT_Y3=13, .rsv_31=0}},
+    .actc      ={.bits={.rsv_0=0, .NBC_ANR_ACT_BLD_BASE_C=64, .rsv_15=0, .NBC_ANR_C_DITH_U=8, .rsv_21=0, .NBC_ANR_C_DITH_V=8, .rsv_29=0}},
+    .ylad      ={.bits={.NBC_ANR_CEN_GAIN_LO_TH_LPF=13, .rsv_5=0, .NBC_ANR_CEN_GAIN_HI_TH_LPF=13, .rsv_13=0}},
+    .hf_act2   ={.bits={.NBC_ANR_Y_HF_ACT_Y4=13, .rsv_7=0, .NBC_ANR_Y_HF_ACT_SP4=0, .rsv_14=0}},
+    .hf_act3   ={.bits={.NBC_ANR_Y_HF_ACT_SP0=0, .rsv_6=0, .NBC_ANR_Y_HF_ACT_SP1=0, .rsv_14=0, .NBC_ANR_Y_HF_ACT_SP2=0, .rsv_22=0, .NBC_ANR_Y_HF_ACT_SP3=0, .rsv_30=0}},
+    .hf_luma0  ={.bits={.NBC_ANR_Y_HF_LUMA_X1=128, .NBC_ANR_Y_HF_LUMA_X2=32, .NBC_ANR_Y_HF_LUMA_Y0=0, .rsv_23=0, .NBC_ANR_Y_HF_LUMA_Y1=0, .rsv_31=0}},
+    .hf_luma1  ={.bits={.NBC_ANR_Y_HF_LUMA_Y2=4, .rsv_7=0, .NBC_ANR_Y_HF_LUMA_SP0=0, .rsv_13=0, .NBC_ANR_Y_HF_LUMA_SP1=1, .rsv_21=0, .NBC_ANR_Y_HF_LUMA_SP2=0, .rsv_29=0}},
+    .y4lut4    ={.bits={.NBC_ANR_Y_CPX5=255, .NBC_ANR_Y_CPX6=255, .NBC_ANR_Y_CPX7=255, .NBC_ANR_Y_CPX8=255}},
+    .y4lut5    ={.bits={.NBC_ANR_Y_SCALE_CPY4=6, .rsv_5=0, .NBC_ANR_Y_SCALE_CPY5=6, .rsv_13=0, .NBC_ANR_Y_SCALE_CPY6=6, .rsv_21=0, .NBC_ANR_Y_SCALE_CPY7=6, .rsv_29=0}},
+    .y4lut6    ={.bits={.NBC_ANR_Y_SCALE_SP4=0, .rsv_5=0, .NBC_ANR_Y_SCALE_SP5=0, .rsv_13=0, .NBC_ANR_Y_SCALE_SP6=0, .rsv_21=0, .NBC_ANR_Y_SCALE_SP7=0, .rsv_29=0}},
+    .y4lut7    ={.bits={.NBC_ANR_Y_SCALE_CPY8=6, .rsv_5=0, .NBC_ANR_Y_SCALE_SP8=0, .rsv_13=0}},
+    .a4lut1    ={.bits={.NBC_ANR_Y_ACT_CPX1=40, .NBC_ANR_Y_ACT_CPX2=100, .NBC_ANR_Y_ACT_CPX3=160, .rsv_24=0}}
+
+};
+const ISP_NVRAM_ANR2_T ov16885mipiraw_NBC2_ANR2_0080 = {
+        .con1      ={.bits={.NBC2_ANR2_ENC=1, .NBC2_ANR2_ENY=1, .rsv_2=0, .NBC2_ANR2_SCALE_MODE=3, .rsv_6=0, .NBC2_ANR2_VER_C_REF_Y=1, .rsv_9=0, .NBC2_ANR2_MODE=0, .rsv_13=0, .NBC2_ANR2_TILE_EDGE=15, .rsv_20=0, .NBC2_ANR2_SL2_LINK=1, .rsv_25=0}},
+    .con2      ={.bits={.rsv_0=0, .NBC2_ANR2_C_SM_EDGE=0, .rsv_10=0, .NBC2_ANR2_FLT_C=0, .rsv_13=0}},
+    .yad1      ={.bits={.rsv_0=0, .NBC2_ANR2_K_TH_C=8}},
+    .y4lut1    ={.bits={.NBC2_ANR2_Y_CPX1=40, .NBC2_ANR2_Y_CPX2=100, .NBC2_ANR2_Y_CPX3=160, .rsv_24=0}},
+    .y4lut2    ={.bits={.NBC2_ANR2_Y_SCALE_CPY0=16, .rsv_5=0, .NBC2_ANR2_Y_SCALE_CPY1=16, .rsv_13=0, .NBC2_ANR2_Y_SCALE_CPY2=16, .rsv_21=0, .NBC2_ANR2_Y_SCALE_CPY3=16, .rsv_29=0}},
+    .y4lut3    ={.bits={.NBC2_ANR2_Y_SCALE_SP0=0, .rsv_5=0, .NBC2_ANR2_Y_SCALE_SP1=0, .rsv_13=0, .NBC2_ANR2_Y_SCALE_SP2=0, .rsv_21=0, .NBC2_ANR2_Y_SCALE_SP3=15, .rsv_29=0}},
+    .l4lut1    ={.bits={.NBC2_ANR2_SL2_X1=64, .NBC2_ANR2_SL2_X2=128, .NBC2_ANR2_SL2_X3=192, .rsv_24=0}},
+    .l4lut2    ={.bits={.NBC2_ANR2_SL2_GAIN0=16, .rsv_6=0, .NBC2_ANR2_SL2_GAIN1=16, .rsv_14=0, .NBC2_ANR2_SL2_GAIN2=16, .rsv_22=0, .NBC2_ANR2_SL2_GAIN3=20, .rsv_30=0}},
+    .l4lut3    ={.bits={.NBC2_ANR2_SL2_SP0=0, .rsv_6=0, .NBC2_ANR2_SL2_SP1=0, .rsv_14=0, .NBC2_ANR2_SL2_SP2=8, .rsv_22=0, .NBC2_ANR2_SL2_SP3=8, .rsv_30=0}},
+    .cad       ={.bits={.NBC2_ANR2_PTC_VGAIN=10, .NBC2_ANR2_C_GAIN=8, .NBC2_ANR2_PTC_GAIN_TH=16, .rsv_13=0, .NBC2_ANR2_C_L_DIFF_TH=32, .NBC2_ANR2_C_MODE=0, .rsv_25=0}},
+    .ptc       ={.bits={.NBC2_ANR2_PTC1=2, .NBC2_ANR2_PTC2=3, .NBC2_ANR2_PTC3=5, .NBC2_ANR2_PTC4=7}},
+    .sl2       ={.bits={.NBC2_ANR2_SL2_C_GAIN=4, .rsv_4=0, .NBC2_ANR2_LM_WT=8, .rsv_20=0}},
+    .med1      ={.bits={.NBC2_ANR2_COR_TH=5, .rsv_5=0, .NBC2_ANR2_COR_SL=4, .rsv_11=0, .NBC2_ANR2_MCD_TH=5, .rsv_17=0, .NBC2_ANR2_MCD_SL=3, .rsv_23=0, .NBC2_ANR2_LCL_TH=24}},
+    .med2      ={.bits={.NBC2_ANR2_LCL_SL=3, .rsv_3=0, .NBC2_ANR2_LCL_LV=16, .rsv_9=0, .NBC2_ANR2_SCL_TH=8, .rsv_18=0, .NBC2_ANR2_SCL_SL=3, .rsv_23=0, .NBC2_ANR2_SCL_LV=5, .rsv_29=0}},
+    .med3      ={.bits={.NBC2_ANR2_NCL_TH=40, .NBC2_ANR2_NCL_SL=3, .rsv_11=0, .NBC2_ANR2_NCL_LV=16, .rsv_17=0, .NBC2_ANR2_VAR=3, .rsv_23=0, .NBC2_ANR2_Y0=10, .rsv_30=0}},
+    .med4      ={.bits={.NBC2_ANR2_Y1=13, .rsv_6=0, .NBC2_ANR2_Y2=16, .rsv_14=0, .NBC2_ANR2_Y3=19, .rsv_22=0, .NBC2_ANR2_Y4=22, .rsv_30=0}},
+    .med5      ={.bits={.NBC2_ANR2_LCL_OFT=0, .NBC2_ANR2_SCL_OFT=0, .rsv_14=0, .NBC2_ANR2_NCL_OFT=0, .rsv_24=0}},
+    .actc      ={.bits={.rsv_0=0, .NBC2_ANR2_ACT_BLD_BASE_C=64, .rsv_15=0, .NBC2_ANR2_C_DITH_U=8, .rsv_21=0, .NBC2_ANR2_C_DITH_V=8, .rsv_29=0}}
+
+};
+const ISP_NVRAM_ANR2_T ov16885mipiraw_NBC2_ANR2_0081 = {
+        .con1      ={.bits={.NBC2_ANR2_ENC=1, .NBC2_ANR2_ENY=1, .rsv_2=0, .NBC2_ANR2_SCALE_MODE=3, .rsv_6=0, .NBC2_ANR2_VER_C_REF_Y=1, .rsv_9=0, .NBC2_ANR2_MODE=0, .rsv_13=0, .NBC2_ANR2_TILE_EDGE=15, .rsv_20=0, .NBC2_ANR2_SL2_LINK=1, .rsv_25=0}},
+    .con2      ={.bits={.rsv_0=0, .NBC2_ANR2_C_SM_EDGE=0, .rsv_10=0, .NBC2_ANR2_FLT_C=0, .rsv_13=0}},
+    .yad1      ={.bits={.rsv_0=0, .NBC2_ANR2_K_TH_C=8}},
+    .y4lut1    ={.bits={.NBC2_ANR2_Y_CPX1=40, .NBC2_ANR2_Y_CPX2=100, .NBC2_ANR2_Y_CPX3=160, .rsv_24=0}},
+    .y4lut2    ={.bits={.NBC2_ANR2_Y_SCALE_CPY0=16, .rsv_5=0, .NBC2_ANR2_Y_SCALE_CPY1=16, .rsv_13=0, .NBC2_ANR2_Y_SCALE_CPY2=16, .rsv_21=0, .NBC2_ANR2_Y_SCALE_CPY3=16, .rsv_29=0}},
+    .y4lut3    ={.bits={.NBC2_ANR2_Y_SCALE_SP0=0, .rsv_5=0, .NBC2_ANR2_Y_SCALE_SP1=0, .rsv_13=0, .NBC2_ANR2_Y_SCALE_SP2=0, .rsv_21=0, .NBC2_ANR2_Y_SCALE_SP3=15, .rsv_29=0}},
+    .l4lut1    ={.bits={.NBC2_ANR2_SL2_X1=64, .NBC2_ANR2_SL2_X2=128, .NBC2_ANR2_SL2_X3=192, .rsv_24=0}},
+    .l4lut2    ={.bits={.NBC2_ANR2_SL2_GAIN0=16, .rsv_6=0, .NBC2_ANR2_SL2_GAIN1=16, .rsv_14=0, .NBC2_ANR2_SL2_GAIN2=16, .rsv_22=0, .NBC2_ANR2_SL2_GAIN3=20, .rsv_30=0}},
+    .l4lut3    ={.bits={.NBC2_ANR2_SL2_SP0=0, .rsv_6=0, .NBC2_ANR2_SL2_SP1=0, .rsv_14=0, .NBC2_ANR2_SL2_SP2=8, .rsv_22=0, .NBC2_ANR2_SL2_SP3=8, .rsv_30=0}},
+    .cad       ={.bits={.NBC2_ANR2_PTC_VGAIN=10, .NBC2_ANR2_C_GAIN=8, .NBC2_ANR2_PTC_GAIN_TH=16, .rsv_13=0, .NBC2_ANR2_C_L_DIFF_TH=32, .NBC2_ANR2_C_MODE=0, .rsv_25=0}},
+    .ptc       ={.bits={.NBC2_ANR2_PTC1=2, .NBC2_ANR2_PTC2=3, .NBC2_ANR2_PTC3=5, .NBC2_ANR2_PTC4=7}},
+    .sl2       ={.bits={.NBC2_ANR2_SL2_C_GAIN=4, .rsv_4=0, .NBC2_ANR2_LM_WT=8, .rsv_20=0}},
+    .med1      ={.bits={.NBC2_ANR2_COR_TH=5, .rsv_5=0, .NBC2_ANR2_COR_SL=4, .rsv_11=0, .NBC2_ANR2_MCD_TH=5, .rsv_17=0, .NBC2_ANR2_MCD_SL=3, .rsv_23=0, .NBC2_ANR2_LCL_TH=24}},
+    .med2      ={.bits={.NBC2_ANR2_LCL_SL=3, .rsv_3=0, .NBC2_ANR2_LCL_LV=16, .rsv_9=0, .NBC2_ANR2_SCL_TH=8, .rsv_18=0, .NBC2_ANR2_SCL_SL=3, .rsv_23=0, .NBC2_ANR2_SCL_LV=5, .rsv_29=0}},
+    .med3      ={.bits={.NBC2_ANR2_NCL_TH=40, .NBC2_ANR2_NCL_SL=3, .rsv_11=0, .NBC2_ANR2_NCL_LV=16, .rsv_17=0, .NBC2_ANR2_VAR=3, .rsv_23=0, .NBC2_ANR2_Y0=10, .rsv_30=0}},
+    .med4      ={.bits={.NBC2_ANR2_Y1=13, .rsv_6=0, .NBC2_ANR2_Y2=16, .rsv_14=0, .NBC2_ANR2_Y3=19, .rsv_22=0, .NBC2_ANR2_Y4=22, .rsv_30=0}},
+    .med5      ={.bits={.NBC2_ANR2_LCL_OFT=0, .NBC2_ANR2_SCL_OFT=0, .rsv_14=0, .NBC2_ANR2_NCL_OFT=0, .rsv_24=0}},
+    .actc      ={.bits={.rsv_0=0, .NBC2_ANR2_ACT_BLD_BASE_C=64, .rsv_15=0, .NBC2_ANR2_C_DITH_U=8, .rsv_21=0, .NBC2_ANR2_C_DITH_V=8, .rsv_29=0}}
+
+};
+const ISP_NVRAM_ANR2_T ov16885mipiraw_NBC2_ANR2_0082 = {
+        .con1      ={.bits={.NBC2_ANR2_ENC=1, .NBC2_ANR2_ENY=1, .rsv_2=0, .NBC2_ANR2_SCALE_MODE=3, .rsv_6=0, .NBC2_ANR2_VER_C_REF_Y=1, .rsv_9=0, .NBC2_ANR2_MODE=0, .rsv_13=0, .NBC2_ANR2_TILE_EDGE=15, .rsv_20=0, .NBC2_ANR2_SL2_LINK=1, .rsv_25=0}},
+    .con2      ={.bits={.rsv_0=0, .NBC2_ANR2_C_SM_EDGE=1, .rsv_10=0, .NBC2_ANR2_FLT_C=0, .rsv_13=0}},
+    .yad1      ={.bits={.rsv_0=0, .NBC2_ANR2_K_TH_C=8}},
+    .y4lut1    ={.bits={.NBC2_ANR2_Y_CPX1=40, .NBC2_ANR2_Y_CPX2=100, .NBC2_ANR2_Y_CPX3=160, .rsv_24=0}},
+    .y4lut2    ={.bits={.NBC2_ANR2_Y_SCALE_CPY0=16, .rsv_5=0, .NBC2_ANR2_Y_SCALE_CPY1=16, .rsv_13=0, .NBC2_ANR2_Y_SCALE_CPY2=16, .rsv_21=0, .NBC2_ANR2_Y_SCALE_CPY3=16, .rsv_29=0}},
+    .y4lut3    ={.bits={.NBC2_ANR2_Y_SCALE_SP0=0, .rsv_5=0, .NBC2_ANR2_Y_SCALE_SP1=0, .rsv_13=0, .NBC2_ANR2_Y_SCALE_SP2=0, .rsv_21=0, .NBC2_ANR2_Y_SCALE_SP3=15, .rsv_29=0}},
+    .l4lut1    ={.bits={.NBC2_ANR2_SL2_X1=64, .NBC2_ANR2_SL2_X2=128, .NBC2_ANR2_SL2_X3=192, .rsv_24=0}},
+    .l4lut2    ={.bits={.NBC2_ANR2_SL2_GAIN0=16, .rsv_6=0, .NBC2_ANR2_SL2_GAIN1=20, .rsv_14=0, .NBC2_ANR2_SL2_GAIN2=24, .rsv_22=0, .NBC2_ANR2_SL2_GAIN3=32, .rsv_30=0}},
+    .l4lut3    ={.bits={.NBC2_ANR2_SL2_SP0=8, .rsv_6=0, .NBC2_ANR2_SL2_SP1=8, .rsv_14=0, .NBC2_ANR2_SL2_SP2=16, .rsv_22=0, .NBC2_ANR2_SL2_SP3=6, .rsv_30=0}},
+    .cad       ={.bits={.NBC2_ANR2_PTC_VGAIN=10, .NBC2_ANR2_C_GAIN=8, .NBC2_ANR2_PTC_GAIN_TH=16, .rsv_13=0, .NBC2_ANR2_C_L_DIFF_TH=40, .NBC2_ANR2_C_MODE=0, .rsv_25=0}},
+    .ptc       ={.bits={.NBC2_ANR2_PTC1=2, .NBC2_ANR2_PTC2=3, .NBC2_ANR2_PTC3=5, .NBC2_ANR2_PTC4=7}},
+    .sl2       ={.bits={.NBC2_ANR2_SL2_C_GAIN=4, .rsv_4=0, .NBC2_ANR2_LM_WT=8, .rsv_20=0}},
+    .med1      ={.bits={.NBC2_ANR2_COR_TH=5, .rsv_5=0, .NBC2_ANR2_COR_SL=4, .rsv_11=0, .NBC2_ANR2_MCD_TH=5, .rsv_17=0, .NBC2_ANR2_MCD_SL=3, .rsv_23=0, .NBC2_ANR2_LCL_TH=32}},
+    .med2      ={.bits={.NBC2_ANR2_LCL_SL=3, .rsv_3=0, .NBC2_ANR2_LCL_LV=16, .rsv_9=0, .NBC2_ANR2_SCL_TH=8, .rsv_18=0, .NBC2_ANR2_SCL_SL=3, .rsv_23=0, .NBC2_ANR2_SCL_LV=5, .rsv_29=0}},
+    .med3      ={.bits={.NBC2_ANR2_NCL_TH=48, .NBC2_ANR2_NCL_SL=3, .rsv_11=0, .NBC2_ANR2_NCL_LV=16, .rsv_17=0, .NBC2_ANR2_VAR=3, .rsv_23=0, .NBC2_ANR2_Y0=10, .rsv_30=0}},
+    .med4      ={.bits={.NBC2_ANR2_Y1=13, .rsv_6=0, .NBC2_ANR2_Y2=16, .rsv_14=0, .NBC2_ANR2_Y3=19, .rsv_22=0, .NBC2_ANR2_Y4=22, .rsv_30=0}},
+    .med5      ={.bits={.NBC2_ANR2_LCL_OFT=0, .NBC2_ANR2_SCL_OFT=0, .rsv_14=0, .NBC2_ANR2_NCL_OFT=0, .rsv_24=0}},
+    .actc      ={.bits={.rsv_0=0, .NBC2_ANR2_ACT_BLD_BASE_C=64, .rsv_15=0, .NBC2_ANR2_C_DITH_U=8, .rsv_21=0, .NBC2_ANR2_C_DITH_V=8, .rsv_29=0}}
+
+};
+const ISP_NVRAM_ANR2_T ov16885mipiraw_NBC2_ANR2_0083 = {
+        .con1      ={.bits={.NBC2_ANR2_ENC=1, .NBC2_ANR2_ENY=1, .rsv_2=0, .NBC2_ANR2_SCALE_MODE=3, .rsv_6=0, .NBC2_ANR2_VER_C_REF_Y=1, .rsv_9=0, .NBC2_ANR2_MODE=0, .rsv_13=0, .NBC2_ANR2_TILE_EDGE=15, .rsv_20=0, .NBC2_ANR2_SL2_LINK=1, .rsv_25=0}},
+    .con2      ={.bits={.rsv_0=0, .NBC2_ANR2_C_SM_EDGE=1, .rsv_10=0, .NBC2_ANR2_FLT_C=0, .rsv_13=0}},
+    .yad1      ={.bits={.rsv_0=0, .NBC2_ANR2_K_TH_C=8}},
+    .y4lut1    ={.bits={.NBC2_ANR2_Y_CPX1=40, .NBC2_ANR2_Y_CPX2=100, .NBC2_ANR2_Y_CPX3=160, .rsv_24=0}},
+    .y4lut2    ={.bits={.NBC2_ANR2_Y_SCALE_CPY0=16, .rsv_5=0, .NBC2_ANR2_Y_SCALE_CPY1=16, .rsv_13=0, .NBC2_ANR2_Y_SCALE_CPY2=16, .rsv_21=0, .NBC2_ANR2_Y_SCALE_CPY3=16, .rsv_29=0}},
+    .y4lut3    ={.bits={.NBC2_ANR2_Y_SCALE_SP0=0, .rsv_5=0, .NBC2_ANR2_Y_SCALE_SP1=0, .rsv_13=0, .NBC2_ANR2_Y_SCALE_SP2=0, .rsv_21=0, .NBC2_ANR2_Y_SCALE_SP3=15, .rsv_29=0}},
+    .l4lut1    ={.bits={.NBC2_ANR2_SL2_X1=64, .NBC2_ANR2_SL2_X2=128, .NBC2_ANR2_SL2_X3=192, .rsv_24=0}},
+    .l4lut2    ={.bits={.NBC2_ANR2_SL2_GAIN0=16, .rsv_6=0, .NBC2_ANR2_SL2_GAIN1=20, .rsv_14=0, .NBC2_ANR2_SL2_GAIN2=24, .rsv_22=0, .NBC2_ANR2_SL2_GAIN3=32, .rsv_30=0}},
+    .l4lut3    ={.bits={.NBC2_ANR2_SL2_SP0=8, .rsv_6=0, .NBC2_ANR2_SL2_SP1=8, .rsv_14=0, .NBC2_ANR2_SL2_SP2=16, .rsv_22=0, .NBC2_ANR2_SL2_SP3=4, .rsv_30=0}},
+    .cad       ={.bits={.NBC2_ANR2_PTC_VGAIN=10, .NBC2_ANR2_C_GAIN=8, .NBC2_ANR2_PTC_GAIN_TH=16, .rsv_13=0, .NBC2_ANR2_C_L_DIFF_TH=40, .NBC2_ANR2_C_MODE=0, .rsv_25=0}},
+    .ptc       ={.bits={.NBC2_ANR2_PTC1=2, .NBC2_ANR2_PTC2=3, .NBC2_ANR2_PTC3=5, .NBC2_ANR2_PTC4=7}},
+    .sl2       ={.bits={.NBC2_ANR2_SL2_C_GAIN=4, .rsv_4=0, .NBC2_ANR2_LM_WT=8, .rsv_20=0}},
+    .med1      ={.bits={.NBC2_ANR2_COR_TH=5, .rsv_5=0, .NBC2_ANR2_COR_SL=4, .rsv_11=0, .NBC2_ANR2_MCD_TH=5, .rsv_17=0, .NBC2_ANR2_MCD_SL=3, .rsv_23=0, .NBC2_ANR2_LCL_TH=36}},
+    .med2      ={.bits={.NBC2_ANR2_LCL_SL=3, .rsv_3=0, .NBC2_ANR2_LCL_LV=16, .rsv_9=0, .NBC2_ANR2_SCL_TH=8, .rsv_18=0, .NBC2_ANR2_SCL_SL=3, .rsv_23=0, .NBC2_ANR2_SCL_LV=5, .rsv_29=0}},
+    .med3      ={.bits={.NBC2_ANR2_NCL_TH=52, .NBC2_ANR2_NCL_SL=3, .rsv_11=0, .NBC2_ANR2_NCL_LV=16, .rsv_17=0, .NBC2_ANR2_VAR=3, .rsv_23=0, .NBC2_ANR2_Y0=10, .rsv_30=0}},
+    .med4      ={.bits={.NBC2_ANR2_Y1=13, .rsv_6=0, .NBC2_ANR2_Y2=16, .rsv_14=0, .NBC2_ANR2_Y3=19, .rsv_22=0, .NBC2_ANR2_Y4=22, .rsv_30=0}},
+    .med5      ={.bits={.NBC2_ANR2_LCL_OFT=0, .NBC2_ANR2_SCL_OFT=0, .rsv_14=0, .NBC2_ANR2_NCL_OFT=0, .rsv_24=0}},
+    .actc      ={.bits={.rsv_0=0, .NBC2_ANR2_ACT_BLD_BASE_C=64, .rsv_15=0, .NBC2_ANR2_C_DITH_U=8, .rsv_21=0, .NBC2_ANR2_C_DITH_V=8, .rsv_29=0}}
+
+};
+const ISP_NVRAM_ANR2_T ov16885mipiraw_NBC2_ANR2_0084 = {
+        .con1      ={.bits={.NBC2_ANR2_ENC=1, .NBC2_ANR2_ENY=1, .rsv_2=0, .NBC2_ANR2_SCALE_MODE=3, .rsv_6=0, .NBC2_ANR2_VER_C_REF_Y=1, .rsv_9=0, .NBC2_ANR2_MODE=0, .rsv_13=0, .NBC2_ANR2_TILE_EDGE=15, .rsv_20=0, .NBC2_ANR2_SL2_LINK=1, .rsv_25=0}},
+    .con2      ={.bits={.rsv_0=0, .NBC2_ANR2_C_SM_EDGE=1, .rsv_10=0, .NBC2_ANR2_FLT_C=0, .rsv_13=0}},
+    .yad1      ={.bits={.rsv_0=0, .NBC2_ANR2_K_TH_C=8}},
+    .y4lut1    ={.bits={.NBC2_ANR2_Y_CPX1=40, .NBC2_ANR2_Y_CPX2=120, .NBC2_ANR2_Y_CPX3=160, .rsv_24=0}},
+    .y4lut2    ={.bits={.NBC2_ANR2_Y_SCALE_CPY0=16, .rsv_5=0, .NBC2_ANR2_Y_SCALE_CPY1=16, .rsv_13=0, .NBC2_ANR2_Y_SCALE_CPY2=16, .rsv_21=0, .NBC2_ANR2_Y_SCALE_CPY3=8, .rsv_29=0}},
+    .y4lut3    ={.bits={.NBC2_ANR2_Y_SCALE_SP0=0, .rsv_5=0, .NBC2_ANR2_Y_SCALE_SP1=0, .rsv_13=0, .NBC2_ANR2_Y_SCALE_SP2=17, .rsv_21=0, .NBC2_ANR2_Y_SCALE_SP3=30, .rsv_29=0}},
+    .l4lut1    ={.bits={.NBC2_ANR2_SL2_X1=64, .NBC2_ANR2_SL2_X2=128, .NBC2_ANR2_SL2_X3=192, .rsv_24=0}},
+    .l4lut2    ={.bits={.NBC2_ANR2_SL2_GAIN0=16, .rsv_6=0, .NBC2_ANR2_SL2_GAIN1=20, .rsv_14=0, .NBC2_ANR2_SL2_GAIN2=24, .rsv_22=0, .NBC2_ANR2_SL2_GAIN3=32, .rsv_30=0}},
+    .l4lut3    ={.bits={.NBC2_ANR2_SL2_SP0=8, .rsv_6=0, .NBC2_ANR2_SL2_SP1=8, .rsv_14=0, .NBC2_ANR2_SL2_SP2=16, .rsv_22=0, .NBC2_ANR2_SL2_SP3=0, .rsv_30=0}},
+    .cad       ={.bits={.NBC2_ANR2_PTC_VGAIN=10, .NBC2_ANR2_C_GAIN=8, .NBC2_ANR2_PTC_GAIN_TH=0, .rsv_13=0, .NBC2_ANR2_C_L_DIFF_TH=32, .NBC2_ANR2_C_MODE=0, .rsv_25=0}},
+    .ptc       ={.bits={.NBC2_ANR2_PTC1=2, .NBC2_ANR2_PTC2=4, .NBC2_ANR2_PTC3=6, .NBC2_ANR2_PTC4=8}},
+    .sl2       ={.bits={.NBC2_ANR2_SL2_C_GAIN=6, .rsv_4=0, .NBC2_ANR2_LM_WT=4, .rsv_20=0}},
+    .med1      ={.bits={.NBC2_ANR2_COR_TH=5, .rsv_5=0, .NBC2_ANR2_COR_SL=4, .rsv_11=0, .NBC2_ANR2_MCD_TH=5, .rsv_17=0, .NBC2_ANR2_MCD_SL=3, .rsv_23=0, .NBC2_ANR2_LCL_TH=36}},
+    .med2      ={.bits={.NBC2_ANR2_LCL_SL=3, .rsv_3=0, .NBC2_ANR2_LCL_LV=16, .rsv_9=0, .NBC2_ANR2_SCL_TH=12, .rsv_18=0, .NBC2_ANR2_SCL_SL=3, .rsv_23=0, .NBC2_ANR2_SCL_LV=16, .rsv_29=0}},
+    .med3      ={.bits={.NBC2_ANR2_NCL_TH=52, .NBC2_ANR2_NCL_SL=3, .rsv_11=0, .NBC2_ANR2_NCL_LV=16, .rsv_17=0, .NBC2_ANR2_VAR=3, .rsv_23=0, .NBC2_ANR2_Y0=10, .rsv_30=0}},
+    .med4      ={.bits={.NBC2_ANR2_Y1=13, .rsv_6=0, .NBC2_ANR2_Y2=16, .rsv_14=0, .NBC2_ANR2_Y3=19, .rsv_22=0, .NBC2_ANR2_Y4=22, .rsv_30=0}},
+    .med5      ={.bits={.NBC2_ANR2_LCL_OFT=0, .NBC2_ANR2_SCL_OFT=0, .rsv_14=0, .NBC2_ANR2_NCL_OFT=0, .rsv_24=0}},
+    .actc      ={.bits={.rsv_0=0, .NBC2_ANR2_ACT_BLD_BASE_C=64, .rsv_15=0, .NBC2_ANR2_C_DITH_U=8, .rsv_21=0, .NBC2_ANR2_C_DITH_V=8, .rsv_29=0}}
+
+};
+const ISP_NVRAM_ANR2_T ov16885mipiraw_NBC2_ANR2_0085 = {
+        .con1      ={.bits={.NBC2_ANR2_ENC=1, .NBC2_ANR2_ENY=1, .rsv_2=0, .NBC2_ANR2_SCALE_MODE=3, .rsv_6=0, .NBC2_ANR2_VER_C_REF_Y=1, .rsv_9=0, .NBC2_ANR2_MODE=0, .rsv_13=0, .NBC2_ANR2_TILE_EDGE=15, .rsv_20=0, .NBC2_ANR2_SL2_LINK=1, .rsv_25=0}},
+    .con2      ={.bits={.rsv_0=0, .NBC2_ANR2_C_SM_EDGE=1, .rsv_10=0, .NBC2_ANR2_FLT_C=0, .rsv_13=0}},
+    .yad1      ={.bits={.rsv_0=0, .NBC2_ANR2_K_TH_C=8}},
+    .y4lut1    ={.bits={.NBC2_ANR2_Y_CPX1=40, .NBC2_ANR2_Y_CPX2=100, .NBC2_ANR2_Y_CPX3=160, .rsv_24=0}},
+    .y4lut2    ={.bits={.NBC2_ANR2_Y_SCALE_CPY0=16, .rsv_5=0, .NBC2_ANR2_Y_SCALE_CPY1=16, .rsv_13=0, .NBC2_ANR2_Y_SCALE_CPY2=16, .rsv_21=0, .NBC2_ANR2_Y_SCALE_CPY3=16, .rsv_29=0}},
+    .y4lut3    ={.bits={.NBC2_ANR2_Y_SCALE_SP0=0, .rsv_5=0, .NBC2_ANR2_Y_SCALE_SP1=0, .rsv_13=0, .NBC2_ANR2_Y_SCALE_SP2=0, .rsv_21=0, .NBC2_ANR2_Y_SCALE_SP3=24, .rsv_29=0}},
+    .l4lut1    ={.bits={.NBC2_ANR2_SL2_X1=64, .NBC2_ANR2_SL2_X2=128, .NBC2_ANR2_SL2_X3=192, .rsv_24=0}},
+    .l4lut2    ={.bits={.NBC2_ANR2_SL2_GAIN0=16, .rsv_6=0, .NBC2_ANR2_SL2_GAIN1=18, .rsv_14=0, .NBC2_ANR2_SL2_GAIN2=22, .rsv_22=0, .NBC2_ANR2_SL2_GAIN3=25, .rsv_30=0}},
+    .l4lut3    ={.bits={.NBC2_ANR2_SL2_SP0=4, .rsv_6=0, .NBC2_ANR2_SL2_SP1=8, .rsv_14=0, .NBC2_ANR2_SL2_SP2=6, .rsv_22=0, .NBC2_ANR2_SL2_SP3=0, .rsv_30=0}},
+    .cad       ={.bits={.NBC2_ANR2_PTC_VGAIN=10, .NBC2_ANR2_C_GAIN=8, .NBC2_ANR2_PTC_GAIN_TH=16, .rsv_13=0, .NBC2_ANR2_C_L_DIFF_TH=36, .NBC2_ANR2_C_MODE=0, .rsv_25=0}},
+    .ptc       ={.bits={.NBC2_ANR2_PTC1=4, .NBC2_ANR2_PTC2=8, .NBC2_ANR2_PTC3=10, .NBC2_ANR2_PTC4=14}},
+    .sl2       ={.bits={.NBC2_ANR2_SL2_C_GAIN=4, .rsv_4=0, .NBC2_ANR2_LM_WT=8, .rsv_20=0}},
+    .med1      ={.bits={.NBC2_ANR2_COR_TH=5, .rsv_5=0, .NBC2_ANR2_COR_SL=4, .rsv_11=0, .NBC2_ANR2_MCD_TH=5, .rsv_17=0, .NBC2_ANR2_MCD_SL=3, .rsv_23=0, .NBC2_ANR2_LCL_TH=46}},
+    .med2      ={.bits={.NBC2_ANR2_LCL_SL=3, .rsv_3=0, .NBC2_ANR2_LCL_LV=12, .rsv_9=0, .NBC2_ANR2_SCL_TH=4, .rsv_18=0, .NBC2_ANR2_SCL_SL=3, .rsv_23=0, .NBC2_ANR2_SCL_LV=9, .rsv_29=0}},
+    .med3      ={.bits={.NBC2_ANR2_NCL_TH=57, .NBC2_ANR2_NCL_SL=3, .rsv_11=0, .NBC2_ANR2_NCL_LV=9, .rsv_17=0, .NBC2_ANR2_VAR=3, .rsv_23=0, .NBC2_ANR2_Y0=11, .rsv_30=0}},
+    .med4      ={.bits={.NBC2_ANR2_Y1=16, .rsv_6=0, .NBC2_ANR2_Y2=20, .rsv_14=0, .NBC2_ANR2_Y3=24, .rsv_22=0, .NBC2_ANR2_Y4=26, .rsv_30=0}},
+    .med5      ={.bits={.NBC2_ANR2_LCL_OFT=0, .NBC2_ANR2_SCL_OFT=0, .rsv_14=0, .NBC2_ANR2_NCL_OFT=0, .rsv_24=0}},
+    .actc      ={.bits={.rsv_0=0, .NBC2_ANR2_ACT_BLD_BASE_C=64, .rsv_15=0, .NBC2_ANR2_C_DITH_U=8, .rsv_21=0, .NBC2_ANR2_C_DITH_V=8, .rsv_29=0}}
+
+};
+const ISP_NVRAM_ANR2_T ov16885mipiraw_NBC2_ANR2_0086 = {
+        .con1      ={.bits={.NBC2_ANR2_ENC=1, .NBC2_ANR2_ENY=1, .rsv_2=0, .NBC2_ANR2_SCALE_MODE=3, .rsv_6=0, .NBC2_ANR2_VER_C_REF_Y=1, .rsv_9=0, .NBC2_ANR2_MODE=0, .rsv_13=0, .NBC2_ANR2_TILE_EDGE=15, .rsv_20=0, .NBC2_ANR2_SL2_LINK=1, .rsv_25=0}},
+    .con2      ={.bits={.rsv_0=0, .NBC2_ANR2_C_SM_EDGE=1, .rsv_10=0, .NBC2_ANR2_FLT_C=0, .rsv_13=0}},
+    .yad1      ={.bits={.rsv_0=0, .NBC2_ANR2_K_TH_C=8}},
+    .y4lut1    ={.bits={.NBC2_ANR2_Y_CPX1=40, .NBC2_ANR2_Y_CPX2=100, .NBC2_ANR2_Y_CPX3=160, .rsv_24=0}},
+    .y4lut2    ={.bits={.NBC2_ANR2_Y_SCALE_CPY0=16, .rsv_5=0, .NBC2_ANR2_Y_SCALE_CPY1=16, .rsv_13=0, .NBC2_ANR2_Y_SCALE_CPY2=16, .rsv_21=0, .NBC2_ANR2_Y_SCALE_CPY3=14, .rsv_29=0}},
+    .y4lut3    ={.bits={.NBC2_ANR2_Y_SCALE_SP0=0, .rsv_5=0, .NBC2_ANR2_Y_SCALE_SP1=0, .rsv_13=0, .NBC2_ANR2_Y_SCALE_SP2=28, .rsv_21=0, .NBC2_ANR2_Y_SCALE_SP3=4, .rsv_29=0}},
+    .l4lut1    ={.bits={.NBC2_ANR2_SL2_X1=64, .NBC2_ANR2_SL2_X2=128, .NBC2_ANR2_SL2_X3=192, .rsv_24=0}},
+    .l4lut2    ={.bits={.NBC2_ANR2_SL2_GAIN0=16, .rsv_6=0, .NBC2_ANR2_SL2_GAIN1=18, .rsv_14=0, .NBC2_ANR2_SL2_GAIN2=23, .rsv_22=0, .NBC2_ANR2_SL2_GAIN3=29, .rsv_30=0}},
+    .l4lut3    ={.bits={.NBC2_ANR2_SL2_SP0=4, .rsv_6=0, .NBC2_ANR2_SL2_SP1=10, .rsv_14=0, .NBC2_ANR2_SL2_SP2=12, .rsv_22=0, .NBC2_ANR2_SL2_SP3=0, .rsv_30=0}},
+    .cad       ={.bits={.NBC2_ANR2_PTC_VGAIN=10, .NBC2_ANR2_C_GAIN=8, .NBC2_ANR2_PTC_GAIN_TH=16, .rsv_13=0, .NBC2_ANR2_C_L_DIFF_TH=42, .NBC2_ANR2_C_MODE=1, .rsv_25=0}},
+    .ptc       ={.bits={.NBC2_ANR2_PTC1=4, .NBC2_ANR2_PTC2=8, .NBC2_ANR2_PTC3=11, .NBC2_ANR2_PTC4=15}},
+    .sl2       ={.bits={.NBC2_ANR2_SL2_C_GAIN=4, .rsv_4=0, .NBC2_ANR2_LM_WT=8, .rsv_20=0}},
+    .med1      ={.bits={.NBC2_ANR2_COR_TH=5, .rsv_5=0, .NBC2_ANR2_COR_SL=4, .rsv_11=0, .NBC2_ANR2_MCD_TH=5, .rsv_17=0, .NBC2_ANR2_MCD_SL=3, .rsv_23=0, .NBC2_ANR2_LCL_TH=51}},
+    .med2      ={.bits={.NBC2_ANR2_LCL_SL=3, .rsv_3=0, .NBC2_ANR2_LCL_LV=14, .rsv_9=0, .NBC2_ANR2_SCL_TH=6, .rsv_18=0, .NBC2_ANR2_SCL_SL=3, .rsv_23=0, .NBC2_ANR2_SCL_LV=11, .rsv_29=0}},
+    .med3      ={.bits={.NBC2_ANR2_NCL_TH=65, .NBC2_ANR2_NCL_SL=3, .rsv_11=0, .NBC2_ANR2_NCL_LV=13, .rsv_17=0, .NBC2_ANR2_VAR=3, .rsv_23=0, .NBC2_ANR2_Y0=11, .rsv_30=0}},
+    .med4      ={.bits={.NBC2_ANR2_Y1=15, .rsv_6=0, .NBC2_ANR2_Y2=18, .rsv_14=0, .NBC2_ANR2_Y3=22, .rsv_22=0, .NBC2_ANR2_Y4=24, .rsv_30=0}},
+    .med5      ={.bits={.NBC2_ANR2_LCL_OFT=0, .NBC2_ANR2_SCL_OFT=0, .rsv_14=0, .NBC2_ANR2_NCL_OFT=0, .rsv_24=0}},
+    .actc      ={.bits={.rsv_0=0, .NBC2_ANR2_ACT_BLD_BASE_C=64, .rsv_15=0, .NBC2_ANR2_C_DITH_U=8, .rsv_21=0, .NBC2_ANR2_C_DITH_V=8, .rsv_29=0}}
+
+};
+const ISP_NVRAM_ANR2_T ov16885mipiraw_NBC2_ANR2_0087 = {
+        .con1      ={.bits={.NBC2_ANR2_ENC=1, .NBC2_ANR2_ENY=1, .rsv_2=0, .NBC2_ANR2_SCALE_MODE=3, .rsv_6=0, .NBC2_ANR2_VER_C_REF_Y=1, .rsv_9=0, .NBC2_ANR2_MODE=0, .rsv_13=0, .NBC2_ANR2_TILE_EDGE=15, .rsv_20=0, .NBC2_ANR2_SL2_LINK=1, .rsv_25=0}},
+    .con2      ={.bits={.rsv_0=0, .NBC2_ANR2_C_SM_EDGE=1, .rsv_10=0, .NBC2_ANR2_FLT_C=0, .rsv_13=0}},
+    .yad1      ={.bits={.rsv_0=0, .NBC2_ANR2_K_TH_C=8}},
+    .y4lut1    ={.bits={.NBC2_ANR2_Y_CPX1=40, .NBC2_ANR2_Y_CPX2=100, .NBC2_ANR2_Y_CPX3=160, .rsv_24=0}},
+    .y4lut2    ={.bits={.NBC2_ANR2_Y_SCALE_CPY0=16, .rsv_5=0, .NBC2_ANR2_Y_SCALE_CPY1=16, .rsv_13=0, .NBC2_ANR2_Y_SCALE_CPY2=16, .rsv_21=0, .NBC2_ANR2_Y_SCALE_CPY3=12, .rsv_29=0}},
+    .y4lut3    ={.bits={.NBC2_ANR2_Y_SCALE_SP0=0, .rsv_5=0, .NBC2_ANR2_Y_SCALE_SP1=0, .rsv_13=0, .NBC2_ANR2_Y_SCALE_SP2=0, .rsv_21=0, .NBC2_ANR2_Y_SCALE_SP3=15, .rsv_29=0}},
+    .l4lut1    ={.bits={.NBC2_ANR2_SL2_X1=64, .NBC2_ANR2_SL2_X2=128, .NBC2_ANR2_SL2_X3=192, .rsv_24=0}},
+    .l4lut2    ={.bits={.NBC2_ANR2_SL2_GAIN0=16, .rsv_6=0, .NBC2_ANR2_SL2_GAIN1=18, .rsv_14=0, .NBC2_ANR2_SL2_GAIN2=24, .rsv_22=0, .NBC2_ANR2_SL2_GAIN3=32, .rsv_30=0}},
+    .l4lut3    ={.bits={.NBC2_ANR2_SL2_SP0=4, .rsv_6=0, .NBC2_ANR2_SL2_SP1=12, .rsv_14=0, .NBC2_ANR2_SL2_SP2=16, .rsv_22=0, .NBC2_ANR2_SL2_SP3=0, .rsv_30=0}},
+    .cad       ={.bits={.NBC2_ANR2_PTC_VGAIN=10, .NBC2_ANR2_C_GAIN=8, .NBC2_ANR2_PTC_GAIN_TH=16, .rsv_13=0, .NBC2_ANR2_C_L_DIFF_TH=48, .NBC2_ANR2_C_MODE=1, .rsv_25=0}},
+    .ptc       ={.bits={.NBC2_ANR2_PTC1=4, .NBC2_ANR2_PTC2=8, .NBC2_ANR2_PTC3=12, .NBC2_ANR2_PTC4=16}},
+    .sl2       ={.bits={.NBC2_ANR2_SL2_C_GAIN=4, .rsv_4=0, .NBC2_ANR2_LM_WT=8, .rsv_20=0}},
+    .med1      ={.bits={.NBC2_ANR2_COR_TH=5, .rsv_5=0, .NBC2_ANR2_COR_SL=4, .rsv_11=0, .NBC2_ANR2_MCD_TH=5, .rsv_17=0, .NBC2_ANR2_MCD_SL=3, .rsv_23=0, .NBC2_ANR2_LCL_TH=56}},
+    .med2      ={.bits={.NBC2_ANR2_LCL_SL=3, .rsv_3=0, .NBC2_ANR2_LCL_LV=16, .rsv_9=0, .NBC2_ANR2_SCL_TH=8, .rsv_18=0, .NBC2_ANR2_SCL_SL=3, .rsv_23=0, .NBC2_ANR2_SCL_LV=12, .rsv_29=0}},
+    .med3      ={.bits={.NBC2_ANR2_NCL_TH=72, .NBC2_ANR2_NCL_SL=3, .rsv_11=0, .NBC2_ANR2_NCL_LV=16, .rsv_17=0, .NBC2_ANR2_VAR=3, .rsv_23=0, .NBC2_ANR2_Y0=10, .rsv_30=0}},
+    .med4      ={.bits={.NBC2_ANR2_Y1=13, .rsv_6=0, .NBC2_ANR2_Y2=16, .rsv_14=0, .NBC2_ANR2_Y3=19, .rsv_22=0, .NBC2_ANR2_Y4=22, .rsv_30=0}},
+    .med5      ={.bits={.NBC2_ANR2_LCL_OFT=0, .NBC2_ANR2_SCL_OFT=0, .rsv_14=0, .NBC2_ANR2_NCL_OFT=0, .rsv_24=0}},
+    .actc      ={.bits={.rsv_0=0, .NBC2_ANR2_ACT_BLD_BASE_C=64, .rsv_15=0, .NBC2_ANR2_C_DITH_U=8, .rsv_21=0, .NBC2_ANR2_C_DITH_V=8, .rsv_29=0}}
+
+};
+const ISP_NVRAM_ANR2_T ov16885mipiraw_NBC2_ANR2_0088 = {
+        .con1      ={.bits={.NBC2_ANR2_ENC=1, .NBC2_ANR2_ENY=1, .rsv_2=0, .NBC2_ANR2_SCALE_MODE=3, .rsv_6=0, .NBC2_ANR2_VER_C_REF_Y=1, .rsv_9=0, .NBC2_ANR2_MODE=0, .rsv_13=0, .NBC2_ANR2_TILE_EDGE=15, .rsv_20=0, .NBC2_ANR2_SL2_LINK=1, .rsv_25=0}},
+    .con2      ={.bits={.rsv_0=0, .NBC2_ANR2_C_SM_EDGE=0, .rsv_10=0, .NBC2_ANR2_FLT_C=0, .rsv_13=0}},
+    .yad1      ={.bits={.rsv_0=0, .NBC2_ANR2_K_TH_C=8}},
+    .y4lut1    ={.bits={.NBC2_ANR2_Y_CPX1=40, .NBC2_ANR2_Y_CPX2=100, .NBC2_ANR2_Y_CPX3=160, .rsv_24=0}},
+    .y4lut2    ={.bits={.NBC2_ANR2_Y_SCALE_CPY0=16, .rsv_5=0, .NBC2_ANR2_Y_SCALE_CPY1=16, .rsv_13=0, .NBC2_ANR2_Y_SCALE_CPY2=16, .rsv_21=0, .NBC2_ANR2_Y_SCALE_CPY3=16, .rsv_29=0}},
+    .y4lut3    ={.bits={.NBC2_ANR2_Y_SCALE_SP0=0, .rsv_5=0, .NBC2_ANR2_Y_SCALE_SP1=0, .rsv_13=0, .NBC2_ANR2_Y_SCALE_SP2=23, .rsv_21=0, .NBC2_ANR2_Y_SCALE_SP3=15, .rsv_29=0}},
+    .l4lut1    ={.bits={.NBC2_ANR2_SL2_X1=64, .NBC2_ANR2_SL2_X2=128, .NBC2_ANR2_SL2_X3=192, .rsv_24=0}},
+    .l4lut2    ={.bits={.NBC2_ANR2_SL2_GAIN0=16, .rsv_6=0, .NBC2_ANR2_SL2_GAIN1=16, .rsv_14=0, .NBC2_ANR2_SL2_GAIN2=20, .rsv_22=0, .NBC2_ANR2_SL2_GAIN3=28, .rsv_30=0}},
+    .l4lut3    ={.bits={.NBC2_ANR2_SL2_SP0=4, .rsv_6=0, .NBC2_ANR2_SL2_SP1=12, .rsv_14=0, .NBC2_ANR2_SL2_SP2=16, .rsv_22=0, .NBC2_ANR2_SL2_SP3=0, .rsv_30=0}},
+    .cad       ={.bits={.NBC2_ANR2_PTC_VGAIN=10, .NBC2_ANR2_C_GAIN=8, .NBC2_ANR2_PTC_GAIN_TH=16, .rsv_13=0, .NBC2_ANR2_C_L_DIFF_TH=48, .NBC2_ANR2_C_MODE=1, .rsv_25=0}},
+    .ptc       ={.bits={.NBC2_ANR2_PTC1=4, .NBC2_ANR2_PTC2=8, .NBC2_ANR2_PTC3=12, .NBC2_ANR2_PTC4=16}},
+    .sl2       ={.bits={.NBC2_ANR2_SL2_C_GAIN=4, .rsv_4=0, .NBC2_ANR2_LM_WT=8, .rsv_20=0}},
+    .med1      ={.bits={.NBC2_ANR2_COR_TH=5, .rsv_5=0, .NBC2_ANR2_COR_SL=4, .rsv_11=0, .NBC2_ANR2_MCD_TH=5, .rsv_17=0, .NBC2_ANR2_MCD_SL=3, .rsv_23=0, .NBC2_ANR2_LCL_TH=32}},
+    .med2      ={.bits={.NBC2_ANR2_LCL_SL=3, .rsv_3=0, .NBC2_ANR2_LCL_LV=16, .rsv_9=0, .NBC2_ANR2_SCL_TH=8, .rsv_18=0, .NBC2_ANR2_SCL_SL=3, .rsv_23=0, .NBC2_ANR2_SCL_LV=16, .rsv_29=0}},
+    .med3      ={.bits={.NBC2_ANR2_NCL_TH=48, .NBC2_ANR2_NCL_SL=3, .rsv_11=0, .NBC2_ANR2_NCL_LV=16, .rsv_17=0, .NBC2_ANR2_VAR=3, .rsv_23=0, .NBC2_ANR2_Y0=10, .rsv_30=0}},
+    .med4      ={.bits={.NBC2_ANR2_Y1=13, .rsv_6=0, .NBC2_ANR2_Y2=16, .rsv_14=0, .NBC2_ANR2_Y3=19, .rsv_22=0, .NBC2_ANR2_Y4=22, .rsv_30=0}},
+    .med5      ={.bits={.NBC2_ANR2_LCL_OFT=0, .NBC2_ANR2_SCL_OFT=0, .rsv_14=0, .NBC2_ANR2_NCL_OFT=0, .rsv_24=0}},
+    .actc      ={.bits={.rsv_0=0, .NBC2_ANR2_ACT_BLD_BASE_C=64, .rsv_15=0, .NBC2_ANR2_C_DITH_U=8, .rsv_21=0, .NBC2_ANR2_C_DITH_V=8, .rsv_29=0}}
+
+};
+const ISP_NVRAM_ANR2_T ov16885mipiraw_NBC2_ANR2_0089 = {
+        .con1      ={.bits={.NBC2_ANR2_ENC=1, .NBC2_ANR2_ENY=1, .rsv_2=0, .NBC2_ANR2_SCALE_MODE=3, .rsv_6=0, .NBC2_ANR2_VER_C_REF_Y=1, .rsv_9=0, .NBC2_ANR2_MODE=0, .rsv_13=0, .NBC2_ANR2_TILE_EDGE=15, .rsv_20=0, .NBC2_ANR2_SL2_LINK=1, .rsv_25=0}},
+    .con2      ={.bits={.rsv_0=0, .NBC2_ANR2_C_SM_EDGE=0, .rsv_10=0, .NBC2_ANR2_FLT_C=0, .rsv_13=0}},
+    .yad1      ={.bits={.rsv_0=0, .NBC2_ANR2_K_TH_C=8}},
+    .y4lut1    ={.bits={.NBC2_ANR2_Y_CPX1=40, .NBC2_ANR2_Y_CPX2=100, .NBC2_ANR2_Y_CPX3=160, .rsv_24=0}},
+    .y4lut2    ={.bits={.NBC2_ANR2_Y_SCALE_CPY0=16, .rsv_5=0, .NBC2_ANR2_Y_SCALE_CPY1=16, .rsv_13=0, .NBC2_ANR2_Y_SCALE_CPY2=16, .rsv_21=0, .NBC2_ANR2_Y_SCALE_CPY3=16, .rsv_29=0}},
+    .y4lut3    ={.bits={.NBC2_ANR2_Y_SCALE_SP0=0, .rsv_5=0, .NBC2_ANR2_Y_SCALE_SP1=0, .rsv_13=0, .NBC2_ANR2_Y_SCALE_SP2=23, .rsv_21=0, .NBC2_ANR2_Y_SCALE_SP3=15, .rsv_29=0}},
+    .l4lut1    ={.bits={.NBC2_ANR2_SL2_X1=64, .NBC2_ANR2_SL2_X2=128, .NBC2_ANR2_SL2_X3=192, .rsv_24=0}},
+    .l4lut2    ={.bits={.NBC2_ANR2_SL2_GAIN0=16, .rsv_6=0, .NBC2_ANR2_SL2_GAIN1=16, .rsv_14=0, .NBC2_ANR2_SL2_GAIN2=20, .rsv_22=0, .NBC2_ANR2_SL2_GAIN3=28, .rsv_30=0}},
+    .l4lut3    ={.bits={.NBC2_ANR2_SL2_SP0=4, .rsv_6=0, .NBC2_ANR2_SL2_SP1=12, .rsv_14=0, .NBC2_ANR2_SL2_SP2=16, .rsv_22=0, .NBC2_ANR2_SL2_SP3=0, .rsv_30=0}},
+    .cad       ={.bits={.NBC2_ANR2_PTC_VGAIN=10, .NBC2_ANR2_C_GAIN=8, .NBC2_ANR2_PTC_GAIN_TH=16, .rsv_13=0, .NBC2_ANR2_C_L_DIFF_TH=48, .NBC2_ANR2_C_MODE=1, .rsv_25=0}},
+    .ptc       ={.bits={.NBC2_ANR2_PTC1=4, .NBC2_ANR2_PTC2=8, .NBC2_ANR2_PTC3=12, .NBC2_ANR2_PTC4=16}},
+    .sl2       ={.bits={.NBC2_ANR2_SL2_C_GAIN=4, .rsv_4=0, .NBC2_ANR2_LM_WT=8, .rsv_20=0}},
+    .med1      ={.bits={.NBC2_ANR2_COR_TH=5, .rsv_5=0, .NBC2_ANR2_COR_SL=4, .rsv_11=0, .NBC2_ANR2_MCD_TH=5, .rsv_17=0, .NBC2_ANR2_MCD_SL=3, .rsv_23=0, .NBC2_ANR2_LCL_TH=32}},
+    .med2      ={.bits={.NBC2_ANR2_LCL_SL=3, .rsv_3=0, .NBC2_ANR2_LCL_LV=16, .rsv_9=0, .NBC2_ANR2_SCL_TH=8, .rsv_18=0, .NBC2_ANR2_SCL_SL=3, .rsv_23=0, .NBC2_ANR2_SCL_LV=16, .rsv_29=0}},
+    .med3      ={.bits={.NBC2_ANR2_NCL_TH=48, .NBC2_ANR2_NCL_SL=3, .rsv_11=0, .NBC2_ANR2_NCL_LV=16, .rsv_17=0, .NBC2_ANR2_VAR=3, .rsv_23=0, .NBC2_ANR2_Y0=10, .rsv_30=0}},
+    .med4      ={.bits={.NBC2_ANR2_Y1=13, .rsv_6=0, .NBC2_ANR2_Y2=16, .rsv_14=0, .NBC2_ANR2_Y3=19, .rsv_22=0, .NBC2_ANR2_Y4=22, .rsv_30=0}},
+    .med5      ={.bits={.NBC2_ANR2_LCL_OFT=0, .NBC2_ANR2_SCL_OFT=0, .rsv_14=0, .NBC2_ANR2_NCL_OFT=0, .rsv_24=0}},
+    .actc      ={.bits={.rsv_0=0, .NBC2_ANR2_ACT_BLD_BASE_C=64, .rsv_15=0, .NBC2_ANR2_C_DITH_U=8, .rsv_21=0, .NBC2_ANR2_C_DITH_V=8, .rsv_29=0}}
+
+};
+const ISP_NVRAM_ANR2_T ov16885mipiraw_NBC2_ANR2_0090 = {
+        .con1      ={.bits={.NBC2_ANR2_ENC=1, .NBC2_ANR2_ENY=1, .rsv_2=0, .NBC2_ANR2_SCALE_MODE=3, .rsv_6=0, .NBC2_ANR2_VER_C_REF_Y=1, .rsv_9=0, .NBC2_ANR2_MODE=0, .rsv_13=0, .NBC2_ANR2_TILE_EDGE=15, .rsv_20=0, .NBC2_ANR2_SL2_LINK=1, .rsv_25=0}},
+    .con2      ={.bits={.rsv_0=0, .NBC2_ANR2_C_SM_EDGE=1, .rsv_10=0, .NBC2_ANR2_FLT_C=0, .rsv_13=0}},
+    .yad1      ={.bits={.rsv_0=0, .NBC2_ANR2_K_TH_C=8}},
+    .y4lut1    ={.bits={.NBC2_ANR2_Y_CPX1=40, .NBC2_ANR2_Y_CPX2=100, .NBC2_ANR2_Y_CPX3=160, .rsv_24=0}},
+    .y4lut2    ={.bits={.NBC2_ANR2_Y_SCALE_CPY0=16, .rsv_5=0, .NBC2_ANR2_Y_SCALE_CPY1=16, .rsv_13=0, .NBC2_ANR2_Y_SCALE_CPY2=16, .rsv_21=0, .NBC2_ANR2_Y_SCALE_CPY3=12, .rsv_29=0}},
+    .y4lut3    ={.bits={.NBC2_ANR2_Y_SCALE_SP0=0, .rsv_5=0, .NBC2_ANR2_Y_SCALE_SP1=0, .rsv_13=0, .NBC2_ANR2_Y_SCALE_SP2=0, .rsv_21=0, .NBC2_ANR2_Y_SCALE_SP3=15, .rsv_29=0}},
+    .l4lut1    ={.bits={.NBC2_ANR2_SL2_X1=64, .NBC2_ANR2_SL2_X2=128, .NBC2_ANR2_SL2_X3=192, .rsv_24=0}},
+    .l4lut2    ={.bits={.NBC2_ANR2_SL2_GAIN0=16, .rsv_6=0, .NBC2_ANR2_SL2_GAIN1=18, .rsv_14=0, .NBC2_ANR2_SL2_GAIN2=24, .rsv_22=0, .NBC2_ANR2_SL2_GAIN3=32, .rsv_30=0}},
+    .l4lut3    ={.bits={.NBC2_ANR2_SL2_SP0=4, .rsv_6=0, .NBC2_ANR2_SL2_SP1=12, .rsv_14=0, .NBC2_ANR2_SL2_SP2=16, .rsv_22=0, .NBC2_ANR2_SL2_SP3=0, .rsv_30=0}},
+    .cad       ={.bits={.NBC2_ANR2_PTC_VGAIN=10, .NBC2_ANR2_C_GAIN=8, .NBC2_ANR2_PTC_GAIN_TH=16, .rsv_13=0, .NBC2_ANR2_C_L_DIFF_TH=48, .NBC2_ANR2_C_MODE=1, .rsv_25=0}},
+    .ptc       ={.bits={.NBC2_ANR2_PTC1=4, .NBC2_ANR2_PTC2=8, .NBC2_ANR2_PTC3=12, .NBC2_ANR2_PTC4=16}},
+    .sl2       ={.bits={.NBC2_ANR2_SL2_C_GAIN=4, .rsv_4=0, .NBC2_ANR2_LM_WT=8, .rsv_20=0}},
+    .med1      ={.bits={.NBC2_ANR2_COR_TH=5, .rsv_5=0, .NBC2_ANR2_COR_SL=4, .rsv_11=0, .NBC2_ANR2_MCD_TH=5, .rsv_17=0, .NBC2_ANR2_MCD_SL=3, .rsv_23=0, .NBC2_ANR2_LCL_TH=56}},
+    .med2      ={.bits={.NBC2_ANR2_LCL_SL=3, .rsv_3=0, .NBC2_ANR2_LCL_LV=16, .rsv_9=0, .NBC2_ANR2_SCL_TH=8, .rsv_18=0, .NBC2_ANR2_SCL_SL=3, .rsv_23=0, .NBC2_ANR2_SCL_LV=12, .rsv_29=0}},
+    .med3      ={.bits={.NBC2_ANR2_NCL_TH=72, .NBC2_ANR2_NCL_SL=3, .rsv_11=0, .NBC2_ANR2_NCL_LV=16, .rsv_17=0, .NBC2_ANR2_VAR=3, .rsv_23=0, .NBC2_ANR2_Y0=10, .rsv_30=0}},
+    .med4      ={.bits={.NBC2_ANR2_Y1=13, .rsv_6=0, .NBC2_ANR2_Y2=16, .rsv_14=0, .NBC2_ANR2_Y3=19, .rsv_22=0, .NBC2_ANR2_Y4=22, .rsv_30=0}},
+    .med5      ={.bits={.NBC2_ANR2_LCL_OFT=0, .NBC2_ANR2_SCL_OFT=0, .rsv_14=0, .NBC2_ANR2_NCL_OFT=0, .rsv_24=0}},
+    .actc      ={.bits={.rsv_0=0, .NBC2_ANR2_ACT_BLD_BASE_C=64, .rsv_15=0, .NBC2_ANR2_C_DITH_U=8, .rsv_21=0, .NBC2_ANR2_C_DITH_V=8, .rsv_29=0}}
+
+};
+const ISP_NVRAM_ANR2_T ov16885mipiraw_NBC2_ANR2_0091 = {
+        .con1      ={.bits={.NBC2_ANR2_ENC=1, .NBC2_ANR2_ENY=1, .rsv_2=0, .NBC2_ANR2_SCALE_MODE=3, .rsv_6=0, .NBC2_ANR2_VER_C_REF_Y=1, .rsv_9=0, .NBC2_ANR2_MODE=0, .rsv_13=0, .NBC2_ANR2_TILE_EDGE=15, .rsv_20=0, .NBC2_ANR2_SL2_LINK=1, .rsv_25=0}},
+    .con2      ={.bits={.rsv_0=0, .NBC2_ANR2_C_SM_EDGE=1, .rsv_10=0, .NBC2_ANR2_FLT_C=0, .rsv_13=0}},
+    .yad1      ={.bits={.rsv_0=0, .NBC2_ANR2_K_TH_C=8}},
+    .y4lut1    ={.bits={.NBC2_ANR2_Y_CPX1=40, .NBC2_ANR2_Y_CPX2=100, .NBC2_ANR2_Y_CPX3=160, .rsv_24=0}},
+    .y4lut2    ={.bits={.NBC2_ANR2_Y_SCALE_CPY0=16, .rsv_5=0, .NBC2_ANR2_Y_SCALE_CPY1=16, .rsv_13=0, .NBC2_ANR2_Y_SCALE_CPY2=16, .rsv_21=0, .NBC2_ANR2_Y_SCALE_CPY3=16, .rsv_29=0}},
+    .y4lut3    ={.bits={.NBC2_ANR2_Y_SCALE_SP0=0, .rsv_5=0, .NBC2_ANR2_Y_SCALE_SP1=0, .rsv_13=0, .NBC2_ANR2_Y_SCALE_SP2=0, .rsv_21=0, .NBC2_ANR2_Y_SCALE_SP3=24, .rsv_29=0}},
+    .l4lut1    ={.bits={.NBC2_ANR2_SL2_X1=64, .NBC2_ANR2_SL2_X2=128, .NBC2_ANR2_SL2_X3=192, .rsv_24=0}},
+    .l4lut2    ={.bits={.NBC2_ANR2_SL2_GAIN0=16, .rsv_6=0, .NBC2_ANR2_SL2_GAIN1=17, .rsv_14=0, .NBC2_ANR2_SL2_GAIN2=19, .rsv_22=0, .NBC2_ANR2_SL2_GAIN3=24, .rsv_30=0}},
+    .l4lut3    ={.bits={.NBC2_ANR2_SL2_SP0=2, .rsv_6=0, .NBC2_ANR2_SL2_SP1=4, .rsv_14=0, .NBC2_ANR2_SL2_SP2=10, .rsv_22=0, .NBC2_ANR2_SL2_SP3=4, .rsv_30=0}},
+    .cad       ={.bits={.NBC2_ANR2_PTC_VGAIN=10, .NBC2_ANR2_C_GAIN=8, .NBC2_ANR2_PTC_GAIN_TH=16, .rsv_13=0, .NBC2_ANR2_C_L_DIFF_TH=49, .NBC2_ANR2_C_MODE=0, .rsv_25=0}},
+    .ptc       ={.bits={.NBC2_ANR2_PTC1=6, .NBC2_ANR2_PTC2=11, .NBC2_ANR2_PTC3=16, .NBC2_ANR2_PTC4=22}},
+    .sl2       ={.bits={.NBC2_ANR2_SL2_C_GAIN=4, .rsv_4=0, .NBC2_ANR2_LM_WT=8, .rsv_20=0}},
+    .med1      ={.bits={.NBC2_ANR2_COR_TH=5, .rsv_5=0, .NBC2_ANR2_COR_SL=4, .rsv_11=0, .NBC2_ANR2_MCD_TH=5, .rsv_17=0, .NBC2_ANR2_MCD_SL=3, .rsv_23=0, .NBC2_ANR2_LCL_TH=48}},
+    .med2      ={.bits={.NBC2_ANR2_LCL_SL=3, .rsv_3=0, .NBC2_ANR2_LCL_LV=12, .rsv_9=0, .NBC2_ANR2_SCL_TH=4, .rsv_18=0, .NBC2_ANR2_SCL_SL=3, .rsv_23=0, .NBC2_ANR2_SCL_LV=10, .rsv_29=0}},
+    .med3      ={.bits={.NBC2_ANR2_NCL_TH=58, .NBC2_ANR2_NCL_SL=3, .rsv_11=0, .NBC2_ANR2_NCL_LV=10, .rsv_17=0, .NBC2_ANR2_VAR=3, .rsv_23=0, .NBC2_ANR2_Y0=10, .rsv_30=0}},
+    .med4      ={.bits={.NBC2_ANR2_Y1=13, .rsv_6=0, .NBC2_ANR2_Y2=16, .rsv_14=0, .NBC2_ANR2_Y3=19, .rsv_22=0, .NBC2_ANR2_Y4=22, .rsv_30=0}},
+    .med5      ={.bits={.NBC2_ANR2_LCL_OFT=0, .NBC2_ANR2_SCL_OFT=0, .rsv_14=0, .NBC2_ANR2_NCL_OFT=0, .rsv_24=0}},
+    .actc      ={.bits={.rsv_0=0, .NBC2_ANR2_ACT_BLD_BASE_C=64, .rsv_15=0, .NBC2_ANR2_C_DITH_U=8, .rsv_21=0, .NBC2_ANR2_C_DITH_V=8, .rsv_29=0}}
+
+};
+const ISP_NVRAM_ANR2_T ov16885mipiraw_NBC2_ANR2_0092 = {
+        .con1      ={.bits={.NBC2_ANR2_ENC=1, .NBC2_ANR2_ENY=1, .rsv_2=0, .NBC2_ANR2_SCALE_MODE=3, .rsv_6=0, .NBC2_ANR2_VER_C_REF_Y=1, .rsv_9=0, .NBC2_ANR2_MODE=0, .rsv_13=0, .NBC2_ANR2_TILE_EDGE=15, .rsv_20=0, .NBC2_ANR2_SL2_LINK=1, .rsv_25=0}},
+    .con2      ={.bits={.rsv_0=0, .NBC2_ANR2_C_SM_EDGE=1, .rsv_10=0, .NBC2_ANR2_FLT_C=0, .rsv_13=0}},
+    .yad1      ={.bits={.rsv_0=0, .NBC2_ANR2_K_TH_C=8}},
+    .y4lut1    ={.bits={.NBC2_ANR2_Y_CPX1=40, .NBC2_ANR2_Y_CPX2=100, .NBC2_ANR2_Y_CPX3=160, .rsv_24=0}},
+    .y4lut2    ={.bits={.NBC2_ANR2_Y_SCALE_CPY0=16, .rsv_5=0, .NBC2_ANR2_Y_SCALE_CPY1=16, .rsv_13=0, .NBC2_ANR2_Y_SCALE_CPY2=16, .rsv_21=0, .NBC2_ANR2_Y_SCALE_CPY3=16, .rsv_29=0}},
+    .y4lut3    ={.bits={.NBC2_ANR2_Y_SCALE_SP0=0, .rsv_5=0, .NBC2_ANR2_Y_SCALE_SP1=0, .rsv_13=0, .NBC2_ANR2_Y_SCALE_SP2=0, .rsv_21=0, .NBC2_ANR2_Y_SCALE_SP3=24, .rsv_29=0}},
+    .l4lut1    ={.bits={.NBC2_ANR2_SL2_X1=64, .NBC2_ANR2_SL2_X2=128, .NBC2_ANR2_SL2_X3=192, .rsv_24=0}},
+    .l4lut2    ={.bits={.NBC2_ANR2_SL2_GAIN0=16, .rsv_6=0, .NBC2_ANR2_SL2_GAIN1=16, .rsv_14=0, .NBC2_ANR2_SL2_GAIN2=18, .rsv_22=0, .NBC2_ANR2_SL2_GAIN3=24, .rsv_30=0}},
+    .l4lut3    ={.bits={.NBC2_ANR2_SL2_SP0=0, .rsv_6=0, .NBC2_ANR2_SL2_SP1=4, .rsv_14=0, .NBC2_ANR2_SL2_SP2=12, .rsv_22=0, .NBC2_ANR2_SL2_SP3=4, .rsv_30=0}},
+    .cad       ={.bits={.NBC2_ANR2_PTC_VGAIN=10, .NBC2_ANR2_C_GAIN=8, .NBC2_ANR2_PTC_GAIN_TH=16, .rsv_13=0, .NBC2_ANR2_C_L_DIFF_TH=52, .NBC2_ANR2_C_MODE=0, .rsv_25=0}},
+    .ptc       ={.bits={.NBC2_ANR2_PTC1=6, .NBC2_ANR2_PTC2=12, .NBC2_ANR2_PTC3=17, .NBC2_ANR2_PTC4=24}},
+    .sl2       ={.bits={.NBC2_ANR2_SL2_C_GAIN=4, .rsv_4=0, .NBC2_ANR2_LM_WT=8, .rsv_20=0}},
+    .med1      ={.bits={.NBC2_ANR2_COR_TH=5, .rsv_5=0, .NBC2_ANR2_COR_SL=4, .rsv_11=0, .NBC2_ANR2_MCD_TH=5, .rsv_17=0, .NBC2_ANR2_MCD_SL=3, .rsv_23=0, .NBC2_ANR2_LCL_TH=48}},
+    .med2      ={.bits={.NBC2_ANR2_LCL_SL=3, .rsv_3=0, .NBC2_ANR2_LCL_LV=12, .rsv_9=0, .NBC2_ANR2_SCL_TH=4, .rsv_18=0, .NBC2_ANR2_SCL_SL=3, .rsv_23=0, .NBC2_ANR2_SCL_LV=10, .rsv_29=0}},
+    .med3      ={.bits={.NBC2_ANR2_NCL_TH=56, .NBC2_ANR2_NCL_SL=3, .rsv_11=0, .NBC2_ANR2_NCL_LV=10, .rsv_17=0, .NBC2_ANR2_VAR=3, .rsv_23=0, .NBC2_ANR2_Y0=10, .rsv_30=0}},
+    .med4      ={.bits={.NBC2_ANR2_Y1=13, .rsv_6=0, .NBC2_ANR2_Y2=16, .rsv_14=0, .NBC2_ANR2_Y3=19, .rsv_22=0, .NBC2_ANR2_Y4=22, .rsv_30=0}},
+    .med5      ={.bits={.NBC2_ANR2_LCL_OFT=0, .NBC2_ANR2_SCL_OFT=0, .rsv_14=0, .NBC2_ANR2_NCL_OFT=0, .rsv_24=0}},
+    .actc      ={.bits={.rsv_0=0, .NBC2_ANR2_ACT_BLD_BASE_C=64, .rsv_15=0, .NBC2_ANR2_C_DITH_U=8, .rsv_21=0, .NBC2_ANR2_C_DITH_V=8, .rsv_29=0}}
+
+};
+const ISP_NVRAM_ANR2_T ov16885mipiraw_NBC2_ANR2_0093 = {
+        .con1      ={.bits={.NBC2_ANR2_ENC=1, .NBC2_ANR2_ENY=1, .rsv_2=0, .NBC2_ANR2_SCALE_MODE=3, .rsv_6=0, .NBC2_ANR2_VER_C_REF_Y=1, .rsv_9=0, .NBC2_ANR2_MODE=0, .rsv_13=0, .NBC2_ANR2_TILE_EDGE=15, .rsv_20=0, .NBC2_ANR2_SL2_LINK=1, .rsv_25=0}},
+    .con2      ={.bits={.rsv_0=0, .NBC2_ANR2_C_SM_EDGE=1, .rsv_10=0, .NBC2_ANR2_FLT_C=0, .rsv_13=0}},
+    .yad1      ={.bits={.rsv_0=0, .NBC2_ANR2_K_TH_C=8}},
+    .y4lut1    ={.bits={.NBC2_ANR2_Y_CPX1=40, .NBC2_ANR2_Y_CPX2=100, .NBC2_ANR2_Y_CPX3=160, .rsv_24=0}},
+    .y4lut2    ={.bits={.NBC2_ANR2_Y_SCALE_CPY0=16, .rsv_5=0, .NBC2_ANR2_Y_SCALE_CPY1=16, .rsv_13=0, .NBC2_ANR2_Y_SCALE_CPY2=16, .rsv_21=0, .NBC2_ANR2_Y_SCALE_CPY3=16, .rsv_29=0}},
+    .y4lut3    ={.bits={.NBC2_ANR2_Y_SCALE_SP0=0, .rsv_5=0, .NBC2_ANR2_Y_SCALE_SP1=0, .rsv_13=0, .NBC2_ANR2_Y_SCALE_SP2=0, .rsv_21=0, .NBC2_ANR2_Y_SCALE_SP3=24, .rsv_29=0}},
+    .l4lut1    ={.bits={.NBC2_ANR2_SL2_X1=64, .NBC2_ANR2_SL2_X2=128, .NBC2_ANR2_SL2_X3=192, .rsv_24=0}},
+    .l4lut2    ={.bits={.NBC2_ANR2_SL2_GAIN0=16, .rsv_6=0, .NBC2_ANR2_SL2_GAIN1=16, .rsv_14=0, .NBC2_ANR2_SL2_GAIN2=18, .rsv_22=0, .NBC2_ANR2_SL2_GAIN3=24, .rsv_30=0}},
+    .l4lut3    ={.bits={.NBC2_ANR2_SL2_SP0=0, .rsv_6=0, .NBC2_ANR2_SL2_SP1=4, .rsv_14=0, .NBC2_ANR2_SL2_SP2=12, .rsv_22=0, .NBC2_ANR2_SL2_SP3=4, .rsv_30=0}},
+    .cad       ={.bits={.NBC2_ANR2_PTC_VGAIN=10, .NBC2_ANR2_C_GAIN=8, .NBC2_ANR2_PTC_GAIN_TH=16, .rsv_13=0, .NBC2_ANR2_C_L_DIFF_TH=56, .NBC2_ANR2_C_MODE=0, .rsv_25=0}},
+    .ptc       ={.bits={.NBC2_ANR2_PTC1=6, .NBC2_ANR2_PTC2=13, .NBC2_ANR2_PTC3=19, .NBC2_ANR2_PTC4=26}},
+    .sl2       ={.bits={.NBC2_ANR2_SL2_C_GAIN=4, .rsv_4=0, .NBC2_ANR2_LM_WT=8, .rsv_20=0}},
+    .med1      ={.bits={.NBC2_ANR2_COR_TH=5, .rsv_5=0, .NBC2_ANR2_COR_SL=4, .rsv_11=0, .NBC2_ANR2_MCD_TH=5, .rsv_17=0, .NBC2_ANR2_MCD_SL=3, .rsv_23=0, .NBC2_ANR2_LCL_TH=48}},
+    .med2      ={.bits={.NBC2_ANR2_LCL_SL=3, .rsv_3=0, .NBC2_ANR2_LCL_LV=12, .rsv_9=0, .NBC2_ANR2_SCL_TH=4, .rsv_18=0, .NBC2_ANR2_SCL_SL=3, .rsv_23=0, .NBC2_ANR2_SCL_LV=10, .rsv_29=0}},
+    .med3      ={.bits={.NBC2_ANR2_NCL_TH=56, .NBC2_ANR2_NCL_SL=3, .rsv_11=0, .NBC2_ANR2_NCL_LV=10, .rsv_17=0, .NBC2_ANR2_VAR=3, .rsv_23=0, .NBC2_ANR2_Y0=10, .rsv_30=0}},
+    .med4      ={.bits={.NBC2_ANR2_Y1=13, .rsv_6=0, .NBC2_ANR2_Y2=16, .rsv_14=0, .NBC2_ANR2_Y3=19, .rsv_22=0, .NBC2_ANR2_Y4=22, .rsv_30=0}},
+    .med5      ={.bits={.NBC2_ANR2_LCL_OFT=0, .NBC2_ANR2_SCL_OFT=0, .rsv_14=0, .NBC2_ANR2_NCL_OFT=0, .rsv_24=0}},
+    .actc      ={.bits={.rsv_0=0, .NBC2_ANR2_ACT_BLD_BASE_C=64, .rsv_15=0, .NBC2_ANR2_C_DITH_U=8, .rsv_21=0, .NBC2_ANR2_C_DITH_V=8, .rsv_29=0}}
+
+};
+const ISP_NVRAM_ANR2_T ov16885mipiraw_NBC2_ANR2_0094 = {
+        .con1      ={.bits={.NBC2_ANR2_ENC=1, .NBC2_ANR2_ENY=1, .rsv_2=0, .NBC2_ANR2_SCALE_MODE=3, .rsv_6=0, .NBC2_ANR2_VER_C_REF_Y=1, .rsv_9=0, .NBC2_ANR2_MODE=0, .rsv_13=0, .NBC2_ANR2_TILE_EDGE=15, .rsv_20=0, .NBC2_ANR2_SL2_LINK=1, .rsv_25=0}},
+    .con2      ={.bits={.rsv_0=0, .NBC2_ANR2_C_SM_EDGE=1, .rsv_10=0, .NBC2_ANR2_FLT_C=0, .rsv_13=0}},
+    .yad1      ={.bits={.rsv_0=0, .NBC2_ANR2_K_TH_C=8}},
+    .y4lut1    ={.bits={.NBC2_ANR2_Y_CPX1=40, .NBC2_ANR2_Y_CPX2=100, .NBC2_ANR2_Y_CPX3=160, .rsv_24=0}},
+    .y4lut2    ={.bits={.NBC2_ANR2_Y_SCALE_CPY0=16, .rsv_5=0, .NBC2_ANR2_Y_SCALE_CPY1=16, .rsv_13=0, .NBC2_ANR2_Y_SCALE_CPY2=16, .rsv_21=0, .NBC2_ANR2_Y_SCALE_CPY3=16, .rsv_29=0}},
+    .y4lut3    ={.bits={.NBC2_ANR2_Y_SCALE_SP0=0, .rsv_5=0, .NBC2_ANR2_Y_SCALE_SP1=0, .rsv_13=0, .NBC2_ANR2_Y_SCALE_SP2=0, .rsv_21=0, .NBC2_ANR2_Y_SCALE_SP3=24, .rsv_29=0}},
+    .l4lut1    ={.bits={.NBC2_ANR2_SL2_X1=64, .NBC2_ANR2_SL2_X2=128, .NBC2_ANR2_SL2_X3=192, .rsv_24=0}},
+    .l4lut2    ={.bits={.NBC2_ANR2_SL2_GAIN0=16, .rsv_6=0, .NBC2_ANR2_SL2_GAIN1=16, .rsv_14=0, .NBC2_ANR2_SL2_GAIN2=18, .rsv_22=0, .NBC2_ANR2_SL2_GAIN3=24, .rsv_30=0}},
+    .l4lut3    ={.bits={.NBC2_ANR2_SL2_SP0=0, .rsv_6=0, .NBC2_ANR2_SL2_SP1=4, .rsv_14=0, .NBC2_ANR2_SL2_SP2=12, .rsv_22=0, .NBC2_ANR2_SL2_SP3=4, .rsv_30=0}},
+    .cad       ={.bits={.NBC2_ANR2_PTC_VGAIN=10, .NBC2_ANR2_C_GAIN=8, .NBC2_ANR2_PTC_GAIN_TH=16, .rsv_13=0, .NBC2_ANR2_C_L_DIFF_TH=56, .NBC2_ANR2_C_MODE=0, .rsv_25=0}},
+    .ptc       ={.bits={.NBC2_ANR2_PTC1=6, .NBC2_ANR2_PTC2=13, .NBC2_ANR2_PTC3=19, .NBC2_ANR2_PTC4=26}},
+    .sl2       ={.bits={.NBC2_ANR2_SL2_C_GAIN=4, .rsv_4=0, .NBC2_ANR2_LM_WT=8, .rsv_20=0}},
+    .med1      ={.bits={.NBC2_ANR2_COR_TH=5, .rsv_5=0, .NBC2_ANR2_COR_SL=4, .rsv_11=0, .NBC2_ANR2_MCD_TH=5, .rsv_17=0, .NBC2_ANR2_MCD_SL=3, .rsv_23=0, .NBC2_ANR2_LCL_TH=48}},
+    .med2      ={.bits={.NBC2_ANR2_LCL_SL=3, .rsv_3=0, .NBC2_ANR2_LCL_LV=12, .rsv_9=0, .NBC2_ANR2_SCL_TH=4, .rsv_18=0, .NBC2_ANR2_SCL_SL=3, .rsv_23=0, .NBC2_ANR2_SCL_LV=10, .rsv_29=0}},
+    .med3      ={.bits={.NBC2_ANR2_NCL_TH=57, .NBC2_ANR2_NCL_SL=3, .rsv_11=0, .NBC2_ANR2_NCL_LV=11, .rsv_17=0, .NBC2_ANR2_VAR=3, .rsv_23=0, .NBC2_ANR2_Y0=10, .rsv_30=0}},
+    .med4      ={.bits={.NBC2_ANR2_Y1=13, .rsv_6=0, .NBC2_ANR2_Y2=16, .rsv_14=0, .NBC2_ANR2_Y3=19, .rsv_22=0, .NBC2_ANR2_Y4=22, .rsv_30=0}},
+    .med5      ={.bits={.NBC2_ANR2_LCL_OFT=0, .NBC2_ANR2_SCL_OFT=0, .rsv_14=0, .NBC2_ANR2_NCL_OFT=0, .rsv_24=0}},
+    .actc      ={.bits={.rsv_0=0, .NBC2_ANR2_ACT_BLD_BASE_C=64, .rsv_15=0, .NBC2_ANR2_C_DITH_U=8, .rsv_21=0, .NBC2_ANR2_C_DITH_V=8, .rsv_29=0}}
+
+};
+const ISP_NVRAM_ANR2_T ov16885mipiraw_NBC2_ANR2_0095 = {
+        .con1      ={.bits={.NBC2_ANR2_ENC=1, .NBC2_ANR2_ENY=1, .rsv_2=0, .NBC2_ANR2_SCALE_MODE=3, .rsv_6=0, .NBC2_ANR2_VER_C_REF_Y=1, .rsv_9=0, .NBC2_ANR2_MODE=0, .rsv_13=0, .NBC2_ANR2_TILE_EDGE=15, .rsv_20=0, .NBC2_ANR2_SL2_LINK=1, .rsv_25=0}},
+    .con2      ={.bits={.rsv_0=0, .NBC2_ANR2_C_SM_EDGE=1, .rsv_10=0, .NBC2_ANR2_FLT_C=0, .rsv_13=0}},
+    .yad1      ={.bits={.rsv_0=0, .NBC2_ANR2_K_TH_C=8}},
+    .y4lut1    ={.bits={.NBC2_ANR2_Y_CPX1=40, .NBC2_ANR2_Y_CPX2=100, .NBC2_ANR2_Y_CPX3=160, .rsv_24=0}},
+    .y4lut2    ={.bits={.NBC2_ANR2_Y_SCALE_CPY0=16, .rsv_5=0, .NBC2_ANR2_Y_SCALE_CPY1=16, .rsv_13=0, .NBC2_ANR2_Y_SCALE_CPY2=16, .rsv_21=0, .NBC2_ANR2_Y_SCALE_CPY3=16, .rsv_29=0}},
+    .y4lut3    ={.bits={.NBC2_ANR2_Y_SCALE_SP0=0, .rsv_5=0, .NBC2_ANR2_Y_SCALE_SP1=0, .rsv_13=0, .NBC2_ANR2_Y_SCALE_SP2=0, .rsv_21=0, .NBC2_ANR2_Y_SCALE_SP3=24, .rsv_29=0}},
+    .l4lut1    ={.bits={.NBC2_ANR2_SL2_X1=64, .NBC2_ANR2_SL2_X2=128, .NBC2_ANR2_SL2_X3=192, .rsv_24=0}},
+    .l4lut2    ={.bits={.NBC2_ANR2_SL2_GAIN0=16, .rsv_6=0, .NBC2_ANR2_SL2_GAIN1=16, .rsv_14=0, .NBC2_ANR2_SL2_GAIN2=18, .rsv_22=0, .NBC2_ANR2_SL2_GAIN3=24, .rsv_30=0}},
+    .l4lut3    ={.bits={.NBC2_ANR2_SL2_SP0=0, .rsv_6=0, .NBC2_ANR2_SL2_SP1=4, .rsv_14=0, .NBC2_ANR2_SL2_SP2=12, .rsv_22=0, .NBC2_ANR2_SL2_SP3=4, .rsv_30=0}},
+    .cad       ={.bits={.NBC2_ANR2_PTC_VGAIN=10, .NBC2_ANR2_C_GAIN=8, .NBC2_ANR2_PTC_GAIN_TH=16, .rsv_13=0, .NBC2_ANR2_C_L_DIFF_TH=56, .NBC2_ANR2_C_MODE=0, .rsv_25=0}},
+    .ptc       ={.bits={.NBC2_ANR2_PTC1=6, .NBC2_ANR2_PTC2=13, .NBC2_ANR2_PTC3=19, .NBC2_ANR2_PTC4=26}},
+    .sl2       ={.bits={.NBC2_ANR2_SL2_C_GAIN=4, .rsv_4=0, .NBC2_ANR2_LM_WT=8, .rsv_20=0}},
+    .med1      ={.bits={.NBC2_ANR2_COR_TH=5, .rsv_5=0, .NBC2_ANR2_COR_SL=4, .rsv_11=0, .NBC2_ANR2_MCD_TH=5, .rsv_17=0, .NBC2_ANR2_MCD_SL=3, .rsv_23=0, .NBC2_ANR2_LCL_TH=48}},
+    .med2      ={.bits={.NBC2_ANR2_LCL_SL=3, .rsv_3=0, .NBC2_ANR2_LCL_LV=12, .rsv_9=0, .NBC2_ANR2_SCL_TH=4, .rsv_18=0, .NBC2_ANR2_SCL_SL=3, .rsv_23=0, .NBC2_ANR2_SCL_LV=10, .rsv_29=0}},
+    .med3      ={.bits={.NBC2_ANR2_NCL_TH=57, .NBC2_ANR2_NCL_SL=3, .rsv_11=0, .NBC2_ANR2_NCL_LV=11, .rsv_17=0, .NBC2_ANR2_VAR=3, .rsv_23=0, .NBC2_ANR2_Y0=10, .rsv_30=0}},
+    .med4      ={.bits={.NBC2_ANR2_Y1=13, .rsv_6=0, .NBC2_ANR2_Y2=16, .rsv_14=0, .NBC2_ANR2_Y3=19, .rsv_22=0, .NBC2_ANR2_Y4=22, .rsv_30=0}},
+    .med5      ={.bits={.NBC2_ANR2_LCL_OFT=0, .NBC2_ANR2_SCL_OFT=0, .rsv_14=0, .NBC2_ANR2_NCL_OFT=0, .rsv_24=0}},
+    .actc      ={.bits={.rsv_0=0, .NBC2_ANR2_ACT_BLD_BASE_C=64, .rsv_15=0, .NBC2_ANR2_C_DITH_U=8, .rsv_21=0, .NBC2_ANR2_C_DITH_V=8, .rsv_29=0}}
+
+};
+const ISP_NVRAM_ANR2_T ov16885mipiraw_NBC2_ANR2_0096 = {
+        .con1      ={.bits={.NBC2_ANR2_ENC=1, .NBC2_ANR2_ENY=1, .rsv_2=0, .NBC2_ANR2_SCALE_MODE=3, .rsv_6=0, .NBC2_ANR2_VER_C_REF_Y=1, .rsv_9=0, .NBC2_ANR2_MODE=0, .rsv_13=0, .NBC2_ANR2_TILE_EDGE=15, .rsv_20=0, .NBC2_ANR2_SL2_LINK=1, .rsv_25=0}},
+    .con2      ={.bits={.rsv_0=0, .NBC2_ANR2_C_SM_EDGE=1, .rsv_10=0, .NBC2_ANR2_FLT_C=0, .rsv_13=0}},
+    .yad1      ={.bits={.rsv_0=0, .NBC2_ANR2_K_TH_C=8}},
+    .y4lut1    ={.bits={.NBC2_ANR2_Y_CPX1=40, .NBC2_ANR2_Y_CPX2=100, .NBC2_ANR2_Y_CPX3=160, .rsv_24=0}},
+    .y4lut2    ={.bits={.NBC2_ANR2_Y_SCALE_CPY0=16, .rsv_5=0, .NBC2_ANR2_Y_SCALE_CPY1=16, .rsv_13=0, .NBC2_ANR2_Y_SCALE_CPY2=16, .rsv_21=0, .NBC2_ANR2_Y_SCALE_CPY3=16, .rsv_29=0}},
+    .y4lut3    ={.bits={.NBC2_ANR2_Y_SCALE_SP0=0, .rsv_5=0, .NBC2_ANR2_Y_SCALE_SP1=0, .rsv_13=0, .NBC2_ANR2_Y_SCALE_SP2=0, .rsv_21=0, .NBC2_ANR2_Y_SCALE_SP3=24, .rsv_29=0}},
+    .l4lut1    ={.bits={.NBC2_ANR2_SL2_X1=64, .NBC2_ANR2_SL2_X2=128, .NBC2_ANR2_SL2_X3=192, .rsv_24=0}},
+    .l4lut2    ={.bits={.NBC2_ANR2_SL2_GAIN0=16, .rsv_6=0, .NBC2_ANR2_SL2_GAIN1=16, .rsv_14=0, .NBC2_ANR2_SL2_GAIN2=18, .rsv_22=0, .NBC2_ANR2_SL2_GAIN3=24, .rsv_30=0}},
+    .l4lut3    ={.bits={.NBC2_ANR2_SL2_SP0=0, .rsv_6=0, .NBC2_ANR2_SL2_SP1=4, .rsv_14=0, .NBC2_ANR2_SL2_SP2=12, .rsv_22=0, .NBC2_ANR2_SL2_SP3=4, .rsv_30=0}},
+    .cad       ={.bits={.NBC2_ANR2_PTC_VGAIN=10, .NBC2_ANR2_C_GAIN=8, .NBC2_ANR2_PTC_GAIN_TH=16, .rsv_13=0, .NBC2_ANR2_C_L_DIFF_TH=56, .NBC2_ANR2_C_MODE=0, .rsv_25=0}},
+    .ptc       ={.bits={.NBC2_ANR2_PTC1=6, .NBC2_ANR2_PTC2=13, .NBC2_ANR2_PTC3=19, .NBC2_ANR2_PTC4=26}},
+    .sl2       ={.bits={.NBC2_ANR2_SL2_C_GAIN=4, .rsv_4=0, .NBC2_ANR2_LM_WT=8, .rsv_20=0}},
+    .med1      ={.bits={.NBC2_ANR2_COR_TH=5, .rsv_5=0, .NBC2_ANR2_COR_SL=4, .rsv_11=0, .NBC2_ANR2_MCD_TH=5, .rsv_17=0, .NBC2_ANR2_MCD_SL=3, .rsv_23=0, .NBC2_ANR2_LCL_TH=48}},
+    .med2      ={.bits={.NBC2_ANR2_LCL_SL=3, .rsv_3=0, .NBC2_ANR2_LCL_LV=12, .rsv_9=0, .NBC2_ANR2_SCL_TH=4, .rsv_18=0, .NBC2_ANR2_SCL_SL=3, .rsv_23=0, .NBC2_ANR2_SCL_LV=10, .rsv_29=0}},
+    .med3      ={.bits={.NBC2_ANR2_NCL_TH=58, .NBC2_ANR2_NCL_SL=3, .rsv_11=0, .NBC2_ANR2_NCL_LV=12, .rsv_17=0, .NBC2_ANR2_VAR=3, .rsv_23=0, .NBC2_ANR2_Y0=10, .rsv_30=0}},
+    .med4      ={.bits={.NBC2_ANR2_Y1=13, .rsv_6=0, .NBC2_ANR2_Y2=16, .rsv_14=0, .NBC2_ANR2_Y3=19, .rsv_22=0, .NBC2_ANR2_Y4=22, .rsv_30=0}},
+    .med5      ={.bits={.NBC2_ANR2_LCL_OFT=0, .NBC2_ANR2_SCL_OFT=0, .rsv_14=0, .NBC2_ANR2_NCL_OFT=0, .rsv_24=0}},
+    .actc      ={.bits={.rsv_0=0, .NBC2_ANR2_ACT_BLD_BASE_C=64, .rsv_15=0, .NBC2_ANR2_C_DITH_U=8, .rsv_21=0, .NBC2_ANR2_C_DITH_V=8, .rsv_29=0}}
+
+};
+const ISP_NVRAM_ANR2_T ov16885mipiraw_NBC2_ANR2_0097 = {
+        .con1      ={.bits={.NBC2_ANR2_ENC=1, .NBC2_ANR2_ENY=1, .rsv_2=0, .NBC2_ANR2_SCALE_MODE=3, .rsv_6=0, .NBC2_ANR2_VER_C_REF_Y=1, .rsv_9=0, .NBC2_ANR2_MODE=0, .rsv_13=0, .NBC2_ANR2_TILE_EDGE=15, .rsv_20=0, .NBC2_ANR2_SL2_LINK=1, .rsv_25=0}},
+    .con2      ={.bits={.rsv_0=0, .NBC2_ANR2_C_SM_EDGE=1, .rsv_10=0, .NBC2_ANR2_FLT_C=0, .rsv_13=0}},
+    .yad1      ={.bits={.rsv_0=0, .NBC2_ANR2_K_TH_C=8}},
+    .y4lut1    ={.bits={.NBC2_ANR2_Y_CPX1=40, .NBC2_ANR2_Y_CPX2=100, .NBC2_ANR2_Y_CPX3=160, .rsv_24=0}},
+    .y4lut2    ={.bits={.NBC2_ANR2_Y_SCALE_CPY0=16, .rsv_5=0, .NBC2_ANR2_Y_SCALE_CPY1=16, .rsv_13=0, .NBC2_ANR2_Y_SCALE_CPY2=16, .rsv_21=0, .NBC2_ANR2_Y_SCALE_CPY3=16, .rsv_29=0}},
+    .y4lut3    ={.bits={.NBC2_ANR2_Y_SCALE_SP0=0, .rsv_5=0, .NBC2_ANR2_Y_SCALE_SP1=0, .rsv_13=0, .NBC2_ANR2_Y_SCALE_SP2=0, .rsv_21=0, .NBC2_ANR2_Y_SCALE_SP3=24, .rsv_29=0}},
+    .l4lut1    ={.bits={.NBC2_ANR2_SL2_X1=64, .NBC2_ANR2_SL2_X2=128, .NBC2_ANR2_SL2_X3=192, .rsv_24=0}},
+    .l4lut2    ={.bits={.NBC2_ANR2_SL2_GAIN0=16, .rsv_6=0, .NBC2_ANR2_SL2_GAIN1=16, .rsv_14=0, .NBC2_ANR2_SL2_GAIN2=18, .rsv_22=0, .NBC2_ANR2_SL2_GAIN3=24, .rsv_30=0}},
+    .l4lut3    ={.bits={.NBC2_ANR2_SL2_SP0=0, .rsv_6=0, .NBC2_ANR2_SL2_SP1=4, .rsv_14=0, .NBC2_ANR2_SL2_SP2=12, .rsv_22=0, .NBC2_ANR2_SL2_SP3=4, .rsv_30=0}},
+    .cad       ={.bits={.NBC2_ANR2_PTC_VGAIN=10, .NBC2_ANR2_C_GAIN=8, .NBC2_ANR2_PTC_GAIN_TH=16, .rsv_13=0, .NBC2_ANR2_C_L_DIFF_TH=56, .NBC2_ANR2_C_MODE=0, .rsv_25=0}},
+    .ptc       ={.bits={.NBC2_ANR2_PTC1=6, .NBC2_ANR2_PTC2=13, .NBC2_ANR2_PTC3=19, .NBC2_ANR2_PTC4=26}},
+    .sl2       ={.bits={.NBC2_ANR2_SL2_C_GAIN=4, .rsv_4=0, .NBC2_ANR2_LM_WT=8, .rsv_20=0}},
+    .med1      ={.bits={.NBC2_ANR2_COR_TH=5, .rsv_5=0, .NBC2_ANR2_COR_SL=4, .rsv_11=0, .NBC2_ANR2_MCD_TH=5, .rsv_17=0, .NBC2_ANR2_MCD_SL=3, .rsv_23=0, .NBC2_ANR2_LCL_TH=48}},
+    .med2      ={.bits={.NBC2_ANR2_LCL_SL=3, .rsv_3=0, .NBC2_ANR2_LCL_LV=12, .rsv_9=0, .NBC2_ANR2_SCL_TH=4, .rsv_18=0, .NBC2_ANR2_SCL_SL=3, .rsv_23=0, .NBC2_ANR2_SCL_LV=10, .rsv_29=0}},
+    .med3      ={.bits={.NBC2_ANR2_NCL_TH=58, .NBC2_ANR2_NCL_SL=3, .rsv_11=0, .NBC2_ANR2_NCL_LV=12, .rsv_17=0, .NBC2_ANR2_VAR=3, .rsv_23=0, .NBC2_ANR2_Y0=10, .rsv_30=0}},
+    .med4      ={.bits={.NBC2_ANR2_Y1=13, .rsv_6=0, .NBC2_ANR2_Y2=16, .rsv_14=0, .NBC2_ANR2_Y3=19, .rsv_22=0, .NBC2_ANR2_Y4=22, .rsv_30=0}},
+    .med5      ={.bits={.NBC2_ANR2_LCL_OFT=0, .NBC2_ANR2_SCL_OFT=0, .rsv_14=0, .NBC2_ANR2_NCL_OFT=0, .rsv_24=0}},
+    .actc      ={.bits={.rsv_0=0, .NBC2_ANR2_ACT_BLD_BASE_C=64, .rsv_15=0, .NBC2_ANR2_C_DITH_U=8, .rsv_21=0, .NBC2_ANR2_C_DITH_V=8, .rsv_29=0}}
+
+};
+const ISP_NVRAM_ANR2_T ov16885mipiraw_NBC2_ANR2_0098 = {
+        .con1      ={.bits={.NBC2_ANR2_ENC=1, .NBC2_ANR2_ENY=1, .rsv_2=0, .NBC2_ANR2_SCALE_MODE=3, .rsv_6=0, .NBC2_ANR2_VER_C_REF_Y=1, .rsv_9=0, .NBC2_ANR2_MODE=0, .rsv_13=0, .NBC2_ANR2_TILE_EDGE=15, .rsv_20=0, .NBC2_ANR2_SL2_LINK=1, .rsv_25=0}},
+    .con2      ={.bits={.rsv_0=0, .NBC2_ANR2_C_SM_EDGE=1, .rsv_10=0, .NBC2_ANR2_FLT_C=0, .rsv_13=0}},
+    .yad1      ={.bits={.rsv_0=0, .NBC2_ANR2_K_TH_C=8}},
+    .y4lut1    ={.bits={.NBC2_ANR2_Y_CPX1=40, .NBC2_ANR2_Y_CPX2=100, .NBC2_ANR2_Y_CPX3=160, .rsv_24=0}},
+    .y4lut2    ={.bits={.NBC2_ANR2_Y_SCALE_CPY0=16, .rsv_5=0, .NBC2_ANR2_Y_SCALE_CPY1=16, .rsv_13=0, .NBC2_ANR2_Y_SCALE_CPY2=16, .rsv_21=0, .NBC2_ANR2_Y_SCALE_CPY3=16, .rsv_29=0}},
+    .y4lut3    ={.bits={.NBC2_ANR2_Y_SCALE_SP0=0, .rsv_5=0, .NBC2_ANR2_Y_SCALE_SP1=0, .rsv_13=0, .NBC2_ANR2_Y_SCALE_SP2=0, .rsv_21=0, .NBC2_ANR2_Y_SCALE_SP3=24, .rsv_29=0}},
+    .l4lut1    ={.bits={.NBC2_ANR2_SL2_X1=64, .NBC2_ANR2_SL2_X2=128, .NBC2_ANR2_SL2_X3=192, .rsv_24=0}},
+    .l4lut2    ={.bits={.NBC2_ANR2_SL2_GAIN0=16, .rsv_6=0, .NBC2_ANR2_SL2_GAIN1=16, .rsv_14=0, .NBC2_ANR2_SL2_GAIN2=18, .rsv_22=0, .NBC2_ANR2_SL2_GAIN3=24, .rsv_30=0}},
+    .l4lut3    ={.bits={.NBC2_ANR2_SL2_SP0=0, .rsv_6=0, .NBC2_ANR2_SL2_SP1=4, .rsv_14=0, .NBC2_ANR2_SL2_SP2=12, .rsv_22=0, .NBC2_ANR2_SL2_SP3=4, .rsv_30=0}},
+    .cad       ={.bits={.NBC2_ANR2_PTC_VGAIN=10, .NBC2_ANR2_C_GAIN=8, .NBC2_ANR2_PTC_GAIN_TH=16, .rsv_13=0, .NBC2_ANR2_C_L_DIFF_TH=56, .NBC2_ANR2_C_MODE=0, .rsv_25=0}},
+    .ptc       ={.bits={.NBC2_ANR2_PTC1=6, .NBC2_ANR2_PTC2=13, .NBC2_ANR2_PTC3=19, .NBC2_ANR2_PTC4=26}},
+    .sl2       ={.bits={.NBC2_ANR2_SL2_C_GAIN=4, .rsv_4=0, .NBC2_ANR2_LM_WT=8, .rsv_20=0}},
+    .med1      ={.bits={.NBC2_ANR2_COR_TH=5, .rsv_5=0, .NBC2_ANR2_COR_SL=4, .rsv_11=0, .NBC2_ANR2_MCD_TH=5, .rsv_17=0, .NBC2_ANR2_MCD_SL=3, .rsv_23=0, .NBC2_ANR2_LCL_TH=48}},
+    .med2      ={.bits={.NBC2_ANR2_LCL_SL=3, .rsv_3=0, .NBC2_ANR2_LCL_LV=12, .rsv_9=0, .NBC2_ANR2_SCL_TH=4, .rsv_18=0, .NBC2_ANR2_SCL_SL=3, .rsv_23=0, .NBC2_ANR2_SCL_LV=10, .rsv_29=0}},
+    .med3      ={.bits={.NBC2_ANR2_NCL_TH=58, .NBC2_ANR2_NCL_SL=3, .rsv_11=0, .NBC2_ANR2_NCL_LV=12, .rsv_17=0, .NBC2_ANR2_VAR=3, .rsv_23=0, .NBC2_ANR2_Y0=10, .rsv_30=0}},
+    .med4      ={.bits={.NBC2_ANR2_Y1=13, .rsv_6=0, .NBC2_ANR2_Y2=16, .rsv_14=0, .NBC2_ANR2_Y3=19, .rsv_22=0, .NBC2_ANR2_Y4=22, .rsv_30=0}},
+    .med5      ={.bits={.NBC2_ANR2_LCL_OFT=0, .NBC2_ANR2_SCL_OFT=0, .rsv_14=0, .NBC2_ANR2_NCL_OFT=0, .rsv_24=0}},
+    .actc      ={.bits={.rsv_0=0, .NBC2_ANR2_ACT_BLD_BASE_C=64, .rsv_15=0, .NBC2_ANR2_C_DITH_U=8, .rsv_21=0, .NBC2_ANR2_C_DITH_V=8, .rsv_29=0}}
+
+};
+const ISP_NVRAM_ANR2_T ov16885mipiraw_NBC2_ANR2_0099 = {
+        .con1      ={.bits={.NBC2_ANR2_ENC=1, .NBC2_ANR2_ENY=1, .rsv_2=0, .NBC2_ANR2_SCALE_MODE=3, .rsv_6=0, .NBC2_ANR2_VER_C_REF_Y=1, .rsv_9=0, .NBC2_ANR2_MODE=0, .rsv_13=0, .NBC2_ANR2_TILE_EDGE=15, .rsv_20=0, .NBC2_ANR2_SL2_LINK=1, .rsv_25=0}},
+    .con2      ={.bits={.rsv_0=0, .NBC2_ANR2_C_SM_EDGE=1, .rsv_10=0, .NBC2_ANR2_FLT_C=0, .rsv_13=0}},
+    .yad1      ={.bits={.rsv_0=0, .NBC2_ANR2_K_TH_C=8}},
+    .y4lut1    ={.bits={.NBC2_ANR2_Y_CPX1=40, .NBC2_ANR2_Y_CPX2=100, .NBC2_ANR2_Y_CPX3=160, .rsv_24=0}},
+    .y4lut2    ={.bits={.NBC2_ANR2_Y_SCALE_CPY0=16, .rsv_5=0, .NBC2_ANR2_Y_SCALE_CPY1=16, .rsv_13=0, .NBC2_ANR2_Y_SCALE_CPY2=16, .rsv_21=0, .NBC2_ANR2_Y_SCALE_CPY3=16, .rsv_29=0}},
+    .y4lut3    ={.bits={.NBC2_ANR2_Y_SCALE_SP0=0, .rsv_5=0, .NBC2_ANR2_Y_SCALE_SP1=0, .rsv_13=0, .NBC2_ANR2_Y_SCALE_SP2=0, .rsv_21=0, .NBC2_ANR2_Y_SCALE_SP3=24, .rsv_29=0}},
+    .l4lut1    ={.bits={.NBC2_ANR2_SL2_X1=64, .NBC2_ANR2_SL2_X2=128, .NBC2_ANR2_SL2_X3=192, .rsv_24=0}},
+    .l4lut2    ={.bits={.NBC2_ANR2_SL2_GAIN0=16, .rsv_6=0, .NBC2_ANR2_SL2_GAIN1=16, .rsv_14=0, .NBC2_ANR2_SL2_GAIN2=18, .rsv_22=0, .NBC2_ANR2_SL2_GAIN3=24, .rsv_30=0}},
+    .l4lut3    ={.bits={.NBC2_ANR2_SL2_SP0=0, .rsv_6=0, .NBC2_ANR2_SL2_SP1=4, .rsv_14=0, .NBC2_ANR2_SL2_SP2=12, .rsv_22=0, .NBC2_ANR2_SL2_SP3=4, .rsv_30=0}},
+    .cad       ={.bits={.NBC2_ANR2_PTC_VGAIN=10, .NBC2_ANR2_C_GAIN=8, .NBC2_ANR2_PTC_GAIN_TH=16, .rsv_13=0, .NBC2_ANR2_C_L_DIFF_TH=56, .NBC2_ANR2_C_MODE=0, .rsv_25=0}},
+    .ptc       ={.bits={.NBC2_ANR2_PTC1=6, .NBC2_ANR2_PTC2=13, .NBC2_ANR2_PTC3=19, .NBC2_ANR2_PTC4=26}},
+    .sl2       ={.bits={.NBC2_ANR2_SL2_C_GAIN=4, .rsv_4=0, .NBC2_ANR2_LM_WT=8, .rsv_20=0}},
+    .med1      ={.bits={.NBC2_ANR2_COR_TH=5, .rsv_5=0, .NBC2_ANR2_COR_SL=4, .rsv_11=0, .NBC2_ANR2_MCD_TH=5, .rsv_17=0, .NBC2_ANR2_MCD_SL=3, .rsv_23=0, .NBC2_ANR2_LCL_TH=48}},
+    .med2      ={.bits={.NBC2_ANR2_LCL_SL=3, .rsv_3=0, .NBC2_ANR2_LCL_LV=12, .rsv_9=0, .NBC2_ANR2_SCL_TH=4, .rsv_18=0, .NBC2_ANR2_SCL_SL=3, .rsv_23=0, .NBC2_ANR2_SCL_LV=10, .rsv_29=0}},
+    .med3      ={.bits={.NBC2_ANR2_NCL_TH=58, .NBC2_ANR2_NCL_SL=3, .rsv_11=0, .NBC2_ANR2_NCL_LV=12, .rsv_17=0, .NBC2_ANR2_VAR=3, .rsv_23=0, .NBC2_ANR2_Y0=10, .rsv_30=0}},
+    .med4      ={.bits={.NBC2_ANR2_Y1=13, .rsv_6=0, .NBC2_ANR2_Y2=16, .rsv_14=0, .NBC2_ANR2_Y3=19, .rsv_22=0, .NBC2_ANR2_Y4=22, .rsv_30=0}},
+    .med5      ={.bits={.NBC2_ANR2_LCL_OFT=0, .NBC2_ANR2_SCL_OFT=0, .rsv_14=0, .NBC2_ANR2_NCL_OFT=0, .rsv_24=0}},
+    .actc      ={.bits={.rsv_0=0, .NBC2_ANR2_ACT_BLD_BASE_C=64, .rsv_15=0, .NBC2_ANR2_C_DITH_U=8, .rsv_21=0, .NBC2_ANR2_C_DITH_V=8, .rsv_29=0}}
+
+};
+const ISP_NVRAM_HFG_T ov16885mipiraw_HFG_0060 = {
+        .con_0     ={.bits={.DIP_HFC_STD=16, .HFC_LCE_LINK_EN=1, .rsv_9=0}},
+    .luma_0    ={.bits={.HFC_LUMA_CPX1=64, .HFC_LUMA_CPX2=128, .HFC_LUMA_CPX3=192, .rsv_24=0}},
+    .luma_1    ={.bits={.HFC_LUMA_CPY0=32, .rsv_6=0, .HFC_LUMA_CPY1=28, .rsv_14=0, .HFC_LUMA_CPY2=24, .rsv_22=0, .HFC_LUMA_CPY3=20, .rsv_30=0}},
+    .luma_2    ={.bits={.HFC_LUMA_SP0=28, .rsv_5=0, .HFC_LUMA_SP1=28, .rsv_13=0, .HFC_LUMA_SP2=28, .rsv_21=0, .HFC_LUMA_SP3=28, .rsv_29=0}},
+    .lce_0     ={.bits={.HFC_LCE_CPX1=64, .HFC_LCE_CPX2=128, .HFC_LCE_CPX3=192, .rsv_24=0}},
+    .lce_1     ={.bits={.HFC_LCE_CPY0=16, .rsv_6=0, .HFC_LCE_CPY1=20, .rsv_14=0, .HFC_LCE_CPY2=24, .rsv_22=0, .HFC_LCE_CPY3=28, .rsv_30=0}},
+    .lce_2     ={.bits={.HFC_LCE_SP0=4, .rsv_5=0, .HFC_LCE_SP1=4, .rsv_13=0, .HFC_LCE_SP2=4, .rsv_21=0, .HFC_LCE_SP3=28, .rsv_29=0}}
+
+};
+const ISP_NVRAM_HFG_T ov16885mipiraw_HFG_0061 = {
+        .con_0     ={.bits={.DIP_HFC_STD=1, .HFC_LCE_LINK_EN=1, .rsv_9=0}},
+    .luma_0    ={.bits={.HFC_LUMA_CPX1=64, .HFC_LUMA_CPX2=128, .HFC_LUMA_CPX3=192, .rsv_24=0}},
+    .luma_1    ={.bits={.HFC_LUMA_CPY0=32, .rsv_6=0, .HFC_LUMA_CPY1=28, .rsv_14=0, .HFC_LUMA_CPY2=24, .rsv_22=0, .HFC_LUMA_CPY3=20, .rsv_30=0}},
+    .luma_2    ={.bits={.HFC_LUMA_SP0=28, .rsv_5=0, .HFC_LUMA_SP1=28, .rsv_13=0, .HFC_LUMA_SP2=28, .rsv_21=0, .HFC_LUMA_SP3=28, .rsv_29=0}},
+    .lce_0     ={.bits={.HFC_LCE_CPX1=64, .HFC_LCE_CPX2=128, .HFC_LCE_CPX3=192, .rsv_24=0}},
+    .lce_1     ={.bits={.HFC_LCE_CPY0=16, .rsv_6=0, .HFC_LCE_CPY1=20, .rsv_14=0, .HFC_LCE_CPY2=24, .rsv_22=0, .HFC_LCE_CPY3=28, .rsv_30=0}},
+    .lce_2     ={.bits={.HFC_LCE_SP0=4, .rsv_5=0, .HFC_LCE_SP1=4, .rsv_13=0, .HFC_LCE_SP2=4, .rsv_21=0, .HFC_LCE_SP3=28, .rsv_29=0}}
+
+};
+const ISP_NVRAM_HFG_T ov16885mipiraw_HFG_0062 = {
+        .con_0     ={.bits={.DIP_HFC_STD=4, .HFC_LCE_LINK_EN=1, .rsv_9=0}},
+    .luma_0    ={.bits={.HFC_LUMA_CPX1=64, .HFC_LUMA_CPX2=128, .HFC_LUMA_CPX3=192, .rsv_24=0}},
+    .luma_1    ={.bits={.HFC_LUMA_CPY0=32, .rsv_6=0, .HFC_LUMA_CPY1=28, .rsv_14=0, .HFC_LUMA_CPY2=24, .rsv_22=0, .HFC_LUMA_CPY3=20, .rsv_30=0}},
+    .luma_2    ={.bits={.HFC_LUMA_SP0=28, .rsv_5=0, .HFC_LUMA_SP1=28, .rsv_13=0, .HFC_LUMA_SP2=28, .rsv_21=0, .HFC_LUMA_SP3=28, .rsv_29=0}},
+    .lce_0     ={.bits={.HFC_LCE_CPX1=64, .HFC_LCE_CPX2=128, .HFC_LCE_CPX3=192, .rsv_24=0}},
+    .lce_1     ={.bits={.HFC_LCE_CPY0=16, .rsv_6=0, .HFC_LCE_CPY1=20, .rsv_14=0, .HFC_LCE_CPY2=24, .rsv_22=0, .HFC_LCE_CPY3=28, .rsv_30=0}},
+    .lce_2     ={.bits={.HFC_LCE_SP0=4, .rsv_5=0, .HFC_LCE_SP1=4, .rsv_13=0, .HFC_LCE_SP2=4, .rsv_21=0, .HFC_LCE_SP3=4, .rsv_29=0}}
+
+};
+const ISP_NVRAM_HFG_T ov16885mipiraw_HFG_0063 = {
+        .con_0     ={.bits={.DIP_HFC_STD=2, .HFC_LCE_LINK_EN=1, .rsv_9=0}},
+    .luma_0    ={.bits={.HFC_LUMA_CPX1=64, .HFC_LUMA_CPX2=128, .HFC_LUMA_CPX3=192, .rsv_24=0}},
+    .luma_1    ={.bits={.HFC_LUMA_CPY0=32, .rsv_6=0, .HFC_LUMA_CPY1=28, .rsv_14=0, .HFC_LUMA_CPY2=24, .rsv_22=0, .HFC_LUMA_CPY3=20, .rsv_30=0}},
+    .luma_2    ={.bits={.HFC_LUMA_SP0=28, .rsv_5=0, .HFC_LUMA_SP1=28, .rsv_13=0, .HFC_LUMA_SP2=28, .rsv_21=0, .HFC_LUMA_SP3=28, .rsv_29=0}},
+    .lce_0     ={.bits={.HFC_LCE_CPX1=64, .HFC_LCE_CPX2=128, .HFC_LCE_CPX3=192, .rsv_24=0}},
+    .lce_1     ={.bits={.HFC_LCE_CPY0=16, .rsv_6=0, .HFC_LCE_CPY1=20, .rsv_14=0, .HFC_LCE_CPY2=24, .rsv_22=0, .HFC_LCE_CPY3=28, .rsv_30=0}},
+    .lce_2     ={.bits={.HFC_LCE_SP0=4, .rsv_5=0, .HFC_LCE_SP1=4, .rsv_13=0, .HFC_LCE_SP2=4, .rsv_21=0, .HFC_LCE_SP3=28, .rsv_29=0}}
+
+};
+const ISP_NVRAM_HFG_T ov16885mipiraw_HFG_0064 = {
+        .con_0     ={.bits={.DIP_HFC_STD=4, .HFC_LCE_LINK_EN=1, .rsv_9=0}},
+    .luma_0    ={.bits={.HFC_LUMA_CPX1=64, .HFC_LUMA_CPX2=128, .HFC_LUMA_CPX3=192, .rsv_24=0}},
+    .luma_1    ={.bits={.HFC_LUMA_CPY0=32, .rsv_6=0, .HFC_LUMA_CPY1=28, .rsv_14=0, .HFC_LUMA_CPY2=24, .rsv_22=0, .HFC_LUMA_CPY3=20, .rsv_30=0}},
+    .luma_2    ={.bits={.HFC_LUMA_SP0=28, .rsv_5=0, .HFC_LUMA_SP1=28, .rsv_13=0, .HFC_LUMA_SP2=28, .rsv_21=0, .HFC_LUMA_SP3=28, .rsv_29=0}},
+    .lce_0     ={.bits={.HFC_LCE_CPX1=64, .HFC_LCE_CPX2=128, .HFC_LCE_CPX3=192, .rsv_24=0}},
+    .lce_1     ={.bits={.HFC_LCE_CPY0=16, .rsv_6=0, .HFC_LCE_CPY1=20, .rsv_14=0, .HFC_LCE_CPY2=24, .rsv_22=0, .HFC_LCE_CPY3=28, .rsv_30=0}},
+    .lce_2     ={.bits={.HFC_LCE_SP0=4, .rsv_5=0, .HFC_LCE_SP1=4, .rsv_13=0, .HFC_LCE_SP2=4, .rsv_21=0, .HFC_LCE_SP3=28, .rsv_29=0}}
+
+};
+const ISP_NVRAM_HFG_T ov16885mipiraw_HFG_0065 = {
+        .con_0     ={.bits={.DIP_HFC_STD=6, .HFC_LCE_LINK_EN=1, .rsv_9=0}},
+    .luma_0    ={.bits={.HFC_LUMA_CPX1=64, .HFC_LUMA_CPX2=128, .HFC_LUMA_CPX3=192, .rsv_24=0}},
+    .luma_1    ={.bits={.HFC_LUMA_CPY0=32, .rsv_6=0, .HFC_LUMA_CPY1=28, .rsv_14=0, .HFC_LUMA_CPY2=24, .rsv_22=0, .HFC_LUMA_CPY3=20, .rsv_30=0}},
+    .luma_2    ={.bits={.HFC_LUMA_SP0=28, .rsv_5=0, .HFC_LUMA_SP1=28, .rsv_13=0, .HFC_LUMA_SP2=28, .rsv_21=0, .HFC_LUMA_SP3=28, .rsv_29=0}},
+    .lce_0     ={.bits={.HFC_LCE_CPX1=64, .HFC_LCE_CPX2=128, .HFC_LCE_CPX3=192, .rsv_24=0}},
+    .lce_1     ={.bits={.HFC_LCE_CPY0=16, .rsv_6=0, .HFC_LCE_CPY1=20, .rsv_14=0, .HFC_LCE_CPY2=24, .rsv_22=0, .HFC_LCE_CPY3=28, .rsv_30=0}},
+    .lce_2     ={.bits={.HFC_LCE_SP0=4, .rsv_5=0, .HFC_LCE_SP1=4, .rsv_13=0, .HFC_LCE_SP2=4, .rsv_21=0, .HFC_LCE_SP3=28, .rsv_29=0}}
+
+};
+const ISP_NVRAM_HFG_T ov16885mipiraw_HFG_0066 = {
+        .con_0     ={.bits={.DIP_HFC_STD=7, .HFC_LCE_LINK_EN=1, .rsv_9=0}},
+    .luma_0    ={.bits={.HFC_LUMA_CPX1=64, .HFC_LUMA_CPX2=128, .HFC_LUMA_CPX3=192, .rsv_24=0}},
+    .luma_1    ={.bits={.HFC_LUMA_CPY0=32, .rsv_6=0, .HFC_LUMA_CPY1=28, .rsv_14=0, .HFC_LUMA_CPY2=24, .rsv_22=0, .HFC_LUMA_CPY3=20, .rsv_30=0}},
+    .luma_2    ={.bits={.HFC_LUMA_SP0=28, .rsv_5=0, .HFC_LUMA_SP1=28, .rsv_13=0, .HFC_LUMA_SP2=28, .rsv_21=0, .HFC_LUMA_SP3=28, .rsv_29=0}},
+    .lce_0     ={.bits={.HFC_LCE_CPX1=64, .HFC_LCE_CPX2=128, .HFC_LCE_CPX3=192, .rsv_24=0}},
+    .lce_1     ={.bits={.HFC_LCE_CPY0=16, .rsv_6=0, .HFC_LCE_CPY1=20, .rsv_14=0, .HFC_LCE_CPY2=24, .rsv_22=0, .HFC_LCE_CPY3=28, .rsv_30=0}},
+    .lce_2     ={.bits={.HFC_LCE_SP0=4, .rsv_5=0, .HFC_LCE_SP1=4, .rsv_13=0, .HFC_LCE_SP2=4, .rsv_21=0, .HFC_LCE_SP3=4, .rsv_29=0}}
+
+};
+const ISP_NVRAM_HFG_T ov16885mipiraw_HFG_0067 = {
+        .con_0     ={.bits={.DIP_HFC_STD=8, .HFC_LCE_LINK_EN=1, .rsv_9=0}},
+    .luma_0    ={.bits={.HFC_LUMA_CPX1=64, .HFC_LUMA_CPX2=128, .HFC_LUMA_CPX3=192, .rsv_24=0}},
+    .luma_1    ={.bits={.HFC_LUMA_CPY0=32, .rsv_6=0, .HFC_LUMA_CPY1=28, .rsv_14=0, .HFC_LUMA_CPY2=24, .rsv_22=0, .HFC_LUMA_CPY3=20, .rsv_30=0}},
+    .luma_2    ={.bits={.HFC_LUMA_SP0=28, .rsv_5=0, .HFC_LUMA_SP1=28, .rsv_13=0, .HFC_LUMA_SP2=28, .rsv_21=0, .HFC_LUMA_SP3=28, .rsv_29=0}},
+    .lce_0     ={.bits={.HFC_LCE_CPX1=64, .HFC_LCE_CPX2=128, .HFC_LCE_CPX3=192, .rsv_24=0}},
+    .lce_1     ={.bits={.HFC_LCE_CPY0=16, .rsv_6=0, .HFC_LCE_CPY1=20, .rsv_14=0, .HFC_LCE_CPY2=24, .rsv_22=0, .HFC_LCE_CPY3=28, .rsv_30=0}},
+    .lce_2     ={.bits={.HFC_LCE_SP0=4, .rsv_5=0, .HFC_LCE_SP1=4, .rsv_13=0, .HFC_LCE_SP2=4, .rsv_21=0, .HFC_LCE_SP3=4, .rsv_29=0}}
+
+};
+const ISP_NVRAM_HFG_T ov16885mipiraw_HFG_0068 = {
+        .con_0     ={.bits={.DIP_HFC_STD=8, .HFC_LCE_LINK_EN=1, .rsv_9=0}},
+    .luma_0    ={.bits={.HFC_LUMA_CPX1=64, .HFC_LUMA_CPX2=128, .HFC_LUMA_CPX3=192, .rsv_24=0}},
+    .luma_1    ={.bits={.HFC_LUMA_CPY0=32, .rsv_6=0, .HFC_LUMA_CPY1=28, .rsv_14=0, .HFC_LUMA_CPY2=24, .rsv_22=0, .HFC_LUMA_CPY3=20, .rsv_30=0}},
+    .luma_2    ={.bits={.HFC_LUMA_SP0=28, .rsv_5=0, .HFC_LUMA_SP1=28, .rsv_13=0, .HFC_LUMA_SP2=28, .rsv_21=0, .HFC_LUMA_SP3=28, .rsv_29=0}},
+    .lce_0     ={.bits={.HFC_LCE_CPX1=64, .HFC_LCE_CPX2=128, .HFC_LCE_CPX3=192, .rsv_24=0}},
+    .lce_1     ={.bits={.HFC_LCE_CPY0=16, .rsv_6=0, .HFC_LCE_CPY1=20, .rsv_14=0, .HFC_LCE_CPY2=24, .rsv_22=0, .HFC_LCE_CPY3=28, .rsv_30=0}},
+    .lce_2     ={.bits={.HFC_LCE_SP0=4, .rsv_5=0, .HFC_LCE_SP1=4, .rsv_13=0, .HFC_LCE_SP2=4, .rsv_21=0, .HFC_LCE_SP3=28, .rsv_29=0}}
+
+};
+const ISP_NVRAM_HFG_T ov16885mipiraw_HFG_0069 = {
+        .con_0     ={.bits={.DIP_HFC_STD=8, .HFC_LCE_LINK_EN=1, .rsv_9=0}},
+    .luma_0    ={.bits={.HFC_LUMA_CPX1=64, .HFC_LUMA_CPX2=128, .HFC_LUMA_CPX3=192, .rsv_24=0}},
+    .luma_1    ={.bits={.HFC_LUMA_CPY0=32, .rsv_6=0, .HFC_LUMA_CPY1=28, .rsv_14=0, .HFC_LUMA_CPY2=24, .rsv_22=0, .HFC_LUMA_CPY3=20, .rsv_30=0}},
+    .luma_2    ={.bits={.HFC_LUMA_SP0=28, .rsv_5=0, .HFC_LUMA_SP1=28, .rsv_13=0, .HFC_LUMA_SP2=28, .rsv_21=0, .HFC_LUMA_SP3=28, .rsv_29=0}},
+    .lce_0     ={.bits={.HFC_LCE_CPX1=64, .HFC_LCE_CPX2=128, .HFC_LCE_CPX3=192, .rsv_24=0}},
+    .lce_1     ={.bits={.HFC_LCE_CPY0=16, .rsv_6=0, .HFC_LCE_CPY1=20, .rsv_14=0, .HFC_LCE_CPY2=24, .rsv_22=0, .HFC_LCE_CPY3=28, .rsv_30=0}},
+    .lce_2     ={.bits={.HFC_LCE_SP0=4, .rsv_5=0, .HFC_LCE_SP1=4, .rsv_13=0, .HFC_LCE_SP2=4, .rsv_21=0, .HFC_LCE_SP3=28, .rsv_29=0}}
+
+};
+const ISP_NVRAM_HFG_T ov16885mipiraw_HFG_0070 = {
+        .con_0     ={.bits={.DIP_HFC_STD=8, .HFC_LCE_LINK_EN=1, .rsv_9=0}},
+    .luma_0    ={.bits={.HFC_LUMA_CPX1=64, .HFC_LUMA_CPX2=128, .HFC_LUMA_CPX3=192, .rsv_24=0}},
+    .luma_1    ={.bits={.HFC_LUMA_CPY0=32, .rsv_6=0, .HFC_LUMA_CPY1=28, .rsv_14=0, .HFC_LUMA_CPY2=24, .rsv_22=0, .HFC_LUMA_CPY3=20, .rsv_30=0}},
+    .luma_2    ={.bits={.HFC_LUMA_SP0=28, .rsv_5=0, .HFC_LUMA_SP1=28, .rsv_13=0, .HFC_LUMA_SP2=28, .rsv_21=0, .HFC_LUMA_SP3=28, .rsv_29=0}},
+    .lce_0     ={.bits={.HFC_LCE_CPX1=64, .HFC_LCE_CPX2=128, .HFC_LCE_CPX3=192, .rsv_24=0}},
+    .lce_1     ={.bits={.HFC_LCE_CPY0=16, .rsv_6=0, .HFC_LCE_CPY1=20, .rsv_14=0, .HFC_LCE_CPY2=24, .rsv_22=0, .HFC_LCE_CPY3=28, .rsv_30=0}},
+    .lce_2     ={.bits={.HFC_LCE_SP0=4, .rsv_5=0, .HFC_LCE_SP1=4, .rsv_13=0, .HFC_LCE_SP2=4, .rsv_21=0, .HFC_LCE_SP3=4, .rsv_29=0}}
+
+};
+const ISP_NVRAM_HFG_T ov16885mipiraw_HFG_0071 = {
+        .con_0     ={.bits={.DIP_HFC_STD=6, .HFC_LCE_LINK_EN=1, .rsv_9=0}},
+    .luma_0    ={.bits={.HFC_LUMA_CPX1=64, .HFC_LUMA_CPX2=128, .HFC_LUMA_CPX3=192, .rsv_24=0}},
+    .luma_1    ={.bits={.HFC_LUMA_CPY0=32, .rsv_6=0, .HFC_LUMA_CPY1=28, .rsv_14=0, .HFC_LUMA_CPY2=24, .rsv_22=0, .HFC_LUMA_CPY3=20, .rsv_30=0}},
+    .luma_2    ={.bits={.HFC_LUMA_SP0=28, .rsv_5=0, .HFC_LUMA_SP1=28, .rsv_13=0, .HFC_LUMA_SP2=28, .rsv_21=0, .HFC_LUMA_SP3=28, .rsv_29=0}},
+    .lce_0     ={.bits={.HFC_LCE_CPX1=64, .HFC_LCE_CPX2=128, .HFC_LCE_CPX3=192, .rsv_24=0}},
+    .lce_1     ={.bits={.HFC_LCE_CPY0=16, .rsv_6=0, .HFC_LCE_CPY1=20, .rsv_14=0, .HFC_LCE_CPY2=24, .rsv_22=0, .HFC_LCE_CPY3=28, .rsv_30=0}},
+    .lce_2     ={.bits={.HFC_LCE_SP0=4, .rsv_5=0, .HFC_LCE_SP1=4, .rsv_13=0, .HFC_LCE_SP2=4, .rsv_21=0, .HFC_LCE_SP3=4, .rsv_29=0}}
+
+};
+const ISP_NVRAM_HFG_T ov16885mipiraw_HFG_0072 = {
+        .con_0     ={.bits={.DIP_HFC_STD=6, .HFC_LCE_LINK_EN=1, .rsv_9=0}},
+    .luma_0    ={.bits={.HFC_LUMA_CPX1=64, .HFC_LUMA_CPX2=128, .HFC_LUMA_CPX3=192, .rsv_24=0}},
+    .luma_1    ={.bits={.HFC_LUMA_CPY0=32, .rsv_6=0, .HFC_LUMA_CPY1=28, .rsv_14=0, .HFC_LUMA_CPY2=24, .rsv_22=0, .HFC_LUMA_CPY3=20, .rsv_30=0}},
+    .luma_2    ={.bits={.HFC_LUMA_SP0=28, .rsv_5=0, .HFC_LUMA_SP1=28, .rsv_13=0, .HFC_LUMA_SP2=28, .rsv_21=0, .HFC_LUMA_SP3=28, .rsv_29=0}},
+    .lce_0     ={.bits={.HFC_LCE_CPX1=64, .HFC_LCE_CPX2=128, .HFC_LCE_CPX3=192, .rsv_24=0}},
+    .lce_1     ={.bits={.HFC_LCE_CPY0=16, .rsv_6=0, .HFC_LCE_CPY1=20, .rsv_14=0, .HFC_LCE_CPY2=24, .rsv_22=0, .HFC_LCE_CPY3=28, .rsv_30=0}},
+    .lce_2     ={.bits={.HFC_LCE_SP0=4, .rsv_5=0, .HFC_LCE_SP1=4, .rsv_13=0, .HFC_LCE_SP2=4, .rsv_21=0, .HFC_LCE_SP3=4, .rsv_29=0}}
+
+};
+const ISP_NVRAM_HFG_T ov16885mipiraw_HFG_0073 = {
+        .con_0     ={.bits={.DIP_HFC_STD=6, .HFC_LCE_LINK_EN=1, .rsv_9=0}},
+    .luma_0    ={.bits={.HFC_LUMA_CPX1=64, .HFC_LUMA_CPX2=128, .HFC_LUMA_CPX3=192, .rsv_24=0}},
+    .luma_1    ={.bits={.HFC_LUMA_CPY0=32, .rsv_6=0, .HFC_LUMA_CPY1=28, .rsv_14=0, .HFC_LUMA_CPY2=24, .rsv_22=0, .HFC_LUMA_CPY3=20, .rsv_30=0}},
+    .luma_2    ={.bits={.HFC_LUMA_SP0=28, .rsv_5=0, .HFC_LUMA_SP1=28, .rsv_13=0, .HFC_LUMA_SP2=28, .rsv_21=0, .HFC_LUMA_SP3=28, .rsv_29=0}},
+    .lce_0     ={.bits={.HFC_LCE_CPX1=64, .HFC_LCE_CPX2=128, .HFC_LCE_CPX3=192, .rsv_24=0}},
+    .lce_1     ={.bits={.HFC_LCE_CPY0=16, .rsv_6=0, .HFC_LCE_CPY1=20, .rsv_14=0, .HFC_LCE_CPY2=24, .rsv_22=0, .HFC_LCE_CPY3=28, .rsv_30=0}},
+    .lce_2     ={.bits={.HFC_LCE_SP0=4, .rsv_5=0, .HFC_LCE_SP1=4, .rsv_13=0, .HFC_LCE_SP2=4, .rsv_21=0, .HFC_LCE_SP3=4, .rsv_29=0}}
+
+};
+const ISP_NVRAM_HFG_T ov16885mipiraw_HFG_0074 = {
+        .con_0     ={.bits={.DIP_HFC_STD=6, .HFC_LCE_LINK_EN=1, .rsv_9=0}},
+    .luma_0    ={.bits={.HFC_LUMA_CPX1=64, .HFC_LUMA_CPX2=128, .HFC_LUMA_CPX3=192, .rsv_24=0}},
+    .luma_1    ={.bits={.HFC_LUMA_CPY0=32, .rsv_6=0, .HFC_LUMA_CPY1=28, .rsv_14=0, .HFC_LUMA_CPY2=24, .rsv_22=0, .HFC_LUMA_CPY3=20, .rsv_30=0}},
+    .luma_2    ={.bits={.HFC_LUMA_SP0=28, .rsv_5=0, .HFC_LUMA_SP1=28, .rsv_13=0, .HFC_LUMA_SP2=28, .rsv_21=0, .HFC_LUMA_SP3=28, .rsv_29=0}},
+    .lce_0     ={.bits={.HFC_LCE_CPX1=64, .HFC_LCE_CPX2=128, .HFC_LCE_CPX3=192, .rsv_24=0}},
+    .lce_1     ={.bits={.HFC_LCE_CPY0=16, .rsv_6=0, .HFC_LCE_CPY1=20, .rsv_14=0, .HFC_LCE_CPY2=24, .rsv_22=0, .HFC_LCE_CPY3=28, .rsv_30=0}},
+    .lce_2     ={.bits={.HFC_LCE_SP0=4, .rsv_5=0, .HFC_LCE_SP1=4, .rsv_13=0, .HFC_LCE_SP2=4, .rsv_21=0, .HFC_LCE_SP3=4, .rsv_29=0}}
+
+};
+const ISP_NVRAM_HFG_T ov16885mipiraw_HFG_0075 = {
+        .con_0     ={.bits={.DIP_HFC_STD=6, .HFC_LCE_LINK_EN=1, .rsv_9=0}},
+    .luma_0    ={.bits={.HFC_LUMA_CPX1=64, .HFC_LUMA_CPX2=128, .HFC_LUMA_CPX3=192, .rsv_24=0}},
+    .luma_1    ={.bits={.HFC_LUMA_CPY0=32, .rsv_6=0, .HFC_LUMA_CPY1=28, .rsv_14=0, .HFC_LUMA_CPY2=24, .rsv_22=0, .HFC_LUMA_CPY3=20, .rsv_30=0}},
+    .luma_2    ={.bits={.HFC_LUMA_SP0=28, .rsv_5=0, .HFC_LUMA_SP1=28, .rsv_13=0, .HFC_LUMA_SP2=28, .rsv_21=0, .HFC_LUMA_SP3=28, .rsv_29=0}},
+    .lce_0     ={.bits={.HFC_LCE_CPX1=64, .HFC_LCE_CPX2=128, .HFC_LCE_CPX3=192, .rsv_24=0}},
+    .lce_1     ={.bits={.HFC_LCE_CPY0=16, .rsv_6=0, .HFC_LCE_CPY1=20, .rsv_14=0, .HFC_LCE_CPY2=24, .rsv_22=0, .HFC_LCE_CPY3=28, .rsv_30=0}},
+    .lce_2     ={.bits={.HFC_LCE_SP0=4, .rsv_5=0, .HFC_LCE_SP1=4, .rsv_13=0, .HFC_LCE_SP2=4, .rsv_21=0, .HFC_LCE_SP3=4, .rsv_29=0}}
+
+};
+const ISP_NVRAM_HFG_T ov16885mipiraw_HFG_0076 = {
+        .con_0     ={.bits={.DIP_HFC_STD=6, .HFC_LCE_LINK_EN=1, .rsv_9=0}},
+    .luma_0    ={.bits={.HFC_LUMA_CPX1=64, .HFC_LUMA_CPX2=128, .HFC_LUMA_CPX3=192, .rsv_24=0}},
+    .luma_1    ={.bits={.HFC_LUMA_CPY0=32, .rsv_6=0, .HFC_LUMA_CPY1=28, .rsv_14=0, .HFC_LUMA_CPY2=24, .rsv_22=0, .HFC_LUMA_CPY3=20, .rsv_30=0}},
+    .luma_2    ={.bits={.HFC_LUMA_SP0=28, .rsv_5=0, .HFC_LUMA_SP1=28, .rsv_13=0, .HFC_LUMA_SP2=28, .rsv_21=0, .HFC_LUMA_SP3=28, .rsv_29=0}},
+    .lce_0     ={.bits={.HFC_LCE_CPX1=64, .HFC_LCE_CPX2=128, .HFC_LCE_CPX3=192, .rsv_24=0}},
+    .lce_1     ={.bits={.HFC_LCE_CPY0=16, .rsv_6=0, .HFC_LCE_CPY1=20, .rsv_14=0, .HFC_LCE_CPY2=24, .rsv_22=0, .HFC_LCE_CPY3=28, .rsv_30=0}},
+    .lce_2     ={.bits={.HFC_LCE_SP0=4, .rsv_5=0, .HFC_LCE_SP1=4, .rsv_13=0, .HFC_LCE_SP2=4, .rsv_21=0, .HFC_LCE_SP3=4, .rsv_29=0}}
+
+};
+const ISP_NVRAM_HFG_T ov16885mipiraw_HFG_0077 = {
+        .con_0     ={.bits={.DIP_HFC_STD=6, .HFC_LCE_LINK_EN=1, .rsv_9=0}},
+    .luma_0    ={.bits={.HFC_LUMA_CPX1=64, .HFC_LUMA_CPX2=128, .HFC_LUMA_CPX3=192, .rsv_24=0}},
+    .luma_1    ={.bits={.HFC_LUMA_CPY0=32, .rsv_6=0, .HFC_LUMA_CPY1=28, .rsv_14=0, .HFC_LUMA_CPY2=24, .rsv_22=0, .HFC_LUMA_CPY3=20, .rsv_30=0}},
+    .luma_2    ={.bits={.HFC_LUMA_SP0=28, .rsv_5=0, .HFC_LUMA_SP1=28, .rsv_13=0, .HFC_LUMA_SP2=28, .rsv_21=0, .HFC_LUMA_SP3=28, .rsv_29=0}},
+    .lce_0     ={.bits={.HFC_LCE_CPX1=64, .HFC_LCE_CPX2=128, .HFC_LCE_CPX3=192, .rsv_24=0}},
+    .lce_1     ={.bits={.HFC_LCE_CPY0=16, .rsv_6=0, .HFC_LCE_CPY1=20, .rsv_14=0, .HFC_LCE_CPY2=24, .rsv_22=0, .HFC_LCE_CPY3=28, .rsv_30=0}},
+    .lce_2     ={.bits={.HFC_LCE_SP0=4, .rsv_5=0, .HFC_LCE_SP1=4, .rsv_13=0, .HFC_LCE_SP2=4, .rsv_21=0, .HFC_LCE_SP3=4, .rsv_29=0}}
+
+};
+const ISP_NVRAM_HFG_T ov16885mipiraw_HFG_0078 = {
+        .con_0     ={.bits={.DIP_HFC_STD=6, .HFC_LCE_LINK_EN=1, .rsv_9=0}},
+    .luma_0    ={.bits={.HFC_LUMA_CPX1=64, .HFC_LUMA_CPX2=128, .HFC_LUMA_CPX3=192, .rsv_24=0}},
+    .luma_1    ={.bits={.HFC_LUMA_CPY0=32, .rsv_6=0, .HFC_LUMA_CPY1=28, .rsv_14=0, .HFC_LUMA_CPY2=24, .rsv_22=0, .HFC_LUMA_CPY3=20, .rsv_30=0}},
+    .luma_2    ={.bits={.HFC_LUMA_SP0=28, .rsv_5=0, .HFC_LUMA_SP1=28, .rsv_13=0, .HFC_LUMA_SP2=28, .rsv_21=0, .HFC_LUMA_SP3=28, .rsv_29=0}},
+    .lce_0     ={.bits={.HFC_LCE_CPX1=64, .HFC_LCE_CPX2=128, .HFC_LCE_CPX3=192, .rsv_24=0}},
+    .lce_1     ={.bits={.HFC_LCE_CPY0=16, .rsv_6=0, .HFC_LCE_CPY1=20, .rsv_14=0, .HFC_LCE_CPY2=24, .rsv_22=0, .HFC_LCE_CPY3=28, .rsv_30=0}},
+    .lce_2     ={.bits={.HFC_LCE_SP0=4, .rsv_5=0, .HFC_LCE_SP1=4, .rsv_13=0, .HFC_LCE_SP2=4, .rsv_21=0, .HFC_LCE_SP3=4, .rsv_29=0}}
+
+};
+const ISP_NVRAM_HFG_T ov16885mipiraw_HFG_0079 = {
+        .con_0     ={.bits={.DIP_HFC_STD=6, .HFC_LCE_LINK_EN=1, .rsv_9=0}},
+    .luma_0    ={.bits={.HFC_LUMA_CPX1=64, .HFC_LUMA_CPX2=128, .HFC_LUMA_CPX3=192, .rsv_24=0}},
+    .luma_1    ={.bits={.HFC_LUMA_CPY0=32, .rsv_6=0, .HFC_LUMA_CPY1=28, .rsv_14=0, .HFC_LUMA_CPY2=24, .rsv_22=0, .HFC_LUMA_CPY3=20, .rsv_30=0}},
+    .luma_2    ={.bits={.HFC_LUMA_SP0=28, .rsv_5=0, .HFC_LUMA_SP1=28, .rsv_13=0, .HFC_LUMA_SP2=28, .rsv_21=0, .HFC_LUMA_SP3=28, .rsv_29=0}},
+    .lce_0     ={.bits={.HFC_LCE_CPX1=64, .HFC_LCE_CPX2=128, .HFC_LCE_CPX3=192, .rsv_24=0}},
+    .lce_1     ={.bits={.HFC_LCE_CPY0=16, .rsv_6=0, .HFC_LCE_CPY1=20, .rsv_14=0, .HFC_LCE_CPY2=24, .rsv_22=0, .HFC_LCE_CPY3=28, .rsv_30=0}},
+    .lce_2     ={.bits={.HFC_LCE_SP0=4, .rsv_5=0, .HFC_LCE_SP1=4, .rsv_13=0, .HFC_LCE_SP2=4, .rsv_21=0, .HFC_LCE_SP3=4, .rsv_29=0}}
+
+};
+const ISP_NVRAM_EE_T ov16885mipiraw_EE_0060 = {
+        .blnd_ctrl_1={.bits={.SEEE_H1_DI_BLND_OFST=0, .SEEE_H2_DI_BLND_OFST=0, .SEEE_H3_DI_BLND_OFST=0, .rsv_24=0}},
+    .blnd_ctrl_2={.bits={.SEEE_H1_DI_BLND_SL=12, .SEEE_H2_DI_BLND_SL=12, .SEEE_H3_DI_BLND_SL=12, .SEEE_HX_ISO_BLND_RAT=3, .rsv_29=0}},
+    .core_ctrl ={.bits={.SEEE_H1_FLT_CORE_TH=0, .SEEE_H2_FLT_CORE_TH=0, .SEEE_H3_FLT_CORE_TH=0, .SEEE_FLT_CORE_TH=8}},
+    .gn_ctrl_1 ={.bits={.SEEE_H1_GN=10, .rsv_5=0, .SEEE_H2_GN=8, .rsv_13=0, .SEEE_H3_GN=6, .rsv_21=0}},
+    .luma_ctrl_1={.bits={.SEEE_LUMA_MOD_Y0=255, .rsv_9=0, .SEEE_LUMA_MOD_Y1=255, .rsv_19=0, .SEEE_LUMA_MOD_Y2=255, .rsv_29=0}},
+    .luma_ctrl_2={.bits={.SEEE_LUMA_MOD_Y3=255, .rsv_9=0, .SEEE_LUMA_MOD_Y4=255, .rsv_19=0, .SEEE_LUMA_MOD_Y5=255, .rsv_29=0}},
+    .luma_slnk_ctrl={.bits={.SEEE_SLNK_GN_Y1=233, .SEEE_SLNK_GN_Y2=199, .SEEE_RESP_SLNK_GN_RAT=16, .SEEE_GLUT_LINK_EN=0, .SEEE_LUMA_MOD_Y6=255, .rsv_31=0}},
+    .glut_ctrl_1={.bits={.SEEE_GLUT_S1=0, .SEEE_GLUT_X1=0, .SEEE_GLUT_Y1=30, .rsv_26=0}},
+    .glut_ctrl_2={.bits={.SEEE_GLUT_S2=7, .SEEE_GLUT_X2=68, .SEEE_GLUT_Y2=60, .rsv_26=0}},
+    .glut_ctrl_3={.bits={.SEEE_GLUT_S3=114, .SEEE_GLUT_X3=100, .SEEE_GLUT_Y3=288, .rsv_26=0}},
+    .glut_ctrl_4={.bits={.SEEE_GLUT_S4=0, .SEEE_GLUT_X4=150, .SEEE_GLUT_Y4=288, .rsv_26=0}},
+    .glut_ctrl_5={.bits={.SEEE_GLUT_S5=232, .rsv_8=0, .SEEE_GLUT_SL_DEC_Y=32, .rsv_26=0}},
+    .glut_ctrl_6={.bits={.SEEE_GLUT_TH_OVR=200, .SEEE_GLUT_TH_UND=200, .SEEE_GLUT_TH_MIN=0, .rsv_24=0}},
+    .artifact_ctrl={.bits={.SEEE_RESP_SMO_STR=4, .rsv_3=0, .SEEE_OVRSH_CLIP_STR=3, .rsv_7=0, .SEEE_DOT_REDUC_AMNT=128, .SEEE_DOT_TH=6, .rsv_24=0}},
+    .clip_ctrl ={.bits={.SEEE_RESP_CLIP=30, .SEEE_RESP_CLIP_LUMA_SPC_TH=50, .SEEE_RESP_CLIP_LUMA_LWB=32, .SEEE_RESP_CLIP_LUMA_UPB=120}},
+    .gn_ctrl_2 ={.bits={.SEEE_MASTER_GN_NEG=16, .SEEE_MASTER_GN_POS=16, .rsv_16=0}},
+    .st_ctrl_1 ={.bits={.SEEE_ST_UB=9, .SEEE_ST_LB=2, .rsv_16=0}},
+    .st_ctrl_2 ={.bits={.SEEE_ST_SL_CE=16, .SEEE_ST_OFST_CE=100, .SEEE_ST_SL_RESP=16, .SEEE_ST_OFST_RESP=160}},
+    .ct_ctrl   ={.bits={.SEEE_LUMA_LMT_DIFF=255, .SEEE_LUMA_CNTST_LV=2, .rsv_11=0, .SEEE_LUMA_MINI=4, .rsv_15=0, .SEEE_LUMA_MAXI=4, .rsv_19=0, .SEEE_CHR_CNTST_LV=4, .rsv_23=0, .SEEE_CHR_MINI=2, .rsv_26=0, .SEEE_CHR_MAXI=2, .rsv_30=0}},
+    .cboost_ctrl_1={.bits={.SEEE_CBOOST_LMT_U=255, .SEEE_CBOOST_LMT_L=64, .SEEE_CBOOST_GAIN=128, .SEEE_CBOOST_EN=0, .rsv_25=0}},
+    .cboost_ctrl_2={.bits={.SEEE_CBOOST_YCONST=4, .SEEE_CBOOST_YOFFSET=0, .SEEE_CBOOST_YOFFSET_SEL=0, .rsv_18=0}},
+    .pbc1_ctrl_1={.bits={.SEEE_PBC1_RADIUS_R=42, .rsv_6=0, .SEEE_PBC1_RSLOPE=85, .rsv_18=0, .SEEE_PBC1_RSLOPE_1=39, .SEEE_PBC1_EN=1, .SEEE_PBC_EN=0}},
+    .pbc1_ctrl_2={.bits={.SEEE_PBC1_TSLOPE=85, .SEEE_PBC1_THETA_R=24, .SEEE_PBC1_THETA_C=149, .SEEE_PBC1_RADIUS_C=48}},
+    .pbc1_ctrl_3={.bits={.SEEE_PBC1_LPF_GAIN=16, .SEEE_PBC1_LPF_EN=0, .SEEE_PBC1_EDGE_EN=0, .SEEE_PBC1_EDGE_SLOPE=8, .SEEE_PBC1_EDGE_THR=63, .SEEE_PBC1_CONF_GAIN=1, .SEEE_PBC1_GAIN=52}},
+    .pbc2_ctrl_1={.bits={.SEEE_PBC2_RADIUS_R=40, .rsv_6=0, .SEEE_PBC2_RSLOPE=43, .rsv_18=0, .SEEE_PBC2_RSLOPE_1=32, .SEEE_PBC2_EN=1, .rsv_31=0}},
+    .pbc2_ctrl_2={.bits={.SEEE_PBC2_TSLOPE=43, .SEEE_PBC2_THETA_R=24, .SEEE_PBC2_THETA_C=88, .SEEE_PBC2_RADIUS_C=48}},
+    .pbc2_ctrl_3={.bits={.SEEE_PBC2_LPF_GAIN=12, .SEEE_PBC2_LPF_EN=1, .SEEE_PBC2_EDGE_EN=1, .SEEE_PBC2_EDGE_SLOPE=24, .SEEE_PBC2_EDGE_THR=32, .SEEE_PBC2_CONF_GAIN=4, .SEEE_PBC2_GAIN=24}},
+    .pbc3_ctrl_1={.bits={.SEEE_PBC3_RADIUS_R=42, .rsv_6=0, .SEEE_PBC3_RSLOPE=32, .rsv_18=0, .SEEE_PBC3_RSLOPE_1=17, .SEEE_PBC3_EN=1, .rsv_31=0}},
+    .pbc3_ctrl_2={.bits={.SEEE_PBC3_TSLOPE=64, .SEEE_PBC3_THETA_R=32, .SEEE_PBC3_THETA_C=224, .SEEE_PBC3_RADIUS_C=60}},
+    .pbc3_ctrl_3={.bits={.SEEE_PBC3_LPF_GAIN=8, .SEEE_PBC3_LPF_EN=1, .SEEE_PBC3_EDGE_EN=1, .SEEE_PBC3_EDGE_SLOPE=24, .SEEE_PBC3_EDGE_THR=8, .SEEE_PBC3_CONF_GAIN=1, .SEEE_PBC3_GAIN=24}}
+
+};
+const ISP_NVRAM_EE_T ov16885mipiraw_EE_0061 = {
+        .blnd_ctrl_1={.bits={.SEEE_H1_DI_BLND_OFST=0, .SEEE_H2_DI_BLND_OFST=0, .SEEE_H3_DI_BLND_OFST=0, .rsv_24=0}},
+    .blnd_ctrl_2={.bits={.SEEE_H1_DI_BLND_SL=12, .SEEE_H2_DI_BLND_SL=12, .SEEE_H3_DI_BLND_SL=12, .SEEE_HX_ISO_BLND_RAT=3, .rsv_29=0}},
+    .core_ctrl ={.bits={.SEEE_H1_FLT_CORE_TH=0, .SEEE_H2_FLT_CORE_TH=0, .SEEE_H3_FLT_CORE_TH=0, .SEEE_FLT_CORE_TH=8}},
+    .gn_ctrl_1 ={.bits={.SEEE_H1_GN=9, .rsv_5=0, .SEEE_H2_GN=6, .rsv_13=0, .SEEE_H3_GN=4, .rsv_21=0}},
+    .luma_ctrl_1={.bits={.SEEE_LUMA_MOD_Y0=255, .rsv_9=0, .SEEE_LUMA_MOD_Y1=255, .rsv_19=0, .SEEE_LUMA_MOD_Y2=255, .rsv_29=0}},
+    .luma_ctrl_2={.bits={.SEEE_LUMA_MOD_Y3=255, .rsv_9=0, .SEEE_LUMA_MOD_Y4=255, .rsv_19=0, .SEEE_LUMA_MOD_Y5=255, .rsv_29=0}},
+    .luma_slnk_ctrl={.bits={.SEEE_SLNK_GN_Y1=233, .SEEE_SLNK_GN_Y2=199, .SEEE_RESP_SLNK_GN_RAT=16, .SEEE_GLUT_LINK_EN=0, .SEEE_LUMA_MOD_Y6=255, .rsv_31=0}},
+    .glut_ctrl_1={.bits={.SEEE_GLUT_S1=0, .SEEE_GLUT_X1=0, .SEEE_GLUT_Y1=45, .rsv_26=0}},
+    .glut_ctrl_2={.bits={.SEEE_GLUT_S2=24, .SEEE_GLUT_X2=50, .SEEE_GLUT_Y2=120, .rsv_26=0}},
+    .glut_ctrl_3={.bits={.SEEE_GLUT_S3=54, .SEEE_GLUT_X3=100, .SEEE_GLUT_Y3=288, .rsv_26=0}},
+    .glut_ctrl_4={.bits={.SEEE_GLUT_S4=220, .SEEE_GLUT_X4=150, .SEEE_GLUT_Y4=176, .rsv_26=0}},
+    .glut_ctrl_5={.bits={.SEEE_GLUT_S5=243, .rsv_8=0, .SEEE_GLUT_SL_DEC_Y=32, .rsv_26=0}},
+    .glut_ctrl_6={.bits={.SEEE_GLUT_TH_OVR=200, .SEEE_GLUT_TH_UND=200, .SEEE_GLUT_TH_MIN=0, .rsv_24=0}},
+    .artifact_ctrl={.bits={.SEEE_RESP_SMO_STR=4, .rsv_3=0, .SEEE_OVRSH_CLIP_STR=3, .rsv_7=0, .SEEE_DOT_REDUC_AMNT=128, .SEEE_DOT_TH=24, .rsv_24=0}},
+    .clip_ctrl ={.bits={.SEEE_RESP_CLIP=30, .SEEE_RESP_CLIP_LUMA_SPC_TH=64, .SEEE_RESP_CLIP_LUMA_LWB=20, .SEEE_RESP_CLIP_LUMA_UPB=120}},
+    .gn_ctrl_2 ={.bits={.SEEE_MASTER_GN_NEG=16, .SEEE_MASTER_GN_POS=16, .rsv_16=0}},
+    .st_ctrl_1 ={.bits={.SEEE_ST_UB=9, .SEEE_ST_LB=2, .rsv_16=0}},
+    .st_ctrl_2 ={.bits={.SEEE_ST_SL_CE=16, .SEEE_ST_OFST_CE=100, .SEEE_ST_SL_RESP=16, .SEEE_ST_OFST_RESP=100}},
+    .ct_ctrl   ={.bits={.SEEE_LUMA_LMT_DIFF=255, .SEEE_LUMA_CNTST_LV=3, .rsv_11=0, .SEEE_LUMA_MINI=4, .rsv_15=0, .SEEE_LUMA_MAXI=4, .rsv_19=0, .SEEE_CHR_CNTST_LV=4, .rsv_23=0, .SEEE_CHR_MINI=2, .rsv_26=0, .SEEE_CHR_MAXI=2, .rsv_30=0}},
+    .cboost_ctrl_1={.bits={.SEEE_CBOOST_LMT_U=255, .SEEE_CBOOST_LMT_L=64, .SEEE_CBOOST_GAIN=128, .SEEE_CBOOST_EN=0, .rsv_25=0}},
+    .cboost_ctrl_2={.bits={.SEEE_CBOOST_YCONST=4, .SEEE_CBOOST_YOFFSET=0, .SEEE_CBOOST_YOFFSET_SEL=0, .rsv_18=0}},
+    .pbc1_ctrl_1={.bits={.SEEE_PBC1_RADIUS_R=42, .rsv_6=0, .SEEE_PBC1_RSLOPE=85, .rsv_18=0, .SEEE_PBC1_RSLOPE_1=39, .SEEE_PBC1_EN=1, .SEEE_PBC_EN=0}},
+    .pbc1_ctrl_2={.bits={.SEEE_PBC1_TSLOPE=85, .SEEE_PBC1_THETA_R=24, .SEEE_PBC1_THETA_C=149, .SEEE_PBC1_RADIUS_C=48}},
+    .pbc1_ctrl_3={.bits={.SEEE_PBC1_LPF_GAIN=16, .SEEE_PBC1_LPF_EN=0, .SEEE_PBC1_EDGE_EN=0, .SEEE_PBC1_EDGE_SLOPE=8, .SEEE_PBC1_EDGE_THR=63, .SEEE_PBC1_CONF_GAIN=1, .SEEE_PBC1_GAIN=52}},
+    .pbc2_ctrl_1={.bits={.SEEE_PBC2_RADIUS_R=40, .rsv_6=0, .SEEE_PBC2_RSLOPE=43, .rsv_18=0, .SEEE_PBC2_RSLOPE_1=32, .SEEE_PBC2_EN=1, .rsv_31=0}},
+    .pbc2_ctrl_2={.bits={.SEEE_PBC2_TSLOPE=43, .SEEE_PBC2_THETA_R=24, .SEEE_PBC2_THETA_C=88, .SEEE_PBC2_RADIUS_C=48}},
+    .pbc2_ctrl_3={.bits={.SEEE_PBC2_LPF_GAIN=12, .SEEE_PBC2_LPF_EN=1, .SEEE_PBC2_EDGE_EN=1, .SEEE_PBC2_EDGE_SLOPE=24, .SEEE_PBC2_EDGE_THR=32, .SEEE_PBC2_CONF_GAIN=4, .SEEE_PBC2_GAIN=24}},
+    .pbc3_ctrl_1={.bits={.SEEE_PBC3_RADIUS_R=42, .rsv_6=0, .SEEE_PBC3_RSLOPE=32, .rsv_18=0, .SEEE_PBC3_RSLOPE_1=17, .SEEE_PBC3_EN=1, .rsv_31=0}},
+    .pbc3_ctrl_2={.bits={.SEEE_PBC3_TSLOPE=64, .SEEE_PBC3_THETA_R=32, .SEEE_PBC3_THETA_C=224, .SEEE_PBC3_RADIUS_C=60}},
+    .pbc3_ctrl_3={.bits={.SEEE_PBC3_LPF_GAIN=8, .SEEE_PBC3_LPF_EN=1, .SEEE_PBC3_EDGE_EN=1, .SEEE_PBC3_EDGE_SLOPE=24, .SEEE_PBC3_EDGE_THR=8, .SEEE_PBC3_CONF_GAIN=1, .SEEE_PBC3_GAIN=24}}
+
+};
+const ISP_NVRAM_EE_T ov16885mipiraw_EE_0062 = {
+        .blnd_ctrl_1={.bits={.SEEE_H1_DI_BLND_OFST=0, .SEEE_H2_DI_BLND_OFST=0, .SEEE_H3_DI_BLND_OFST=0, .rsv_24=0}},
+    .blnd_ctrl_2={.bits={.SEEE_H1_DI_BLND_SL=12, .SEEE_H2_DI_BLND_SL=12, .SEEE_H3_DI_BLND_SL=12, .SEEE_HX_ISO_BLND_RAT=3, .rsv_29=0}},
+    .core_ctrl ={.bits={.SEEE_H1_FLT_CORE_TH=0, .SEEE_H2_FLT_CORE_TH=0, .SEEE_H3_FLT_CORE_TH=0, .SEEE_FLT_CORE_TH=8}},
+    .gn_ctrl_1 ={.bits={.SEEE_H1_GN=14, .rsv_5=0, .SEEE_H2_GN=10, .rsv_13=0, .SEEE_H3_GN=6, .rsv_21=0}},
+    .luma_ctrl_1={.bits={.SEEE_LUMA_MOD_Y0=255, .rsv_9=0, .SEEE_LUMA_MOD_Y1=255, .rsv_19=0, .SEEE_LUMA_MOD_Y2=255, .rsv_29=0}},
+    .luma_ctrl_2={.bits={.SEEE_LUMA_MOD_Y3=255, .rsv_9=0, .SEEE_LUMA_MOD_Y4=255, .rsv_19=0, .SEEE_LUMA_MOD_Y5=255, .rsv_29=0}},
+    .luma_slnk_ctrl={.bits={.SEEE_SLNK_GN_Y1=220, .SEEE_SLNK_GN_Y2=190, .SEEE_RESP_SLNK_GN_RAT=16, .SEEE_GLUT_LINK_EN=1, .SEEE_LUMA_MOD_Y6=255, .rsv_31=0}},
+    .glut_ctrl_1={.bits={.SEEE_GLUT_S1=24, .SEEE_GLUT_X1=20, .SEEE_GLUT_Y1=30, .rsv_26=0}},
+    .glut_ctrl_2={.bits={.SEEE_GLUT_S2=24, .SEEE_GLUT_X2=40, .SEEE_GLUT_Y2=60, .rsv_26=0}},
+    .glut_ctrl_3={.bits={.SEEE_GLUT_S3=34, .SEEE_GLUT_X3=100, .SEEE_GLUT_Y3=188, .rsv_26=0}},
+    .glut_ctrl_4={.bits={.SEEE_GLUT_S4=0, .SEEE_GLUT_X4=150, .SEEE_GLUT_Y4=188, .rsv_26=0}},
+    .glut_ctrl_5={.bits={.SEEE_GLUT_S5=242, .rsv_8=0, .SEEE_GLUT_SL_DEC_Y=32, .rsv_26=0}},
+    .glut_ctrl_6={.bits={.SEEE_GLUT_TH_OVR=200, .SEEE_GLUT_TH_UND=200, .SEEE_GLUT_TH_MIN=0, .rsv_24=0}},
+    .artifact_ctrl={.bits={.SEEE_RESP_SMO_STR=4, .rsv_3=0, .SEEE_OVRSH_CLIP_STR=2, .rsv_7=0, .SEEE_DOT_REDUC_AMNT=128, .SEEE_DOT_TH=6, .rsv_24=0}},
+    .clip_ctrl ={.bits={.SEEE_RESP_CLIP=30, .SEEE_RESP_CLIP_LUMA_SPC_TH=50, .SEEE_RESP_CLIP_LUMA_LWB=50, .SEEE_RESP_CLIP_LUMA_UPB=120}},
+    .gn_ctrl_2 ={.bits={.SEEE_MASTER_GN_NEG=16, .SEEE_MASTER_GN_POS=16, .rsv_16=0}},
+    .st_ctrl_1 ={.bits={.SEEE_ST_UB=9, .SEEE_ST_LB=2, .rsv_16=0}},
+    .st_ctrl_2 ={.bits={.SEEE_ST_SL_CE=16, .SEEE_ST_OFST_CE=100, .SEEE_ST_SL_RESP=16, .SEEE_ST_OFST_RESP=255}},
+    .ct_ctrl   ={.bits={.SEEE_LUMA_LMT_DIFF=255, .SEEE_LUMA_CNTST_LV=4, .rsv_11=0, .SEEE_LUMA_MINI=4, .rsv_15=0, .SEEE_LUMA_MAXI=4, .rsv_19=0, .SEEE_CHR_CNTST_LV=4, .rsv_23=0, .SEEE_CHR_MINI=2, .rsv_26=0, .SEEE_CHR_MAXI=2, .rsv_30=0}},
+    .cboost_ctrl_1={.bits={.SEEE_CBOOST_LMT_U=255, .SEEE_CBOOST_LMT_L=64, .SEEE_CBOOST_GAIN=128, .SEEE_CBOOST_EN=0, .rsv_25=0}},
+    .cboost_ctrl_2={.bits={.SEEE_CBOOST_YCONST=4, .SEEE_CBOOST_YOFFSET=0, .SEEE_CBOOST_YOFFSET_SEL=0, .rsv_18=0}},
+    .pbc1_ctrl_1={.bits={.SEEE_PBC1_RADIUS_R=42, .rsv_6=0, .SEEE_PBC1_RSLOPE=85, .rsv_18=0, .SEEE_PBC1_RSLOPE_1=39, .SEEE_PBC1_EN=1, .SEEE_PBC_EN=0}},
+    .pbc1_ctrl_2={.bits={.SEEE_PBC1_TSLOPE=85, .SEEE_PBC1_THETA_R=24, .SEEE_PBC1_THETA_C=149, .SEEE_PBC1_RADIUS_C=48}},
+    .pbc1_ctrl_3={.bits={.SEEE_PBC1_LPF_GAIN=16, .SEEE_PBC1_LPF_EN=0, .SEEE_PBC1_EDGE_EN=0, .SEEE_PBC1_EDGE_SLOPE=8, .SEEE_PBC1_EDGE_THR=63, .SEEE_PBC1_CONF_GAIN=1, .SEEE_PBC1_GAIN=52}},
+    .pbc2_ctrl_1={.bits={.SEEE_PBC2_RADIUS_R=40, .rsv_6=0, .SEEE_PBC2_RSLOPE=43, .rsv_18=0, .SEEE_PBC2_RSLOPE_1=32, .SEEE_PBC2_EN=1, .rsv_31=0}},
+    .pbc2_ctrl_2={.bits={.SEEE_PBC2_TSLOPE=43, .SEEE_PBC2_THETA_R=24, .SEEE_PBC2_THETA_C=88, .SEEE_PBC2_RADIUS_C=48}},
+    .pbc2_ctrl_3={.bits={.SEEE_PBC2_LPF_GAIN=12, .SEEE_PBC2_LPF_EN=1, .SEEE_PBC2_EDGE_EN=1, .SEEE_PBC2_EDGE_SLOPE=24, .SEEE_PBC2_EDGE_THR=32, .SEEE_PBC2_CONF_GAIN=4, .SEEE_PBC2_GAIN=24}},
+    .pbc3_ctrl_1={.bits={.SEEE_PBC3_RADIUS_R=42, .rsv_6=0, .SEEE_PBC3_RSLOPE=32, .rsv_18=0, .SEEE_PBC3_RSLOPE_1=17, .SEEE_PBC3_EN=1, .rsv_31=0}},
+    .pbc3_ctrl_2={.bits={.SEEE_PBC3_TSLOPE=64, .SEEE_PBC3_THETA_R=32, .SEEE_PBC3_THETA_C=224, .SEEE_PBC3_RADIUS_C=60}},
+    .pbc3_ctrl_3={.bits={.SEEE_PBC3_LPF_GAIN=8, .SEEE_PBC3_LPF_EN=1, .SEEE_PBC3_EDGE_EN=1, .SEEE_PBC3_EDGE_SLOPE=24, .SEEE_PBC3_EDGE_THR=8, .SEEE_PBC3_CONF_GAIN=1, .SEEE_PBC3_GAIN=24}}
+
+};
+const ISP_NVRAM_EE_T ov16885mipiraw_EE_0063 = {
+        .blnd_ctrl_1={.bits={.SEEE_H1_DI_BLND_OFST=0, .SEEE_H2_DI_BLND_OFST=0, .SEEE_H3_DI_BLND_OFST=0, .rsv_24=0}},
+    .blnd_ctrl_2={.bits={.SEEE_H1_DI_BLND_SL=12, .SEEE_H2_DI_BLND_SL=12, .SEEE_H3_DI_BLND_SL=12, .SEEE_HX_ISO_BLND_RAT=3, .rsv_29=0}},
+    .core_ctrl ={.bits={.SEEE_H1_FLT_CORE_TH=0, .SEEE_H2_FLT_CORE_TH=0, .SEEE_H3_FLT_CORE_TH=0, .SEEE_FLT_CORE_TH=8}},
+    .gn_ctrl_1 ={.bits={.SEEE_H1_GN=10, .rsv_5=0, .SEEE_H2_GN=14, .rsv_13=0, .SEEE_H3_GN=8, .rsv_21=0}},
+    .luma_ctrl_1={.bits={.SEEE_LUMA_MOD_Y0=255, .rsv_9=0, .SEEE_LUMA_MOD_Y1=255, .rsv_19=0, .SEEE_LUMA_MOD_Y2=255, .rsv_29=0}},
+    .luma_ctrl_2={.bits={.SEEE_LUMA_MOD_Y3=255, .rsv_9=0, .SEEE_LUMA_MOD_Y4=255, .rsv_19=0, .SEEE_LUMA_MOD_Y5=255, .rsv_29=0}},
+    .luma_slnk_ctrl={.bits={.SEEE_SLNK_GN_Y1=220, .SEEE_SLNK_GN_Y2=190, .SEEE_RESP_SLNK_GN_RAT=16, .SEEE_GLUT_LINK_EN=1, .SEEE_LUMA_MOD_Y6=255, .rsv_31=0}},
+    .glut_ctrl_1={.bits={.SEEE_GLUT_S1=24, .SEEE_GLUT_X1=20, .SEEE_GLUT_Y1=30, .rsv_26=0}},
+    .glut_ctrl_2={.bits={.SEEE_GLUT_S2=24, .SEEE_GLUT_X2=40, .SEEE_GLUT_Y2=60, .rsv_26=0}},
+    .glut_ctrl_3={.bits={.SEEE_GLUT_S3=34, .SEEE_GLUT_X3=100, .SEEE_GLUT_Y3=188, .rsv_26=0}},
+    .glut_ctrl_4={.bits={.SEEE_GLUT_S4=0, .SEEE_GLUT_X4=150, .SEEE_GLUT_Y4=188, .rsv_26=0}},
+    .glut_ctrl_5={.bits={.SEEE_GLUT_S5=242, .rsv_8=0, .SEEE_GLUT_SL_DEC_Y=32, .rsv_26=0}},
+    .glut_ctrl_6={.bits={.SEEE_GLUT_TH_OVR=200, .SEEE_GLUT_TH_UND=200, .SEEE_GLUT_TH_MIN=0, .rsv_24=0}},
+    .artifact_ctrl={.bits={.SEEE_RESP_SMO_STR=4, .rsv_3=0, .SEEE_OVRSH_CLIP_STR=2, .rsv_7=0, .SEEE_DOT_REDUC_AMNT=128, .SEEE_DOT_TH=6, .rsv_24=0}},
+    .clip_ctrl ={.bits={.SEEE_RESP_CLIP=30, .SEEE_RESP_CLIP_LUMA_SPC_TH=50, .SEEE_RESP_CLIP_LUMA_LWB=50, .SEEE_RESP_CLIP_LUMA_UPB=120}},
+    .gn_ctrl_2 ={.bits={.SEEE_MASTER_GN_NEG=16, .SEEE_MASTER_GN_POS=16, .rsv_16=0}},
+    .st_ctrl_1 ={.bits={.SEEE_ST_UB=9, .SEEE_ST_LB=2, .rsv_16=0}},
+    .st_ctrl_2 ={.bits={.SEEE_ST_SL_CE=16, .SEEE_ST_OFST_CE=100, .SEEE_ST_SL_RESP=16, .SEEE_ST_OFST_RESP=255}},
+    .ct_ctrl   ={.bits={.SEEE_LUMA_LMT_DIFF=255, .SEEE_LUMA_CNTST_LV=4, .rsv_11=0, .SEEE_LUMA_MINI=4, .rsv_15=0, .SEEE_LUMA_MAXI=4, .rsv_19=0, .SEEE_CHR_CNTST_LV=4, .rsv_23=0, .SEEE_CHR_MINI=2, .rsv_26=0, .SEEE_CHR_MAXI=2, .rsv_30=0}},
+    .cboost_ctrl_1={.bits={.SEEE_CBOOST_LMT_U=255, .SEEE_CBOOST_LMT_L=64, .SEEE_CBOOST_GAIN=128, .SEEE_CBOOST_EN=0, .rsv_25=0}},
+    .cboost_ctrl_2={.bits={.SEEE_CBOOST_YCONST=4, .SEEE_CBOOST_YOFFSET=0, .SEEE_CBOOST_YOFFSET_SEL=0, .rsv_18=0}},
+    .pbc1_ctrl_1={.bits={.SEEE_PBC1_RADIUS_R=42, .rsv_6=0, .SEEE_PBC1_RSLOPE=85, .rsv_18=0, .SEEE_PBC1_RSLOPE_1=39, .SEEE_PBC1_EN=1, .SEEE_PBC_EN=0}},
+    .pbc1_ctrl_2={.bits={.SEEE_PBC1_TSLOPE=85, .SEEE_PBC1_THETA_R=24, .SEEE_PBC1_THETA_C=149, .SEEE_PBC1_RADIUS_C=48}},
+    .pbc1_ctrl_3={.bits={.SEEE_PBC1_LPF_GAIN=16, .SEEE_PBC1_LPF_EN=0, .SEEE_PBC1_EDGE_EN=0, .SEEE_PBC1_EDGE_SLOPE=8, .SEEE_PBC1_EDGE_THR=63, .SEEE_PBC1_CONF_GAIN=1, .SEEE_PBC1_GAIN=52}},
+    .pbc2_ctrl_1={.bits={.SEEE_PBC2_RADIUS_R=40, .rsv_6=0, .SEEE_PBC2_RSLOPE=43, .rsv_18=0, .SEEE_PBC2_RSLOPE_1=32, .SEEE_PBC2_EN=1, .rsv_31=0}},
+    .pbc2_ctrl_2={.bits={.SEEE_PBC2_TSLOPE=43, .SEEE_PBC2_THETA_R=24, .SEEE_PBC2_THETA_C=88, .SEEE_PBC2_RADIUS_C=48}},
+    .pbc2_ctrl_3={.bits={.SEEE_PBC2_LPF_GAIN=12, .SEEE_PBC2_LPF_EN=1, .SEEE_PBC2_EDGE_EN=1, .SEEE_PBC2_EDGE_SLOPE=24, .SEEE_PBC2_EDGE_THR=32, .SEEE_PBC2_CONF_GAIN=4, .SEEE_PBC2_GAIN=24}},
+    .pbc3_ctrl_1={.bits={.SEEE_PBC3_RADIUS_R=42, .rsv_6=0, .SEEE_PBC3_RSLOPE=32, .rsv_18=0, .SEEE_PBC3_RSLOPE_1=17, .SEEE_PBC3_EN=1, .rsv_31=0}},
+    .pbc3_ctrl_2={.bits={.SEEE_PBC3_TSLOPE=64, .SEEE_PBC3_THETA_R=32, .SEEE_PBC3_THETA_C=224, .SEEE_PBC3_RADIUS_C=60}},
+    .pbc3_ctrl_3={.bits={.SEEE_PBC3_LPF_GAIN=8, .SEEE_PBC3_LPF_EN=1, .SEEE_PBC3_EDGE_EN=1, .SEEE_PBC3_EDGE_SLOPE=24, .SEEE_PBC3_EDGE_THR=8, .SEEE_PBC3_CONF_GAIN=1, .SEEE_PBC3_GAIN=24}}
+
+};
+const ISP_NVRAM_EE_T ov16885mipiraw_EE_0064 = {
+        .blnd_ctrl_1={.bits={.SEEE_H1_DI_BLND_OFST=0, .SEEE_H2_DI_BLND_OFST=0, .SEEE_H3_DI_BLND_OFST=0, .rsv_24=0}},
+    .blnd_ctrl_2={.bits={.SEEE_H1_DI_BLND_SL=12, .SEEE_H2_DI_BLND_SL=12, .SEEE_H3_DI_BLND_SL=12, .SEEE_HX_ISO_BLND_RAT=3, .rsv_29=0}},
+    .core_ctrl ={.bits={.SEEE_H1_FLT_CORE_TH=0, .SEEE_H2_FLT_CORE_TH=0, .SEEE_H3_FLT_CORE_TH=0, .SEEE_FLT_CORE_TH=8}},
+    .gn_ctrl_1 ={.bits={.SEEE_H1_GN=10, .rsv_5=0, .SEEE_H2_GN=14, .rsv_13=0, .SEEE_H3_GN=8, .rsv_21=0}},
+    .luma_ctrl_1={.bits={.SEEE_LUMA_MOD_Y0=255, .rsv_9=0, .SEEE_LUMA_MOD_Y1=255, .rsv_19=0, .SEEE_LUMA_MOD_Y2=255, .rsv_29=0}},
+    .luma_ctrl_2={.bits={.SEEE_LUMA_MOD_Y3=255, .rsv_9=0, .SEEE_LUMA_MOD_Y4=255, .rsv_19=0, .SEEE_LUMA_MOD_Y5=255, .rsv_29=0}},
+    .luma_slnk_ctrl={.bits={.SEEE_SLNK_GN_Y1=210, .SEEE_SLNK_GN_Y2=175, .SEEE_RESP_SLNK_GN_RAT=16, .SEEE_GLUT_LINK_EN=1, .SEEE_LUMA_MOD_Y6=255, .rsv_31=0}},
+    .glut_ctrl_1={.bits={.SEEE_GLUT_S1=24, .SEEE_GLUT_X1=20, .SEEE_GLUT_Y1=30, .rsv_26=0}},
+    .glut_ctrl_2={.bits={.SEEE_GLUT_S2=24, .SEEE_GLUT_X2=40, .SEEE_GLUT_Y2=60, .rsv_26=0}},
+    .glut_ctrl_3={.bits={.SEEE_GLUT_S3=34, .SEEE_GLUT_X3=100, .SEEE_GLUT_Y3=188, .rsv_26=0}},
+    .glut_ctrl_4={.bits={.SEEE_GLUT_S4=0, .SEEE_GLUT_X4=150, .SEEE_GLUT_Y4=188, .rsv_26=0}},
+    .glut_ctrl_5={.bits={.SEEE_GLUT_S5=242, .rsv_8=0, .SEEE_GLUT_SL_DEC_Y=32, .rsv_26=0}},
+    .glut_ctrl_6={.bits={.SEEE_GLUT_TH_OVR=200, .SEEE_GLUT_TH_UND=200, .SEEE_GLUT_TH_MIN=0, .rsv_24=0}},
+    .artifact_ctrl={.bits={.SEEE_RESP_SMO_STR=4, .rsv_3=0, .SEEE_OVRSH_CLIP_STR=1, .rsv_7=0, .SEEE_DOT_REDUC_AMNT=128, .SEEE_DOT_TH=6, .rsv_24=0}},
+    .clip_ctrl ={.bits={.SEEE_RESP_CLIP=30, .SEEE_RESP_CLIP_LUMA_SPC_TH=50, .SEEE_RESP_CLIP_LUMA_LWB=50, .SEEE_RESP_CLIP_LUMA_UPB=185}},
+    .gn_ctrl_2 ={.bits={.SEEE_MASTER_GN_NEG=16, .SEEE_MASTER_GN_POS=16, .rsv_16=0}},
+    .st_ctrl_1 ={.bits={.SEEE_ST_UB=9, .SEEE_ST_LB=2, .rsv_16=0}},
+    .st_ctrl_2 ={.bits={.SEEE_ST_SL_CE=16, .SEEE_ST_OFST_CE=100, .SEEE_ST_SL_RESP=16, .SEEE_ST_OFST_RESP=192}},
+    .ct_ctrl   ={.bits={.SEEE_LUMA_LMT_DIFF=255, .SEEE_LUMA_CNTST_LV=3, .rsv_11=0, .SEEE_LUMA_MINI=4, .rsv_15=0, .SEEE_LUMA_MAXI=4, .rsv_19=0, .SEEE_CHR_CNTST_LV=4, .rsv_23=0, .SEEE_CHR_MINI=2, .rsv_26=0, .SEEE_CHR_MAXI=2, .rsv_30=0}},
+    .cboost_ctrl_1={.bits={.SEEE_CBOOST_LMT_U=255, .SEEE_CBOOST_LMT_L=64, .SEEE_CBOOST_GAIN=128, .SEEE_CBOOST_EN=0, .rsv_25=0}},
+    .cboost_ctrl_2={.bits={.SEEE_CBOOST_YCONST=4, .SEEE_CBOOST_YOFFSET=0, .SEEE_CBOOST_YOFFSET_SEL=0, .rsv_18=0}},
+    .pbc1_ctrl_1={.bits={.SEEE_PBC1_RADIUS_R=42, .rsv_6=0, .SEEE_PBC1_RSLOPE=85, .rsv_18=0, .SEEE_PBC1_RSLOPE_1=39, .SEEE_PBC1_EN=1, .SEEE_PBC_EN=0}},
+    .pbc1_ctrl_2={.bits={.SEEE_PBC1_TSLOPE=85, .SEEE_PBC1_THETA_R=24, .SEEE_PBC1_THETA_C=149, .SEEE_PBC1_RADIUS_C=48}},
+    .pbc1_ctrl_3={.bits={.SEEE_PBC1_LPF_GAIN=16, .SEEE_PBC1_LPF_EN=0, .SEEE_PBC1_EDGE_EN=0, .SEEE_PBC1_EDGE_SLOPE=8, .SEEE_PBC1_EDGE_THR=63, .SEEE_PBC1_CONF_GAIN=1, .SEEE_PBC1_GAIN=52}},
+    .pbc2_ctrl_1={.bits={.SEEE_PBC2_RADIUS_R=40, .rsv_6=0, .SEEE_PBC2_RSLOPE=43, .rsv_18=0, .SEEE_PBC2_RSLOPE_1=32, .SEEE_PBC2_EN=1, .rsv_31=0}},
+    .pbc2_ctrl_2={.bits={.SEEE_PBC2_TSLOPE=43, .SEEE_PBC2_THETA_R=24, .SEEE_PBC2_THETA_C=88, .SEEE_PBC2_RADIUS_C=48}},
+    .pbc2_ctrl_3={.bits={.SEEE_PBC2_LPF_GAIN=12, .SEEE_PBC2_LPF_EN=1, .SEEE_PBC2_EDGE_EN=1, .SEEE_PBC2_EDGE_SLOPE=24, .SEEE_PBC2_EDGE_THR=32, .SEEE_PBC2_CONF_GAIN=4, .SEEE_PBC2_GAIN=24}},
+    .pbc3_ctrl_1={.bits={.SEEE_PBC3_RADIUS_R=42, .rsv_6=0, .SEEE_PBC3_RSLOPE=32, .rsv_18=0, .SEEE_PBC3_RSLOPE_1=17, .SEEE_PBC3_EN=1, .rsv_31=0}},
+    .pbc3_ctrl_2={.bits={.SEEE_PBC3_TSLOPE=64, .SEEE_PBC3_THETA_R=32, .SEEE_PBC3_THETA_C=224, .SEEE_PBC3_RADIUS_C=60}},
+    .pbc3_ctrl_3={.bits={.SEEE_PBC3_LPF_GAIN=8, .SEEE_PBC3_LPF_EN=1, .SEEE_PBC3_EDGE_EN=1, .SEEE_PBC3_EDGE_SLOPE=24, .SEEE_PBC3_EDGE_THR=8, .SEEE_PBC3_CONF_GAIN=1, .SEEE_PBC3_GAIN=24}}
+
+};
+const ISP_NVRAM_EE_T ov16885mipiraw_EE_0065 = {
+        .blnd_ctrl_1={.bits={.SEEE_H1_DI_BLND_OFST=0, .SEEE_H2_DI_BLND_OFST=0, .SEEE_H3_DI_BLND_OFST=0, .rsv_24=0}},
+    .blnd_ctrl_2={.bits={.SEEE_H1_DI_BLND_SL=12, .SEEE_H2_DI_BLND_SL=12, .SEEE_H3_DI_BLND_SL=12, .SEEE_HX_ISO_BLND_RAT=3, .rsv_29=0}},
+    .core_ctrl ={.bits={.SEEE_H1_FLT_CORE_TH=0, .SEEE_H2_FLT_CORE_TH=0, .SEEE_H3_FLT_CORE_TH=0, .SEEE_FLT_CORE_TH=8}},
+    .gn_ctrl_1 ={.bits={.SEEE_H1_GN=10, .rsv_5=0, .SEEE_H2_GN=14, .rsv_13=0, .SEEE_H3_GN=8, .rsv_21=0}},
+    .luma_ctrl_1={.bits={.SEEE_LUMA_MOD_Y0=255, .rsv_9=0, .SEEE_LUMA_MOD_Y1=255, .rsv_19=0, .SEEE_LUMA_MOD_Y2=255, .rsv_29=0}},
+    .luma_ctrl_2={.bits={.SEEE_LUMA_MOD_Y3=255, .rsv_9=0, .SEEE_LUMA_MOD_Y4=255, .rsv_19=0, .SEEE_LUMA_MOD_Y5=255, .rsv_29=0}},
+    .luma_slnk_ctrl={.bits={.SEEE_SLNK_GN_Y1=210, .SEEE_SLNK_GN_Y2=175, .SEEE_RESP_SLNK_GN_RAT=16, .SEEE_GLUT_LINK_EN=1, .SEEE_LUMA_MOD_Y6=255, .rsv_31=0}},
+    .glut_ctrl_1={.bits={.SEEE_GLUT_S1=30, .SEEE_GLUT_X1=16, .SEEE_GLUT_Y1=30, .rsv_26=0}},
+    .glut_ctrl_2={.bits={.SEEE_GLUT_S2=28, .SEEE_GLUT_X2=50, .SEEE_GLUT_Y2=90, .rsv_26=0}},
+    .glut_ctrl_3={.bits={.SEEE_GLUT_S3=49, .SEEE_GLUT_X3=100, .SEEE_GLUT_Y3=244, .rsv_26=0}},
+    .glut_ctrl_4={.bits={.SEEE_GLUT_S4=0, .SEEE_GLUT_X4=150, .SEEE_GLUT_Y4=244, .rsv_26=0}},
+    .glut_ctrl_5={.bits={.SEEE_GLUT_S5=238, .rsv_8=0, .SEEE_GLUT_SL_DEC_Y=32, .rsv_26=0}},
+    .glut_ctrl_6={.bits={.SEEE_GLUT_TH_OVR=200, .SEEE_GLUT_TH_UND=200, .SEEE_GLUT_TH_MIN=0, .rsv_24=0}},
+    .artifact_ctrl={.bits={.SEEE_RESP_SMO_STR=4, .rsv_3=0, .SEEE_OVRSH_CLIP_STR=1, .rsv_7=0, .SEEE_DOT_REDUC_AMNT=128, .SEEE_DOT_TH=6, .rsv_24=0}},
+    .clip_ctrl ={.bits={.SEEE_RESP_CLIP=30, .SEEE_RESP_CLIP_LUMA_SPC_TH=65, .SEEE_RESP_CLIP_LUMA_LWB=50, .SEEE_RESP_CLIP_LUMA_UPB=200}},
+    .gn_ctrl_2 ={.bits={.SEEE_MASTER_GN_NEG=16, .SEEE_MASTER_GN_POS=16, .rsv_16=0}},
+    .st_ctrl_1 ={.bits={.SEEE_ST_UB=9, .SEEE_ST_LB=2, .rsv_16=0}},
+    .st_ctrl_2 ={.bits={.SEEE_ST_SL_CE=16, .SEEE_ST_OFST_CE=100, .SEEE_ST_SL_RESP=16, .SEEE_ST_OFST_RESP=160}},
+    .ct_ctrl   ={.bits={.SEEE_LUMA_LMT_DIFF=255, .SEEE_LUMA_CNTST_LV=3, .rsv_11=0, .SEEE_LUMA_MINI=4, .rsv_15=0, .SEEE_LUMA_MAXI=4, .rsv_19=0, .SEEE_CHR_CNTST_LV=4, .rsv_23=0, .SEEE_CHR_MINI=2, .rsv_26=0, .SEEE_CHR_MAXI=2, .rsv_30=0}},
+    .cboost_ctrl_1={.bits={.SEEE_CBOOST_LMT_U=255, .SEEE_CBOOST_LMT_L=64, .SEEE_CBOOST_GAIN=128, .SEEE_CBOOST_EN=0, .rsv_25=0}},
+    .cboost_ctrl_2={.bits={.SEEE_CBOOST_YCONST=4, .SEEE_CBOOST_YOFFSET=0, .SEEE_CBOOST_YOFFSET_SEL=0, .rsv_18=0}},
+    .pbc1_ctrl_1={.bits={.SEEE_PBC1_RADIUS_R=42, .rsv_6=0, .SEEE_PBC1_RSLOPE=85, .rsv_18=0, .SEEE_PBC1_RSLOPE_1=39, .SEEE_PBC1_EN=1, .SEEE_PBC_EN=0}},
+    .pbc1_ctrl_2={.bits={.SEEE_PBC1_TSLOPE=85, .SEEE_PBC1_THETA_R=24, .SEEE_PBC1_THETA_C=149, .SEEE_PBC1_RADIUS_C=48}},
+    .pbc1_ctrl_3={.bits={.SEEE_PBC1_LPF_GAIN=16, .SEEE_PBC1_LPF_EN=0, .SEEE_PBC1_EDGE_EN=0, .SEEE_PBC1_EDGE_SLOPE=8, .SEEE_PBC1_EDGE_THR=63, .SEEE_PBC1_CONF_GAIN=1, .SEEE_PBC1_GAIN=52}},
+    .pbc2_ctrl_1={.bits={.SEEE_PBC2_RADIUS_R=40, .rsv_6=0, .SEEE_PBC2_RSLOPE=43, .rsv_18=0, .SEEE_PBC2_RSLOPE_1=32, .SEEE_PBC2_EN=1, .rsv_31=0}},
+    .pbc2_ctrl_2={.bits={.SEEE_PBC2_TSLOPE=43, .SEEE_PBC2_THETA_R=24, .SEEE_PBC2_THETA_C=88, .SEEE_PBC2_RADIUS_C=48}},
+    .pbc2_ctrl_3={.bits={.SEEE_PBC2_LPF_GAIN=12, .SEEE_PBC2_LPF_EN=1, .SEEE_PBC2_EDGE_EN=1, .SEEE_PBC2_EDGE_SLOPE=24, .SEEE_PBC2_EDGE_THR=32, .SEEE_PBC2_CONF_GAIN=4, .SEEE_PBC2_GAIN=24}},
+    .pbc3_ctrl_1={.bits={.SEEE_PBC3_RADIUS_R=42, .rsv_6=0, .SEEE_PBC3_RSLOPE=32, .rsv_18=0, .SEEE_PBC3_RSLOPE_1=17, .SEEE_PBC3_EN=1, .rsv_31=0}},
+    .pbc3_ctrl_2={.bits={.SEEE_PBC3_TSLOPE=64, .SEEE_PBC3_THETA_R=32, .SEEE_PBC3_THETA_C=224, .SEEE_PBC3_RADIUS_C=60}},
+    .pbc3_ctrl_3={.bits={.SEEE_PBC3_LPF_GAIN=8, .SEEE_PBC3_LPF_EN=1, .SEEE_PBC3_EDGE_EN=1, .SEEE_PBC3_EDGE_SLOPE=24, .SEEE_PBC3_EDGE_THR=8, .SEEE_PBC3_CONF_GAIN=1, .SEEE_PBC3_GAIN=24}}
+
+};
+const ISP_NVRAM_EE_T ov16885mipiraw_EE_0066 = {
+        .blnd_ctrl_1={.bits={.SEEE_H1_DI_BLND_OFST=0, .SEEE_H2_DI_BLND_OFST=0, .SEEE_H3_DI_BLND_OFST=0, .rsv_24=0}},
+    .blnd_ctrl_2={.bits={.SEEE_H1_DI_BLND_SL=12, .SEEE_H2_DI_BLND_SL=12, .SEEE_H3_DI_BLND_SL=12, .SEEE_HX_ISO_BLND_RAT=3, .rsv_29=0}},
+    .core_ctrl ={.bits={.SEEE_H1_FLT_CORE_TH=0, .SEEE_H2_FLT_CORE_TH=0, .SEEE_H3_FLT_CORE_TH=0, .SEEE_FLT_CORE_TH=8}},
+    .gn_ctrl_1 ={.bits={.SEEE_H1_GN=10, .rsv_5=0, .SEEE_H2_GN=13, .rsv_13=0, .SEEE_H3_GN=8, .rsv_21=0}},
+    .luma_ctrl_1={.bits={.SEEE_LUMA_MOD_Y0=255, .rsv_9=0, .SEEE_LUMA_MOD_Y1=255, .rsv_19=0, .SEEE_LUMA_MOD_Y2=255, .rsv_29=0}},
+    .luma_ctrl_2={.bits={.SEEE_LUMA_MOD_Y3=255, .rsv_9=0, .SEEE_LUMA_MOD_Y4=255, .rsv_19=0, .SEEE_LUMA_MOD_Y5=255, .rsv_29=0}},
+    .luma_slnk_ctrl={.bits={.SEEE_SLNK_GN_Y1=210, .SEEE_SLNK_GN_Y2=175, .SEEE_RESP_SLNK_GN_RAT=16, .SEEE_GLUT_LINK_EN=1, .SEEE_LUMA_MOD_Y6=255, .rsv_31=0}},
+    .glut_ctrl_1={.bits={.SEEE_GLUT_S1=28, .SEEE_GLUT_X1=31, .SEEE_GLUT_Y1=55, .rsv_26=0}},
+    .glut_ctrl_2={.bits={.SEEE_GLUT_S2=45, .SEEE_GLUT_X2=70, .SEEE_GLUT_Y2=165, .rsv_26=0}},
+    .glut_ctrl_3={.bits={.SEEE_GLUT_S3=37, .SEEE_GLUT_X3=118, .SEEE_GLUT_Y3=275, .rsv_26=0}},
+    .glut_ctrl_4={.bits={.SEEE_GLUT_S4=0, .SEEE_GLUT_X4=168, .SEEE_GLUT_Y4=275, .rsv_26=0}},
+    .glut_ctrl_5={.bits={.SEEE_GLUT_S5=229, .rsv_8=0, .SEEE_GLUT_SL_DEC_Y=32, .rsv_26=0}},
+    .glut_ctrl_6={.bits={.SEEE_GLUT_TH_OVR=200, .SEEE_GLUT_TH_UND=200, .SEEE_GLUT_TH_MIN=0, .rsv_24=0}},
+    .artifact_ctrl={.bits={.SEEE_RESP_SMO_STR=4, .rsv_3=0, .SEEE_OVRSH_CLIP_STR=1, .rsv_7=0, .SEEE_DOT_REDUC_AMNT=128, .SEEE_DOT_TH=6, .rsv_24=0}},
+    .clip_ctrl ={.bits={.SEEE_RESP_CLIP=30, .SEEE_RESP_CLIP_LUMA_SPC_TH=58, .SEEE_RESP_CLIP_LUMA_LWB=50, .SEEE_RESP_CLIP_LUMA_UPB=168}},
+    .gn_ctrl_2 ={.bits={.SEEE_MASTER_GN_NEG=14, .SEEE_MASTER_GN_POS=16, .rsv_16=0}},
+    .st_ctrl_1 ={.bits={.SEEE_ST_UB=9, .SEEE_ST_LB=2, .rsv_16=0}},
+    .st_ctrl_2 ={.bits={.SEEE_ST_SL_CE=16, .SEEE_ST_OFST_CE=100, .SEEE_ST_SL_RESP=16, .SEEE_ST_OFST_RESP=160}},
+    .ct_ctrl   ={.bits={.SEEE_LUMA_LMT_DIFF=255, .SEEE_LUMA_CNTST_LV=4, .rsv_11=0, .SEEE_LUMA_MINI=4, .rsv_15=0, .SEEE_LUMA_MAXI=4, .rsv_19=0, .SEEE_CHR_CNTST_LV=4, .rsv_23=0, .SEEE_CHR_MINI=2, .rsv_26=0, .SEEE_CHR_MAXI=2, .rsv_30=0}},
+    .cboost_ctrl_1={.bits={.SEEE_CBOOST_LMT_U=255, .SEEE_CBOOST_LMT_L=64, .SEEE_CBOOST_GAIN=128, .SEEE_CBOOST_EN=0, .rsv_25=0}},
+    .cboost_ctrl_2={.bits={.SEEE_CBOOST_YCONST=4, .SEEE_CBOOST_YOFFSET=0, .SEEE_CBOOST_YOFFSET_SEL=0, .rsv_18=0}},
+    .pbc1_ctrl_1={.bits={.SEEE_PBC1_RADIUS_R=42, .rsv_6=0, .SEEE_PBC1_RSLOPE=85, .rsv_18=0, .SEEE_PBC1_RSLOPE_1=39, .SEEE_PBC1_EN=1, .SEEE_PBC_EN=0}},
+    .pbc1_ctrl_2={.bits={.SEEE_PBC1_TSLOPE=85, .SEEE_PBC1_THETA_R=24, .SEEE_PBC1_THETA_C=149, .SEEE_PBC1_RADIUS_C=48}},
+    .pbc1_ctrl_3={.bits={.SEEE_PBC1_LPF_GAIN=16, .SEEE_PBC1_LPF_EN=0, .SEEE_PBC1_EDGE_EN=0, .SEEE_PBC1_EDGE_SLOPE=8, .SEEE_PBC1_EDGE_THR=63, .SEEE_PBC1_CONF_GAIN=1, .SEEE_PBC1_GAIN=52}},
+    .pbc2_ctrl_1={.bits={.SEEE_PBC2_RADIUS_R=40, .rsv_6=0, .SEEE_PBC2_RSLOPE=43, .rsv_18=0, .SEEE_PBC2_RSLOPE_1=32, .SEEE_PBC2_EN=1, .rsv_31=0}},
+    .pbc2_ctrl_2={.bits={.SEEE_PBC2_TSLOPE=43, .SEEE_PBC2_THETA_R=24, .SEEE_PBC2_THETA_C=88, .SEEE_PBC2_RADIUS_C=48}},
+    .pbc2_ctrl_3={.bits={.SEEE_PBC2_LPF_GAIN=12, .SEEE_PBC2_LPF_EN=1, .SEEE_PBC2_EDGE_EN=1, .SEEE_PBC2_EDGE_SLOPE=24, .SEEE_PBC2_EDGE_THR=32, .SEEE_PBC2_CONF_GAIN=4, .SEEE_PBC2_GAIN=24}},
+    .pbc3_ctrl_1={.bits={.SEEE_PBC3_RADIUS_R=42, .rsv_6=0, .SEEE_PBC3_RSLOPE=32, .rsv_18=0, .SEEE_PBC3_RSLOPE_1=17, .SEEE_PBC3_EN=1, .rsv_31=0}},
+    .pbc3_ctrl_2={.bits={.SEEE_PBC3_TSLOPE=64, .SEEE_PBC3_THETA_R=32, .SEEE_PBC3_THETA_C=224, .SEEE_PBC3_RADIUS_C=60}},
+    .pbc3_ctrl_3={.bits={.SEEE_PBC3_LPF_GAIN=8, .SEEE_PBC3_LPF_EN=1, .SEEE_PBC3_EDGE_EN=1, .SEEE_PBC3_EDGE_SLOPE=24, .SEEE_PBC3_EDGE_THR=8, .SEEE_PBC3_CONF_GAIN=1, .SEEE_PBC3_GAIN=24}}
+
+};
+const ISP_NVRAM_EE_T ov16885mipiraw_EE_0067 = {
+        .blnd_ctrl_1={.bits={.SEEE_H1_DI_BLND_OFST=0, .SEEE_H2_DI_BLND_OFST=0, .SEEE_H3_DI_BLND_OFST=0, .rsv_24=0}},
+    .blnd_ctrl_2={.bits={.SEEE_H1_DI_BLND_SL=12, .SEEE_H2_DI_BLND_SL=12, .SEEE_H3_DI_BLND_SL=12, .SEEE_HX_ISO_BLND_RAT=3, .rsv_29=0}},
+    .core_ctrl ={.bits={.SEEE_H1_FLT_CORE_TH=0, .SEEE_H2_FLT_CORE_TH=0, .SEEE_H3_FLT_CORE_TH=0, .SEEE_FLT_CORE_TH=8}},
+    .gn_ctrl_1 ={.bits={.SEEE_H1_GN=10, .rsv_5=0, .SEEE_H2_GN=12, .rsv_13=0, .SEEE_H3_GN=8, .rsv_21=0}},
+    .luma_ctrl_1={.bits={.SEEE_LUMA_MOD_Y0=255, .rsv_9=0, .SEEE_LUMA_MOD_Y1=255, .rsv_19=0, .SEEE_LUMA_MOD_Y2=255, .rsv_29=0}},
+    .luma_ctrl_2={.bits={.SEEE_LUMA_MOD_Y3=255, .rsv_9=0, .SEEE_LUMA_MOD_Y4=255, .rsv_19=0, .SEEE_LUMA_MOD_Y5=255, .rsv_29=0}},
+    .luma_slnk_ctrl={.bits={.SEEE_SLNK_GN_Y1=210, .SEEE_SLNK_GN_Y2=175, .SEEE_RESP_SLNK_GN_RAT=16, .SEEE_GLUT_LINK_EN=1, .SEEE_LUMA_MOD_Y6=255, .rsv_31=0}},
+    .glut_ctrl_1={.bits={.SEEE_GLUT_S1=28, .SEEE_GLUT_X1=45, .SEEE_GLUT_Y1=80, .rsv_26=0}},
+    .glut_ctrl_2={.bits={.SEEE_GLUT_S2=57, .SEEE_GLUT_X2=90, .SEEE_GLUT_Y2=240, .rsv_26=0}},
+    .glut_ctrl_3={.bits={.SEEE_GLUT_S3=23, .SEEE_GLUT_X3=135, .SEEE_GLUT_Y3=306, .rsv_26=0}},
+    .glut_ctrl_4={.bits={.SEEE_GLUT_S4=0, .SEEE_GLUT_X4=185, .SEEE_GLUT_Y4=306, .rsv_26=0}},
+    .glut_ctrl_5={.bits={.SEEE_GLUT_S5=215, .rsv_8=0, .SEEE_GLUT_SL_DEC_Y=32, .rsv_26=0}},
+    .glut_ctrl_6={.bits={.SEEE_GLUT_TH_OVR=200, .SEEE_GLUT_TH_UND=200, .SEEE_GLUT_TH_MIN=0, .rsv_24=0}},
+    .artifact_ctrl={.bits={.SEEE_RESP_SMO_STR=4, .rsv_3=0, .SEEE_OVRSH_CLIP_STR=0, .rsv_7=0, .SEEE_DOT_REDUC_AMNT=128, .SEEE_DOT_TH=6, .rsv_24=0}},
+    .clip_ctrl ={.bits={.SEEE_RESP_CLIP=30, .SEEE_RESP_CLIP_LUMA_SPC_TH=50, .SEEE_RESP_CLIP_LUMA_LWB=50, .SEEE_RESP_CLIP_LUMA_UPB=135}},
+    .gn_ctrl_2 ={.bits={.SEEE_MASTER_GN_NEG=12, .SEEE_MASTER_GN_POS=16, .rsv_16=0}},
+    .st_ctrl_1 ={.bits={.SEEE_ST_UB=9, .SEEE_ST_LB=2, .rsv_16=0}},
+    .st_ctrl_2 ={.bits={.SEEE_ST_SL_CE=16, .SEEE_ST_OFST_CE=100, .SEEE_ST_SL_RESP=16, .SEEE_ST_OFST_RESP=160}},
+    .ct_ctrl   ={.bits={.SEEE_LUMA_LMT_DIFF=255, .SEEE_LUMA_CNTST_LV=4, .rsv_11=0, .SEEE_LUMA_MINI=4, .rsv_15=0, .SEEE_LUMA_MAXI=4, .rsv_19=0, .SEEE_CHR_CNTST_LV=4, .rsv_23=0, .SEEE_CHR_MINI=2, .rsv_26=0, .SEEE_CHR_MAXI=2, .rsv_30=0}},
+    .cboost_ctrl_1={.bits={.SEEE_CBOOST_LMT_U=255, .SEEE_CBOOST_LMT_L=64, .SEEE_CBOOST_GAIN=128, .SEEE_CBOOST_EN=0, .rsv_25=0}},
+    .cboost_ctrl_2={.bits={.SEEE_CBOOST_YCONST=4, .SEEE_CBOOST_YOFFSET=0, .SEEE_CBOOST_YOFFSET_SEL=0, .rsv_18=0}},
+    .pbc1_ctrl_1={.bits={.SEEE_PBC1_RADIUS_R=42, .rsv_6=0, .SEEE_PBC1_RSLOPE=85, .rsv_18=0, .SEEE_PBC1_RSLOPE_1=39, .SEEE_PBC1_EN=1, .SEEE_PBC_EN=0}},
+    .pbc1_ctrl_2={.bits={.SEEE_PBC1_TSLOPE=85, .SEEE_PBC1_THETA_R=24, .SEEE_PBC1_THETA_C=149, .SEEE_PBC1_RADIUS_C=48}},
+    .pbc1_ctrl_3={.bits={.SEEE_PBC1_LPF_GAIN=16, .SEEE_PBC1_LPF_EN=0, .SEEE_PBC1_EDGE_EN=0, .SEEE_PBC1_EDGE_SLOPE=8, .SEEE_PBC1_EDGE_THR=63, .SEEE_PBC1_CONF_GAIN=1, .SEEE_PBC1_GAIN=52}},
+    .pbc2_ctrl_1={.bits={.SEEE_PBC2_RADIUS_R=40, .rsv_6=0, .SEEE_PBC2_RSLOPE=43, .rsv_18=0, .SEEE_PBC2_RSLOPE_1=32, .SEEE_PBC2_EN=1, .rsv_31=0}},
+    .pbc2_ctrl_2={.bits={.SEEE_PBC2_TSLOPE=43, .SEEE_PBC2_THETA_R=24, .SEEE_PBC2_THETA_C=88, .SEEE_PBC2_RADIUS_C=48}},
+    .pbc2_ctrl_3={.bits={.SEEE_PBC2_LPF_GAIN=12, .SEEE_PBC2_LPF_EN=1, .SEEE_PBC2_EDGE_EN=1, .SEEE_PBC2_EDGE_SLOPE=24, .SEEE_PBC2_EDGE_THR=32, .SEEE_PBC2_CONF_GAIN=4, .SEEE_PBC2_GAIN=24}},
+    .pbc3_ctrl_1={.bits={.SEEE_PBC3_RADIUS_R=42, .rsv_6=0, .SEEE_PBC3_RSLOPE=32, .rsv_18=0, .SEEE_PBC3_RSLOPE_1=17, .SEEE_PBC3_EN=1, .rsv_31=0}},
+    .pbc3_ctrl_2={.bits={.SEEE_PBC3_TSLOPE=64, .SEEE_PBC3_THETA_R=32, .SEEE_PBC3_THETA_C=224, .SEEE_PBC3_RADIUS_C=60}},
+    .pbc3_ctrl_3={.bits={.SEEE_PBC3_LPF_GAIN=8, .SEEE_PBC3_LPF_EN=1, .SEEE_PBC3_EDGE_EN=1, .SEEE_PBC3_EDGE_SLOPE=24, .SEEE_PBC3_EDGE_THR=8, .SEEE_PBC3_CONF_GAIN=1, .SEEE_PBC3_GAIN=24}}
+
+};
+const ISP_NVRAM_EE_T ov16885mipiraw_EE_0068 = {
+        .blnd_ctrl_1={.bits={.SEEE_H1_DI_BLND_OFST=0, .SEEE_H2_DI_BLND_OFST=0, .SEEE_H3_DI_BLND_OFST=0, .rsv_24=0}},
+    .blnd_ctrl_2={.bits={.SEEE_H1_DI_BLND_SL=12, .SEEE_H2_DI_BLND_SL=12, .SEEE_H3_DI_BLND_SL=12, .SEEE_HX_ISO_BLND_RAT=3, .rsv_29=0}},
+    .core_ctrl ={.bits={.SEEE_H1_FLT_CORE_TH=0, .SEEE_H2_FLT_CORE_TH=0, .SEEE_H3_FLT_CORE_TH=0, .SEEE_FLT_CORE_TH=8}},
+    .gn_ctrl_1 ={.bits={.SEEE_H1_GN=5, .rsv_5=0, .SEEE_H2_GN=8, .rsv_13=0, .SEEE_H3_GN=3, .rsv_21=0}},
+    .luma_ctrl_1={.bits={.SEEE_LUMA_MOD_Y0=255, .rsv_9=0, .SEEE_LUMA_MOD_Y1=255, .rsv_19=0, .SEEE_LUMA_MOD_Y2=255, .rsv_29=0}},
+    .luma_ctrl_2={.bits={.SEEE_LUMA_MOD_Y3=255, .rsv_9=0, .SEEE_LUMA_MOD_Y4=255, .rsv_19=0, .SEEE_LUMA_MOD_Y5=255, .rsv_29=0}},
+    .luma_slnk_ctrl={.bits={.SEEE_SLNK_GN_Y1=220, .SEEE_SLNK_GN_Y2=180, .SEEE_RESP_SLNK_GN_RAT=16, .SEEE_GLUT_LINK_EN=1, .SEEE_LUMA_MOD_Y6=255, .rsv_31=0}},
+    .glut_ctrl_1={.bits={.SEEE_GLUT_S1=0, .SEEE_GLUT_X1=0, .SEEE_GLUT_Y1=30, .rsv_26=0}},
+    .glut_ctrl_2={.bits={.SEEE_GLUT_S2=24, .SEEE_GLUT_X2=60, .SEEE_GLUT_Y2=120, .rsv_26=0}},
+    .glut_ctrl_3={.bits={.SEEE_GLUT_S3=41, .SEEE_GLUT_X3=100, .SEEE_GLUT_Y3=222, .rsv_26=0}},
+    .glut_ctrl_4={.bits={.SEEE_GLUT_S4=0, .SEEE_GLUT_X4=150, .SEEE_GLUT_Y4=222, .rsv_26=0}},
+    .glut_ctrl_5={.bits={.SEEE_GLUT_S5=242, .rsv_8=0, .SEEE_GLUT_SL_DEC_Y=32, .rsv_26=0}},
+    .glut_ctrl_6={.bits={.SEEE_GLUT_TH_OVR=200, .SEEE_GLUT_TH_UND=200, .SEEE_GLUT_TH_MIN=0, .rsv_24=0}},
+    .artifact_ctrl={.bits={.SEEE_RESP_SMO_STR=4, .rsv_3=0, .SEEE_OVRSH_CLIP_STR=0, .rsv_7=0, .SEEE_DOT_REDUC_AMNT=128, .SEEE_DOT_TH=6, .rsv_24=0}},
+    .clip_ctrl ={.bits={.SEEE_RESP_CLIP=30, .SEEE_RESP_CLIP_LUMA_SPC_TH=64, .SEEE_RESP_CLIP_LUMA_LWB=20, .SEEE_RESP_CLIP_LUMA_UPB=120}},
+    .gn_ctrl_2 ={.bits={.SEEE_MASTER_GN_NEG=16, .SEEE_MASTER_GN_POS=16, .rsv_16=0}},
+    .st_ctrl_1 ={.bits={.SEEE_ST_UB=9, .SEEE_ST_LB=2, .rsv_16=0}},
+    .st_ctrl_2 ={.bits={.SEEE_ST_SL_CE=16, .SEEE_ST_OFST_CE=100, .SEEE_ST_SL_RESP=16, .SEEE_ST_OFST_RESP=192}},
+    .ct_ctrl   ={.bits={.SEEE_LUMA_LMT_DIFF=255, .SEEE_LUMA_CNTST_LV=2, .rsv_11=0, .SEEE_LUMA_MINI=4, .rsv_15=0, .SEEE_LUMA_MAXI=4, .rsv_19=0, .SEEE_CHR_CNTST_LV=4, .rsv_23=0, .SEEE_CHR_MINI=2, .rsv_26=0, .SEEE_CHR_MAXI=2, .rsv_30=0}},
+    .cboost_ctrl_1={.bits={.SEEE_CBOOST_LMT_U=255, .SEEE_CBOOST_LMT_L=64, .SEEE_CBOOST_GAIN=128, .SEEE_CBOOST_EN=0, .rsv_25=0}},
+    .cboost_ctrl_2={.bits={.SEEE_CBOOST_YCONST=4, .SEEE_CBOOST_YOFFSET=0, .SEEE_CBOOST_YOFFSET_SEL=0, .rsv_18=0}},
+    .pbc1_ctrl_1={.bits={.SEEE_PBC1_RADIUS_R=42, .rsv_6=0, .SEEE_PBC1_RSLOPE=85, .rsv_18=0, .SEEE_PBC1_RSLOPE_1=39, .SEEE_PBC1_EN=1, .SEEE_PBC_EN=0}},
+    .pbc1_ctrl_2={.bits={.SEEE_PBC1_TSLOPE=85, .SEEE_PBC1_THETA_R=24, .SEEE_PBC1_THETA_C=149, .SEEE_PBC1_RADIUS_C=48}},
+    .pbc1_ctrl_3={.bits={.SEEE_PBC1_LPF_GAIN=16, .SEEE_PBC1_LPF_EN=0, .SEEE_PBC1_EDGE_EN=0, .SEEE_PBC1_EDGE_SLOPE=8, .SEEE_PBC1_EDGE_THR=63, .SEEE_PBC1_CONF_GAIN=1, .SEEE_PBC1_GAIN=52}},
+    .pbc2_ctrl_1={.bits={.SEEE_PBC2_RADIUS_R=40, .rsv_6=0, .SEEE_PBC2_RSLOPE=43, .rsv_18=0, .SEEE_PBC2_RSLOPE_1=32, .SEEE_PBC2_EN=1, .rsv_31=0}},
+    .pbc2_ctrl_2={.bits={.SEEE_PBC2_TSLOPE=43, .SEEE_PBC2_THETA_R=24, .SEEE_PBC2_THETA_C=88, .SEEE_PBC2_RADIUS_C=48}},
+    .pbc2_ctrl_3={.bits={.SEEE_PBC2_LPF_GAIN=12, .SEEE_PBC2_LPF_EN=1, .SEEE_PBC2_EDGE_EN=1, .SEEE_PBC2_EDGE_SLOPE=24, .SEEE_PBC2_EDGE_THR=32, .SEEE_PBC2_CONF_GAIN=4, .SEEE_PBC2_GAIN=24}},
+    .pbc3_ctrl_1={.bits={.SEEE_PBC3_RADIUS_R=42, .rsv_6=0, .SEEE_PBC3_RSLOPE=32, .rsv_18=0, .SEEE_PBC3_RSLOPE_1=17, .SEEE_PBC3_EN=1, .rsv_31=0}},
+    .pbc3_ctrl_2={.bits={.SEEE_PBC3_TSLOPE=64, .SEEE_PBC3_THETA_R=32, .SEEE_PBC3_THETA_C=224, .SEEE_PBC3_RADIUS_C=60}},
+    .pbc3_ctrl_3={.bits={.SEEE_PBC3_LPF_GAIN=8, .SEEE_PBC3_LPF_EN=1, .SEEE_PBC3_EDGE_EN=1, .SEEE_PBC3_EDGE_SLOPE=24, .SEEE_PBC3_EDGE_THR=8, .SEEE_PBC3_CONF_GAIN=1, .SEEE_PBC3_GAIN=24}}
+
+};
+const ISP_NVRAM_EE_T ov16885mipiraw_EE_0069 = {
+        .blnd_ctrl_1={.bits={.SEEE_H1_DI_BLND_OFST=0, .SEEE_H2_DI_BLND_OFST=0, .SEEE_H3_DI_BLND_OFST=0, .rsv_24=0}},
+    .blnd_ctrl_2={.bits={.SEEE_H1_DI_BLND_SL=12, .SEEE_H2_DI_BLND_SL=12, .SEEE_H3_DI_BLND_SL=12, .SEEE_HX_ISO_BLND_RAT=3, .rsv_29=0}},
+    .core_ctrl ={.bits={.SEEE_H1_FLT_CORE_TH=0, .SEEE_H2_FLT_CORE_TH=0, .SEEE_H3_FLT_CORE_TH=0, .SEEE_FLT_CORE_TH=8}},
+    .gn_ctrl_1 ={.bits={.SEEE_H1_GN=5, .rsv_5=0, .SEEE_H2_GN=8, .rsv_13=0, .SEEE_H3_GN=3, .rsv_21=0}},
+    .luma_ctrl_1={.bits={.SEEE_LUMA_MOD_Y0=255, .rsv_9=0, .SEEE_LUMA_MOD_Y1=255, .rsv_19=0, .SEEE_LUMA_MOD_Y2=255, .rsv_29=0}},
+    .luma_ctrl_2={.bits={.SEEE_LUMA_MOD_Y3=255, .rsv_9=0, .SEEE_LUMA_MOD_Y4=255, .rsv_19=0, .SEEE_LUMA_MOD_Y5=255, .rsv_29=0}},
+    .luma_slnk_ctrl={.bits={.SEEE_SLNK_GN_Y1=220, .SEEE_SLNK_GN_Y2=180, .SEEE_RESP_SLNK_GN_RAT=16, .SEEE_GLUT_LINK_EN=1, .SEEE_LUMA_MOD_Y6=255, .rsv_31=0}},
+    .glut_ctrl_1={.bits={.SEEE_GLUT_S1=0, .SEEE_GLUT_X1=0, .SEEE_GLUT_Y1=30, .rsv_26=0}},
+    .glut_ctrl_2={.bits={.SEEE_GLUT_S2=24, .SEEE_GLUT_X2=60, .SEEE_GLUT_Y2=120, .rsv_26=0}},
+    .glut_ctrl_3={.bits={.SEEE_GLUT_S3=41, .SEEE_GLUT_X3=100, .SEEE_GLUT_Y3=222, .rsv_26=0}},
+    .glut_ctrl_4={.bits={.SEEE_GLUT_S4=0, .SEEE_GLUT_X4=150, .SEEE_GLUT_Y4=222, .rsv_26=0}},
+    .glut_ctrl_5={.bits={.SEEE_GLUT_S5=242, .rsv_8=0, .SEEE_GLUT_SL_DEC_Y=32, .rsv_26=0}},
+    .glut_ctrl_6={.bits={.SEEE_GLUT_TH_OVR=200, .SEEE_GLUT_TH_UND=200, .SEEE_GLUT_TH_MIN=0, .rsv_24=0}},
+    .artifact_ctrl={.bits={.SEEE_RESP_SMO_STR=4, .rsv_3=0, .SEEE_OVRSH_CLIP_STR=0, .rsv_7=0, .SEEE_DOT_REDUC_AMNT=128, .SEEE_DOT_TH=6, .rsv_24=0}},
+    .clip_ctrl ={.bits={.SEEE_RESP_CLIP=30, .SEEE_RESP_CLIP_LUMA_SPC_TH=64, .SEEE_RESP_CLIP_LUMA_LWB=20, .SEEE_RESP_CLIP_LUMA_UPB=120}},
+    .gn_ctrl_2 ={.bits={.SEEE_MASTER_GN_NEG=16, .SEEE_MASTER_GN_POS=16, .rsv_16=0}},
+    .st_ctrl_1 ={.bits={.SEEE_ST_UB=9, .SEEE_ST_LB=2, .rsv_16=0}},
+    .st_ctrl_2 ={.bits={.SEEE_ST_SL_CE=16, .SEEE_ST_OFST_CE=100, .SEEE_ST_SL_RESP=16, .SEEE_ST_OFST_RESP=192}},
+    .ct_ctrl   ={.bits={.SEEE_LUMA_LMT_DIFF=255, .SEEE_LUMA_CNTST_LV=2, .rsv_11=0, .SEEE_LUMA_MINI=4, .rsv_15=0, .SEEE_LUMA_MAXI=4, .rsv_19=0, .SEEE_CHR_CNTST_LV=4, .rsv_23=0, .SEEE_CHR_MINI=2, .rsv_26=0, .SEEE_CHR_MAXI=2, .rsv_30=0}},
+    .cboost_ctrl_1={.bits={.SEEE_CBOOST_LMT_U=255, .SEEE_CBOOST_LMT_L=64, .SEEE_CBOOST_GAIN=128, .SEEE_CBOOST_EN=0, .rsv_25=0}},
+    .cboost_ctrl_2={.bits={.SEEE_CBOOST_YCONST=4, .SEEE_CBOOST_YOFFSET=0, .SEEE_CBOOST_YOFFSET_SEL=0, .rsv_18=0}},
+    .pbc1_ctrl_1={.bits={.SEEE_PBC1_RADIUS_R=42, .rsv_6=0, .SEEE_PBC1_RSLOPE=85, .rsv_18=0, .SEEE_PBC1_RSLOPE_1=39, .SEEE_PBC1_EN=1, .SEEE_PBC_EN=0}},
+    .pbc1_ctrl_2={.bits={.SEEE_PBC1_TSLOPE=85, .SEEE_PBC1_THETA_R=24, .SEEE_PBC1_THETA_C=149, .SEEE_PBC1_RADIUS_C=48}},
+    .pbc1_ctrl_3={.bits={.SEEE_PBC1_LPF_GAIN=16, .SEEE_PBC1_LPF_EN=0, .SEEE_PBC1_EDGE_EN=0, .SEEE_PBC1_EDGE_SLOPE=8, .SEEE_PBC1_EDGE_THR=63, .SEEE_PBC1_CONF_GAIN=1, .SEEE_PBC1_GAIN=52}},
+    .pbc2_ctrl_1={.bits={.SEEE_PBC2_RADIUS_R=40, .rsv_6=0, .SEEE_PBC2_RSLOPE=43, .rsv_18=0, .SEEE_PBC2_RSLOPE_1=32, .SEEE_PBC2_EN=1, .rsv_31=0}},
+    .pbc2_ctrl_2={.bits={.SEEE_PBC2_TSLOPE=43, .SEEE_PBC2_THETA_R=24, .SEEE_PBC2_THETA_C=88, .SEEE_PBC2_RADIUS_C=48}},
+    .pbc2_ctrl_3={.bits={.SEEE_PBC2_LPF_GAIN=12, .SEEE_PBC2_LPF_EN=1, .SEEE_PBC2_EDGE_EN=1, .SEEE_PBC2_EDGE_SLOPE=24, .SEEE_PBC2_EDGE_THR=32, .SEEE_PBC2_CONF_GAIN=4, .SEEE_PBC2_GAIN=24}},
+    .pbc3_ctrl_1={.bits={.SEEE_PBC3_RADIUS_R=42, .rsv_6=0, .SEEE_PBC3_RSLOPE=32, .rsv_18=0, .SEEE_PBC3_RSLOPE_1=17, .SEEE_PBC3_EN=1, .rsv_31=0}},
+    .pbc3_ctrl_2={.bits={.SEEE_PBC3_TSLOPE=64, .SEEE_PBC3_THETA_R=32, .SEEE_PBC3_THETA_C=224, .SEEE_PBC3_RADIUS_C=60}},
+    .pbc3_ctrl_3={.bits={.SEEE_PBC3_LPF_GAIN=8, .SEEE_PBC3_LPF_EN=1, .SEEE_PBC3_EDGE_EN=1, .SEEE_PBC3_EDGE_SLOPE=24, .SEEE_PBC3_EDGE_THR=8, .SEEE_PBC3_CONF_GAIN=1, .SEEE_PBC3_GAIN=24}}
+
+};
+const ISP_NVRAM_EE_T ov16885mipiraw_EE_0070 = {
+        .blnd_ctrl_1={.bits={.SEEE_H1_DI_BLND_OFST=0, .SEEE_H2_DI_BLND_OFST=0, .SEEE_H3_DI_BLND_OFST=0, .rsv_24=0}},
+    .blnd_ctrl_2={.bits={.SEEE_H1_DI_BLND_SL=12, .SEEE_H2_DI_BLND_SL=12, .SEEE_H3_DI_BLND_SL=12, .SEEE_HX_ISO_BLND_RAT=3, .rsv_29=0}},
+    .core_ctrl ={.bits={.SEEE_H1_FLT_CORE_TH=0, .SEEE_H2_FLT_CORE_TH=0, .SEEE_H3_FLT_CORE_TH=0, .SEEE_FLT_CORE_TH=8}},
+    .gn_ctrl_1 ={.bits={.SEEE_H1_GN=10, .rsv_5=0, .SEEE_H2_GN=12, .rsv_13=0, .SEEE_H3_GN=8, .rsv_21=0}},
+    .luma_ctrl_1={.bits={.SEEE_LUMA_MOD_Y0=255, .rsv_9=0, .SEEE_LUMA_MOD_Y1=255, .rsv_19=0, .SEEE_LUMA_MOD_Y2=255, .rsv_29=0}},
+    .luma_ctrl_2={.bits={.SEEE_LUMA_MOD_Y3=255, .rsv_9=0, .SEEE_LUMA_MOD_Y4=255, .rsv_19=0, .SEEE_LUMA_MOD_Y5=255, .rsv_29=0}},
+    .luma_slnk_ctrl={.bits={.SEEE_SLNK_GN_Y1=210, .SEEE_SLNK_GN_Y2=175, .SEEE_RESP_SLNK_GN_RAT=16, .SEEE_GLUT_LINK_EN=1, .SEEE_LUMA_MOD_Y6=255, .rsv_31=0}},
+    .glut_ctrl_1={.bits={.SEEE_GLUT_S1=28, .SEEE_GLUT_X1=45, .SEEE_GLUT_Y1=80, .rsv_26=0}},
+    .glut_ctrl_2={.bits={.SEEE_GLUT_S2=57, .SEEE_GLUT_X2=90, .SEEE_GLUT_Y2=240, .rsv_26=0}},
+    .glut_ctrl_3={.bits={.SEEE_GLUT_S3=23, .SEEE_GLUT_X3=135, .SEEE_GLUT_Y3=306, .rsv_26=0}},
+    .glut_ctrl_4={.bits={.SEEE_GLUT_S4=0, .SEEE_GLUT_X4=185, .SEEE_GLUT_Y4=306, .rsv_26=0}},
+    .glut_ctrl_5={.bits={.SEEE_GLUT_S5=215, .rsv_8=0, .SEEE_GLUT_SL_DEC_Y=32, .rsv_26=0}},
+    .glut_ctrl_6={.bits={.SEEE_GLUT_TH_OVR=200, .SEEE_GLUT_TH_UND=200, .SEEE_GLUT_TH_MIN=0, .rsv_24=0}},
+    .artifact_ctrl={.bits={.SEEE_RESP_SMO_STR=4, .rsv_3=0, .SEEE_OVRSH_CLIP_STR=0, .rsv_7=0, .SEEE_DOT_REDUC_AMNT=128, .SEEE_DOT_TH=6, .rsv_24=0}},
+    .clip_ctrl ={.bits={.SEEE_RESP_CLIP=30, .SEEE_RESP_CLIP_LUMA_SPC_TH=50, .SEEE_RESP_CLIP_LUMA_LWB=50, .SEEE_RESP_CLIP_LUMA_UPB=135}},
+    .gn_ctrl_2 ={.bits={.SEEE_MASTER_GN_NEG=12, .SEEE_MASTER_GN_POS=16, .rsv_16=0}},
+    .st_ctrl_1 ={.bits={.SEEE_ST_UB=9, .SEEE_ST_LB=2, .rsv_16=0}},
+    .st_ctrl_2 ={.bits={.SEEE_ST_SL_CE=16, .SEEE_ST_OFST_CE=100, .SEEE_ST_SL_RESP=16, .SEEE_ST_OFST_RESP=160}},
+    .ct_ctrl   ={.bits={.SEEE_LUMA_LMT_DIFF=255, .SEEE_LUMA_CNTST_LV=4, .rsv_11=0, .SEEE_LUMA_MINI=4, .rsv_15=0, .SEEE_LUMA_MAXI=4, .rsv_19=0, .SEEE_CHR_CNTST_LV=4, .rsv_23=0, .SEEE_CHR_MINI=2, .rsv_26=0, .SEEE_CHR_MAXI=2, .rsv_30=0}},
+    .cboost_ctrl_1={.bits={.SEEE_CBOOST_LMT_U=255, .SEEE_CBOOST_LMT_L=64, .SEEE_CBOOST_GAIN=128, .SEEE_CBOOST_EN=0, .rsv_25=0}},
+    .cboost_ctrl_2={.bits={.SEEE_CBOOST_YCONST=4, .SEEE_CBOOST_YOFFSET=0, .SEEE_CBOOST_YOFFSET_SEL=0, .rsv_18=0}},
+    .pbc1_ctrl_1={.bits={.SEEE_PBC1_RADIUS_R=42, .rsv_6=0, .SEEE_PBC1_RSLOPE=85, .rsv_18=0, .SEEE_PBC1_RSLOPE_1=39, .SEEE_PBC1_EN=1, .SEEE_PBC_EN=0}},
+    .pbc1_ctrl_2={.bits={.SEEE_PBC1_TSLOPE=85, .SEEE_PBC1_THETA_R=24, .SEEE_PBC1_THETA_C=149, .SEEE_PBC1_RADIUS_C=48}},
+    .pbc1_ctrl_3={.bits={.SEEE_PBC1_LPF_GAIN=16, .SEEE_PBC1_LPF_EN=0, .SEEE_PBC1_EDGE_EN=0, .SEEE_PBC1_EDGE_SLOPE=8, .SEEE_PBC1_EDGE_THR=63, .SEEE_PBC1_CONF_GAIN=1, .SEEE_PBC1_GAIN=52}},
+    .pbc2_ctrl_1={.bits={.SEEE_PBC2_RADIUS_R=40, .rsv_6=0, .SEEE_PBC2_RSLOPE=43, .rsv_18=0, .SEEE_PBC2_RSLOPE_1=32, .SEEE_PBC2_EN=1, .rsv_31=0}},
+    .pbc2_ctrl_2={.bits={.SEEE_PBC2_TSLOPE=43, .SEEE_PBC2_THETA_R=24, .SEEE_PBC2_THETA_C=88, .SEEE_PBC2_RADIUS_C=48}},
+    .pbc2_ctrl_3={.bits={.SEEE_PBC2_LPF_GAIN=12, .SEEE_PBC2_LPF_EN=1, .SEEE_PBC2_EDGE_EN=1, .SEEE_PBC2_EDGE_SLOPE=24, .SEEE_PBC2_EDGE_THR=32, .SEEE_PBC2_CONF_GAIN=4, .SEEE_PBC2_GAIN=24}},
+    .pbc3_ctrl_1={.bits={.SEEE_PBC3_RADIUS_R=42, .rsv_6=0, .SEEE_PBC3_RSLOPE=32, .rsv_18=0, .SEEE_PBC3_RSLOPE_1=17, .SEEE_PBC3_EN=1, .rsv_31=0}},
+    .pbc3_ctrl_2={.bits={.SEEE_PBC3_TSLOPE=64, .SEEE_PBC3_THETA_R=32, .SEEE_PBC3_THETA_C=224, .SEEE_PBC3_RADIUS_C=60}},
+    .pbc3_ctrl_3={.bits={.SEEE_PBC3_LPF_GAIN=8, .SEEE_PBC3_LPF_EN=1, .SEEE_PBC3_EDGE_EN=1, .SEEE_PBC3_EDGE_SLOPE=24, .SEEE_PBC3_EDGE_THR=8, .SEEE_PBC3_CONF_GAIN=1, .SEEE_PBC3_GAIN=24}}
+
+};
+const ISP_NVRAM_EE_T ov16885mipiraw_EE_0071 = {
+        .blnd_ctrl_1={.bits={.SEEE_H1_DI_BLND_OFST=0, .SEEE_H2_DI_BLND_OFST=0, .SEEE_H3_DI_BLND_OFST=0, .rsv_24=0}},
+    .blnd_ctrl_2={.bits={.SEEE_H1_DI_BLND_SL=12, .SEEE_H2_DI_BLND_SL=12, .SEEE_H3_DI_BLND_SL=12, .SEEE_HX_ISO_BLND_RAT=3, .rsv_29=0}},
+    .core_ctrl ={.bits={.SEEE_H1_FLT_CORE_TH=0, .SEEE_H2_FLT_CORE_TH=0, .SEEE_H3_FLT_CORE_TH=0, .SEEE_FLT_CORE_TH=8}},
+    .gn_ctrl_1 ={.bits={.SEEE_H1_GN=10, .rsv_5=0, .SEEE_H2_GN=10, .rsv_13=0, .SEEE_H3_GN=13, .rsv_21=0}},
+    .luma_ctrl_1={.bits={.SEEE_LUMA_MOD_Y0=255, .rsv_9=0, .SEEE_LUMA_MOD_Y1=255, .rsv_19=0, .SEEE_LUMA_MOD_Y2=255, .rsv_29=0}},
+    .luma_ctrl_2={.bits={.SEEE_LUMA_MOD_Y3=255, .rsv_9=0, .SEEE_LUMA_MOD_Y4=255, .rsv_19=0, .SEEE_LUMA_MOD_Y5=255, .rsv_29=0}},
+    .luma_slnk_ctrl={.bits={.SEEE_SLNK_GN_Y1=255, .SEEE_SLNK_GN_Y2=255, .SEEE_RESP_SLNK_GN_RAT=16, .SEEE_GLUT_LINK_EN=0, .SEEE_LUMA_MOD_Y6=255, .rsv_31=0}},
+    .glut_ctrl_1={.bits={.SEEE_GLUT_S1=0, .SEEE_GLUT_X1=0, .SEEE_GLUT_Y1=85, .rsv_26=0}},
+    .glut_ctrl_2={.bits={.SEEE_GLUT_S2=41, .SEEE_GLUT_X2=36, .SEEE_GLUT_Y2=178, .rsv_26=0}},
+    .glut_ctrl_3={.bits={.SEEE_GLUT_S3=26, .SEEE_GLUT_X3=100, .SEEE_GLUT_Y3=281, .rsv_26=0}},
+    .glut_ctrl_4={.bits={.SEEE_GLUT_S4=12, .SEEE_GLUT_X4=150, .SEEE_GLUT_Y4=317, .rsv_26=0}},
+    .glut_ctrl_5={.bits={.SEEE_GLUT_S5=230, .rsv_8=0, .SEEE_GLUT_SL_DEC_Y=32, .rsv_26=0}},
+    .glut_ctrl_6={.bits={.SEEE_GLUT_TH_OVR=230, .SEEE_GLUT_TH_UND=230, .SEEE_GLUT_TH_MIN=0, .rsv_24=0}},
+    .artifact_ctrl={.bits={.SEEE_RESP_SMO_STR=4, .rsv_3=0, .SEEE_OVRSH_CLIP_STR=2, .rsv_7=0, .SEEE_DOT_REDUC_AMNT=128, .SEEE_DOT_TH=6, .rsv_24=0}},
+    .clip_ctrl ={.bits={.SEEE_RESP_CLIP=31, .SEEE_RESP_CLIP_LUMA_SPC_TH=50, .SEEE_RESP_CLIP_LUMA_LWB=50, .SEEE_RESP_CLIP_LUMA_UPB=100}},
+    .gn_ctrl_2 ={.bits={.SEEE_MASTER_GN_NEG=16, .SEEE_MASTER_GN_POS=16, .rsv_16=0}},
+    .st_ctrl_1 ={.bits={.SEEE_ST_UB=9, .SEEE_ST_LB=2, .rsv_16=0}},
+    .st_ctrl_2 ={.bits={.SEEE_ST_SL_CE=16, .SEEE_ST_OFST_CE=100, .SEEE_ST_SL_RESP=16, .SEEE_ST_OFST_RESP=255}},
+    .ct_ctrl   ={.bits={.SEEE_LUMA_LMT_DIFF=255, .SEEE_LUMA_CNTST_LV=0, .rsv_11=0, .SEEE_LUMA_MINI=4, .rsv_15=0, .SEEE_LUMA_MAXI=4, .rsv_19=0, .SEEE_CHR_CNTST_LV=0, .rsv_23=0, .SEEE_CHR_MINI=2, .rsv_26=0, .SEEE_CHR_MAXI=2, .rsv_30=0}},
+    .cboost_ctrl_1={.bits={.SEEE_CBOOST_LMT_U=255, .SEEE_CBOOST_LMT_L=64, .SEEE_CBOOST_GAIN=128, .SEEE_CBOOST_EN=0, .rsv_25=0}},
+    .cboost_ctrl_2={.bits={.SEEE_CBOOST_YCONST=4, .SEEE_CBOOST_YOFFSET=0, .SEEE_CBOOST_YOFFSET_SEL=0, .rsv_18=0}},
+    .pbc1_ctrl_1={.bits={.SEEE_PBC1_RADIUS_R=42, .rsv_6=0, .SEEE_PBC1_RSLOPE=85, .rsv_18=0, .SEEE_PBC1_RSLOPE_1=39, .SEEE_PBC1_EN=1, .SEEE_PBC_EN=0}},
+    .pbc1_ctrl_2={.bits={.SEEE_PBC1_TSLOPE=85, .SEEE_PBC1_THETA_R=24, .SEEE_PBC1_THETA_C=149, .SEEE_PBC1_RADIUS_C=48}},
+    .pbc1_ctrl_3={.bits={.SEEE_PBC1_LPF_GAIN=16, .SEEE_PBC1_LPF_EN=0, .SEEE_PBC1_EDGE_EN=0, .SEEE_PBC1_EDGE_SLOPE=8, .SEEE_PBC1_EDGE_THR=63, .SEEE_PBC1_CONF_GAIN=1, .SEEE_PBC1_GAIN=52}},
+    .pbc2_ctrl_1={.bits={.SEEE_PBC2_RADIUS_R=40, .rsv_6=0, .SEEE_PBC2_RSLOPE=43, .rsv_18=0, .SEEE_PBC2_RSLOPE_1=32, .SEEE_PBC2_EN=1, .rsv_31=0}},
+    .pbc2_ctrl_2={.bits={.SEEE_PBC2_TSLOPE=43, .SEEE_PBC2_THETA_R=24, .SEEE_PBC2_THETA_C=88, .SEEE_PBC2_RADIUS_C=48}},
+    .pbc2_ctrl_3={.bits={.SEEE_PBC2_LPF_GAIN=12, .SEEE_PBC2_LPF_EN=1, .SEEE_PBC2_EDGE_EN=1, .SEEE_PBC2_EDGE_SLOPE=24, .SEEE_PBC2_EDGE_THR=32, .SEEE_PBC2_CONF_GAIN=4, .SEEE_PBC2_GAIN=24}},
+    .pbc3_ctrl_1={.bits={.SEEE_PBC3_RADIUS_R=42, .rsv_6=0, .SEEE_PBC3_RSLOPE=32, .rsv_18=0, .SEEE_PBC3_RSLOPE_1=17, .SEEE_PBC3_EN=1, .rsv_31=0}},
+    .pbc3_ctrl_2={.bits={.SEEE_PBC3_TSLOPE=64, .SEEE_PBC3_THETA_R=32, .SEEE_PBC3_THETA_C=224, .SEEE_PBC3_RADIUS_C=60}},
+    .pbc3_ctrl_3={.bits={.SEEE_PBC3_LPF_GAIN=8, .SEEE_PBC3_LPF_EN=1, .SEEE_PBC3_EDGE_EN=1, .SEEE_PBC3_EDGE_SLOPE=24, .SEEE_PBC3_EDGE_THR=8, .SEEE_PBC3_CONF_GAIN=1, .SEEE_PBC3_GAIN=24}}
+
+};
+const ISP_NVRAM_EE_T ov16885mipiraw_EE_0072 = {
+        .blnd_ctrl_1={.bits={.SEEE_H1_DI_BLND_OFST=0, .SEEE_H2_DI_BLND_OFST=0, .SEEE_H3_DI_BLND_OFST=0, .rsv_24=0}},
+    .blnd_ctrl_2={.bits={.SEEE_H1_DI_BLND_SL=12, .SEEE_H2_DI_BLND_SL=12, .SEEE_H3_DI_BLND_SL=12, .SEEE_HX_ISO_BLND_RAT=3, .rsv_29=0}},
+    .core_ctrl ={.bits={.SEEE_H1_FLT_CORE_TH=0, .SEEE_H2_FLT_CORE_TH=0, .SEEE_H3_FLT_CORE_TH=0, .SEEE_FLT_CORE_TH=8}},
+    .gn_ctrl_1 ={.bits={.SEEE_H1_GN=10, .rsv_5=0, .SEEE_H2_GN=10, .rsv_13=0, .SEEE_H3_GN=13, .rsv_21=0}},
+    .luma_ctrl_1={.bits={.SEEE_LUMA_MOD_Y0=255, .rsv_9=0, .SEEE_LUMA_MOD_Y1=255, .rsv_19=0, .SEEE_LUMA_MOD_Y2=255, .rsv_29=0}},
+    .luma_ctrl_2={.bits={.SEEE_LUMA_MOD_Y3=255, .rsv_9=0, .SEEE_LUMA_MOD_Y4=255, .rsv_19=0, .SEEE_LUMA_MOD_Y5=255, .rsv_29=0}},
+    .luma_slnk_ctrl={.bits={.SEEE_SLNK_GN_Y1=255, .SEEE_SLNK_GN_Y2=255, .SEEE_RESP_SLNK_GN_RAT=16, .SEEE_GLUT_LINK_EN=0, .SEEE_LUMA_MOD_Y6=255, .rsv_31=0}},
+    .glut_ctrl_1={.bits={.SEEE_GLUT_S1=0, .SEEE_GLUT_X1=0, .SEEE_GLUT_Y1=94, .rsv_26=0}},
+    .glut_ctrl_2={.bits={.SEEE_GLUT_S2=39, .SEEE_GLUT_X2=40, .SEEE_GLUT_Y2=192, .rsv_26=0}},
+    .glut_ctrl_3={.bits={.SEEE_GLUT_S3=20, .SEEE_GLUT_X3=100, .SEEE_GLUT_Y3=267, .rsv_26=0}},
+    .glut_ctrl_4={.bits={.SEEE_GLUT_S4=12, .SEEE_GLUT_X4=150, .SEEE_GLUT_Y4=304, .rsv_26=0}},
+    .glut_ctrl_5={.bits={.SEEE_GLUT_S5=225, .rsv_8=0, .SEEE_GLUT_SL_DEC_Y=32, .rsv_26=0}},
+    .glut_ctrl_6={.bits={.SEEE_GLUT_TH_OVR=230, .SEEE_GLUT_TH_UND=230, .SEEE_GLUT_TH_MIN=0, .rsv_24=0}},
+    .artifact_ctrl={.bits={.SEEE_RESP_SMO_STR=4, .rsv_3=0, .SEEE_OVRSH_CLIP_STR=2, .rsv_7=0, .SEEE_DOT_REDUC_AMNT=128, .SEEE_DOT_TH=6, .rsv_24=0}},
+    .clip_ctrl ={.bits={.SEEE_RESP_CLIP=29, .SEEE_RESP_CLIP_LUMA_SPC_TH=50, .SEEE_RESP_CLIP_LUMA_LWB=50, .SEEE_RESP_CLIP_LUMA_UPB=100}},
+    .gn_ctrl_2 ={.bits={.SEEE_MASTER_GN_NEG=16, .SEEE_MASTER_GN_POS=16, .rsv_16=0}},
+    .st_ctrl_1 ={.bits={.SEEE_ST_UB=9, .SEEE_ST_LB=2, .rsv_16=0}},
+    .st_ctrl_2 ={.bits={.SEEE_ST_SL_CE=16, .SEEE_ST_OFST_CE=100, .SEEE_ST_SL_RESP=16, .SEEE_ST_OFST_RESP=255}},
+    .ct_ctrl   ={.bits={.SEEE_LUMA_LMT_DIFF=255, .SEEE_LUMA_CNTST_LV=0, .rsv_11=0, .SEEE_LUMA_MINI=4, .rsv_15=0, .SEEE_LUMA_MAXI=4, .rsv_19=0, .SEEE_CHR_CNTST_LV=0, .rsv_23=0, .SEEE_CHR_MINI=2, .rsv_26=0, .SEEE_CHR_MAXI=2, .rsv_30=0}},
+    .cboost_ctrl_1={.bits={.SEEE_CBOOST_LMT_U=255, .SEEE_CBOOST_LMT_L=64, .SEEE_CBOOST_GAIN=128, .SEEE_CBOOST_EN=0, .rsv_25=0}},
+    .cboost_ctrl_2={.bits={.SEEE_CBOOST_YCONST=4, .SEEE_CBOOST_YOFFSET=0, .SEEE_CBOOST_YOFFSET_SEL=0, .rsv_18=0}},
+    .pbc1_ctrl_1={.bits={.SEEE_PBC1_RADIUS_R=42, .rsv_6=0, .SEEE_PBC1_RSLOPE=85, .rsv_18=0, .SEEE_PBC1_RSLOPE_1=39, .SEEE_PBC1_EN=1, .SEEE_PBC_EN=0}},
+    .pbc1_ctrl_2={.bits={.SEEE_PBC1_TSLOPE=85, .SEEE_PBC1_THETA_R=24, .SEEE_PBC1_THETA_C=149, .SEEE_PBC1_RADIUS_C=48}},
+    .pbc1_ctrl_3={.bits={.SEEE_PBC1_LPF_GAIN=16, .SEEE_PBC1_LPF_EN=0, .SEEE_PBC1_EDGE_EN=0, .SEEE_PBC1_EDGE_SLOPE=8, .SEEE_PBC1_EDGE_THR=63, .SEEE_PBC1_CONF_GAIN=1, .SEEE_PBC1_GAIN=52}},
+    .pbc2_ctrl_1={.bits={.SEEE_PBC2_RADIUS_R=40, .rsv_6=0, .SEEE_PBC2_RSLOPE=43, .rsv_18=0, .SEEE_PBC2_RSLOPE_1=32, .SEEE_PBC2_EN=1, .rsv_31=0}},
+    .pbc2_ctrl_2={.bits={.SEEE_PBC2_TSLOPE=43, .SEEE_PBC2_THETA_R=24, .SEEE_PBC2_THETA_C=88, .SEEE_PBC2_RADIUS_C=48}},
+    .pbc2_ctrl_3={.bits={.SEEE_PBC2_LPF_GAIN=12, .SEEE_PBC2_LPF_EN=1, .SEEE_PBC2_EDGE_EN=1, .SEEE_PBC2_EDGE_SLOPE=24, .SEEE_PBC2_EDGE_THR=32, .SEEE_PBC2_CONF_GAIN=4, .SEEE_PBC2_GAIN=24}},
+    .pbc3_ctrl_1={.bits={.SEEE_PBC3_RADIUS_R=42, .rsv_6=0, .SEEE_PBC3_RSLOPE=32, .rsv_18=0, .SEEE_PBC3_RSLOPE_1=17, .SEEE_PBC3_EN=1, .rsv_31=0}},
+    .pbc3_ctrl_2={.bits={.SEEE_PBC3_TSLOPE=64, .SEEE_PBC3_THETA_R=32, .SEEE_PBC3_THETA_C=224, .SEEE_PBC3_RADIUS_C=60}},
+    .pbc3_ctrl_3={.bits={.SEEE_PBC3_LPF_GAIN=8, .SEEE_PBC3_LPF_EN=1, .SEEE_PBC3_EDGE_EN=1, .SEEE_PBC3_EDGE_SLOPE=24, .SEEE_PBC3_EDGE_THR=8, .SEEE_PBC3_CONF_GAIN=1, .SEEE_PBC3_GAIN=24}}
+
+};
+const ISP_NVRAM_EE_T ov16885mipiraw_EE_0073 = {
+        .blnd_ctrl_1={.bits={.SEEE_H1_DI_BLND_OFST=0, .SEEE_H2_DI_BLND_OFST=0, .SEEE_H3_DI_BLND_OFST=0, .rsv_24=0}},
+    .blnd_ctrl_2={.bits={.SEEE_H1_DI_BLND_SL=12, .SEEE_H2_DI_BLND_SL=12, .SEEE_H3_DI_BLND_SL=12, .SEEE_HX_ISO_BLND_RAT=3, .rsv_29=0}},
+    .core_ctrl ={.bits={.SEEE_H1_FLT_CORE_TH=0, .SEEE_H2_FLT_CORE_TH=0, .SEEE_H3_FLT_CORE_TH=0, .SEEE_FLT_CORE_TH=8}},
+    .gn_ctrl_1 ={.bits={.SEEE_H1_GN=10, .rsv_5=0, .SEEE_H2_GN=10, .rsv_13=0, .SEEE_H3_GN=14, .rsv_21=0}},
+    .luma_ctrl_1={.bits={.SEEE_LUMA_MOD_Y0=255, .rsv_9=0, .SEEE_LUMA_MOD_Y1=255, .rsv_19=0, .SEEE_LUMA_MOD_Y2=255, .rsv_29=0}},
+    .luma_ctrl_2={.bits={.SEEE_LUMA_MOD_Y3=255, .rsv_9=0, .SEEE_LUMA_MOD_Y4=255, .rsv_19=0, .SEEE_LUMA_MOD_Y5=255, .rsv_29=0}},
+    .luma_slnk_ctrl={.bits={.SEEE_SLNK_GN_Y1=255, .SEEE_SLNK_GN_Y2=255, .SEEE_RESP_SLNK_GN_RAT=16, .SEEE_GLUT_LINK_EN=0, .SEEE_LUMA_MOD_Y6=255, .rsv_31=0}},
+    .glut_ctrl_1={.bits={.SEEE_GLUT_S1=0, .SEEE_GLUT_X1=0, .SEEE_GLUT_Y1=91, .rsv_26=0}},
+    .glut_ctrl_2={.bits={.SEEE_GLUT_S2=39, .SEEE_GLUT_X2=40, .SEEE_GLUT_Y2=189, .rsv_26=0}},
+    .glut_ctrl_3={.bits={.SEEE_GLUT_S3=20, .SEEE_GLUT_X3=100, .SEEE_GLUT_Y3=264, .rsv_26=0}},
+    .glut_ctrl_4={.bits={.SEEE_GLUT_S4=12, .SEEE_GLUT_X4=150, .SEEE_GLUT_Y4=302, .rsv_26=0}},
+    .glut_ctrl_5={.bits={.SEEE_GLUT_S5=225, .rsv_8=0, .SEEE_GLUT_SL_DEC_Y=32, .rsv_26=0}},
+    .glut_ctrl_6={.bits={.SEEE_GLUT_TH_OVR=230, .SEEE_GLUT_TH_UND=230, .SEEE_GLUT_TH_MIN=0, .rsv_24=0}},
+    .artifact_ctrl={.bits={.SEEE_RESP_SMO_STR=4, .rsv_3=0, .SEEE_OVRSH_CLIP_STR=2, .rsv_7=0, .SEEE_DOT_REDUC_AMNT=128, .SEEE_DOT_TH=6, .rsv_24=0}},
+    .clip_ctrl ={.bits={.SEEE_RESP_CLIP=21, .SEEE_RESP_CLIP_LUMA_SPC_TH=50, .SEEE_RESP_CLIP_LUMA_LWB=50, .SEEE_RESP_CLIP_LUMA_UPB=100}},
+    .gn_ctrl_2 ={.bits={.SEEE_MASTER_GN_NEG=16, .SEEE_MASTER_GN_POS=16, .rsv_16=0}},
+    .st_ctrl_1 ={.bits={.SEEE_ST_UB=9, .SEEE_ST_LB=2, .rsv_16=0}},
+    .st_ctrl_2 ={.bits={.SEEE_ST_SL_CE=16, .SEEE_ST_OFST_CE=100, .SEEE_ST_SL_RESP=16, .SEEE_ST_OFST_RESP=255}},
+    .ct_ctrl   ={.bits={.SEEE_LUMA_LMT_DIFF=255, .SEEE_LUMA_CNTST_LV=0, .rsv_11=0, .SEEE_LUMA_MINI=4, .rsv_15=0, .SEEE_LUMA_MAXI=4, .rsv_19=0, .SEEE_CHR_CNTST_LV=0, .rsv_23=0, .SEEE_CHR_MINI=2, .rsv_26=0, .SEEE_CHR_MAXI=2, .rsv_30=0}},
+    .cboost_ctrl_1={.bits={.SEEE_CBOOST_LMT_U=255, .SEEE_CBOOST_LMT_L=64, .SEEE_CBOOST_GAIN=128, .SEEE_CBOOST_EN=0, .rsv_25=0}},
+    .cboost_ctrl_2={.bits={.SEEE_CBOOST_YCONST=4, .SEEE_CBOOST_YOFFSET=0, .SEEE_CBOOST_YOFFSET_SEL=0, .rsv_18=0}},
+    .pbc1_ctrl_1={.bits={.SEEE_PBC1_RADIUS_R=42, .rsv_6=0, .SEEE_PBC1_RSLOPE=85, .rsv_18=0, .SEEE_PBC1_RSLOPE_1=39, .SEEE_PBC1_EN=1, .SEEE_PBC_EN=0}},
+    .pbc1_ctrl_2={.bits={.SEEE_PBC1_TSLOPE=85, .SEEE_PBC1_THETA_R=24, .SEEE_PBC1_THETA_C=149, .SEEE_PBC1_RADIUS_C=48}},
+    .pbc1_ctrl_3={.bits={.SEEE_PBC1_LPF_GAIN=16, .SEEE_PBC1_LPF_EN=0, .SEEE_PBC1_EDGE_EN=0, .SEEE_PBC1_EDGE_SLOPE=8, .SEEE_PBC1_EDGE_THR=63, .SEEE_PBC1_CONF_GAIN=1, .SEEE_PBC1_GAIN=52}},
+    .pbc2_ctrl_1={.bits={.SEEE_PBC2_RADIUS_R=40, .rsv_6=0, .SEEE_PBC2_RSLOPE=43, .rsv_18=0, .SEEE_PBC2_RSLOPE_1=32, .SEEE_PBC2_EN=1, .rsv_31=0}},
+    .pbc2_ctrl_2={.bits={.SEEE_PBC2_TSLOPE=43, .SEEE_PBC2_THETA_R=24, .SEEE_PBC2_THETA_C=88, .SEEE_PBC2_RADIUS_C=48}},
+    .pbc2_ctrl_3={.bits={.SEEE_PBC2_LPF_GAIN=12, .SEEE_PBC2_LPF_EN=1, .SEEE_PBC2_EDGE_EN=1, .SEEE_PBC2_EDGE_SLOPE=24, .SEEE_PBC2_EDGE_THR=32, .SEEE_PBC2_CONF_GAIN=4, .SEEE_PBC2_GAIN=24}},
+    .pbc3_ctrl_1={.bits={.SEEE_PBC3_RADIUS_R=42, .rsv_6=0, .SEEE_PBC3_RSLOPE=32, .rsv_18=0, .SEEE_PBC3_RSLOPE_1=17, .SEEE_PBC3_EN=1, .rsv_31=0}},
+    .pbc3_ctrl_2={.bits={.SEEE_PBC3_TSLOPE=64, .SEEE_PBC3_THETA_R=32, .SEEE_PBC3_THETA_C=224, .SEEE_PBC3_RADIUS_C=60}},
+    .pbc3_ctrl_3={.bits={.SEEE_PBC3_LPF_GAIN=8, .SEEE_PBC3_LPF_EN=1, .SEEE_PBC3_EDGE_EN=1, .SEEE_PBC3_EDGE_SLOPE=24, .SEEE_PBC3_EDGE_THR=8, .SEEE_PBC3_CONF_GAIN=1, .SEEE_PBC3_GAIN=24}}
+
+};
+const ISP_NVRAM_EE_T ov16885mipiraw_EE_0074 = {
+        .blnd_ctrl_1={.bits={.SEEE_H1_DI_BLND_OFST=0, .SEEE_H2_DI_BLND_OFST=0, .SEEE_H3_DI_BLND_OFST=0, .rsv_24=0}},
+    .blnd_ctrl_2={.bits={.SEEE_H1_DI_BLND_SL=12, .SEEE_H2_DI_BLND_SL=12, .SEEE_H3_DI_BLND_SL=12, .SEEE_HX_ISO_BLND_RAT=3, .rsv_29=0}},
+    .core_ctrl ={.bits={.SEEE_H1_FLT_CORE_TH=0, .SEEE_H2_FLT_CORE_TH=0, .SEEE_H3_FLT_CORE_TH=0, .SEEE_FLT_CORE_TH=8}},
+    .gn_ctrl_1 ={.bits={.SEEE_H1_GN=10, .rsv_5=0, .SEEE_H2_GN=10, .rsv_13=0, .SEEE_H3_GN=14, .rsv_21=0}},
+    .luma_ctrl_1={.bits={.SEEE_LUMA_MOD_Y0=255, .rsv_9=0, .SEEE_LUMA_MOD_Y1=255, .rsv_19=0, .SEEE_LUMA_MOD_Y2=255, .rsv_29=0}},
+    .luma_ctrl_2={.bits={.SEEE_LUMA_MOD_Y3=255, .rsv_9=0, .SEEE_LUMA_MOD_Y4=255, .rsv_19=0, .SEEE_LUMA_MOD_Y5=255, .rsv_29=0}},
+    .luma_slnk_ctrl={.bits={.SEEE_SLNK_GN_Y1=255, .SEEE_SLNK_GN_Y2=255, .SEEE_RESP_SLNK_GN_RAT=16, .SEEE_GLUT_LINK_EN=0, .SEEE_LUMA_MOD_Y6=255, .rsv_31=0}},
+    .glut_ctrl_1={.bits={.SEEE_GLUT_S1=0, .SEEE_GLUT_X1=0, .SEEE_GLUT_Y1=89, .rsv_26=0}},
+    .glut_ctrl_2={.bits={.SEEE_GLUT_S2=40, .SEEE_GLUT_X2=40, .SEEE_GLUT_Y2=188, .rsv_26=0}},
+    .glut_ctrl_3={.bits={.SEEE_GLUT_S3=20, .SEEE_GLUT_X3=100, .SEEE_GLUT_Y3=263, .rsv_26=0}},
+    .glut_ctrl_4={.bits={.SEEE_GLUT_S4=12, .SEEE_GLUT_X4=150, .SEEE_GLUT_Y4=301, .rsv_26=0}},
+    .glut_ctrl_5={.bits={.SEEE_GLUT_S5=225, .rsv_8=0, .SEEE_GLUT_SL_DEC_Y=32, .rsv_26=0}},
+    .glut_ctrl_6={.bits={.SEEE_GLUT_TH_OVR=230, .SEEE_GLUT_TH_UND=230, .SEEE_GLUT_TH_MIN=0, .rsv_24=0}},
+    .artifact_ctrl={.bits={.SEEE_RESP_SMO_STR=4, .rsv_3=0, .SEEE_OVRSH_CLIP_STR=2, .rsv_7=0, .SEEE_DOT_REDUC_AMNT=128, .SEEE_DOT_TH=6, .rsv_24=0}},
+    .clip_ctrl ={.bits={.SEEE_RESP_CLIP=21, .SEEE_RESP_CLIP_LUMA_SPC_TH=50, .SEEE_RESP_CLIP_LUMA_LWB=50, .SEEE_RESP_CLIP_LUMA_UPB=100}},
+    .gn_ctrl_2 ={.bits={.SEEE_MASTER_GN_NEG=16, .SEEE_MASTER_GN_POS=16, .rsv_16=0}},
+    .st_ctrl_1 ={.bits={.SEEE_ST_UB=9, .SEEE_ST_LB=2, .rsv_16=0}},
+    .st_ctrl_2 ={.bits={.SEEE_ST_SL_CE=16, .SEEE_ST_OFST_CE=100, .SEEE_ST_SL_RESP=16, .SEEE_ST_OFST_RESP=255}},
+    .ct_ctrl   ={.bits={.SEEE_LUMA_LMT_DIFF=255, .SEEE_LUMA_CNTST_LV=0, .rsv_11=0, .SEEE_LUMA_MINI=4, .rsv_15=0, .SEEE_LUMA_MAXI=4, .rsv_19=0, .SEEE_CHR_CNTST_LV=0, .rsv_23=0, .SEEE_CHR_MINI=2, .rsv_26=0, .SEEE_CHR_MAXI=2, .rsv_30=0}},
+    .cboost_ctrl_1={.bits={.SEEE_CBOOST_LMT_U=255, .SEEE_CBOOST_LMT_L=64, .SEEE_CBOOST_GAIN=128, .SEEE_CBOOST_EN=0, .rsv_25=0}},
+    .cboost_ctrl_2={.bits={.SEEE_CBOOST_YCONST=4, .SEEE_CBOOST_YOFFSET=0, .SEEE_CBOOST_YOFFSET_SEL=0, .rsv_18=0}},
+    .pbc1_ctrl_1={.bits={.SEEE_PBC1_RADIUS_R=42, .rsv_6=0, .SEEE_PBC1_RSLOPE=85, .rsv_18=0, .SEEE_PBC1_RSLOPE_1=39, .SEEE_PBC1_EN=1, .SEEE_PBC_EN=0}},
+    .pbc1_ctrl_2={.bits={.SEEE_PBC1_TSLOPE=85, .SEEE_PBC1_THETA_R=24, .SEEE_PBC1_THETA_C=149, .SEEE_PBC1_RADIUS_C=48}},
+    .pbc1_ctrl_3={.bits={.SEEE_PBC1_LPF_GAIN=16, .SEEE_PBC1_LPF_EN=0, .SEEE_PBC1_EDGE_EN=0, .SEEE_PBC1_EDGE_SLOPE=8, .SEEE_PBC1_EDGE_THR=63, .SEEE_PBC1_CONF_GAIN=1, .SEEE_PBC1_GAIN=52}},
+    .pbc2_ctrl_1={.bits={.SEEE_PBC2_RADIUS_R=40, .rsv_6=0, .SEEE_PBC2_RSLOPE=43, .rsv_18=0, .SEEE_PBC2_RSLOPE_1=32, .SEEE_PBC2_EN=1, .rsv_31=0}},
+    .pbc2_ctrl_2={.bits={.SEEE_PBC2_TSLOPE=43, .SEEE_PBC2_THETA_R=24, .SEEE_PBC2_THETA_C=88, .SEEE_PBC2_RADIUS_C=48}},
+    .pbc2_ctrl_3={.bits={.SEEE_PBC2_LPF_GAIN=12, .SEEE_PBC2_LPF_EN=1, .SEEE_PBC2_EDGE_EN=1, .SEEE_PBC2_EDGE_SLOPE=24, .SEEE_PBC2_EDGE_THR=32, .SEEE_PBC2_CONF_GAIN=4, .SEEE_PBC2_GAIN=24}},
+    .pbc3_ctrl_1={.bits={.SEEE_PBC3_RADIUS_R=42, .rsv_6=0, .SEEE_PBC3_RSLOPE=32, .rsv_18=0, .SEEE_PBC3_RSLOPE_1=17, .SEEE_PBC3_EN=1, .rsv_31=0}},
+    .pbc3_ctrl_2={.bits={.SEEE_PBC3_TSLOPE=64, .SEEE_PBC3_THETA_R=32, .SEEE_PBC3_THETA_C=224, .SEEE_PBC3_RADIUS_C=60}},
+    .pbc3_ctrl_3={.bits={.SEEE_PBC3_LPF_GAIN=8, .SEEE_PBC3_LPF_EN=1, .SEEE_PBC3_EDGE_EN=1, .SEEE_PBC3_EDGE_SLOPE=24, .SEEE_PBC3_EDGE_THR=8, .SEEE_PBC3_CONF_GAIN=1, .SEEE_PBC3_GAIN=24}}
+
+};
+const ISP_NVRAM_EE_T ov16885mipiraw_EE_0075 = {
+        .blnd_ctrl_1={.bits={.SEEE_H1_DI_BLND_OFST=0, .SEEE_H2_DI_BLND_OFST=0, .SEEE_H3_DI_BLND_OFST=0, .rsv_24=0}},
+    .blnd_ctrl_2={.bits={.SEEE_H1_DI_BLND_SL=12, .SEEE_H2_DI_BLND_SL=12, .SEEE_H3_DI_BLND_SL=12, .SEEE_HX_ISO_BLND_RAT=3, .rsv_29=0}},
+    .core_ctrl ={.bits={.SEEE_H1_FLT_CORE_TH=0, .SEEE_H2_FLT_CORE_TH=0, .SEEE_H3_FLT_CORE_TH=0, .SEEE_FLT_CORE_TH=8}},
+    .gn_ctrl_1 ={.bits={.SEEE_H1_GN=10, .rsv_5=0, .SEEE_H2_GN=10, .rsv_13=0, .SEEE_H3_GN=13, .rsv_21=0}},
+    .luma_ctrl_1={.bits={.SEEE_LUMA_MOD_Y0=255, .rsv_9=0, .SEEE_LUMA_MOD_Y1=255, .rsv_19=0, .SEEE_LUMA_MOD_Y2=255, .rsv_29=0}},
+    .luma_ctrl_2={.bits={.SEEE_LUMA_MOD_Y3=255, .rsv_9=0, .SEEE_LUMA_MOD_Y4=255, .rsv_19=0, .SEEE_LUMA_MOD_Y5=255, .rsv_29=0}},
+    .luma_slnk_ctrl={.bits={.SEEE_SLNK_GN_Y1=255, .SEEE_SLNK_GN_Y2=255, .SEEE_RESP_SLNK_GN_RAT=16, .SEEE_GLUT_LINK_EN=0, .SEEE_LUMA_MOD_Y6=255, .rsv_31=0}},
+    .glut_ctrl_1={.bits={.SEEE_GLUT_S1=0, .SEEE_GLUT_X1=0, .SEEE_GLUT_Y1=88, .rsv_26=0}},
+    .glut_ctrl_2={.bits={.SEEE_GLUT_S2=40, .SEEE_GLUT_X2=40, .SEEE_GLUT_Y2=187, .rsv_26=0}},
+    .glut_ctrl_3={.bits={.SEEE_GLUT_S3=20, .SEEE_GLUT_X3=100, .SEEE_GLUT_Y3=262, .rsv_26=0}},
+    .glut_ctrl_4={.bits={.SEEE_GLUT_S4=12, .SEEE_GLUT_X4=150, .SEEE_GLUT_Y4=300, .rsv_26=0}},
+    .glut_ctrl_5={.bits={.SEEE_GLUT_S5=225, .rsv_8=0, .SEEE_GLUT_SL_DEC_Y=32, .rsv_26=0}},
+    .glut_ctrl_6={.bits={.SEEE_GLUT_TH_OVR=230, .SEEE_GLUT_TH_UND=230, .SEEE_GLUT_TH_MIN=0, .rsv_24=0}},
+    .artifact_ctrl={.bits={.SEEE_RESP_SMO_STR=4, .rsv_3=0, .SEEE_OVRSH_CLIP_STR=2, .rsv_7=0, .SEEE_DOT_REDUC_AMNT=128, .SEEE_DOT_TH=6, .rsv_24=0}},
+    .clip_ctrl ={.bits={.SEEE_RESP_CLIP=20, .SEEE_RESP_CLIP_LUMA_SPC_TH=50, .SEEE_RESP_CLIP_LUMA_LWB=50, .SEEE_RESP_CLIP_LUMA_UPB=100}},
+    .gn_ctrl_2 ={.bits={.SEEE_MASTER_GN_NEG=16, .SEEE_MASTER_GN_POS=16, .rsv_16=0}},
+    .st_ctrl_1 ={.bits={.SEEE_ST_UB=9, .SEEE_ST_LB=2, .rsv_16=0}},
+    .st_ctrl_2 ={.bits={.SEEE_ST_SL_CE=16, .SEEE_ST_OFST_CE=100, .SEEE_ST_SL_RESP=16, .SEEE_ST_OFST_RESP=255}},
+    .ct_ctrl   ={.bits={.SEEE_LUMA_LMT_DIFF=255, .SEEE_LUMA_CNTST_LV=0, .rsv_11=0, .SEEE_LUMA_MINI=4, .rsv_15=0, .SEEE_LUMA_MAXI=4, .rsv_19=0, .SEEE_CHR_CNTST_LV=0, .rsv_23=0, .SEEE_CHR_MINI=2, .rsv_26=0, .SEEE_CHR_MAXI=2, .rsv_30=0}},
+    .cboost_ctrl_1={.bits={.SEEE_CBOOST_LMT_U=255, .SEEE_CBOOST_LMT_L=64, .SEEE_CBOOST_GAIN=128, .SEEE_CBOOST_EN=0, .rsv_25=0}},
+    .cboost_ctrl_2={.bits={.SEEE_CBOOST_YCONST=4, .SEEE_CBOOST_YOFFSET=0, .SEEE_CBOOST_YOFFSET_SEL=0, .rsv_18=0}},
+    .pbc1_ctrl_1={.bits={.SEEE_PBC1_RADIUS_R=42, .rsv_6=0, .SEEE_PBC1_RSLOPE=85, .rsv_18=0, .SEEE_PBC1_RSLOPE_1=39, .SEEE_PBC1_EN=1, .SEEE_PBC_EN=0}},
+    .pbc1_ctrl_2={.bits={.SEEE_PBC1_TSLOPE=85, .SEEE_PBC1_THETA_R=24, .SEEE_PBC1_THETA_C=149, .SEEE_PBC1_RADIUS_C=48}},
+    .pbc1_ctrl_3={.bits={.SEEE_PBC1_LPF_GAIN=16, .SEEE_PBC1_LPF_EN=0, .SEEE_PBC1_EDGE_EN=0, .SEEE_PBC1_EDGE_SLOPE=8, .SEEE_PBC1_EDGE_THR=63, .SEEE_PBC1_CONF_GAIN=1, .SEEE_PBC1_GAIN=52}},
+    .pbc2_ctrl_1={.bits={.SEEE_PBC2_RADIUS_R=40, .rsv_6=0, .SEEE_PBC2_RSLOPE=43, .rsv_18=0, .SEEE_PBC2_RSLOPE_1=32, .SEEE_PBC2_EN=1, .rsv_31=0}},
+    .pbc2_ctrl_2={.bits={.SEEE_PBC2_TSLOPE=43, .SEEE_PBC2_THETA_R=24, .SEEE_PBC2_THETA_C=88, .SEEE_PBC2_RADIUS_C=48}},
+    .pbc2_ctrl_3={.bits={.SEEE_PBC2_LPF_GAIN=12, .SEEE_PBC2_LPF_EN=1, .SEEE_PBC2_EDGE_EN=1, .SEEE_PBC2_EDGE_SLOPE=24, .SEEE_PBC2_EDGE_THR=32, .SEEE_PBC2_CONF_GAIN=4, .SEEE_PBC2_GAIN=24}},
+    .pbc3_ctrl_1={.bits={.SEEE_PBC3_RADIUS_R=42, .rsv_6=0, .SEEE_PBC3_RSLOPE=32, .rsv_18=0, .SEEE_PBC3_RSLOPE_1=17, .SEEE_PBC3_EN=1, .rsv_31=0}},
+    .pbc3_ctrl_2={.bits={.SEEE_PBC3_TSLOPE=64, .SEEE_PBC3_THETA_R=32, .SEEE_PBC3_THETA_C=224, .SEEE_PBC3_RADIUS_C=60}},
+    .pbc3_ctrl_3={.bits={.SEEE_PBC3_LPF_GAIN=8, .SEEE_PBC3_LPF_EN=1, .SEEE_PBC3_EDGE_EN=1, .SEEE_PBC3_EDGE_SLOPE=24, .SEEE_PBC3_EDGE_THR=8, .SEEE_PBC3_CONF_GAIN=1, .SEEE_PBC3_GAIN=24}}
+
+};
+const ISP_NVRAM_EE_T ov16885mipiraw_EE_0076 = {
+        .blnd_ctrl_1={.bits={.SEEE_H1_DI_BLND_OFST=0, .SEEE_H2_DI_BLND_OFST=0, .SEEE_H3_DI_BLND_OFST=0, .rsv_24=0}},
+    .blnd_ctrl_2={.bits={.SEEE_H1_DI_BLND_SL=12, .SEEE_H2_DI_BLND_SL=12, .SEEE_H3_DI_BLND_SL=12, .SEEE_HX_ISO_BLND_RAT=3, .rsv_29=0}},
+    .core_ctrl ={.bits={.SEEE_H1_FLT_CORE_TH=0, .SEEE_H2_FLT_CORE_TH=0, .SEEE_H3_FLT_CORE_TH=0, .SEEE_FLT_CORE_TH=8}},
+    .gn_ctrl_1 ={.bits={.SEEE_H1_GN=10, .rsv_5=0, .SEEE_H2_GN=10, .rsv_13=0, .SEEE_H3_GN=13, .rsv_21=0}},
+    .luma_ctrl_1={.bits={.SEEE_LUMA_MOD_Y0=255, .rsv_9=0, .SEEE_LUMA_MOD_Y1=255, .rsv_19=0, .SEEE_LUMA_MOD_Y2=255, .rsv_29=0}},
+    .luma_ctrl_2={.bits={.SEEE_LUMA_MOD_Y3=255, .rsv_9=0, .SEEE_LUMA_MOD_Y4=255, .rsv_19=0, .SEEE_LUMA_MOD_Y5=255, .rsv_29=0}},
+    .luma_slnk_ctrl={.bits={.SEEE_SLNK_GN_Y1=255, .SEEE_SLNK_GN_Y2=255, .SEEE_RESP_SLNK_GN_RAT=16, .SEEE_GLUT_LINK_EN=0, .SEEE_LUMA_MOD_Y6=255, .rsv_31=0}},
+    .glut_ctrl_1={.bits={.SEEE_GLUT_S1=0, .SEEE_GLUT_X1=0, .SEEE_GLUT_Y1=86, .rsv_26=0}},
+    .glut_ctrl_2={.bits={.SEEE_GLUT_S2=40, .SEEE_GLUT_X2=40, .SEEE_GLUT_Y2=186, .rsv_26=0}},
+    .glut_ctrl_3={.bits={.SEEE_GLUT_S3=20, .SEEE_GLUT_X3=100, .SEEE_GLUT_Y3=261, .rsv_26=0}},
+    .glut_ctrl_4={.bits={.SEEE_GLUT_S4=12, .SEEE_GLUT_X4=150, .SEEE_GLUT_Y4=299, .rsv_26=0}},
+    .glut_ctrl_5={.bits={.SEEE_GLUT_S5=225, .rsv_8=0, .SEEE_GLUT_SL_DEC_Y=32, .rsv_26=0}},
+    .glut_ctrl_6={.bits={.SEEE_GLUT_TH_OVR=230, .SEEE_GLUT_TH_UND=230, .SEEE_GLUT_TH_MIN=0, .rsv_24=0}},
+    .artifact_ctrl={.bits={.SEEE_RESP_SMO_STR=4, .rsv_3=0, .SEEE_OVRSH_CLIP_STR=2, .rsv_7=0, .SEEE_DOT_REDUC_AMNT=128, .SEEE_DOT_TH=6, .rsv_24=0}},
+    .clip_ctrl ={.bits={.SEEE_RESP_CLIP=20, .SEEE_RESP_CLIP_LUMA_SPC_TH=50, .SEEE_RESP_CLIP_LUMA_LWB=50, .SEEE_RESP_CLIP_LUMA_UPB=100}},
+    .gn_ctrl_2 ={.bits={.SEEE_MASTER_GN_NEG=16, .SEEE_MASTER_GN_POS=16, .rsv_16=0}},
+    .st_ctrl_1 ={.bits={.SEEE_ST_UB=9, .SEEE_ST_LB=2, .rsv_16=0}},
+    .st_ctrl_2 ={.bits={.SEEE_ST_SL_CE=16, .SEEE_ST_OFST_CE=100, .SEEE_ST_SL_RESP=16, .SEEE_ST_OFST_RESP=255}},
+    .ct_ctrl   ={.bits={.SEEE_LUMA_LMT_DIFF=255, .SEEE_LUMA_CNTST_LV=0, .rsv_11=0, .SEEE_LUMA_MINI=4, .rsv_15=0, .SEEE_LUMA_MAXI=4, .rsv_19=0, .SEEE_CHR_CNTST_LV=0, .rsv_23=0, .SEEE_CHR_MINI=2, .rsv_26=0, .SEEE_CHR_MAXI=2, .rsv_30=0}},
+    .cboost_ctrl_1={.bits={.SEEE_CBOOST_LMT_U=255, .SEEE_CBOOST_LMT_L=64, .SEEE_CBOOST_GAIN=128, .SEEE_CBOOST_EN=0, .rsv_25=0}},
+    .cboost_ctrl_2={.bits={.SEEE_CBOOST_YCONST=4, .SEEE_CBOOST_YOFFSET=0, .SEEE_CBOOST_YOFFSET_SEL=0, .rsv_18=0}},
+    .pbc1_ctrl_1={.bits={.SEEE_PBC1_RADIUS_R=42, .rsv_6=0, .SEEE_PBC1_RSLOPE=85, .rsv_18=0, .SEEE_PBC1_RSLOPE_1=39, .SEEE_PBC1_EN=1, .SEEE_PBC_EN=0}},
+    .pbc1_ctrl_2={.bits={.SEEE_PBC1_TSLOPE=85, .SEEE_PBC1_THETA_R=24, .SEEE_PBC1_THETA_C=149, .SEEE_PBC1_RADIUS_C=48}},
+    .pbc1_ctrl_3={.bits={.SEEE_PBC1_LPF_GAIN=16, .SEEE_PBC1_LPF_EN=0, .SEEE_PBC1_EDGE_EN=0, .SEEE_PBC1_EDGE_SLOPE=8, .SEEE_PBC1_EDGE_THR=63, .SEEE_PBC1_CONF_GAIN=1, .SEEE_PBC1_GAIN=52}},
+    .pbc2_ctrl_1={.bits={.SEEE_PBC2_RADIUS_R=40, .rsv_6=0, .SEEE_PBC2_RSLOPE=43, .rsv_18=0, .SEEE_PBC2_RSLOPE_1=32, .SEEE_PBC2_EN=1, .rsv_31=0}},
+    .pbc2_ctrl_2={.bits={.SEEE_PBC2_TSLOPE=43, .SEEE_PBC2_THETA_R=24, .SEEE_PBC2_THETA_C=88, .SEEE_PBC2_RADIUS_C=48}},
+    .pbc2_ctrl_3={.bits={.SEEE_PBC2_LPF_GAIN=12, .SEEE_PBC2_LPF_EN=1, .SEEE_PBC2_EDGE_EN=1, .SEEE_PBC2_EDGE_SLOPE=24, .SEEE_PBC2_EDGE_THR=32, .SEEE_PBC2_CONF_GAIN=4, .SEEE_PBC2_GAIN=24}},
+    .pbc3_ctrl_1={.bits={.SEEE_PBC3_RADIUS_R=42, .rsv_6=0, .SEEE_PBC3_RSLOPE=32, .rsv_18=0, .SEEE_PBC3_RSLOPE_1=17, .SEEE_PBC3_EN=1, .rsv_31=0}},
+    .pbc3_ctrl_2={.bits={.SEEE_PBC3_TSLOPE=64, .SEEE_PBC3_THETA_R=32, .SEEE_PBC3_THETA_C=224, .SEEE_PBC3_RADIUS_C=60}},
+    .pbc3_ctrl_3={.bits={.SEEE_PBC3_LPF_GAIN=8, .SEEE_PBC3_LPF_EN=1, .SEEE_PBC3_EDGE_EN=1, .SEEE_PBC3_EDGE_SLOPE=24, .SEEE_PBC3_EDGE_THR=8, .SEEE_PBC3_CONF_GAIN=1, .SEEE_PBC3_GAIN=24}}
+
+};
+const ISP_NVRAM_EE_T ov16885mipiraw_EE_0077 = {
+        .blnd_ctrl_1={.bits={.SEEE_H1_DI_BLND_OFST=0, .SEEE_H2_DI_BLND_OFST=0, .SEEE_H3_DI_BLND_OFST=0, .rsv_24=0}},
+    .blnd_ctrl_2={.bits={.SEEE_H1_DI_BLND_SL=12, .SEEE_H2_DI_BLND_SL=12, .SEEE_H3_DI_BLND_SL=12, .SEEE_HX_ISO_BLND_RAT=3, .rsv_29=0}},
+    .core_ctrl ={.bits={.SEEE_H1_FLT_CORE_TH=0, .SEEE_H2_FLT_CORE_TH=0, .SEEE_H3_FLT_CORE_TH=0, .SEEE_FLT_CORE_TH=8}},
+    .gn_ctrl_1 ={.bits={.SEEE_H1_GN=10, .rsv_5=0, .SEEE_H2_GN=10, .rsv_13=0, .SEEE_H3_GN=13, .rsv_21=0}},
+    .luma_ctrl_1={.bits={.SEEE_LUMA_MOD_Y0=255, .rsv_9=0, .SEEE_LUMA_MOD_Y1=255, .rsv_19=0, .SEEE_LUMA_MOD_Y2=255, .rsv_29=0}},
+    .luma_ctrl_2={.bits={.SEEE_LUMA_MOD_Y3=255, .rsv_9=0, .SEEE_LUMA_MOD_Y4=255, .rsv_19=0, .SEEE_LUMA_MOD_Y5=255, .rsv_29=0}},
+    .luma_slnk_ctrl={.bits={.SEEE_SLNK_GN_Y1=255, .SEEE_SLNK_GN_Y2=255, .SEEE_RESP_SLNK_GN_RAT=16, .SEEE_GLUT_LINK_EN=0, .SEEE_LUMA_MOD_Y6=255, .rsv_31=0}},
+    .glut_ctrl_1={.bits={.SEEE_GLUT_S1=0, .SEEE_GLUT_X1=0, .SEEE_GLUT_Y1=86, .rsv_26=0}},
+    .glut_ctrl_2={.bits={.SEEE_GLUT_S2=40, .SEEE_GLUT_X2=40, .SEEE_GLUT_Y2=186, .rsv_26=0}},
+    .glut_ctrl_3={.bits={.SEEE_GLUT_S3=20, .SEEE_GLUT_X3=100, .SEEE_GLUT_Y3=261, .rsv_26=0}},
+    .glut_ctrl_4={.bits={.SEEE_GLUT_S4=12, .SEEE_GLUT_X4=150, .SEEE_GLUT_Y4=299, .rsv_26=0}},
+    .glut_ctrl_5={.bits={.SEEE_GLUT_S5=224, .rsv_8=0, .SEEE_GLUT_SL_DEC_Y=32, .rsv_26=0}},
+    .glut_ctrl_6={.bits={.SEEE_GLUT_TH_OVR=230, .SEEE_GLUT_TH_UND=230, .SEEE_GLUT_TH_MIN=0, .rsv_24=0}},
+    .artifact_ctrl={.bits={.SEEE_RESP_SMO_STR=4, .rsv_3=0, .SEEE_OVRSH_CLIP_STR=2, .rsv_7=0, .SEEE_DOT_REDUC_AMNT=128, .SEEE_DOT_TH=6, .rsv_24=0}},
+    .clip_ctrl ={.bits={.SEEE_RESP_CLIP=20, .SEEE_RESP_CLIP_LUMA_SPC_TH=50, .SEEE_RESP_CLIP_LUMA_LWB=50, .SEEE_RESP_CLIP_LUMA_UPB=100}},
+    .gn_ctrl_2 ={.bits={.SEEE_MASTER_GN_NEG=16, .SEEE_MASTER_GN_POS=16, .rsv_16=0}},
+    .st_ctrl_1 ={.bits={.SEEE_ST_UB=9, .SEEE_ST_LB=2, .rsv_16=0}},
+    .st_ctrl_2 ={.bits={.SEEE_ST_SL_CE=16, .SEEE_ST_OFST_CE=100, .SEEE_ST_SL_RESP=16, .SEEE_ST_OFST_RESP=255}},
+    .ct_ctrl   ={.bits={.SEEE_LUMA_LMT_DIFF=255, .SEEE_LUMA_CNTST_LV=0, .rsv_11=0, .SEEE_LUMA_MINI=4, .rsv_15=0, .SEEE_LUMA_MAXI=4, .rsv_19=0, .SEEE_CHR_CNTST_LV=0, .rsv_23=0, .SEEE_CHR_MINI=2, .rsv_26=0, .SEEE_CHR_MAXI=2, .rsv_30=0}},
+    .cboost_ctrl_1={.bits={.SEEE_CBOOST_LMT_U=255, .SEEE_CBOOST_LMT_L=64, .SEEE_CBOOST_GAIN=128, .SEEE_CBOOST_EN=0, .rsv_25=0}},
+    .cboost_ctrl_2={.bits={.SEEE_CBOOST_YCONST=4, .SEEE_CBOOST_YOFFSET=0, .SEEE_CBOOST_YOFFSET_SEL=0, .rsv_18=0}},
+    .pbc1_ctrl_1={.bits={.SEEE_PBC1_RADIUS_R=42, .rsv_6=0, .SEEE_PBC1_RSLOPE=85, .rsv_18=0, .SEEE_PBC1_RSLOPE_1=39, .SEEE_PBC1_EN=1, .SEEE_PBC_EN=0}},
+    .pbc1_ctrl_2={.bits={.SEEE_PBC1_TSLOPE=85, .SEEE_PBC1_THETA_R=24, .SEEE_PBC1_THETA_C=149, .SEEE_PBC1_RADIUS_C=48}},
+    .pbc1_ctrl_3={.bits={.SEEE_PBC1_LPF_GAIN=16, .SEEE_PBC1_LPF_EN=0, .SEEE_PBC1_EDGE_EN=0, .SEEE_PBC1_EDGE_SLOPE=8, .SEEE_PBC1_EDGE_THR=63, .SEEE_PBC1_CONF_GAIN=1, .SEEE_PBC1_GAIN=52}},
+    .pbc2_ctrl_1={.bits={.SEEE_PBC2_RADIUS_R=40, .rsv_6=0, .SEEE_PBC2_RSLOPE=43, .rsv_18=0, .SEEE_PBC2_RSLOPE_1=32, .SEEE_PBC2_EN=1, .rsv_31=0}},
+    .pbc2_ctrl_2={.bits={.SEEE_PBC2_TSLOPE=43, .SEEE_PBC2_THETA_R=24, .SEEE_PBC2_THETA_C=88, .SEEE_PBC2_RADIUS_C=48}},
+    .pbc2_ctrl_3={.bits={.SEEE_PBC2_LPF_GAIN=12, .SEEE_PBC2_LPF_EN=1, .SEEE_PBC2_EDGE_EN=1, .SEEE_PBC2_EDGE_SLOPE=24, .SEEE_PBC2_EDGE_THR=32, .SEEE_PBC2_CONF_GAIN=4, .SEEE_PBC2_GAIN=24}},
+    .pbc3_ctrl_1={.bits={.SEEE_PBC3_RADIUS_R=42, .rsv_6=0, .SEEE_PBC3_RSLOPE=32, .rsv_18=0, .SEEE_PBC3_RSLOPE_1=17, .SEEE_PBC3_EN=1, .rsv_31=0}},
+    .pbc3_ctrl_2={.bits={.SEEE_PBC3_TSLOPE=64, .SEEE_PBC3_THETA_R=32, .SEEE_PBC3_THETA_C=224, .SEEE_PBC3_RADIUS_C=60}},
+    .pbc3_ctrl_3={.bits={.SEEE_PBC3_LPF_GAIN=8, .SEEE_PBC3_LPF_EN=1, .SEEE_PBC3_EDGE_EN=1, .SEEE_PBC3_EDGE_SLOPE=24, .SEEE_PBC3_EDGE_THR=8, .SEEE_PBC3_CONF_GAIN=1, .SEEE_PBC3_GAIN=24}}
+
+};
+const ISP_NVRAM_EE_T ov16885mipiraw_EE_0078 = {
+        .blnd_ctrl_1={.bits={.SEEE_H1_DI_BLND_OFST=0, .SEEE_H2_DI_BLND_OFST=0, .SEEE_H3_DI_BLND_OFST=0, .rsv_24=0}},
+    .blnd_ctrl_2={.bits={.SEEE_H1_DI_BLND_SL=12, .SEEE_H2_DI_BLND_SL=12, .SEEE_H3_DI_BLND_SL=12, .SEEE_HX_ISO_BLND_RAT=3, .rsv_29=0}},
+    .core_ctrl ={.bits={.SEEE_H1_FLT_CORE_TH=0, .SEEE_H2_FLT_CORE_TH=0, .SEEE_H3_FLT_CORE_TH=0, .SEEE_FLT_CORE_TH=8}},
+    .gn_ctrl_1 ={.bits={.SEEE_H1_GN=10, .rsv_5=0, .SEEE_H2_GN=10, .rsv_13=0, .SEEE_H3_GN=13, .rsv_21=0}},
+    .luma_ctrl_1={.bits={.SEEE_LUMA_MOD_Y0=255, .rsv_9=0, .SEEE_LUMA_MOD_Y1=255, .rsv_19=0, .SEEE_LUMA_MOD_Y2=255, .rsv_29=0}},
+    .luma_ctrl_2={.bits={.SEEE_LUMA_MOD_Y3=255, .rsv_9=0, .SEEE_LUMA_MOD_Y4=255, .rsv_19=0, .SEEE_LUMA_MOD_Y5=255, .rsv_29=0}},
+    .luma_slnk_ctrl={.bits={.SEEE_SLNK_GN_Y1=255, .SEEE_SLNK_GN_Y2=255, .SEEE_RESP_SLNK_GN_RAT=16, .SEEE_GLUT_LINK_EN=0, .SEEE_LUMA_MOD_Y6=255, .rsv_31=0}},
+    .glut_ctrl_1={.bits={.SEEE_GLUT_S1=0, .SEEE_GLUT_X1=0, .SEEE_GLUT_Y1=86, .rsv_26=0}},
+    .glut_ctrl_2={.bits={.SEEE_GLUT_S2=40, .SEEE_GLUT_X2=40, .SEEE_GLUT_Y2=186, .rsv_26=0}},
+    .glut_ctrl_3={.bits={.SEEE_GLUT_S3=20, .SEEE_GLUT_X3=100, .SEEE_GLUT_Y3=261, .rsv_26=0}},
+    .glut_ctrl_4={.bits={.SEEE_GLUT_S4=12, .SEEE_GLUT_X4=150, .SEEE_GLUT_Y4=299, .rsv_26=0}},
+    .glut_ctrl_5={.bits={.SEEE_GLUT_S5=224, .rsv_8=0, .SEEE_GLUT_SL_DEC_Y=32, .rsv_26=0}},
+    .glut_ctrl_6={.bits={.SEEE_GLUT_TH_OVR=230, .SEEE_GLUT_TH_UND=230, .SEEE_GLUT_TH_MIN=0, .rsv_24=0}},
+    .artifact_ctrl={.bits={.SEEE_RESP_SMO_STR=4, .rsv_3=0, .SEEE_OVRSH_CLIP_STR=2, .rsv_7=0, .SEEE_DOT_REDUC_AMNT=128, .SEEE_DOT_TH=6, .rsv_24=0}},
+    .clip_ctrl ={.bits={.SEEE_RESP_CLIP=20, .SEEE_RESP_CLIP_LUMA_SPC_TH=50, .SEEE_RESP_CLIP_LUMA_LWB=50, .SEEE_RESP_CLIP_LUMA_UPB=100}},
+    .gn_ctrl_2 ={.bits={.SEEE_MASTER_GN_NEG=16, .SEEE_MASTER_GN_POS=16, .rsv_16=0}},
+    .st_ctrl_1 ={.bits={.SEEE_ST_UB=9, .SEEE_ST_LB=2, .rsv_16=0}},
+    .st_ctrl_2 ={.bits={.SEEE_ST_SL_CE=16, .SEEE_ST_OFST_CE=100, .SEEE_ST_SL_RESP=16, .SEEE_ST_OFST_RESP=255}},
+    .ct_ctrl   ={.bits={.SEEE_LUMA_LMT_DIFF=255, .SEEE_LUMA_CNTST_LV=0, .rsv_11=0, .SEEE_LUMA_MINI=4, .rsv_15=0, .SEEE_LUMA_MAXI=4, .rsv_19=0, .SEEE_CHR_CNTST_LV=0, .rsv_23=0, .SEEE_CHR_MINI=2, .rsv_26=0, .SEEE_CHR_MAXI=2, .rsv_30=0}},
+    .cboost_ctrl_1={.bits={.SEEE_CBOOST_LMT_U=255, .SEEE_CBOOST_LMT_L=64, .SEEE_CBOOST_GAIN=128, .SEEE_CBOOST_EN=0, .rsv_25=0}},
+    .cboost_ctrl_2={.bits={.SEEE_CBOOST_YCONST=4, .SEEE_CBOOST_YOFFSET=0, .SEEE_CBOOST_YOFFSET_SEL=0, .rsv_18=0}},
+    .pbc1_ctrl_1={.bits={.SEEE_PBC1_RADIUS_R=42, .rsv_6=0, .SEEE_PBC1_RSLOPE=85, .rsv_18=0, .SEEE_PBC1_RSLOPE_1=39, .SEEE_PBC1_EN=1, .SEEE_PBC_EN=0}},
+    .pbc1_ctrl_2={.bits={.SEEE_PBC1_TSLOPE=85, .SEEE_PBC1_THETA_R=24, .SEEE_PBC1_THETA_C=149, .SEEE_PBC1_RADIUS_C=48}},
+    .pbc1_ctrl_3={.bits={.SEEE_PBC1_LPF_GAIN=16, .SEEE_PBC1_LPF_EN=0, .SEEE_PBC1_EDGE_EN=0, .SEEE_PBC1_EDGE_SLOPE=8, .SEEE_PBC1_EDGE_THR=63, .SEEE_PBC1_CONF_GAIN=1, .SEEE_PBC1_GAIN=52}},
+    .pbc2_ctrl_1={.bits={.SEEE_PBC2_RADIUS_R=40, .rsv_6=0, .SEEE_PBC2_RSLOPE=43, .rsv_18=0, .SEEE_PBC2_RSLOPE_1=32, .SEEE_PBC2_EN=1, .rsv_31=0}},
+    .pbc2_ctrl_2={.bits={.SEEE_PBC2_TSLOPE=43, .SEEE_PBC2_THETA_R=24, .SEEE_PBC2_THETA_C=88, .SEEE_PBC2_RADIUS_C=48}},
+    .pbc2_ctrl_3={.bits={.SEEE_PBC2_LPF_GAIN=12, .SEEE_PBC2_LPF_EN=1, .SEEE_PBC2_EDGE_EN=1, .SEEE_PBC2_EDGE_SLOPE=24, .SEEE_PBC2_EDGE_THR=32, .SEEE_PBC2_CONF_GAIN=4, .SEEE_PBC2_GAIN=24}},
+    .pbc3_ctrl_1={.bits={.SEEE_PBC3_RADIUS_R=42, .rsv_6=0, .SEEE_PBC3_RSLOPE=32, .rsv_18=0, .SEEE_PBC3_RSLOPE_1=17, .SEEE_PBC3_EN=1, .rsv_31=0}},
+    .pbc3_ctrl_2={.bits={.SEEE_PBC3_TSLOPE=64, .SEEE_PBC3_THETA_R=32, .SEEE_PBC3_THETA_C=224, .SEEE_PBC3_RADIUS_C=60}},
+    .pbc3_ctrl_3={.bits={.SEEE_PBC3_LPF_GAIN=8, .SEEE_PBC3_LPF_EN=1, .SEEE_PBC3_EDGE_EN=1, .SEEE_PBC3_EDGE_SLOPE=24, .SEEE_PBC3_EDGE_THR=8, .SEEE_PBC3_CONF_GAIN=1, .SEEE_PBC3_GAIN=24}}
+
+};
+const ISP_NVRAM_EE_T ov16885mipiraw_EE_0079 = {
+        .blnd_ctrl_1={.bits={.SEEE_H1_DI_BLND_OFST=0, .SEEE_H2_DI_BLND_OFST=0, .SEEE_H3_DI_BLND_OFST=0, .rsv_24=0}},
+    .blnd_ctrl_2={.bits={.SEEE_H1_DI_BLND_SL=12, .SEEE_H2_DI_BLND_SL=12, .SEEE_H3_DI_BLND_SL=12, .SEEE_HX_ISO_BLND_RAT=3, .rsv_29=0}},
+    .core_ctrl ={.bits={.SEEE_H1_FLT_CORE_TH=0, .SEEE_H2_FLT_CORE_TH=0, .SEEE_H3_FLT_CORE_TH=0, .SEEE_FLT_CORE_TH=8}},
+    .gn_ctrl_1 ={.bits={.SEEE_H1_GN=10, .rsv_5=0, .SEEE_H2_GN=10, .rsv_13=0, .SEEE_H3_GN=13, .rsv_21=0}},
+    .luma_ctrl_1={.bits={.SEEE_LUMA_MOD_Y0=255, .rsv_9=0, .SEEE_LUMA_MOD_Y1=255, .rsv_19=0, .SEEE_LUMA_MOD_Y2=255, .rsv_29=0}},
+    .luma_ctrl_2={.bits={.SEEE_LUMA_MOD_Y3=255, .rsv_9=0, .SEEE_LUMA_MOD_Y4=255, .rsv_19=0, .SEEE_LUMA_MOD_Y5=255, .rsv_29=0}},
+    .luma_slnk_ctrl={.bits={.SEEE_SLNK_GN_Y1=255, .SEEE_SLNK_GN_Y2=255, .SEEE_RESP_SLNK_GN_RAT=16, .SEEE_GLUT_LINK_EN=0, .SEEE_LUMA_MOD_Y6=255, .rsv_31=0}},
+    .glut_ctrl_1={.bits={.SEEE_GLUT_S1=0, .SEEE_GLUT_X1=0, .SEEE_GLUT_Y1=86, .rsv_26=0}},
+    .glut_ctrl_2={.bits={.SEEE_GLUT_S2=40, .SEEE_GLUT_X2=40, .SEEE_GLUT_Y2=186, .rsv_26=0}},
+    .glut_ctrl_3={.bits={.SEEE_GLUT_S3=20, .SEEE_GLUT_X3=100, .SEEE_GLUT_Y3=261, .rsv_26=0}},
+    .glut_ctrl_4={.bits={.SEEE_GLUT_S4=12, .SEEE_GLUT_X4=150, .SEEE_GLUT_Y4=299, .rsv_26=0}},
+    .glut_ctrl_5={.bits={.SEEE_GLUT_S5=224, .rsv_8=0, .SEEE_GLUT_SL_DEC_Y=32, .rsv_26=0}},
+    .glut_ctrl_6={.bits={.SEEE_GLUT_TH_OVR=230, .SEEE_GLUT_TH_UND=230, .SEEE_GLUT_TH_MIN=0, .rsv_24=0}},
+    .artifact_ctrl={.bits={.SEEE_RESP_SMO_STR=4, .rsv_3=0, .SEEE_OVRSH_CLIP_STR=2, .rsv_7=0, .SEEE_DOT_REDUC_AMNT=128, .SEEE_DOT_TH=6, .rsv_24=0}},
+    .clip_ctrl ={.bits={.SEEE_RESP_CLIP=20, .SEEE_RESP_CLIP_LUMA_SPC_TH=50, .SEEE_RESP_CLIP_LUMA_LWB=50, .SEEE_RESP_CLIP_LUMA_UPB=100}},
+    .gn_ctrl_2 ={.bits={.SEEE_MASTER_GN_NEG=16, .SEEE_MASTER_GN_POS=16, .rsv_16=0}},
+    .st_ctrl_1 ={.bits={.SEEE_ST_UB=9, .SEEE_ST_LB=2, .rsv_16=0}},
+    .st_ctrl_2 ={.bits={.SEEE_ST_SL_CE=16, .SEEE_ST_OFST_CE=100, .SEEE_ST_SL_RESP=16, .SEEE_ST_OFST_RESP=255}},
+    .ct_ctrl   ={.bits={.SEEE_LUMA_LMT_DIFF=255, .SEEE_LUMA_CNTST_LV=0, .rsv_11=0, .SEEE_LUMA_MINI=4, .rsv_15=0, .SEEE_LUMA_MAXI=4, .rsv_19=0, .SEEE_CHR_CNTST_LV=0, .rsv_23=0, .SEEE_CHR_MINI=2, .rsv_26=0, .SEEE_CHR_MAXI=2, .rsv_30=0}},
+    .cboost_ctrl_1={.bits={.SEEE_CBOOST_LMT_U=255, .SEEE_CBOOST_LMT_L=64, .SEEE_CBOOST_GAIN=128, .SEEE_CBOOST_EN=0, .rsv_25=0}},
+    .cboost_ctrl_2={.bits={.SEEE_CBOOST_YCONST=4, .SEEE_CBOOST_YOFFSET=0, .SEEE_CBOOST_YOFFSET_SEL=0, .rsv_18=0}},
+    .pbc1_ctrl_1={.bits={.SEEE_PBC1_RADIUS_R=42, .rsv_6=0, .SEEE_PBC1_RSLOPE=85, .rsv_18=0, .SEEE_PBC1_RSLOPE_1=39, .SEEE_PBC1_EN=1, .SEEE_PBC_EN=0}},
+    .pbc1_ctrl_2={.bits={.SEEE_PBC1_TSLOPE=85, .SEEE_PBC1_THETA_R=24, .SEEE_PBC1_THETA_C=149, .SEEE_PBC1_RADIUS_C=48}},
+    .pbc1_ctrl_3={.bits={.SEEE_PBC1_LPF_GAIN=16, .SEEE_PBC1_LPF_EN=0, .SEEE_PBC1_EDGE_EN=0, .SEEE_PBC1_EDGE_SLOPE=8, .SEEE_PBC1_EDGE_THR=63, .SEEE_PBC1_CONF_GAIN=1, .SEEE_PBC1_GAIN=52}},
+    .pbc2_ctrl_1={.bits={.SEEE_PBC2_RADIUS_R=40, .rsv_6=0, .SEEE_PBC2_RSLOPE=43, .rsv_18=0, .SEEE_PBC2_RSLOPE_1=32, .SEEE_PBC2_EN=1, .rsv_31=0}},
+    .pbc2_ctrl_2={.bits={.SEEE_PBC2_TSLOPE=43, .SEEE_PBC2_THETA_R=24, .SEEE_PBC2_THETA_C=88, .SEEE_PBC2_RADIUS_C=48}},
+    .pbc2_ctrl_3={.bits={.SEEE_PBC2_LPF_GAIN=12, .SEEE_PBC2_LPF_EN=1, .SEEE_PBC2_EDGE_EN=1, .SEEE_PBC2_EDGE_SLOPE=24, .SEEE_PBC2_EDGE_THR=32, .SEEE_PBC2_CONF_GAIN=4, .SEEE_PBC2_GAIN=24}},
+    .pbc3_ctrl_1={.bits={.SEEE_PBC3_RADIUS_R=42, .rsv_6=0, .SEEE_PBC3_RSLOPE=32, .rsv_18=0, .SEEE_PBC3_RSLOPE_1=17, .SEEE_PBC3_EN=1, .rsv_31=0}},
+    .pbc3_ctrl_2={.bits={.SEEE_PBC3_TSLOPE=64, .SEEE_PBC3_THETA_R=32, .SEEE_PBC3_THETA_C=224, .SEEE_PBC3_RADIUS_C=60}},
+    .pbc3_ctrl_3={.bits={.SEEE_PBC3_LPF_GAIN=8, .SEEE_PBC3_LPF_EN=1, .SEEE_PBC3_EDGE_EN=1, .SEEE_PBC3_EDGE_SLOPE=24, .SEEE_PBC3_EDGE_THR=8, .SEEE_PBC3_CONF_GAIN=1, .SEEE_PBC3_GAIN=24}}
+
+};
+const ISP_NVRAM_NR3D_T ov16885mipiraw_NR3D_0020 = {
+        .on_con    ={.bits={.rsv_0=0, .NR3D_ON_EN=0, .rsv_5=0, .NR3D_TILE_EDGE=15, .rsv_12=0, .NR3D_SL2_OFF=0, .rsv_21=0}},
+    .tnr_tnr_enable={.bits={.rsv_0=0, .NR3D_TNR_C_EN=1, .NR3D_TNR_Y_EN=1}},
+    .tnr_flt_config={.bits={.rsv_0=0, .NR3D_EN_CCR=1, .NR3D_EN_CYCR=1, .NR3D_FLT_STR_MAX=28, .NR3D_BLEND_RATIO_MV=8, .NR3D_BLEND_RATIO_TXTR=8, .NR3D_BLEND_RATIO_DE=8, .NR3D_BLEND_RATIO_BLKY=8}},
+    .tnr_fb_info1={.bits={.rsv_0=0, .NR3D_Q_SP=20, .NR3D_Q_NL=4}},
+    .tnr_thr_1 ={.bits={.rsv_0=0, .NR3D_SMALL_SAD_THR=10, .NR3D_MV_PEN_THR=32, .NR3D_MV_PEN_W=8, .NR3D_BDI_THR=4, .rsv_30=0}},
+    .tnr_curve_1={.bits={.rsv_0=0, .NR3D_Q_BLKY_Y4=16, .NR3D_Q_BLKY_Y3=26, .NR3D_Q_BLKY_Y2=32, .NR3D_Q_BLKY_Y1=30, .NR3D_Q_BLKY_Y0=28}},
+    .tnr_curve_2={.bits={.rsv_0=0, .NR3D_Q_BLKC_Y1=26, .NR3D_Q_BLKC_Y0=24, .NR3D_Q_BLKY_Y7=0, .NR3D_Q_BLKY_Y6=0, .NR3D_Q_BLKY_Y5=4}},
+    .tnr_curve_3={.bits={.rsv_0=0, .NR3D_Q_BLKC_Y6=0, .NR3D_Q_BLKC_Y5=0, .NR3D_Q_BLKC_Y4=0, .NR3D_Q_BLKC_Y3=2, .NR3D_Q_BLKC_Y2=8}},
+    .tnr_curve_4={.bits={.rsv_0=0, .NR3D_Q_DETXTR_LVL_Y3=21, .NR3D_Q_DETXTR_LVL_Y2=16, .NR3D_Q_DETXTR_LVL_Y1=8, .NR3D_Q_DETXTR_LVL_Y0=0, .NR3D_Q_BLKC_Y7=0}},
+    .tnr_curve_5={.bits={.rsv_0=0, .NR3D_Q_DE1_BASE_Y0=32, .NR3D_Q_DETXTR_LVL_Y7=32, .NR3D_Q_DETXTR_LVL_Y6=32, .NR3D_Q_DETXTR_LVL_Y5=32, .NR3D_Q_DETXTR_LVL_Y4=27}},
+    .tnr_curve_6={.bits={.rsv_0=0, .NR3D_Q_DE1_BASE_Y5=0, .NR3D_Q_DE1_BASE_Y4=12, .NR3D_Q_DE1_BASE_Y3=21, .NR3D_Q_DE1_BASE_Y2=27, .NR3D_Q_DE1_BASE_Y1=32}},
+    .tnr_curve_7={.bits={.rsv_0=0, .NR3D_Q_DE2TXTR_BASE_Y2=22, .NR3D_Q_DE2TXTR_BASE_Y1=5, .NR3D_Q_DE2TXTR_BASE_Y0=0, .NR3D_Q_DE1_BASE_Y7=0, .NR3D_Q_DE1_BASE_Y6=0}},
+    .tnr_curve_8={.bits={.rsv_0=0, .NR3D_Q_DE2TXTR_BASE_Y7=32, .NR3D_Q_DE2TXTR_BASE_Y6=32, .NR3D_Q_DE2TXTR_BASE_Y5=32, .NR3D_Q_DE2TXTR_BASE_Y4=32, .NR3D_Q_DE2TXTR_BASE_Y3=32}},
+    .tnr_curve_9={.bits={.rsv_0=0, .NR3D_Q_MV_Y4=20, .NR3D_Q_MV_Y3=14, .NR3D_Q_MV_Y2=7, .NR3D_Q_MV_Y1=3, .NR3D_Q_MV_Y0=0}},
+    .tnr_curve_10={.bits={.rsv_0=0, .NR3D_Q_WVAR_Y1=16, .NR3D_Q_WVAR_Y0=16, .NR3D_Q_MV_Y7=32, .NR3D_Q_MV_Y6=30, .NR3D_Q_MV_Y5=26}},
+    .tnr_curve_11={.bits={.rsv_0=0, .NR3D_Q_WVAR_Y6=1, .NR3D_Q_WVAR_Y5=1, .NR3D_Q_WVAR_Y4=2, .NR3D_Q_WVAR_Y3=3, .NR3D_Q_WVAR_Y2=6}},
+    .tnr_curve_12={.bits={.rsv_0=0, .NR3D_Q_WSM_Y3=9, .NR3D_Q_WSM_Y2=3, .NR3D_Q_WSM_Y1=1, .NR3D_Q_WSM_Y0=0, .NR3D_Q_WVAR_Y7=1}},
+    .tnr_curve_13={.bits={.rsv_0=0, .NR3D_Q_WSM_Y7=16, .NR3D_Q_WSM_Y6=16, .NR3D_Q_WSM_Y5=16, .NR3D_Q_WSM_Y4=14}},
+    .tnr_curve_14={.bits={.rsv_0=0, .NR3D_Q_SDL_Y4=32, .NR3D_Q_SDL_Y3=40, .NR3D_Q_SDL_Y2=48, .NR3D_Q_SDL_Y1=56, .NR3D_Q_SDL_Y0=63}},
+    .tnr_curve_15={.bits={.rsv_0=0, .NR3D_Q_SDL_Y8=0, .NR3D_Q_SDL_Y7=8, .NR3D_Q_SDL_Y6=16, .NR3D_Q_SDL_Y5=24}},
+    .tnr_r2c_1 ={.bits={.NR3D_R2CENC=0, .NR3D_R2C_VAL4=13, .NR3D_R2C_VAL3=11, .NR3D_R2C_VAL2=7, .NR3D_R2C_VAL1=3, .rsv_26=0}},
+    .tnr_r2c_2 ={.bits={.rsv_0=0, .NR3D_R2C_TXTR_THROFF=12, .NR3D_R2C_TXTR_THR4=9, .NR3D_R2C_TXTR_THR3=6, .NR3D_R2C_TXTR_THR2=4, .NR3D_R2C_TXTR_THR1=2}},
+    .tnr_r2c_3 ={.bits={.rsv_0=0, .NR3D_R2CF_CNT4=0, .NR3D_R2CF_CNT3=0, .NR3D_R2CF_CNT2=0, .NR3D_R2CF_CNT1=0}}
+
+};
+const ISP_NVRAM_NR3D_T ov16885mipiraw_NR3D_0021 = {
+        .on_con    ={.bits={.rsv_0=0, .NR3D_ON_EN=0, .rsv_5=0, .NR3D_TILE_EDGE=15, .rsv_12=0, .NR3D_SL2_OFF=0, .rsv_21=0}},
+    .tnr_tnr_enable={.bits={.rsv_0=0, .NR3D_TNR_C_EN=1, .NR3D_TNR_Y_EN=1}},
+    .tnr_flt_config={.bits={.rsv_0=0, .NR3D_EN_CCR=1, .NR3D_EN_CYCR=1, .NR3D_FLT_STR_MAX=28, .NR3D_BLEND_RATIO_MV=8, .NR3D_BLEND_RATIO_TXTR=8, .NR3D_BLEND_RATIO_DE=8, .NR3D_BLEND_RATIO_BLKY=8}},
+    .tnr_fb_info1={.bits={.rsv_0=0, .NR3D_Q_SP=20, .NR3D_Q_NL=4}},
+    .tnr_thr_1 ={.bits={.rsv_0=0, .NR3D_SMALL_SAD_THR=10, .NR3D_MV_PEN_THR=32, .NR3D_MV_PEN_W=8, .NR3D_BDI_THR=4, .rsv_30=0}},
+    .tnr_curve_1={.bits={.rsv_0=0, .NR3D_Q_BLKY_Y4=16, .NR3D_Q_BLKY_Y3=26, .NR3D_Q_BLKY_Y2=32, .NR3D_Q_BLKY_Y1=30, .NR3D_Q_BLKY_Y0=28}},
+    .tnr_curve_2={.bits={.rsv_0=0, .NR3D_Q_BLKC_Y1=26, .NR3D_Q_BLKC_Y0=24, .NR3D_Q_BLKY_Y7=0, .NR3D_Q_BLKY_Y6=0, .NR3D_Q_BLKY_Y5=4}},
+    .tnr_curve_3={.bits={.rsv_0=0, .NR3D_Q_BLKC_Y6=0, .NR3D_Q_BLKC_Y5=0, .NR3D_Q_BLKC_Y4=0, .NR3D_Q_BLKC_Y3=2, .NR3D_Q_BLKC_Y2=8}},
+    .tnr_curve_4={.bits={.rsv_0=0, .NR3D_Q_DETXTR_LVL_Y3=21, .NR3D_Q_DETXTR_LVL_Y2=16, .NR3D_Q_DETXTR_LVL_Y1=8, .NR3D_Q_DETXTR_LVL_Y0=0, .NR3D_Q_BLKC_Y7=0}},
+    .tnr_curve_5={.bits={.rsv_0=0, .NR3D_Q_DE1_BASE_Y0=32, .NR3D_Q_DETXTR_LVL_Y7=32, .NR3D_Q_DETXTR_LVL_Y6=32, .NR3D_Q_DETXTR_LVL_Y5=32, .NR3D_Q_DETXTR_LVL_Y4=27}},
+    .tnr_curve_6={.bits={.rsv_0=0, .NR3D_Q_DE1_BASE_Y5=0, .NR3D_Q_DE1_BASE_Y4=12, .NR3D_Q_DE1_BASE_Y3=21, .NR3D_Q_DE1_BASE_Y2=27, .NR3D_Q_DE1_BASE_Y1=32}},
+    .tnr_curve_7={.bits={.rsv_0=0, .NR3D_Q_DE2TXTR_BASE_Y2=22, .NR3D_Q_DE2TXTR_BASE_Y1=5, .NR3D_Q_DE2TXTR_BASE_Y0=0, .NR3D_Q_DE1_BASE_Y7=0, .NR3D_Q_DE1_BASE_Y6=0}},
+    .tnr_curve_8={.bits={.rsv_0=0, .NR3D_Q_DE2TXTR_BASE_Y7=32, .NR3D_Q_DE2TXTR_BASE_Y6=32, .NR3D_Q_DE2TXTR_BASE_Y5=32, .NR3D_Q_DE2TXTR_BASE_Y4=32, .NR3D_Q_DE2TXTR_BASE_Y3=32}},
+    .tnr_curve_9={.bits={.rsv_0=0, .NR3D_Q_MV_Y4=20, .NR3D_Q_MV_Y3=14, .NR3D_Q_MV_Y2=7, .NR3D_Q_MV_Y1=3, .NR3D_Q_MV_Y0=0}},
+    .tnr_curve_10={.bits={.rsv_0=0, .NR3D_Q_WVAR_Y1=16, .NR3D_Q_WVAR_Y0=16, .NR3D_Q_MV_Y7=32, .NR3D_Q_MV_Y6=30, .NR3D_Q_MV_Y5=26}},
+    .tnr_curve_11={.bits={.rsv_0=0, .NR3D_Q_WVAR_Y6=1, .NR3D_Q_WVAR_Y5=1, .NR3D_Q_WVAR_Y4=2, .NR3D_Q_WVAR_Y3=3, .NR3D_Q_WVAR_Y2=6}},
+    .tnr_curve_12={.bits={.rsv_0=0, .NR3D_Q_WSM_Y3=9, .NR3D_Q_WSM_Y2=3, .NR3D_Q_WSM_Y1=1, .NR3D_Q_WSM_Y0=0, .NR3D_Q_WVAR_Y7=1}},
+    .tnr_curve_13={.bits={.rsv_0=0, .NR3D_Q_WSM_Y7=16, .NR3D_Q_WSM_Y6=16, .NR3D_Q_WSM_Y5=16, .NR3D_Q_WSM_Y4=14}},
+    .tnr_curve_14={.bits={.rsv_0=0, .NR3D_Q_SDL_Y4=32, .NR3D_Q_SDL_Y3=40, .NR3D_Q_SDL_Y2=48, .NR3D_Q_SDL_Y1=56, .NR3D_Q_SDL_Y0=63}},
+    .tnr_curve_15={.bits={.rsv_0=0, .NR3D_Q_SDL_Y8=0, .NR3D_Q_SDL_Y7=8, .NR3D_Q_SDL_Y6=16, .NR3D_Q_SDL_Y5=24}},
+    .tnr_r2c_1 ={.bits={.NR3D_R2CENC=0, .NR3D_R2C_VAL4=13, .NR3D_R2C_VAL3=11, .NR3D_R2C_VAL2=7, .NR3D_R2C_VAL1=3, .rsv_26=0}},
+    .tnr_r2c_2 ={.bits={.rsv_0=0, .NR3D_R2C_TXTR_THROFF=12, .NR3D_R2C_TXTR_THR4=9, .NR3D_R2C_TXTR_THR3=6, .NR3D_R2C_TXTR_THR2=4, .NR3D_R2C_TXTR_THR1=2}},
+    .tnr_r2c_3 ={.bits={.rsv_0=0, .NR3D_R2CF_CNT4=0, .NR3D_R2CF_CNT3=0, .NR3D_R2CF_CNT2=0, .NR3D_R2CF_CNT1=0}}
+
+};
+const ISP_NVRAM_NR3D_T ov16885mipiraw_NR3D_0022 = {
+        .on_con    ={.bits={.rsv_0=0, .NR3D_ON_EN=0, .rsv_5=0, .NR3D_TILE_EDGE=15, .rsv_12=0, .NR3D_SL2_OFF=0, .rsv_21=0}},
+    .tnr_tnr_enable={.bits={.rsv_0=0, .NR3D_TNR_C_EN=1, .NR3D_TNR_Y_EN=1}},
+    .tnr_flt_config={.bits={.rsv_0=0, .NR3D_EN_CCR=1, .NR3D_EN_CYCR=1, .NR3D_FLT_STR_MAX=28, .NR3D_BLEND_RATIO_MV=8, .NR3D_BLEND_RATIO_TXTR=8, .NR3D_BLEND_RATIO_DE=8, .NR3D_BLEND_RATIO_BLKY=8}},
+    .tnr_fb_info1={.bits={.rsv_0=0, .NR3D_Q_SP=20, .NR3D_Q_NL=4}},
+    .tnr_thr_1 ={.bits={.rsv_0=0, .NR3D_SMALL_SAD_THR=10, .NR3D_MV_PEN_THR=32, .NR3D_MV_PEN_W=8, .NR3D_BDI_THR=4, .rsv_30=0}},
+    .tnr_curve_1={.bits={.rsv_0=0, .NR3D_Q_BLKY_Y4=16, .NR3D_Q_BLKY_Y3=26, .NR3D_Q_BLKY_Y2=32, .NR3D_Q_BLKY_Y1=30, .NR3D_Q_BLKY_Y0=28}},
+    .tnr_curve_2={.bits={.rsv_0=0, .NR3D_Q_BLKC_Y1=26, .NR3D_Q_BLKC_Y0=24, .NR3D_Q_BLKY_Y7=0, .NR3D_Q_BLKY_Y6=0, .NR3D_Q_BLKY_Y5=4}},
+    .tnr_curve_3={.bits={.rsv_0=0, .NR3D_Q_BLKC_Y6=0, .NR3D_Q_BLKC_Y5=0, .NR3D_Q_BLKC_Y4=0, .NR3D_Q_BLKC_Y3=2, .NR3D_Q_BLKC_Y2=8}},
+    .tnr_curve_4={.bits={.rsv_0=0, .NR3D_Q_DETXTR_LVL_Y3=21, .NR3D_Q_DETXTR_LVL_Y2=16, .NR3D_Q_DETXTR_LVL_Y1=8, .NR3D_Q_DETXTR_LVL_Y0=0, .NR3D_Q_BLKC_Y7=0}},
+    .tnr_curve_5={.bits={.rsv_0=0, .NR3D_Q_DE1_BASE_Y0=32, .NR3D_Q_DETXTR_LVL_Y7=32, .NR3D_Q_DETXTR_LVL_Y6=32, .NR3D_Q_DETXTR_LVL_Y5=32, .NR3D_Q_DETXTR_LVL_Y4=27}},
+    .tnr_curve_6={.bits={.rsv_0=0, .NR3D_Q_DE1_BASE_Y5=0, .NR3D_Q_DE1_BASE_Y4=12, .NR3D_Q_DE1_BASE_Y3=21, .NR3D_Q_DE1_BASE_Y2=27, .NR3D_Q_DE1_BASE_Y1=32}},
+    .tnr_curve_7={.bits={.rsv_0=0, .NR3D_Q_DE2TXTR_BASE_Y2=22, .NR3D_Q_DE2TXTR_BASE_Y1=5, .NR3D_Q_DE2TXTR_BASE_Y0=0, .NR3D_Q_DE1_BASE_Y7=0, .NR3D_Q_DE1_BASE_Y6=0}},
+    .tnr_curve_8={.bits={.rsv_0=0, .NR3D_Q_DE2TXTR_BASE_Y7=32, .NR3D_Q_DE2TXTR_BASE_Y6=32, .NR3D_Q_DE2TXTR_BASE_Y5=32, .NR3D_Q_DE2TXTR_BASE_Y4=32, .NR3D_Q_DE2TXTR_BASE_Y3=32}},
+    .tnr_curve_9={.bits={.rsv_0=0, .NR3D_Q_MV_Y4=20, .NR3D_Q_MV_Y3=14, .NR3D_Q_MV_Y2=7, .NR3D_Q_MV_Y1=3, .NR3D_Q_MV_Y0=0}},
+    .tnr_curve_10={.bits={.rsv_0=0, .NR3D_Q_WVAR_Y1=16, .NR3D_Q_WVAR_Y0=16, .NR3D_Q_MV_Y7=32, .NR3D_Q_MV_Y6=30, .NR3D_Q_MV_Y5=26}},
+    .tnr_curve_11={.bits={.rsv_0=0, .NR3D_Q_WVAR_Y6=1, .NR3D_Q_WVAR_Y5=1, .NR3D_Q_WVAR_Y4=2, .NR3D_Q_WVAR_Y3=3, .NR3D_Q_WVAR_Y2=6}},
+    .tnr_curve_12={.bits={.rsv_0=0, .NR3D_Q_WSM_Y3=9, .NR3D_Q_WSM_Y2=3, .NR3D_Q_WSM_Y1=1, .NR3D_Q_WSM_Y0=0, .NR3D_Q_WVAR_Y7=1}},
+    .tnr_curve_13={.bits={.rsv_0=0, .NR3D_Q_WSM_Y7=16, .NR3D_Q_WSM_Y6=16, .NR3D_Q_WSM_Y5=16, .NR3D_Q_WSM_Y4=14}},
+    .tnr_curve_14={.bits={.rsv_0=0, .NR3D_Q_SDL_Y4=32, .NR3D_Q_SDL_Y3=40, .NR3D_Q_SDL_Y2=48, .NR3D_Q_SDL_Y1=56, .NR3D_Q_SDL_Y0=63}},
+    .tnr_curve_15={.bits={.rsv_0=0, .NR3D_Q_SDL_Y8=0, .NR3D_Q_SDL_Y7=8, .NR3D_Q_SDL_Y6=16, .NR3D_Q_SDL_Y5=24}},
+    .tnr_r2c_1 ={.bits={.NR3D_R2CENC=0, .NR3D_R2C_VAL4=13, .NR3D_R2C_VAL3=11, .NR3D_R2C_VAL2=7, .NR3D_R2C_VAL1=3, .rsv_26=0}},
+    .tnr_r2c_2 ={.bits={.rsv_0=0, .NR3D_R2C_TXTR_THROFF=12, .NR3D_R2C_TXTR_THR4=9, .NR3D_R2C_TXTR_THR3=6, .NR3D_R2C_TXTR_THR2=4, .NR3D_R2C_TXTR_THR1=2}},
+    .tnr_r2c_3 ={.bits={.rsv_0=0, .NR3D_R2CF_CNT4=0, .NR3D_R2CF_CNT3=0, .NR3D_R2CF_CNT2=0, .NR3D_R2CF_CNT1=0}}
+
+};
+const ISP_NVRAM_NR3D_T ov16885mipiraw_NR3D_0023 = {
+        .on_con    ={.bits={.rsv_0=0, .NR3D_ON_EN=0, .rsv_5=0, .NR3D_TILE_EDGE=15, .rsv_12=0, .NR3D_SL2_OFF=0, .rsv_21=0}},
+    .tnr_tnr_enable={.bits={.rsv_0=0, .NR3D_TNR_C_EN=1, .NR3D_TNR_Y_EN=1}},
+    .tnr_flt_config={.bits={.rsv_0=0, .NR3D_EN_CCR=1, .NR3D_EN_CYCR=1, .NR3D_FLT_STR_MAX=28, .NR3D_BLEND_RATIO_MV=8, .NR3D_BLEND_RATIO_TXTR=8, .NR3D_BLEND_RATIO_DE=8, .NR3D_BLEND_RATIO_BLKY=8}},
+    .tnr_fb_info1={.bits={.rsv_0=0, .NR3D_Q_SP=20, .NR3D_Q_NL=4}},
+    .tnr_thr_1 ={.bits={.rsv_0=0, .NR3D_SMALL_SAD_THR=10, .NR3D_MV_PEN_THR=32, .NR3D_MV_PEN_W=8, .NR3D_BDI_THR=4, .rsv_30=0}},
+    .tnr_curve_1={.bits={.rsv_0=0, .NR3D_Q_BLKY_Y4=16, .NR3D_Q_BLKY_Y3=26, .NR3D_Q_BLKY_Y2=32, .NR3D_Q_BLKY_Y1=30, .NR3D_Q_BLKY_Y0=28}},
+    .tnr_curve_2={.bits={.rsv_0=0, .NR3D_Q_BLKC_Y1=26, .NR3D_Q_BLKC_Y0=24, .NR3D_Q_BLKY_Y7=0, .NR3D_Q_BLKY_Y6=0, .NR3D_Q_BLKY_Y5=4}},
+    .tnr_curve_3={.bits={.rsv_0=0, .NR3D_Q_BLKC_Y6=0, .NR3D_Q_BLKC_Y5=0, .NR3D_Q_BLKC_Y4=0, .NR3D_Q_BLKC_Y3=2, .NR3D_Q_BLKC_Y2=8}},
+    .tnr_curve_4={.bits={.rsv_0=0, .NR3D_Q_DETXTR_LVL_Y3=21, .NR3D_Q_DETXTR_LVL_Y2=16, .NR3D_Q_DETXTR_LVL_Y1=8, .NR3D_Q_DETXTR_LVL_Y0=0, .NR3D_Q_BLKC_Y7=0}},
+    .tnr_curve_5={.bits={.rsv_0=0, .NR3D_Q_DE1_BASE_Y0=32, .NR3D_Q_DETXTR_LVL_Y7=32, .NR3D_Q_DETXTR_LVL_Y6=32, .NR3D_Q_DETXTR_LVL_Y5=32, .NR3D_Q_DETXTR_LVL_Y4=27}},
+    .tnr_curve_6={.bits={.rsv_0=0, .NR3D_Q_DE1_BASE_Y5=0, .NR3D_Q_DE1_BASE_Y4=12, .NR3D_Q_DE1_BASE_Y3=21, .NR3D_Q_DE1_BASE_Y2=27, .NR3D_Q_DE1_BASE_Y1=32}},
+    .tnr_curve_7={.bits={.rsv_0=0, .NR3D_Q_DE2TXTR_BASE_Y2=22, .NR3D_Q_DE2TXTR_BASE_Y1=5, .NR3D_Q_DE2TXTR_BASE_Y0=0, .NR3D_Q_DE1_BASE_Y7=0, .NR3D_Q_DE1_BASE_Y6=0}},
+    .tnr_curve_8={.bits={.rsv_0=0, .NR3D_Q_DE2TXTR_BASE_Y7=32, .NR3D_Q_DE2TXTR_BASE_Y6=32, .NR3D_Q_DE2TXTR_BASE_Y5=32, .NR3D_Q_DE2TXTR_BASE_Y4=32, .NR3D_Q_DE2TXTR_BASE_Y3=32}},
+    .tnr_curve_9={.bits={.rsv_0=0, .NR3D_Q_MV_Y4=20, .NR3D_Q_MV_Y3=14, .NR3D_Q_MV_Y2=7, .NR3D_Q_MV_Y1=3, .NR3D_Q_MV_Y0=0}},
+    .tnr_curve_10={.bits={.rsv_0=0, .NR3D_Q_WVAR_Y1=16, .NR3D_Q_WVAR_Y0=16, .NR3D_Q_MV_Y7=32, .NR3D_Q_MV_Y6=30, .NR3D_Q_MV_Y5=26}},
+    .tnr_curve_11={.bits={.rsv_0=0, .NR3D_Q_WVAR_Y6=1, .NR3D_Q_WVAR_Y5=1, .NR3D_Q_WVAR_Y4=2, .NR3D_Q_WVAR_Y3=3, .NR3D_Q_WVAR_Y2=6}},
+    .tnr_curve_12={.bits={.rsv_0=0, .NR3D_Q_WSM_Y3=9, .NR3D_Q_WSM_Y2=3, .NR3D_Q_WSM_Y1=1, .NR3D_Q_WSM_Y0=0, .NR3D_Q_WVAR_Y7=1}},
+    .tnr_curve_13={.bits={.rsv_0=0, .NR3D_Q_WSM_Y7=16, .NR3D_Q_WSM_Y6=16, .NR3D_Q_WSM_Y5=16, .NR3D_Q_WSM_Y4=14}},
+    .tnr_curve_14={.bits={.rsv_0=0, .NR3D_Q_SDL_Y4=32, .NR3D_Q_SDL_Y3=40, .NR3D_Q_SDL_Y2=48, .NR3D_Q_SDL_Y1=56, .NR3D_Q_SDL_Y0=63}},
+    .tnr_curve_15={.bits={.rsv_0=0, .NR3D_Q_SDL_Y8=0, .NR3D_Q_SDL_Y7=8, .NR3D_Q_SDL_Y6=16, .NR3D_Q_SDL_Y5=24}},
+    .tnr_r2c_1 ={.bits={.NR3D_R2CENC=0, .NR3D_R2C_VAL4=13, .NR3D_R2C_VAL3=11, .NR3D_R2C_VAL2=7, .NR3D_R2C_VAL1=3, .rsv_26=0}},
+    .tnr_r2c_2 ={.bits={.rsv_0=0, .NR3D_R2C_TXTR_THROFF=12, .NR3D_R2C_TXTR_THR4=9, .NR3D_R2C_TXTR_THR3=6, .NR3D_R2C_TXTR_THR2=4, .NR3D_R2C_TXTR_THR1=2}},
+    .tnr_r2c_3 ={.bits={.rsv_0=0, .NR3D_R2CF_CNT4=0, .NR3D_R2CF_CNT3=0, .NR3D_R2CF_CNT2=0, .NR3D_R2CF_CNT1=0}}
+
+};
+const ISP_NVRAM_NR3D_T ov16885mipiraw_NR3D_0024 = {
+        .on_con    ={.bits={.rsv_0=0, .NR3D_ON_EN=0, .rsv_5=0, .NR3D_TILE_EDGE=15, .rsv_12=0, .NR3D_SL2_OFF=0, .rsv_21=0}},
+    .tnr_tnr_enable={.bits={.rsv_0=0, .NR3D_TNR_C_EN=1, .NR3D_TNR_Y_EN=1}},
+    .tnr_flt_config={.bits={.rsv_0=0, .NR3D_EN_CCR=1, .NR3D_EN_CYCR=1, .NR3D_FLT_STR_MAX=28, .NR3D_BLEND_RATIO_MV=8, .NR3D_BLEND_RATIO_TXTR=8, .NR3D_BLEND_RATIO_DE=8, .NR3D_BLEND_RATIO_BLKY=8}},
+    .tnr_fb_info1={.bits={.rsv_0=0, .NR3D_Q_SP=20, .NR3D_Q_NL=4}},
+    .tnr_thr_1 ={.bits={.rsv_0=0, .NR3D_SMALL_SAD_THR=10, .NR3D_MV_PEN_THR=32, .NR3D_MV_PEN_W=8, .NR3D_BDI_THR=4, .rsv_30=0}},
+    .tnr_curve_1={.bits={.rsv_0=0, .NR3D_Q_BLKY_Y4=16, .NR3D_Q_BLKY_Y3=26, .NR3D_Q_BLKY_Y2=32, .NR3D_Q_BLKY_Y1=30, .NR3D_Q_BLKY_Y0=28}},
+    .tnr_curve_2={.bits={.rsv_0=0, .NR3D_Q_BLKC_Y1=26, .NR3D_Q_BLKC_Y0=24, .NR3D_Q_BLKY_Y7=0, .NR3D_Q_BLKY_Y6=0, .NR3D_Q_BLKY_Y5=4}},
+    .tnr_curve_3={.bits={.rsv_0=0, .NR3D_Q_BLKC_Y6=0, .NR3D_Q_BLKC_Y5=0, .NR3D_Q_BLKC_Y4=0, .NR3D_Q_BLKC_Y3=2, .NR3D_Q_BLKC_Y2=8}},
+    .tnr_curve_4={.bits={.rsv_0=0, .NR3D_Q_DETXTR_LVL_Y3=21, .NR3D_Q_DETXTR_LVL_Y2=16, .NR3D_Q_DETXTR_LVL_Y1=8, .NR3D_Q_DETXTR_LVL_Y0=0, .NR3D_Q_BLKC_Y7=0}},
+    .tnr_curve_5={.bits={.rsv_0=0, .NR3D_Q_DE1_BASE_Y0=32, .NR3D_Q_DETXTR_LVL_Y7=32, .NR3D_Q_DETXTR_LVL_Y6=32, .NR3D_Q_DETXTR_LVL_Y5=32, .NR3D_Q_DETXTR_LVL_Y4=27}},
+    .tnr_curve_6={.bits={.rsv_0=0, .NR3D_Q_DE1_BASE_Y5=0, .NR3D_Q_DE1_BASE_Y4=12, .NR3D_Q_DE1_BASE_Y3=21, .NR3D_Q_DE1_BASE_Y2=27, .NR3D_Q_DE1_BASE_Y1=32}},
+    .tnr_curve_7={.bits={.rsv_0=0, .NR3D_Q_DE2TXTR_BASE_Y2=22, .NR3D_Q_DE2TXTR_BASE_Y1=5, .NR3D_Q_DE2TXTR_BASE_Y0=0, .NR3D_Q_DE1_BASE_Y7=0, .NR3D_Q_DE1_BASE_Y6=0}},
+    .tnr_curve_8={.bits={.rsv_0=0, .NR3D_Q_DE2TXTR_BASE_Y7=32, .NR3D_Q_DE2TXTR_BASE_Y6=32, .NR3D_Q_DE2TXTR_BASE_Y5=32, .NR3D_Q_DE2TXTR_BASE_Y4=32, .NR3D_Q_DE2TXTR_BASE_Y3=32}},
+    .tnr_curve_9={.bits={.rsv_0=0, .NR3D_Q_MV_Y4=20, .NR3D_Q_MV_Y3=14, .NR3D_Q_MV_Y2=7, .NR3D_Q_MV_Y1=3, .NR3D_Q_MV_Y0=0}},
+    .tnr_curve_10={.bits={.rsv_0=0, .NR3D_Q_WVAR_Y1=16, .NR3D_Q_WVAR_Y0=16, .NR3D_Q_MV_Y7=32, .NR3D_Q_MV_Y6=30, .NR3D_Q_MV_Y5=26}},
+    .tnr_curve_11={.bits={.rsv_0=0, .NR3D_Q_WVAR_Y6=1, .NR3D_Q_WVAR_Y5=1, .NR3D_Q_WVAR_Y4=2, .NR3D_Q_WVAR_Y3=3, .NR3D_Q_WVAR_Y2=6}},
+    .tnr_curve_12={.bits={.rsv_0=0, .NR3D_Q_WSM_Y3=9, .NR3D_Q_WSM_Y2=3, .NR3D_Q_WSM_Y1=1, .NR3D_Q_WSM_Y0=0, .NR3D_Q_WVAR_Y7=1}},
+    .tnr_curve_13={.bits={.rsv_0=0, .NR3D_Q_WSM_Y7=16, .NR3D_Q_WSM_Y6=16, .NR3D_Q_WSM_Y5=16, .NR3D_Q_WSM_Y4=14}},
+    .tnr_curve_14={.bits={.rsv_0=0, .NR3D_Q_SDL_Y4=32, .NR3D_Q_SDL_Y3=40, .NR3D_Q_SDL_Y2=48, .NR3D_Q_SDL_Y1=56, .NR3D_Q_SDL_Y0=63}},
+    .tnr_curve_15={.bits={.rsv_0=0, .NR3D_Q_SDL_Y8=0, .NR3D_Q_SDL_Y7=8, .NR3D_Q_SDL_Y6=16, .NR3D_Q_SDL_Y5=24}},
+    .tnr_r2c_1 ={.bits={.NR3D_R2CENC=0, .NR3D_R2C_VAL4=13, .NR3D_R2C_VAL3=11, .NR3D_R2C_VAL2=7, .NR3D_R2C_VAL1=3, .rsv_26=0}},
+    .tnr_r2c_2 ={.bits={.rsv_0=0, .NR3D_R2C_TXTR_THROFF=12, .NR3D_R2C_TXTR_THR4=9, .NR3D_R2C_TXTR_THR3=6, .NR3D_R2C_TXTR_THR2=4, .NR3D_R2C_TXTR_THR1=2}},
+    .tnr_r2c_3 ={.bits={.rsv_0=0, .NR3D_R2CF_CNT4=0, .NR3D_R2CF_CNT3=0, .NR3D_R2CF_CNT2=0, .NR3D_R2CF_CNT1=0}}
+
+};
+const ISP_NVRAM_NR3D_T ov16885mipiraw_NR3D_0025 = {
+        .on_con    ={.bits={.rsv_0=0, .NR3D_ON_EN=0, .rsv_5=0, .NR3D_TILE_EDGE=15, .rsv_12=0, .NR3D_SL2_OFF=0, .rsv_21=0}},
+    .tnr_tnr_enable={.bits={.rsv_0=0, .NR3D_TNR_C_EN=1, .NR3D_TNR_Y_EN=1}},
+    .tnr_flt_config={.bits={.rsv_0=0, .NR3D_EN_CCR=1, .NR3D_EN_CYCR=1, .NR3D_FLT_STR_MAX=28, .NR3D_BLEND_RATIO_MV=8, .NR3D_BLEND_RATIO_TXTR=8, .NR3D_BLEND_RATIO_DE=8, .NR3D_BLEND_RATIO_BLKY=8}},
+    .tnr_fb_info1={.bits={.rsv_0=0, .NR3D_Q_SP=20, .NR3D_Q_NL=4}},
+    .tnr_thr_1 ={.bits={.rsv_0=0, .NR3D_SMALL_SAD_THR=10, .NR3D_MV_PEN_THR=32, .NR3D_MV_PEN_W=8, .NR3D_BDI_THR=4, .rsv_30=0}},
+    .tnr_curve_1={.bits={.rsv_0=0, .NR3D_Q_BLKY_Y4=16, .NR3D_Q_BLKY_Y3=26, .NR3D_Q_BLKY_Y2=32, .NR3D_Q_BLKY_Y1=30, .NR3D_Q_BLKY_Y0=28}},
+    .tnr_curve_2={.bits={.rsv_0=0, .NR3D_Q_BLKC_Y1=26, .NR3D_Q_BLKC_Y0=24, .NR3D_Q_BLKY_Y7=0, .NR3D_Q_BLKY_Y6=0, .NR3D_Q_BLKY_Y5=4}},
+    .tnr_curve_3={.bits={.rsv_0=0, .NR3D_Q_BLKC_Y6=0, .NR3D_Q_BLKC_Y5=0, .NR3D_Q_BLKC_Y4=0, .NR3D_Q_BLKC_Y3=2, .NR3D_Q_BLKC_Y2=8}},
+    .tnr_curve_4={.bits={.rsv_0=0, .NR3D_Q_DETXTR_LVL_Y3=21, .NR3D_Q_DETXTR_LVL_Y2=16, .NR3D_Q_DETXTR_LVL_Y1=8, .NR3D_Q_DETXTR_LVL_Y0=0, .NR3D_Q_BLKC_Y7=0}},
+    .tnr_curve_5={.bits={.rsv_0=0, .NR3D_Q_DE1_BASE_Y0=32, .NR3D_Q_DETXTR_LVL_Y7=32, .NR3D_Q_DETXTR_LVL_Y6=32, .NR3D_Q_DETXTR_LVL_Y5=32, .NR3D_Q_DETXTR_LVL_Y4=27}},
+    .tnr_curve_6={.bits={.rsv_0=0, .NR3D_Q_DE1_BASE_Y5=0, .NR3D_Q_DE1_BASE_Y4=12, .NR3D_Q_DE1_BASE_Y3=21, .NR3D_Q_DE1_BASE_Y2=27, .NR3D_Q_DE1_BASE_Y1=32}},
+    .tnr_curve_7={.bits={.rsv_0=0, .NR3D_Q_DE2TXTR_BASE_Y2=22, .NR3D_Q_DE2TXTR_BASE_Y1=5, .NR3D_Q_DE2TXTR_BASE_Y0=0, .NR3D_Q_DE1_BASE_Y7=0, .NR3D_Q_DE1_BASE_Y6=0}},
+    .tnr_curve_8={.bits={.rsv_0=0, .NR3D_Q_DE2TXTR_BASE_Y7=32, .NR3D_Q_DE2TXTR_BASE_Y6=32, .NR3D_Q_DE2TXTR_BASE_Y5=32, .NR3D_Q_DE2TXTR_BASE_Y4=32, .NR3D_Q_DE2TXTR_BASE_Y3=32}},
+    .tnr_curve_9={.bits={.rsv_0=0, .NR3D_Q_MV_Y4=20, .NR3D_Q_MV_Y3=14, .NR3D_Q_MV_Y2=7, .NR3D_Q_MV_Y1=3, .NR3D_Q_MV_Y0=0}},
+    .tnr_curve_10={.bits={.rsv_0=0, .NR3D_Q_WVAR_Y1=16, .NR3D_Q_WVAR_Y0=16, .NR3D_Q_MV_Y7=32, .NR3D_Q_MV_Y6=30, .NR3D_Q_MV_Y5=26}},
+    .tnr_curve_11={.bits={.rsv_0=0, .NR3D_Q_WVAR_Y6=1, .NR3D_Q_WVAR_Y5=1, .NR3D_Q_WVAR_Y4=2, .NR3D_Q_WVAR_Y3=3, .NR3D_Q_WVAR_Y2=6}},
+    .tnr_curve_12={.bits={.rsv_0=0, .NR3D_Q_WSM_Y3=9, .NR3D_Q_WSM_Y2=3, .NR3D_Q_WSM_Y1=1, .NR3D_Q_WSM_Y0=0, .NR3D_Q_WVAR_Y7=1}},
+    .tnr_curve_13={.bits={.rsv_0=0, .NR3D_Q_WSM_Y7=16, .NR3D_Q_WSM_Y6=16, .NR3D_Q_WSM_Y5=16, .NR3D_Q_WSM_Y4=14}},
+    .tnr_curve_14={.bits={.rsv_0=0, .NR3D_Q_SDL_Y4=32, .NR3D_Q_SDL_Y3=40, .NR3D_Q_SDL_Y2=48, .NR3D_Q_SDL_Y1=56, .NR3D_Q_SDL_Y0=63}},
+    .tnr_curve_15={.bits={.rsv_0=0, .NR3D_Q_SDL_Y8=0, .NR3D_Q_SDL_Y7=8, .NR3D_Q_SDL_Y6=16, .NR3D_Q_SDL_Y5=24}},
+    .tnr_r2c_1 ={.bits={.NR3D_R2CENC=0, .NR3D_R2C_VAL4=13, .NR3D_R2C_VAL3=11, .NR3D_R2C_VAL2=7, .NR3D_R2C_VAL1=3, .rsv_26=0}},
+    .tnr_r2c_2 ={.bits={.rsv_0=0, .NR3D_R2C_TXTR_THROFF=12, .NR3D_R2C_TXTR_THR4=9, .NR3D_R2C_TXTR_THR3=6, .NR3D_R2C_TXTR_THR2=4, .NR3D_R2C_TXTR_THR1=2}},
+    .tnr_r2c_3 ={.bits={.rsv_0=0, .NR3D_R2CF_CNT4=0, .NR3D_R2CF_CNT3=0, .NR3D_R2CF_CNT2=0, .NR3D_R2CF_CNT1=0}}
+
+};
+const ISP_NVRAM_NR3D_T ov16885mipiraw_NR3D_0026 = {
+        .on_con    ={.bits={.rsv_0=0, .NR3D_ON_EN=0, .rsv_5=0, .NR3D_TILE_EDGE=15, .rsv_12=0, .NR3D_SL2_OFF=0, .rsv_21=0}},
+    .tnr_tnr_enable={.bits={.rsv_0=0, .NR3D_TNR_C_EN=1, .NR3D_TNR_Y_EN=1}},
+    .tnr_flt_config={.bits={.rsv_0=0, .NR3D_EN_CCR=1, .NR3D_EN_CYCR=1, .NR3D_FLT_STR_MAX=28, .NR3D_BLEND_RATIO_MV=8, .NR3D_BLEND_RATIO_TXTR=8, .NR3D_BLEND_RATIO_DE=8, .NR3D_BLEND_RATIO_BLKY=8}},
+    .tnr_fb_info1={.bits={.rsv_0=0, .NR3D_Q_SP=20, .NR3D_Q_NL=4}},
+    .tnr_thr_1 ={.bits={.rsv_0=0, .NR3D_SMALL_SAD_THR=10, .NR3D_MV_PEN_THR=32, .NR3D_MV_PEN_W=8, .NR3D_BDI_THR=4, .rsv_30=0}},
+    .tnr_curve_1={.bits={.rsv_0=0, .NR3D_Q_BLKY_Y4=16, .NR3D_Q_BLKY_Y3=26, .NR3D_Q_BLKY_Y2=32, .NR3D_Q_BLKY_Y1=30, .NR3D_Q_BLKY_Y0=28}},
+    .tnr_curve_2={.bits={.rsv_0=0, .NR3D_Q_BLKC_Y1=26, .NR3D_Q_BLKC_Y0=24, .NR3D_Q_BLKY_Y7=0, .NR3D_Q_BLKY_Y6=0, .NR3D_Q_BLKY_Y5=4}},
+    .tnr_curve_3={.bits={.rsv_0=0, .NR3D_Q_BLKC_Y6=0, .NR3D_Q_BLKC_Y5=0, .NR3D_Q_BLKC_Y4=0, .NR3D_Q_BLKC_Y3=2, .NR3D_Q_BLKC_Y2=8}},
+    .tnr_curve_4={.bits={.rsv_0=0, .NR3D_Q_DETXTR_LVL_Y3=21, .NR3D_Q_DETXTR_LVL_Y2=16, .NR3D_Q_DETXTR_LVL_Y1=8, .NR3D_Q_DETXTR_LVL_Y0=0, .NR3D_Q_BLKC_Y7=0}},
+    .tnr_curve_5={.bits={.rsv_0=0, .NR3D_Q_DE1_BASE_Y0=32, .NR3D_Q_DETXTR_LVL_Y7=32, .NR3D_Q_DETXTR_LVL_Y6=32, .NR3D_Q_DETXTR_LVL_Y5=32, .NR3D_Q_DETXTR_LVL_Y4=27}},
+    .tnr_curve_6={.bits={.rsv_0=0, .NR3D_Q_DE1_BASE_Y5=0, .NR3D_Q_DE1_BASE_Y4=12, .NR3D_Q_DE1_BASE_Y3=21, .NR3D_Q_DE1_BASE_Y2=27, .NR3D_Q_DE1_BASE_Y1=32}},
+    .tnr_curve_7={.bits={.rsv_0=0, .NR3D_Q_DE2TXTR_BASE_Y2=22, .NR3D_Q_DE2TXTR_BASE_Y1=5, .NR3D_Q_DE2TXTR_BASE_Y0=0, .NR3D_Q_DE1_BASE_Y7=0, .NR3D_Q_DE1_BASE_Y6=0}},
+    .tnr_curve_8={.bits={.rsv_0=0, .NR3D_Q_DE2TXTR_BASE_Y7=32, .NR3D_Q_DE2TXTR_BASE_Y6=32, .NR3D_Q_DE2TXTR_BASE_Y5=32, .NR3D_Q_DE2TXTR_BASE_Y4=32, .NR3D_Q_DE2TXTR_BASE_Y3=32}},
+    .tnr_curve_9={.bits={.rsv_0=0, .NR3D_Q_MV_Y4=20, .NR3D_Q_MV_Y3=14, .NR3D_Q_MV_Y2=7, .NR3D_Q_MV_Y1=3, .NR3D_Q_MV_Y0=0}},
+    .tnr_curve_10={.bits={.rsv_0=0, .NR3D_Q_WVAR_Y1=16, .NR3D_Q_WVAR_Y0=16, .NR3D_Q_MV_Y7=32, .NR3D_Q_MV_Y6=30, .NR3D_Q_MV_Y5=26}},
+    .tnr_curve_11={.bits={.rsv_0=0, .NR3D_Q_WVAR_Y6=1, .NR3D_Q_WVAR_Y5=1, .NR3D_Q_WVAR_Y4=2, .NR3D_Q_WVAR_Y3=3, .NR3D_Q_WVAR_Y2=6}},
+    .tnr_curve_12={.bits={.rsv_0=0, .NR3D_Q_WSM_Y3=9, .NR3D_Q_WSM_Y2=3, .NR3D_Q_WSM_Y1=1, .NR3D_Q_WSM_Y0=0, .NR3D_Q_WVAR_Y7=1}},
+    .tnr_curve_13={.bits={.rsv_0=0, .NR3D_Q_WSM_Y7=16, .NR3D_Q_WSM_Y6=16, .NR3D_Q_WSM_Y5=16, .NR3D_Q_WSM_Y4=14}},
+    .tnr_curve_14={.bits={.rsv_0=0, .NR3D_Q_SDL_Y4=32, .NR3D_Q_SDL_Y3=40, .NR3D_Q_SDL_Y2=48, .NR3D_Q_SDL_Y1=56, .NR3D_Q_SDL_Y0=63}},
+    .tnr_curve_15={.bits={.rsv_0=0, .NR3D_Q_SDL_Y8=0, .NR3D_Q_SDL_Y7=8, .NR3D_Q_SDL_Y6=16, .NR3D_Q_SDL_Y5=24}},
+    .tnr_r2c_1 ={.bits={.NR3D_R2CENC=0, .NR3D_R2C_VAL4=13, .NR3D_R2C_VAL3=11, .NR3D_R2C_VAL2=7, .NR3D_R2C_VAL1=3, .rsv_26=0}},
+    .tnr_r2c_2 ={.bits={.rsv_0=0, .NR3D_R2C_TXTR_THROFF=12, .NR3D_R2C_TXTR_THR4=9, .NR3D_R2C_TXTR_THR3=6, .NR3D_R2C_TXTR_THR2=4, .NR3D_R2C_TXTR_THR1=2}},
+    .tnr_r2c_3 ={.bits={.rsv_0=0, .NR3D_R2CF_CNT4=0, .NR3D_R2CF_CNT3=0, .NR3D_R2CF_CNT2=0, .NR3D_R2CF_CNT1=0}}
+
+};
+const ISP_NVRAM_NR3D_T ov16885mipiraw_NR3D_0027 = {
+        .on_con    ={.bits={.rsv_0=0, .NR3D_ON_EN=0, .rsv_5=0, .NR3D_TILE_EDGE=15, .rsv_12=0, .NR3D_SL2_OFF=0, .rsv_21=0}},
+    .tnr_tnr_enable={.bits={.rsv_0=0, .NR3D_TNR_C_EN=1, .NR3D_TNR_Y_EN=1}},
+    .tnr_flt_config={.bits={.rsv_0=0, .NR3D_EN_CCR=1, .NR3D_EN_CYCR=1, .NR3D_FLT_STR_MAX=28, .NR3D_BLEND_RATIO_MV=8, .NR3D_BLEND_RATIO_TXTR=8, .NR3D_BLEND_RATIO_DE=8, .NR3D_BLEND_RATIO_BLKY=8}},
+    .tnr_fb_info1={.bits={.rsv_0=0, .NR3D_Q_SP=20, .NR3D_Q_NL=4}},
+    .tnr_thr_1 ={.bits={.rsv_0=0, .NR3D_SMALL_SAD_THR=10, .NR3D_MV_PEN_THR=32, .NR3D_MV_PEN_W=8, .NR3D_BDI_THR=4, .rsv_30=0}},
+    .tnr_curve_1={.bits={.rsv_0=0, .NR3D_Q_BLKY_Y4=16, .NR3D_Q_BLKY_Y3=26, .NR3D_Q_BLKY_Y2=32, .NR3D_Q_BLKY_Y1=30, .NR3D_Q_BLKY_Y0=28}},
+    .tnr_curve_2={.bits={.rsv_0=0, .NR3D_Q_BLKC_Y1=26, .NR3D_Q_BLKC_Y0=24, .NR3D_Q_BLKY_Y7=0, .NR3D_Q_BLKY_Y6=0, .NR3D_Q_BLKY_Y5=4}},
+    .tnr_curve_3={.bits={.rsv_0=0, .NR3D_Q_BLKC_Y6=0, .NR3D_Q_BLKC_Y5=0, .NR3D_Q_BLKC_Y4=0, .NR3D_Q_BLKC_Y3=2, .NR3D_Q_BLKC_Y2=8}},
+    .tnr_curve_4={.bits={.rsv_0=0, .NR3D_Q_DETXTR_LVL_Y3=21, .NR3D_Q_DETXTR_LVL_Y2=16, .NR3D_Q_DETXTR_LVL_Y1=8, .NR3D_Q_DETXTR_LVL_Y0=0, .NR3D_Q_BLKC_Y7=0}},
+    .tnr_curve_5={.bits={.rsv_0=0, .NR3D_Q_DE1_BASE_Y0=32, .NR3D_Q_DETXTR_LVL_Y7=32, .NR3D_Q_DETXTR_LVL_Y6=32, .NR3D_Q_DETXTR_LVL_Y5=32, .NR3D_Q_DETXTR_LVL_Y4=27}},
+    .tnr_curve_6={.bits={.rsv_0=0, .NR3D_Q_DE1_BASE_Y5=0, .NR3D_Q_DE1_BASE_Y4=12, .NR3D_Q_DE1_BASE_Y3=21, .NR3D_Q_DE1_BASE_Y2=27, .NR3D_Q_DE1_BASE_Y1=32}},
+    .tnr_curve_7={.bits={.rsv_0=0, .NR3D_Q_DE2TXTR_BASE_Y2=22, .NR3D_Q_DE2TXTR_BASE_Y1=5, .NR3D_Q_DE2TXTR_BASE_Y0=0, .NR3D_Q_DE1_BASE_Y7=0, .NR3D_Q_DE1_BASE_Y6=0}},
+    .tnr_curve_8={.bits={.rsv_0=0, .NR3D_Q_DE2TXTR_BASE_Y7=32, .NR3D_Q_DE2TXTR_BASE_Y6=32, .NR3D_Q_DE2TXTR_BASE_Y5=32, .NR3D_Q_DE2TXTR_BASE_Y4=32, .NR3D_Q_DE2TXTR_BASE_Y3=32}},
+    .tnr_curve_9={.bits={.rsv_0=0, .NR3D_Q_MV_Y4=20, .NR3D_Q_MV_Y3=14, .NR3D_Q_MV_Y2=7, .NR3D_Q_MV_Y1=3, .NR3D_Q_MV_Y0=0}},
+    .tnr_curve_10={.bits={.rsv_0=0, .NR3D_Q_WVAR_Y1=16, .NR3D_Q_WVAR_Y0=16, .NR3D_Q_MV_Y7=32, .NR3D_Q_MV_Y6=30, .NR3D_Q_MV_Y5=26}},
+    .tnr_curve_11={.bits={.rsv_0=0, .NR3D_Q_WVAR_Y6=1, .NR3D_Q_WVAR_Y5=1, .NR3D_Q_WVAR_Y4=2, .NR3D_Q_WVAR_Y3=3, .NR3D_Q_WVAR_Y2=6}},
+    .tnr_curve_12={.bits={.rsv_0=0, .NR3D_Q_WSM_Y3=9, .NR3D_Q_WSM_Y2=3, .NR3D_Q_WSM_Y1=1, .NR3D_Q_WSM_Y0=0, .NR3D_Q_WVAR_Y7=1}},
+    .tnr_curve_13={.bits={.rsv_0=0, .NR3D_Q_WSM_Y7=16, .NR3D_Q_WSM_Y6=16, .NR3D_Q_WSM_Y5=16, .NR3D_Q_WSM_Y4=14}},
+    .tnr_curve_14={.bits={.rsv_0=0, .NR3D_Q_SDL_Y4=32, .NR3D_Q_SDL_Y3=40, .NR3D_Q_SDL_Y2=48, .NR3D_Q_SDL_Y1=56, .NR3D_Q_SDL_Y0=63}},
+    .tnr_curve_15={.bits={.rsv_0=0, .NR3D_Q_SDL_Y8=0, .NR3D_Q_SDL_Y7=8, .NR3D_Q_SDL_Y6=16, .NR3D_Q_SDL_Y5=24}},
+    .tnr_r2c_1 ={.bits={.NR3D_R2CENC=0, .NR3D_R2C_VAL4=13, .NR3D_R2C_VAL3=11, .NR3D_R2C_VAL2=7, .NR3D_R2C_VAL1=3, .rsv_26=0}},
+    .tnr_r2c_2 ={.bits={.rsv_0=0, .NR3D_R2C_TXTR_THROFF=12, .NR3D_R2C_TXTR_THR4=9, .NR3D_R2C_TXTR_THR3=6, .NR3D_R2C_TXTR_THR2=4, .NR3D_R2C_TXTR_THR1=2}},
+    .tnr_r2c_3 ={.bits={.rsv_0=0, .NR3D_R2CF_CNT4=0, .NR3D_R2CF_CNT3=0, .NR3D_R2CF_CNT2=0, .NR3D_R2CF_CNT1=0}}
+
+};
+const ISP_NVRAM_NR3D_T ov16885mipiraw_NR3D_0028 = {
+        .on_con    ={.bits={.rsv_0=0, .NR3D_ON_EN=0, .rsv_5=0, .NR3D_TILE_EDGE=15, .rsv_12=0, .NR3D_SL2_OFF=0, .rsv_21=0}},
+    .tnr_tnr_enable={.bits={.rsv_0=0, .NR3D_TNR_C_EN=1, .NR3D_TNR_Y_EN=1}},
+    .tnr_flt_config={.bits={.rsv_0=0, .NR3D_EN_CCR=1, .NR3D_EN_CYCR=1, .NR3D_FLT_STR_MAX=28, .NR3D_BLEND_RATIO_MV=8, .NR3D_BLEND_RATIO_TXTR=8, .NR3D_BLEND_RATIO_DE=8, .NR3D_BLEND_RATIO_BLKY=8}},
+    .tnr_fb_info1={.bits={.rsv_0=0, .NR3D_Q_SP=20, .NR3D_Q_NL=4}},
+    .tnr_thr_1 ={.bits={.rsv_0=0, .NR3D_SMALL_SAD_THR=10, .NR3D_MV_PEN_THR=32, .NR3D_MV_PEN_W=8, .NR3D_BDI_THR=4, .rsv_30=0}},
+    .tnr_curve_1={.bits={.rsv_0=0, .NR3D_Q_BLKY_Y4=16, .NR3D_Q_BLKY_Y3=26, .NR3D_Q_BLKY_Y2=32, .NR3D_Q_BLKY_Y1=30, .NR3D_Q_BLKY_Y0=28}},
+    .tnr_curve_2={.bits={.rsv_0=0, .NR3D_Q_BLKC_Y1=26, .NR3D_Q_BLKC_Y0=24, .NR3D_Q_BLKY_Y7=0, .NR3D_Q_BLKY_Y6=0, .NR3D_Q_BLKY_Y5=4}},
+    .tnr_curve_3={.bits={.rsv_0=0, .NR3D_Q_BLKC_Y6=0, .NR3D_Q_BLKC_Y5=0, .NR3D_Q_BLKC_Y4=0, .NR3D_Q_BLKC_Y3=2, .NR3D_Q_BLKC_Y2=8}},
+    .tnr_curve_4={.bits={.rsv_0=0, .NR3D_Q_DETXTR_LVL_Y3=21, .NR3D_Q_DETXTR_LVL_Y2=16, .NR3D_Q_DETXTR_LVL_Y1=8, .NR3D_Q_DETXTR_LVL_Y0=0, .NR3D_Q_BLKC_Y7=0}},
+    .tnr_curve_5={.bits={.rsv_0=0, .NR3D_Q_DE1_BASE_Y0=32, .NR3D_Q_DETXTR_LVL_Y7=32, .NR3D_Q_DETXTR_LVL_Y6=32, .NR3D_Q_DETXTR_LVL_Y5=32, .NR3D_Q_DETXTR_LVL_Y4=27}},
+    .tnr_curve_6={.bits={.rsv_0=0, .NR3D_Q_DE1_BASE_Y5=0, .NR3D_Q_DE1_BASE_Y4=12, .NR3D_Q_DE1_BASE_Y3=21, .NR3D_Q_DE1_BASE_Y2=27, .NR3D_Q_DE1_BASE_Y1=32}},
+    .tnr_curve_7={.bits={.rsv_0=0, .NR3D_Q_DE2TXTR_BASE_Y2=22, .NR3D_Q_DE2TXTR_BASE_Y1=5, .NR3D_Q_DE2TXTR_BASE_Y0=0, .NR3D_Q_DE1_BASE_Y7=0, .NR3D_Q_DE1_BASE_Y6=0}},
+    .tnr_curve_8={.bits={.rsv_0=0, .NR3D_Q_DE2TXTR_BASE_Y7=32, .NR3D_Q_DE2TXTR_BASE_Y6=32, .NR3D_Q_DE2TXTR_BASE_Y5=32, .NR3D_Q_DE2TXTR_BASE_Y4=32, .NR3D_Q_DE2TXTR_BASE_Y3=32}},
+    .tnr_curve_9={.bits={.rsv_0=0, .NR3D_Q_MV_Y4=20, .NR3D_Q_MV_Y3=14, .NR3D_Q_MV_Y2=7, .NR3D_Q_MV_Y1=3, .NR3D_Q_MV_Y0=0}},
+    .tnr_curve_10={.bits={.rsv_0=0, .NR3D_Q_WVAR_Y1=16, .NR3D_Q_WVAR_Y0=16, .NR3D_Q_MV_Y7=32, .NR3D_Q_MV_Y6=30, .NR3D_Q_MV_Y5=26}},
+    .tnr_curve_11={.bits={.rsv_0=0, .NR3D_Q_WVAR_Y6=1, .NR3D_Q_WVAR_Y5=1, .NR3D_Q_WVAR_Y4=2, .NR3D_Q_WVAR_Y3=3, .NR3D_Q_WVAR_Y2=6}},
+    .tnr_curve_12={.bits={.rsv_0=0, .NR3D_Q_WSM_Y3=9, .NR3D_Q_WSM_Y2=3, .NR3D_Q_WSM_Y1=1, .NR3D_Q_WSM_Y0=0, .NR3D_Q_WVAR_Y7=1}},
+    .tnr_curve_13={.bits={.rsv_0=0, .NR3D_Q_WSM_Y7=16, .NR3D_Q_WSM_Y6=16, .NR3D_Q_WSM_Y5=16, .NR3D_Q_WSM_Y4=14}},
+    .tnr_curve_14={.bits={.rsv_0=0, .NR3D_Q_SDL_Y4=32, .NR3D_Q_SDL_Y3=40, .NR3D_Q_SDL_Y2=48, .NR3D_Q_SDL_Y1=56, .NR3D_Q_SDL_Y0=63}},
+    .tnr_curve_15={.bits={.rsv_0=0, .NR3D_Q_SDL_Y8=0, .NR3D_Q_SDL_Y7=8, .NR3D_Q_SDL_Y6=16, .NR3D_Q_SDL_Y5=24}},
+    .tnr_r2c_1 ={.bits={.NR3D_R2CENC=0, .NR3D_R2C_VAL4=13, .NR3D_R2C_VAL3=11, .NR3D_R2C_VAL2=7, .NR3D_R2C_VAL1=3, .rsv_26=0}},
+    .tnr_r2c_2 ={.bits={.rsv_0=0, .NR3D_R2C_TXTR_THROFF=12, .NR3D_R2C_TXTR_THR4=9, .NR3D_R2C_TXTR_THR3=6, .NR3D_R2C_TXTR_THR2=4, .NR3D_R2C_TXTR_THR1=2}},
+    .tnr_r2c_3 ={.bits={.rsv_0=0, .NR3D_R2CF_CNT4=0, .NR3D_R2CF_CNT3=0, .NR3D_R2CF_CNT2=0, .NR3D_R2CF_CNT1=0}}
+
+};
+const ISP_NVRAM_NR3D_T ov16885mipiraw_NR3D_0029 = {
+        .on_con    ={.bits={.rsv_0=0, .NR3D_ON_EN=0, .rsv_5=0, .NR3D_TILE_EDGE=15, .rsv_12=0, .NR3D_SL2_OFF=0, .rsv_21=0}},
+    .tnr_tnr_enable={.bits={.rsv_0=0, .NR3D_TNR_C_EN=1, .NR3D_TNR_Y_EN=1}},
+    .tnr_flt_config={.bits={.rsv_0=0, .NR3D_EN_CCR=1, .NR3D_EN_CYCR=1, .NR3D_FLT_STR_MAX=28, .NR3D_BLEND_RATIO_MV=8, .NR3D_BLEND_RATIO_TXTR=8, .NR3D_BLEND_RATIO_DE=8, .NR3D_BLEND_RATIO_BLKY=8}},
+    .tnr_fb_info1={.bits={.rsv_0=0, .NR3D_Q_SP=20, .NR3D_Q_NL=4}},
+    .tnr_thr_1 ={.bits={.rsv_0=0, .NR3D_SMALL_SAD_THR=10, .NR3D_MV_PEN_THR=32, .NR3D_MV_PEN_W=8, .NR3D_BDI_THR=4, .rsv_30=0}},
+    .tnr_curve_1={.bits={.rsv_0=0, .NR3D_Q_BLKY_Y4=16, .NR3D_Q_BLKY_Y3=26, .NR3D_Q_BLKY_Y2=32, .NR3D_Q_BLKY_Y1=30, .NR3D_Q_BLKY_Y0=28}},
+    .tnr_curve_2={.bits={.rsv_0=0, .NR3D_Q_BLKC_Y1=26, .NR3D_Q_BLKC_Y0=24, .NR3D_Q_BLKY_Y7=0, .NR3D_Q_BLKY_Y6=0, .NR3D_Q_BLKY_Y5=4}},
+    .tnr_curve_3={.bits={.rsv_0=0, .NR3D_Q_BLKC_Y6=0, .NR3D_Q_BLKC_Y5=0, .NR3D_Q_BLKC_Y4=0, .NR3D_Q_BLKC_Y3=2, .NR3D_Q_BLKC_Y2=8}},
+    .tnr_curve_4={.bits={.rsv_0=0, .NR3D_Q_DETXTR_LVL_Y3=21, .NR3D_Q_DETXTR_LVL_Y2=16, .NR3D_Q_DETXTR_LVL_Y1=8, .NR3D_Q_DETXTR_LVL_Y0=0, .NR3D_Q_BLKC_Y7=0}},
+    .tnr_curve_5={.bits={.rsv_0=0, .NR3D_Q_DE1_BASE_Y0=32, .NR3D_Q_DETXTR_LVL_Y7=32, .NR3D_Q_DETXTR_LVL_Y6=32, .NR3D_Q_DETXTR_LVL_Y5=32, .NR3D_Q_DETXTR_LVL_Y4=27}},
+    .tnr_curve_6={.bits={.rsv_0=0, .NR3D_Q_DE1_BASE_Y5=0, .NR3D_Q_DE1_BASE_Y4=12, .NR3D_Q_DE1_BASE_Y3=21, .NR3D_Q_DE1_BASE_Y2=27, .NR3D_Q_DE1_BASE_Y1=32}},
+    .tnr_curve_7={.bits={.rsv_0=0, .NR3D_Q_DE2TXTR_BASE_Y2=22, .NR3D_Q_DE2TXTR_BASE_Y1=5, .NR3D_Q_DE2TXTR_BASE_Y0=0, .NR3D_Q_DE1_BASE_Y7=0, .NR3D_Q_DE1_BASE_Y6=0}},
+    .tnr_curve_8={.bits={.rsv_0=0, .NR3D_Q_DE2TXTR_BASE_Y7=32, .NR3D_Q_DE2TXTR_BASE_Y6=32, .NR3D_Q_DE2TXTR_BASE_Y5=32, .NR3D_Q_DE2TXTR_BASE_Y4=32, .NR3D_Q_DE2TXTR_BASE_Y3=32}},
+    .tnr_curve_9={.bits={.rsv_0=0, .NR3D_Q_MV_Y4=20, .NR3D_Q_MV_Y3=14, .NR3D_Q_MV_Y2=7, .NR3D_Q_MV_Y1=3, .NR3D_Q_MV_Y0=0}},
+    .tnr_curve_10={.bits={.rsv_0=0, .NR3D_Q_WVAR_Y1=16, .NR3D_Q_WVAR_Y0=16, .NR3D_Q_MV_Y7=32, .NR3D_Q_MV_Y6=30, .NR3D_Q_MV_Y5=26}},
+    .tnr_curve_11={.bits={.rsv_0=0, .NR3D_Q_WVAR_Y6=1, .NR3D_Q_WVAR_Y5=1, .NR3D_Q_WVAR_Y4=2, .NR3D_Q_WVAR_Y3=3, .NR3D_Q_WVAR_Y2=6}},
+    .tnr_curve_12={.bits={.rsv_0=0, .NR3D_Q_WSM_Y3=9, .NR3D_Q_WSM_Y2=3, .NR3D_Q_WSM_Y1=1, .NR3D_Q_WSM_Y0=0, .NR3D_Q_WVAR_Y7=1}},
+    .tnr_curve_13={.bits={.rsv_0=0, .NR3D_Q_WSM_Y7=16, .NR3D_Q_WSM_Y6=16, .NR3D_Q_WSM_Y5=16, .NR3D_Q_WSM_Y4=14}},
+    .tnr_curve_14={.bits={.rsv_0=0, .NR3D_Q_SDL_Y4=32, .NR3D_Q_SDL_Y3=40, .NR3D_Q_SDL_Y2=48, .NR3D_Q_SDL_Y1=56, .NR3D_Q_SDL_Y0=63}},
+    .tnr_curve_15={.bits={.rsv_0=0, .NR3D_Q_SDL_Y8=0, .NR3D_Q_SDL_Y7=8, .NR3D_Q_SDL_Y6=16, .NR3D_Q_SDL_Y5=24}},
+    .tnr_r2c_1 ={.bits={.NR3D_R2CENC=0, .NR3D_R2C_VAL4=13, .NR3D_R2C_VAL3=11, .NR3D_R2C_VAL2=7, .NR3D_R2C_VAL1=3, .rsv_26=0}},
+    .tnr_r2c_2 ={.bits={.rsv_0=0, .NR3D_R2C_TXTR_THROFF=12, .NR3D_R2C_TXTR_THR4=9, .NR3D_R2C_TXTR_THR3=6, .NR3D_R2C_TXTR_THR2=4, .NR3D_R2C_TXTR_THR1=2}},
+    .tnr_r2c_3 ={.bits={.rsv_0=0, .NR3D_R2CF_CNT4=0, .NR3D_R2CF_CNT3=0, .NR3D_R2CF_CNT2=0, .NR3D_R2CF_CNT1=0}}
+
+};
+const ISP_NVRAM_NR3D_T ov16885mipiraw_NR3D_0030 = {
+        .on_con    ={.bits={.rsv_0=0, .NR3D_ON_EN=0, .rsv_5=0, .NR3D_TILE_EDGE=15, .rsv_12=0, .NR3D_SL2_OFF=0, .rsv_21=0}},
+    .tnr_tnr_enable={.bits={.rsv_0=0, .NR3D_TNR_C_EN=1, .NR3D_TNR_Y_EN=1}},
+    .tnr_flt_config={.bits={.rsv_0=0, .NR3D_EN_CCR=1, .NR3D_EN_CYCR=1, .NR3D_FLT_STR_MAX=28, .NR3D_BLEND_RATIO_MV=8, .NR3D_BLEND_RATIO_TXTR=8, .NR3D_BLEND_RATIO_DE=8, .NR3D_BLEND_RATIO_BLKY=8}},
+    .tnr_fb_info1={.bits={.rsv_0=0, .NR3D_Q_SP=20, .NR3D_Q_NL=4}},
+    .tnr_thr_1 ={.bits={.rsv_0=0, .NR3D_SMALL_SAD_THR=10, .NR3D_MV_PEN_THR=32, .NR3D_MV_PEN_W=8, .NR3D_BDI_THR=4, .rsv_30=0}},
+    .tnr_curve_1={.bits={.rsv_0=0, .NR3D_Q_BLKY_Y4=16, .NR3D_Q_BLKY_Y3=26, .NR3D_Q_BLKY_Y2=32, .NR3D_Q_BLKY_Y1=30, .NR3D_Q_BLKY_Y0=28}},
+    .tnr_curve_2={.bits={.rsv_0=0, .NR3D_Q_BLKC_Y1=26, .NR3D_Q_BLKC_Y0=24, .NR3D_Q_BLKY_Y7=0, .NR3D_Q_BLKY_Y6=0, .NR3D_Q_BLKY_Y5=4}},
+    .tnr_curve_3={.bits={.rsv_0=0, .NR3D_Q_BLKC_Y6=0, .NR3D_Q_BLKC_Y5=0, .NR3D_Q_BLKC_Y4=0, .NR3D_Q_BLKC_Y3=2, .NR3D_Q_BLKC_Y2=8}},
+    .tnr_curve_4={.bits={.rsv_0=0, .NR3D_Q_DETXTR_LVL_Y3=21, .NR3D_Q_DETXTR_LVL_Y2=16, .NR3D_Q_DETXTR_LVL_Y1=8, .NR3D_Q_DETXTR_LVL_Y0=0, .NR3D_Q_BLKC_Y7=0}},
+    .tnr_curve_5={.bits={.rsv_0=0, .NR3D_Q_DE1_BASE_Y0=32, .NR3D_Q_DETXTR_LVL_Y7=32, .NR3D_Q_DETXTR_LVL_Y6=32, .NR3D_Q_DETXTR_LVL_Y5=32, .NR3D_Q_DETXTR_LVL_Y4=27}},
+    .tnr_curve_6={.bits={.rsv_0=0, .NR3D_Q_DE1_BASE_Y5=0, .NR3D_Q_DE1_BASE_Y4=12, .NR3D_Q_DE1_BASE_Y3=21, .NR3D_Q_DE1_BASE_Y2=27, .NR3D_Q_DE1_BASE_Y1=32}},
+    .tnr_curve_7={.bits={.rsv_0=0, .NR3D_Q_DE2TXTR_BASE_Y2=22, .NR3D_Q_DE2TXTR_BASE_Y1=5, .NR3D_Q_DE2TXTR_BASE_Y0=0, .NR3D_Q_DE1_BASE_Y7=0, .NR3D_Q_DE1_BASE_Y6=0}},
+    .tnr_curve_8={.bits={.rsv_0=0, .NR3D_Q_DE2TXTR_BASE_Y7=32, .NR3D_Q_DE2TXTR_BASE_Y6=32, .NR3D_Q_DE2TXTR_BASE_Y5=32, .NR3D_Q_DE2TXTR_BASE_Y4=32, .NR3D_Q_DE2TXTR_BASE_Y3=32}},
+    .tnr_curve_9={.bits={.rsv_0=0, .NR3D_Q_MV_Y4=20, .NR3D_Q_MV_Y3=14, .NR3D_Q_MV_Y2=7, .NR3D_Q_MV_Y1=3, .NR3D_Q_MV_Y0=0}},
+    .tnr_curve_10={.bits={.rsv_0=0, .NR3D_Q_WVAR_Y1=16, .NR3D_Q_WVAR_Y0=16, .NR3D_Q_MV_Y7=32, .NR3D_Q_MV_Y6=30, .NR3D_Q_MV_Y5=26}},
+    .tnr_curve_11={.bits={.rsv_0=0, .NR3D_Q_WVAR_Y6=1, .NR3D_Q_WVAR_Y5=1, .NR3D_Q_WVAR_Y4=2, .NR3D_Q_WVAR_Y3=3, .NR3D_Q_WVAR_Y2=6}},
+    .tnr_curve_12={.bits={.rsv_0=0, .NR3D_Q_WSM_Y3=9, .NR3D_Q_WSM_Y2=3, .NR3D_Q_WSM_Y1=1, .NR3D_Q_WSM_Y0=0, .NR3D_Q_WVAR_Y7=1}},
+    .tnr_curve_13={.bits={.rsv_0=0, .NR3D_Q_WSM_Y7=16, .NR3D_Q_WSM_Y6=16, .NR3D_Q_WSM_Y5=16, .NR3D_Q_WSM_Y4=14}},
+    .tnr_curve_14={.bits={.rsv_0=0, .NR3D_Q_SDL_Y4=32, .NR3D_Q_SDL_Y3=40, .NR3D_Q_SDL_Y2=48, .NR3D_Q_SDL_Y1=56, .NR3D_Q_SDL_Y0=63}},
+    .tnr_curve_15={.bits={.rsv_0=0, .NR3D_Q_SDL_Y8=0, .NR3D_Q_SDL_Y7=8, .NR3D_Q_SDL_Y6=16, .NR3D_Q_SDL_Y5=24}},
+    .tnr_r2c_1 ={.bits={.NR3D_R2CENC=0, .NR3D_R2C_VAL4=13, .NR3D_R2C_VAL3=11, .NR3D_R2C_VAL2=7, .NR3D_R2C_VAL1=3, .rsv_26=0}},
+    .tnr_r2c_2 ={.bits={.rsv_0=0, .NR3D_R2C_TXTR_THROFF=12, .NR3D_R2C_TXTR_THR4=9, .NR3D_R2C_TXTR_THR3=6, .NR3D_R2C_TXTR_THR2=4, .NR3D_R2C_TXTR_THR1=2}},
+    .tnr_r2c_3 ={.bits={.rsv_0=0, .NR3D_R2CF_CNT4=0, .NR3D_R2CF_CNT3=0, .NR3D_R2CF_CNT2=0, .NR3D_R2CF_CNT1=0}}
+
+};
+const ISP_NVRAM_NR3D_T ov16885mipiraw_NR3D_0031 = {
+        .on_con    ={.bits={.rsv_0=0, .NR3D_ON_EN=0, .rsv_5=0, .NR3D_TILE_EDGE=15, .rsv_12=0, .NR3D_SL2_OFF=0, .rsv_21=0}},
+    .tnr_tnr_enable={.bits={.rsv_0=0, .NR3D_TNR_C_EN=1, .NR3D_TNR_Y_EN=1}},
+    .tnr_flt_config={.bits={.rsv_0=0, .NR3D_EN_CCR=1, .NR3D_EN_CYCR=1, .NR3D_FLT_STR_MAX=28, .NR3D_BLEND_RATIO_MV=8, .NR3D_BLEND_RATIO_TXTR=8, .NR3D_BLEND_RATIO_DE=8, .NR3D_BLEND_RATIO_BLKY=8}},
+    .tnr_fb_info1={.bits={.rsv_0=0, .NR3D_Q_SP=20, .NR3D_Q_NL=4}},
+    .tnr_thr_1 ={.bits={.rsv_0=0, .NR3D_SMALL_SAD_THR=10, .NR3D_MV_PEN_THR=32, .NR3D_MV_PEN_W=8, .NR3D_BDI_THR=4, .rsv_30=0}},
+    .tnr_curve_1={.bits={.rsv_0=0, .NR3D_Q_BLKY_Y4=16, .NR3D_Q_BLKY_Y3=26, .NR3D_Q_BLKY_Y2=32, .NR3D_Q_BLKY_Y1=30, .NR3D_Q_BLKY_Y0=28}},
+    .tnr_curve_2={.bits={.rsv_0=0, .NR3D_Q_BLKC_Y1=26, .NR3D_Q_BLKC_Y0=24, .NR3D_Q_BLKY_Y7=0, .NR3D_Q_BLKY_Y6=0, .NR3D_Q_BLKY_Y5=4}},
+    .tnr_curve_3={.bits={.rsv_0=0, .NR3D_Q_BLKC_Y6=0, .NR3D_Q_BLKC_Y5=0, .NR3D_Q_BLKC_Y4=0, .NR3D_Q_BLKC_Y3=2, .NR3D_Q_BLKC_Y2=8}},
+    .tnr_curve_4={.bits={.rsv_0=0, .NR3D_Q_DETXTR_LVL_Y3=21, .NR3D_Q_DETXTR_LVL_Y2=16, .NR3D_Q_DETXTR_LVL_Y1=8, .NR3D_Q_DETXTR_LVL_Y0=0, .NR3D_Q_BLKC_Y7=0}},
+    .tnr_curve_5={.bits={.rsv_0=0, .NR3D_Q_DE1_BASE_Y0=32, .NR3D_Q_DETXTR_LVL_Y7=32, .NR3D_Q_DETXTR_LVL_Y6=32, .NR3D_Q_DETXTR_LVL_Y5=32, .NR3D_Q_DETXTR_LVL_Y4=27}},
+    .tnr_curve_6={.bits={.rsv_0=0, .NR3D_Q_DE1_BASE_Y5=0, .NR3D_Q_DE1_BASE_Y4=12, .NR3D_Q_DE1_BASE_Y3=21, .NR3D_Q_DE1_BASE_Y2=27, .NR3D_Q_DE1_BASE_Y1=32}},
+    .tnr_curve_7={.bits={.rsv_0=0, .NR3D_Q_DE2TXTR_BASE_Y2=22, .NR3D_Q_DE2TXTR_BASE_Y1=5, .NR3D_Q_DE2TXTR_BASE_Y0=0, .NR3D_Q_DE1_BASE_Y7=0, .NR3D_Q_DE1_BASE_Y6=0}},
+    .tnr_curve_8={.bits={.rsv_0=0, .NR3D_Q_DE2TXTR_BASE_Y7=32, .NR3D_Q_DE2TXTR_BASE_Y6=32, .NR3D_Q_DE2TXTR_BASE_Y5=32, .NR3D_Q_DE2TXTR_BASE_Y4=32, .NR3D_Q_DE2TXTR_BASE_Y3=32}},
+    .tnr_curve_9={.bits={.rsv_0=0, .NR3D_Q_MV_Y4=20, .NR3D_Q_MV_Y3=14, .NR3D_Q_MV_Y2=7, .NR3D_Q_MV_Y1=3, .NR3D_Q_MV_Y0=0}},
+    .tnr_curve_10={.bits={.rsv_0=0, .NR3D_Q_WVAR_Y1=16, .NR3D_Q_WVAR_Y0=16, .NR3D_Q_MV_Y7=32, .NR3D_Q_MV_Y6=30, .NR3D_Q_MV_Y5=26}},
+    .tnr_curve_11={.bits={.rsv_0=0, .NR3D_Q_WVAR_Y6=1, .NR3D_Q_WVAR_Y5=1, .NR3D_Q_WVAR_Y4=2, .NR3D_Q_WVAR_Y3=3, .NR3D_Q_WVAR_Y2=6}},
+    .tnr_curve_12={.bits={.rsv_0=0, .NR3D_Q_WSM_Y3=9, .NR3D_Q_WSM_Y2=3, .NR3D_Q_WSM_Y1=1, .NR3D_Q_WSM_Y0=0, .NR3D_Q_WVAR_Y7=1}},
+    .tnr_curve_13={.bits={.rsv_0=0, .NR3D_Q_WSM_Y7=16, .NR3D_Q_WSM_Y6=16, .NR3D_Q_WSM_Y5=16, .NR3D_Q_WSM_Y4=14}},
+    .tnr_curve_14={.bits={.rsv_0=0, .NR3D_Q_SDL_Y4=32, .NR3D_Q_SDL_Y3=40, .NR3D_Q_SDL_Y2=48, .NR3D_Q_SDL_Y1=56, .NR3D_Q_SDL_Y0=63}},
+    .tnr_curve_15={.bits={.rsv_0=0, .NR3D_Q_SDL_Y8=0, .NR3D_Q_SDL_Y7=8, .NR3D_Q_SDL_Y6=16, .NR3D_Q_SDL_Y5=24}},
+    .tnr_r2c_1 ={.bits={.NR3D_R2CENC=0, .NR3D_R2C_VAL4=13, .NR3D_R2C_VAL3=11, .NR3D_R2C_VAL2=7, .NR3D_R2C_VAL1=3, .rsv_26=0}},
+    .tnr_r2c_2 ={.bits={.rsv_0=0, .NR3D_R2C_TXTR_THROFF=12, .NR3D_R2C_TXTR_THR4=9, .NR3D_R2C_TXTR_THR3=6, .NR3D_R2C_TXTR_THR2=4, .NR3D_R2C_TXTR_THR1=2}},
+    .tnr_r2c_3 ={.bits={.rsv_0=0, .NR3D_R2CF_CNT4=0, .NR3D_R2CF_CNT3=0, .NR3D_R2CF_CNT2=0, .NR3D_R2CF_CNT1=0}}
+
+};
+const ISP_NVRAM_NR3D_T ov16885mipiraw_NR3D_0032 = {
+        .on_con    ={.bits={.rsv_0=0, .NR3D_ON_EN=0, .rsv_5=0, .NR3D_TILE_EDGE=15, .rsv_12=0, .NR3D_SL2_OFF=0, .rsv_21=0}},
+    .tnr_tnr_enable={.bits={.rsv_0=0, .NR3D_TNR_C_EN=1, .NR3D_TNR_Y_EN=1}},
+    .tnr_flt_config={.bits={.rsv_0=0, .NR3D_EN_CCR=1, .NR3D_EN_CYCR=1, .NR3D_FLT_STR_MAX=28, .NR3D_BLEND_RATIO_MV=8, .NR3D_BLEND_RATIO_TXTR=8, .NR3D_BLEND_RATIO_DE=8, .NR3D_BLEND_RATIO_BLKY=8}},
+    .tnr_fb_info1={.bits={.rsv_0=0, .NR3D_Q_SP=20, .NR3D_Q_NL=4}},
+    .tnr_thr_1 ={.bits={.rsv_0=0, .NR3D_SMALL_SAD_THR=10, .NR3D_MV_PEN_THR=32, .NR3D_MV_PEN_W=8, .NR3D_BDI_THR=4, .rsv_30=0}},
+    .tnr_curve_1={.bits={.rsv_0=0, .NR3D_Q_BLKY_Y4=16, .NR3D_Q_BLKY_Y3=26, .NR3D_Q_BLKY_Y2=32, .NR3D_Q_BLKY_Y1=30, .NR3D_Q_BLKY_Y0=28}},
+    .tnr_curve_2={.bits={.rsv_0=0, .NR3D_Q_BLKC_Y1=26, .NR3D_Q_BLKC_Y0=24, .NR3D_Q_BLKY_Y7=0, .NR3D_Q_BLKY_Y6=0, .NR3D_Q_BLKY_Y5=4}},
+    .tnr_curve_3={.bits={.rsv_0=0, .NR3D_Q_BLKC_Y6=0, .NR3D_Q_BLKC_Y5=0, .NR3D_Q_BLKC_Y4=0, .NR3D_Q_BLKC_Y3=2, .NR3D_Q_BLKC_Y2=8}},
+    .tnr_curve_4={.bits={.rsv_0=0, .NR3D_Q_DETXTR_LVL_Y3=21, .NR3D_Q_DETXTR_LVL_Y2=16, .NR3D_Q_DETXTR_LVL_Y1=8, .NR3D_Q_DETXTR_LVL_Y0=0, .NR3D_Q_BLKC_Y7=0}},
+    .tnr_curve_5={.bits={.rsv_0=0, .NR3D_Q_DE1_BASE_Y0=32, .NR3D_Q_DETXTR_LVL_Y7=32, .NR3D_Q_DETXTR_LVL_Y6=32, .NR3D_Q_DETXTR_LVL_Y5=32, .NR3D_Q_DETXTR_LVL_Y4=27}},
+    .tnr_curve_6={.bits={.rsv_0=0, .NR3D_Q_DE1_BASE_Y5=0, .NR3D_Q_DE1_BASE_Y4=12, .NR3D_Q_DE1_BASE_Y3=21, .NR3D_Q_DE1_BASE_Y2=27, .NR3D_Q_DE1_BASE_Y1=32}},
+    .tnr_curve_7={.bits={.rsv_0=0, .NR3D_Q_DE2TXTR_BASE_Y2=22, .NR3D_Q_DE2TXTR_BASE_Y1=5, .NR3D_Q_DE2TXTR_BASE_Y0=0, .NR3D_Q_DE1_BASE_Y7=0, .NR3D_Q_DE1_BASE_Y6=0}},
+    .tnr_curve_8={.bits={.rsv_0=0, .NR3D_Q_DE2TXTR_BASE_Y7=32, .NR3D_Q_DE2TXTR_BASE_Y6=32, .NR3D_Q_DE2TXTR_BASE_Y5=32, .NR3D_Q_DE2TXTR_BASE_Y4=32, .NR3D_Q_DE2TXTR_BASE_Y3=32}},
+    .tnr_curve_9={.bits={.rsv_0=0, .NR3D_Q_MV_Y4=20, .NR3D_Q_MV_Y3=14, .NR3D_Q_MV_Y2=7, .NR3D_Q_MV_Y1=3, .NR3D_Q_MV_Y0=0}},
+    .tnr_curve_10={.bits={.rsv_0=0, .NR3D_Q_WVAR_Y1=16, .NR3D_Q_WVAR_Y0=16, .NR3D_Q_MV_Y7=32, .NR3D_Q_MV_Y6=30, .NR3D_Q_MV_Y5=26}},
+    .tnr_curve_11={.bits={.rsv_0=0, .NR3D_Q_WVAR_Y6=1, .NR3D_Q_WVAR_Y5=1, .NR3D_Q_WVAR_Y4=2, .NR3D_Q_WVAR_Y3=3, .NR3D_Q_WVAR_Y2=6}},
+    .tnr_curve_12={.bits={.rsv_0=0, .NR3D_Q_WSM_Y3=9, .NR3D_Q_WSM_Y2=3, .NR3D_Q_WSM_Y1=1, .NR3D_Q_WSM_Y0=0, .NR3D_Q_WVAR_Y7=1}},
+    .tnr_curve_13={.bits={.rsv_0=0, .NR3D_Q_WSM_Y7=16, .NR3D_Q_WSM_Y6=16, .NR3D_Q_WSM_Y5=16, .NR3D_Q_WSM_Y4=14}},
+    .tnr_curve_14={.bits={.rsv_0=0, .NR3D_Q_SDL_Y4=32, .NR3D_Q_SDL_Y3=40, .NR3D_Q_SDL_Y2=48, .NR3D_Q_SDL_Y1=56, .NR3D_Q_SDL_Y0=63}},
+    .tnr_curve_15={.bits={.rsv_0=0, .NR3D_Q_SDL_Y8=0, .NR3D_Q_SDL_Y7=8, .NR3D_Q_SDL_Y6=16, .NR3D_Q_SDL_Y5=24}},
+    .tnr_r2c_1 ={.bits={.NR3D_R2CENC=0, .NR3D_R2C_VAL4=13, .NR3D_R2C_VAL3=11, .NR3D_R2C_VAL2=7, .NR3D_R2C_VAL1=3, .rsv_26=0}},
+    .tnr_r2c_2 ={.bits={.rsv_0=0, .NR3D_R2C_TXTR_THROFF=12, .NR3D_R2C_TXTR_THR4=9, .NR3D_R2C_TXTR_THR3=6, .NR3D_R2C_TXTR_THR2=4, .NR3D_R2C_TXTR_THR1=2}},
+    .tnr_r2c_3 ={.bits={.rsv_0=0, .NR3D_R2CF_CNT4=0, .NR3D_R2CF_CNT3=0, .NR3D_R2CF_CNT2=0, .NR3D_R2CF_CNT1=0}}
+
+};
+const ISP_NVRAM_NR3D_T ov16885mipiraw_NR3D_0033 = {
+        .on_con    ={.bits={.rsv_0=0, .NR3D_ON_EN=0, .rsv_5=0, .NR3D_TILE_EDGE=15, .rsv_12=0, .NR3D_SL2_OFF=0, .rsv_21=0}},
+    .tnr_tnr_enable={.bits={.rsv_0=0, .NR3D_TNR_C_EN=1, .NR3D_TNR_Y_EN=1}},
+    .tnr_flt_config={.bits={.rsv_0=0, .NR3D_EN_CCR=1, .NR3D_EN_CYCR=1, .NR3D_FLT_STR_MAX=28, .NR3D_BLEND_RATIO_MV=8, .NR3D_BLEND_RATIO_TXTR=8, .NR3D_BLEND_RATIO_DE=8, .NR3D_BLEND_RATIO_BLKY=8}},
+    .tnr_fb_info1={.bits={.rsv_0=0, .NR3D_Q_SP=20, .NR3D_Q_NL=4}},
+    .tnr_thr_1 ={.bits={.rsv_0=0, .NR3D_SMALL_SAD_THR=10, .NR3D_MV_PEN_THR=32, .NR3D_MV_PEN_W=8, .NR3D_BDI_THR=4, .rsv_30=0}},
+    .tnr_curve_1={.bits={.rsv_0=0, .NR3D_Q_BLKY_Y4=16, .NR3D_Q_BLKY_Y3=26, .NR3D_Q_BLKY_Y2=32, .NR3D_Q_BLKY_Y1=30, .NR3D_Q_BLKY_Y0=28}},
+    .tnr_curve_2={.bits={.rsv_0=0, .NR3D_Q_BLKC_Y1=26, .NR3D_Q_BLKC_Y0=24, .NR3D_Q_BLKY_Y7=0, .NR3D_Q_BLKY_Y6=0, .NR3D_Q_BLKY_Y5=4}},
+    .tnr_curve_3={.bits={.rsv_0=0, .NR3D_Q_BLKC_Y6=0, .NR3D_Q_BLKC_Y5=0, .NR3D_Q_BLKC_Y4=0, .NR3D_Q_BLKC_Y3=2, .NR3D_Q_BLKC_Y2=8}},
+    .tnr_curve_4={.bits={.rsv_0=0, .NR3D_Q_DETXTR_LVL_Y3=21, .NR3D_Q_DETXTR_LVL_Y2=16, .NR3D_Q_DETXTR_LVL_Y1=8, .NR3D_Q_DETXTR_LVL_Y0=0, .NR3D_Q_BLKC_Y7=0}},
+    .tnr_curve_5={.bits={.rsv_0=0, .NR3D_Q_DE1_BASE_Y0=32, .NR3D_Q_DETXTR_LVL_Y7=32, .NR3D_Q_DETXTR_LVL_Y6=32, .NR3D_Q_DETXTR_LVL_Y5=32, .NR3D_Q_DETXTR_LVL_Y4=27}},
+    .tnr_curve_6={.bits={.rsv_0=0, .NR3D_Q_DE1_BASE_Y5=0, .NR3D_Q_DE1_BASE_Y4=12, .NR3D_Q_DE1_BASE_Y3=21, .NR3D_Q_DE1_BASE_Y2=27, .NR3D_Q_DE1_BASE_Y1=32}},
+    .tnr_curve_7={.bits={.rsv_0=0, .NR3D_Q_DE2TXTR_BASE_Y2=22, .NR3D_Q_DE2TXTR_BASE_Y1=5, .NR3D_Q_DE2TXTR_BASE_Y0=0, .NR3D_Q_DE1_BASE_Y7=0, .NR3D_Q_DE1_BASE_Y6=0}},
+    .tnr_curve_8={.bits={.rsv_0=0, .NR3D_Q_DE2TXTR_BASE_Y7=32, .NR3D_Q_DE2TXTR_BASE_Y6=32, .NR3D_Q_DE2TXTR_BASE_Y5=32, .NR3D_Q_DE2TXTR_BASE_Y4=32, .NR3D_Q_DE2TXTR_BASE_Y3=32}},
+    .tnr_curve_9={.bits={.rsv_0=0, .NR3D_Q_MV_Y4=20, .NR3D_Q_MV_Y3=14, .NR3D_Q_MV_Y2=7, .NR3D_Q_MV_Y1=3, .NR3D_Q_MV_Y0=0}},
+    .tnr_curve_10={.bits={.rsv_0=0, .NR3D_Q_WVAR_Y1=16, .NR3D_Q_WVAR_Y0=16, .NR3D_Q_MV_Y7=32, .NR3D_Q_MV_Y6=30, .NR3D_Q_MV_Y5=26}},
+    .tnr_curve_11={.bits={.rsv_0=0, .NR3D_Q_WVAR_Y6=1, .NR3D_Q_WVAR_Y5=1, .NR3D_Q_WVAR_Y4=2, .NR3D_Q_WVAR_Y3=3, .NR3D_Q_WVAR_Y2=6}},
+    .tnr_curve_12={.bits={.rsv_0=0, .NR3D_Q_WSM_Y3=9, .NR3D_Q_WSM_Y2=3, .NR3D_Q_WSM_Y1=1, .NR3D_Q_WSM_Y0=0, .NR3D_Q_WVAR_Y7=1}},
+    .tnr_curve_13={.bits={.rsv_0=0, .NR3D_Q_WSM_Y7=16, .NR3D_Q_WSM_Y6=16, .NR3D_Q_WSM_Y5=16, .NR3D_Q_WSM_Y4=14}},
+    .tnr_curve_14={.bits={.rsv_0=0, .NR3D_Q_SDL_Y4=32, .NR3D_Q_SDL_Y3=40, .NR3D_Q_SDL_Y2=48, .NR3D_Q_SDL_Y1=56, .NR3D_Q_SDL_Y0=63}},
+    .tnr_curve_15={.bits={.rsv_0=0, .NR3D_Q_SDL_Y8=0, .NR3D_Q_SDL_Y7=8, .NR3D_Q_SDL_Y6=16, .NR3D_Q_SDL_Y5=24}},
+    .tnr_r2c_1 ={.bits={.NR3D_R2CENC=0, .NR3D_R2C_VAL4=13, .NR3D_R2C_VAL3=11, .NR3D_R2C_VAL2=7, .NR3D_R2C_VAL1=3, .rsv_26=0}},
+    .tnr_r2c_2 ={.bits={.rsv_0=0, .NR3D_R2C_TXTR_THROFF=12, .NR3D_R2C_TXTR_THR4=9, .NR3D_R2C_TXTR_THR3=6, .NR3D_R2C_TXTR_THR2=4, .NR3D_R2C_TXTR_THR1=2}},
+    .tnr_r2c_3 ={.bits={.rsv_0=0, .NR3D_R2CF_CNT4=0, .NR3D_R2CF_CNT3=0, .NR3D_R2CF_CNT2=0, .NR3D_R2CF_CNT1=0}}
+
+};
+const ISP_NVRAM_NR3D_T ov16885mipiraw_NR3D_0034 = {
+        .on_con    ={.bits={.rsv_0=0, .NR3D_ON_EN=0, .rsv_5=0, .NR3D_TILE_EDGE=15, .rsv_12=0, .NR3D_SL2_OFF=0, .rsv_21=0}},
+    .tnr_tnr_enable={.bits={.rsv_0=0, .NR3D_TNR_C_EN=1, .NR3D_TNR_Y_EN=1}},
+    .tnr_flt_config={.bits={.rsv_0=0, .NR3D_EN_CCR=1, .NR3D_EN_CYCR=1, .NR3D_FLT_STR_MAX=28, .NR3D_BLEND_RATIO_MV=8, .NR3D_BLEND_RATIO_TXTR=8, .NR3D_BLEND_RATIO_DE=8, .NR3D_BLEND_RATIO_BLKY=8}},
+    .tnr_fb_info1={.bits={.rsv_0=0, .NR3D_Q_SP=20, .NR3D_Q_NL=4}},
+    .tnr_thr_1 ={.bits={.rsv_0=0, .NR3D_SMALL_SAD_THR=10, .NR3D_MV_PEN_THR=32, .NR3D_MV_PEN_W=8, .NR3D_BDI_THR=4, .rsv_30=0}},
+    .tnr_curve_1={.bits={.rsv_0=0, .NR3D_Q_BLKY_Y4=16, .NR3D_Q_BLKY_Y3=26, .NR3D_Q_BLKY_Y2=32, .NR3D_Q_BLKY_Y1=30, .NR3D_Q_BLKY_Y0=28}},
+    .tnr_curve_2={.bits={.rsv_0=0, .NR3D_Q_BLKC_Y1=26, .NR3D_Q_BLKC_Y0=24, .NR3D_Q_BLKY_Y7=0, .NR3D_Q_BLKY_Y6=0, .NR3D_Q_BLKY_Y5=4}},
+    .tnr_curve_3={.bits={.rsv_0=0, .NR3D_Q_BLKC_Y6=0, .NR3D_Q_BLKC_Y5=0, .NR3D_Q_BLKC_Y4=0, .NR3D_Q_BLKC_Y3=2, .NR3D_Q_BLKC_Y2=8}},
+    .tnr_curve_4={.bits={.rsv_0=0, .NR3D_Q_DETXTR_LVL_Y3=21, .NR3D_Q_DETXTR_LVL_Y2=16, .NR3D_Q_DETXTR_LVL_Y1=8, .NR3D_Q_DETXTR_LVL_Y0=0, .NR3D_Q_BLKC_Y7=0}},
+    .tnr_curve_5={.bits={.rsv_0=0, .NR3D_Q_DE1_BASE_Y0=32, .NR3D_Q_DETXTR_LVL_Y7=32, .NR3D_Q_DETXTR_LVL_Y6=32, .NR3D_Q_DETXTR_LVL_Y5=32, .NR3D_Q_DETXTR_LVL_Y4=27}},
+    .tnr_curve_6={.bits={.rsv_0=0, .NR3D_Q_DE1_BASE_Y5=0, .NR3D_Q_DE1_BASE_Y4=12, .NR3D_Q_DE1_BASE_Y3=21, .NR3D_Q_DE1_BASE_Y2=27, .NR3D_Q_DE1_BASE_Y1=32}},
+    .tnr_curve_7={.bits={.rsv_0=0, .NR3D_Q_DE2TXTR_BASE_Y2=22, .NR3D_Q_DE2TXTR_BASE_Y1=5, .NR3D_Q_DE2TXTR_BASE_Y0=0, .NR3D_Q_DE1_BASE_Y7=0, .NR3D_Q_DE1_BASE_Y6=0}},
+    .tnr_curve_8={.bits={.rsv_0=0, .NR3D_Q_DE2TXTR_BASE_Y7=32, .NR3D_Q_DE2TXTR_BASE_Y6=32, .NR3D_Q_DE2TXTR_BASE_Y5=32, .NR3D_Q_DE2TXTR_BASE_Y4=32, .NR3D_Q_DE2TXTR_BASE_Y3=32}},
+    .tnr_curve_9={.bits={.rsv_0=0, .NR3D_Q_MV_Y4=20, .NR3D_Q_MV_Y3=14, .NR3D_Q_MV_Y2=7, .NR3D_Q_MV_Y1=3, .NR3D_Q_MV_Y0=0}},
+    .tnr_curve_10={.bits={.rsv_0=0, .NR3D_Q_WVAR_Y1=16, .NR3D_Q_WVAR_Y0=16, .NR3D_Q_MV_Y7=32, .NR3D_Q_MV_Y6=30, .NR3D_Q_MV_Y5=26}},
+    .tnr_curve_11={.bits={.rsv_0=0, .NR3D_Q_WVAR_Y6=1, .NR3D_Q_WVAR_Y5=1, .NR3D_Q_WVAR_Y4=2, .NR3D_Q_WVAR_Y3=3, .NR3D_Q_WVAR_Y2=6}},
+    .tnr_curve_12={.bits={.rsv_0=0, .NR3D_Q_WSM_Y3=9, .NR3D_Q_WSM_Y2=3, .NR3D_Q_WSM_Y1=1, .NR3D_Q_WSM_Y0=0, .NR3D_Q_WVAR_Y7=1}},
+    .tnr_curve_13={.bits={.rsv_0=0, .NR3D_Q_WSM_Y7=16, .NR3D_Q_WSM_Y6=16, .NR3D_Q_WSM_Y5=16, .NR3D_Q_WSM_Y4=14}},
+    .tnr_curve_14={.bits={.rsv_0=0, .NR3D_Q_SDL_Y4=32, .NR3D_Q_SDL_Y3=40, .NR3D_Q_SDL_Y2=48, .NR3D_Q_SDL_Y1=56, .NR3D_Q_SDL_Y0=63}},
+    .tnr_curve_15={.bits={.rsv_0=0, .NR3D_Q_SDL_Y8=0, .NR3D_Q_SDL_Y7=8, .NR3D_Q_SDL_Y6=16, .NR3D_Q_SDL_Y5=24}},
+    .tnr_r2c_1 ={.bits={.NR3D_R2CENC=0, .NR3D_R2C_VAL4=13, .NR3D_R2C_VAL3=11, .NR3D_R2C_VAL2=7, .NR3D_R2C_VAL1=3, .rsv_26=0}},
+    .tnr_r2c_2 ={.bits={.rsv_0=0, .NR3D_R2C_TXTR_THROFF=12, .NR3D_R2C_TXTR_THR4=9, .NR3D_R2C_TXTR_THR3=6, .NR3D_R2C_TXTR_THR2=4, .NR3D_R2C_TXTR_THR1=2}},
+    .tnr_r2c_3 ={.bits={.rsv_0=0, .NR3D_R2CF_CNT4=0, .NR3D_R2CF_CNT3=0, .NR3D_R2CF_CNT2=0, .NR3D_R2CF_CNT1=0}}
+
+};
+const ISP_NVRAM_NR3D_T ov16885mipiraw_NR3D_0035 = {
+        .on_con    ={.bits={.rsv_0=0, .NR3D_ON_EN=0, .rsv_5=0, .NR3D_TILE_EDGE=15, .rsv_12=0, .NR3D_SL2_OFF=0, .rsv_21=0}},
+    .tnr_tnr_enable={.bits={.rsv_0=0, .NR3D_TNR_C_EN=1, .NR3D_TNR_Y_EN=1}},
+    .tnr_flt_config={.bits={.rsv_0=0, .NR3D_EN_CCR=1, .NR3D_EN_CYCR=1, .NR3D_FLT_STR_MAX=28, .NR3D_BLEND_RATIO_MV=8, .NR3D_BLEND_RATIO_TXTR=8, .NR3D_BLEND_RATIO_DE=8, .NR3D_BLEND_RATIO_BLKY=8}},
+    .tnr_fb_info1={.bits={.rsv_0=0, .NR3D_Q_SP=20, .NR3D_Q_NL=4}},
+    .tnr_thr_1 ={.bits={.rsv_0=0, .NR3D_SMALL_SAD_THR=10, .NR3D_MV_PEN_THR=32, .NR3D_MV_PEN_W=8, .NR3D_BDI_THR=4, .rsv_30=0}},
+    .tnr_curve_1={.bits={.rsv_0=0, .NR3D_Q_BLKY_Y4=16, .NR3D_Q_BLKY_Y3=26, .NR3D_Q_BLKY_Y2=32, .NR3D_Q_BLKY_Y1=30, .NR3D_Q_BLKY_Y0=28}},
+    .tnr_curve_2={.bits={.rsv_0=0, .NR3D_Q_BLKC_Y1=26, .NR3D_Q_BLKC_Y0=24, .NR3D_Q_BLKY_Y7=0, .NR3D_Q_BLKY_Y6=0, .NR3D_Q_BLKY_Y5=4}},
+    .tnr_curve_3={.bits={.rsv_0=0, .NR3D_Q_BLKC_Y6=0, .NR3D_Q_BLKC_Y5=0, .NR3D_Q_BLKC_Y4=0, .NR3D_Q_BLKC_Y3=2, .NR3D_Q_BLKC_Y2=8}},
+    .tnr_curve_4={.bits={.rsv_0=0, .NR3D_Q_DETXTR_LVL_Y3=21, .NR3D_Q_DETXTR_LVL_Y2=16, .NR3D_Q_DETXTR_LVL_Y1=8, .NR3D_Q_DETXTR_LVL_Y0=0, .NR3D_Q_BLKC_Y7=0}},
+    .tnr_curve_5={.bits={.rsv_0=0, .NR3D_Q_DE1_BASE_Y0=32, .NR3D_Q_DETXTR_LVL_Y7=32, .NR3D_Q_DETXTR_LVL_Y6=32, .NR3D_Q_DETXTR_LVL_Y5=32, .NR3D_Q_DETXTR_LVL_Y4=27}},
+    .tnr_curve_6={.bits={.rsv_0=0, .NR3D_Q_DE1_BASE_Y5=0, .NR3D_Q_DE1_BASE_Y4=12, .NR3D_Q_DE1_BASE_Y3=21, .NR3D_Q_DE1_BASE_Y2=27, .NR3D_Q_DE1_BASE_Y1=32}},
+    .tnr_curve_7={.bits={.rsv_0=0, .NR3D_Q_DE2TXTR_BASE_Y2=22, .NR3D_Q_DE2TXTR_BASE_Y1=5, .NR3D_Q_DE2TXTR_BASE_Y0=0, .NR3D_Q_DE1_BASE_Y7=0, .NR3D_Q_DE1_BASE_Y6=0}},
+    .tnr_curve_8={.bits={.rsv_0=0, .NR3D_Q_DE2TXTR_BASE_Y7=32, .NR3D_Q_DE2TXTR_BASE_Y6=32, .NR3D_Q_DE2TXTR_BASE_Y5=32, .NR3D_Q_DE2TXTR_BASE_Y4=32, .NR3D_Q_DE2TXTR_BASE_Y3=32}},
+    .tnr_curve_9={.bits={.rsv_0=0, .NR3D_Q_MV_Y4=20, .NR3D_Q_MV_Y3=14, .NR3D_Q_MV_Y2=7, .NR3D_Q_MV_Y1=3, .NR3D_Q_MV_Y0=0}},
+    .tnr_curve_10={.bits={.rsv_0=0, .NR3D_Q_WVAR_Y1=16, .NR3D_Q_WVAR_Y0=16, .NR3D_Q_MV_Y7=32, .NR3D_Q_MV_Y6=30, .NR3D_Q_MV_Y5=26}},
+    .tnr_curve_11={.bits={.rsv_0=0, .NR3D_Q_WVAR_Y6=1, .NR3D_Q_WVAR_Y5=1, .NR3D_Q_WVAR_Y4=2, .NR3D_Q_WVAR_Y3=3, .NR3D_Q_WVAR_Y2=6}},
+    .tnr_curve_12={.bits={.rsv_0=0, .NR3D_Q_WSM_Y3=9, .NR3D_Q_WSM_Y2=3, .NR3D_Q_WSM_Y1=1, .NR3D_Q_WSM_Y0=0, .NR3D_Q_WVAR_Y7=1}},
+    .tnr_curve_13={.bits={.rsv_0=0, .NR3D_Q_WSM_Y7=16, .NR3D_Q_WSM_Y6=16, .NR3D_Q_WSM_Y5=16, .NR3D_Q_WSM_Y4=14}},
+    .tnr_curve_14={.bits={.rsv_0=0, .NR3D_Q_SDL_Y4=32, .NR3D_Q_SDL_Y3=40, .NR3D_Q_SDL_Y2=48, .NR3D_Q_SDL_Y1=56, .NR3D_Q_SDL_Y0=63}},
+    .tnr_curve_15={.bits={.rsv_0=0, .NR3D_Q_SDL_Y8=0, .NR3D_Q_SDL_Y7=8, .NR3D_Q_SDL_Y6=16, .NR3D_Q_SDL_Y5=24}},
+    .tnr_r2c_1 ={.bits={.NR3D_R2CENC=0, .NR3D_R2C_VAL4=13, .NR3D_R2C_VAL3=11, .NR3D_R2C_VAL2=7, .NR3D_R2C_VAL1=3, .rsv_26=0}},
+    .tnr_r2c_2 ={.bits={.rsv_0=0, .NR3D_R2C_TXTR_THROFF=12, .NR3D_R2C_TXTR_THR4=9, .NR3D_R2C_TXTR_THR3=6, .NR3D_R2C_TXTR_THR2=4, .NR3D_R2C_TXTR_THR1=2}},
+    .tnr_r2c_3 ={.bits={.rsv_0=0, .NR3D_R2CF_CNT4=0, .NR3D_R2CF_CNT3=0, .NR3D_R2CF_CNT2=0, .NR3D_R2CF_CNT1=0}}
+
+};
+const ISP_NVRAM_NR3D_T ov16885mipiraw_NR3D_0036 = {
+        .on_con    ={.bits={.rsv_0=0, .NR3D_ON_EN=0, .rsv_5=0, .NR3D_TILE_EDGE=15, .rsv_12=0, .NR3D_SL2_OFF=0, .rsv_21=0}},
+    .tnr_tnr_enable={.bits={.rsv_0=0, .NR3D_TNR_C_EN=1, .NR3D_TNR_Y_EN=1}},
+    .tnr_flt_config={.bits={.rsv_0=0, .NR3D_EN_CCR=1, .NR3D_EN_CYCR=1, .NR3D_FLT_STR_MAX=28, .NR3D_BLEND_RATIO_MV=8, .NR3D_BLEND_RATIO_TXTR=8, .NR3D_BLEND_RATIO_DE=8, .NR3D_BLEND_RATIO_BLKY=8}},
+    .tnr_fb_info1={.bits={.rsv_0=0, .NR3D_Q_SP=20, .NR3D_Q_NL=4}},
+    .tnr_thr_1 ={.bits={.rsv_0=0, .NR3D_SMALL_SAD_THR=10, .NR3D_MV_PEN_THR=32, .NR3D_MV_PEN_W=8, .NR3D_BDI_THR=4, .rsv_30=0}},
+    .tnr_curve_1={.bits={.rsv_0=0, .NR3D_Q_BLKY_Y4=16, .NR3D_Q_BLKY_Y3=26, .NR3D_Q_BLKY_Y2=32, .NR3D_Q_BLKY_Y1=30, .NR3D_Q_BLKY_Y0=28}},
+    .tnr_curve_2={.bits={.rsv_0=0, .NR3D_Q_BLKC_Y1=26, .NR3D_Q_BLKC_Y0=24, .NR3D_Q_BLKY_Y7=0, .NR3D_Q_BLKY_Y6=0, .NR3D_Q_BLKY_Y5=4}},
+    .tnr_curve_3={.bits={.rsv_0=0, .NR3D_Q_BLKC_Y6=0, .NR3D_Q_BLKC_Y5=0, .NR3D_Q_BLKC_Y4=0, .NR3D_Q_BLKC_Y3=2, .NR3D_Q_BLKC_Y2=8}},
+    .tnr_curve_4={.bits={.rsv_0=0, .NR3D_Q_DETXTR_LVL_Y3=21, .NR3D_Q_DETXTR_LVL_Y2=16, .NR3D_Q_DETXTR_LVL_Y1=8, .NR3D_Q_DETXTR_LVL_Y0=0, .NR3D_Q_BLKC_Y7=0}},
+    .tnr_curve_5={.bits={.rsv_0=0, .NR3D_Q_DE1_BASE_Y0=32, .NR3D_Q_DETXTR_LVL_Y7=32, .NR3D_Q_DETXTR_LVL_Y6=32, .NR3D_Q_DETXTR_LVL_Y5=32, .NR3D_Q_DETXTR_LVL_Y4=27}},
+    .tnr_curve_6={.bits={.rsv_0=0, .NR3D_Q_DE1_BASE_Y5=0, .NR3D_Q_DE1_BASE_Y4=12, .NR3D_Q_DE1_BASE_Y3=21, .NR3D_Q_DE1_BASE_Y2=27, .NR3D_Q_DE1_BASE_Y1=32}},
+    .tnr_curve_7={.bits={.rsv_0=0, .NR3D_Q_DE2TXTR_BASE_Y2=22, .NR3D_Q_DE2TXTR_BASE_Y1=5, .NR3D_Q_DE2TXTR_BASE_Y0=0, .NR3D_Q_DE1_BASE_Y7=0, .NR3D_Q_DE1_BASE_Y6=0}},
+    .tnr_curve_8={.bits={.rsv_0=0, .NR3D_Q_DE2TXTR_BASE_Y7=32, .NR3D_Q_DE2TXTR_BASE_Y6=32, .NR3D_Q_DE2TXTR_BASE_Y5=32, .NR3D_Q_DE2TXTR_BASE_Y4=32, .NR3D_Q_DE2TXTR_BASE_Y3=32}},
+    .tnr_curve_9={.bits={.rsv_0=0, .NR3D_Q_MV_Y4=20, .NR3D_Q_MV_Y3=14, .NR3D_Q_MV_Y2=7, .NR3D_Q_MV_Y1=3, .NR3D_Q_MV_Y0=0}},
+    .tnr_curve_10={.bits={.rsv_0=0, .NR3D_Q_WVAR_Y1=16, .NR3D_Q_WVAR_Y0=16, .NR3D_Q_MV_Y7=32, .NR3D_Q_MV_Y6=30, .NR3D_Q_MV_Y5=26}},
+    .tnr_curve_11={.bits={.rsv_0=0, .NR3D_Q_WVAR_Y6=1, .NR3D_Q_WVAR_Y5=1, .NR3D_Q_WVAR_Y4=2, .NR3D_Q_WVAR_Y3=3, .NR3D_Q_WVAR_Y2=6}},
+    .tnr_curve_12={.bits={.rsv_0=0, .NR3D_Q_WSM_Y3=9, .NR3D_Q_WSM_Y2=3, .NR3D_Q_WSM_Y1=1, .NR3D_Q_WSM_Y0=0, .NR3D_Q_WVAR_Y7=1}},
+    .tnr_curve_13={.bits={.rsv_0=0, .NR3D_Q_WSM_Y7=16, .NR3D_Q_WSM_Y6=16, .NR3D_Q_WSM_Y5=16, .NR3D_Q_WSM_Y4=14}},
+    .tnr_curve_14={.bits={.rsv_0=0, .NR3D_Q_SDL_Y4=32, .NR3D_Q_SDL_Y3=40, .NR3D_Q_SDL_Y2=48, .NR3D_Q_SDL_Y1=56, .NR3D_Q_SDL_Y0=63}},
+    .tnr_curve_15={.bits={.rsv_0=0, .NR3D_Q_SDL_Y8=0, .NR3D_Q_SDL_Y7=8, .NR3D_Q_SDL_Y6=16, .NR3D_Q_SDL_Y5=24}},
+    .tnr_r2c_1 ={.bits={.NR3D_R2CENC=0, .NR3D_R2C_VAL4=13, .NR3D_R2C_VAL3=11, .NR3D_R2C_VAL2=7, .NR3D_R2C_VAL1=3, .rsv_26=0}},
+    .tnr_r2c_2 ={.bits={.rsv_0=0, .NR3D_R2C_TXTR_THROFF=12, .NR3D_R2C_TXTR_THR4=9, .NR3D_R2C_TXTR_THR3=6, .NR3D_R2C_TXTR_THR2=4, .NR3D_R2C_TXTR_THR1=2}},
+    .tnr_r2c_3 ={.bits={.rsv_0=0, .NR3D_R2CF_CNT4=0, .NR3D_R2CF_CNT3=0, .NR3D_R2CF_CNT2=0, .NR3D_R2CF_CNT1=0}}
+
+};
+const ISP_NVRAM_NR3D_T ov16885mipiraw_NR3D_0037 = {
+        .on_con    ={.bits={.rsv_0=0, .NR3D_ON_EN=0, .rsv_5=0, .NR3D_TILE_EDGE=15, .rsv_12=0, .NR3D_SL2_OFF=0, .rsv_21=0}},
+    .tnr_tnr_enable={.bits={.rsv_0=0, .NR3D_TNR_C_EN=1, .NR3D_TNR_Y_EN=1}},
+    .tnr_flt_config={.bits={.rsv_0=0, .NR3D_EN_CCR=1, .NR3D_EN_CYCR=1, .NR3D_FLT_STR_MAX=28, .NR3D_BLEND_RATIO_MV=8, .NR3D_BLEND_RATIO_TXTR=8, .NR3D_BLEND_RATIO_DE=8, .NR3D_BLEND_RATIO_BLKY=8}},
+    .tnr_fb_info1={.bits={.rsv_0=0, .NR3D_Q_SP=20, .NR3D_Q_NL=4}},
+    .tnr_thr_1 ={.bits={.rsv_0=0, .NR3D_SMALL_SAD_THR=10, .NR3D_MV_PEN_THR=32, .NR3D_MV_PEN_W=8, .NR3D_BDI_THR=4, .rsv_30=0}},
+    .tnr_curve_1={.bits={.rsv_0=0, .NR3D_Q_BLKY_Y4=16, .NR3D_Q_BLKY_Y3=26, .NR3D_Q_BLKY_Y2=32, .NR3D_Q_BLKY_Y1=30, .NR3D_Q_BLKY_Y0=28}},
+    .tnr_curve_2={.bits={.rsv_0=0, .NR3D_Q_BLKC_Y1=26, .NR3D_Q_BLKC_Y0=24, .NR3D_Q_BLKY_Y7=0, .NR3D_Q_BLKY_Y6=0, .NR3D_Q_BLKY_Y5=4}},
+    .tnr_curve_3={.bits={.rsv_0=0, .NR3D_Q_BLKC_Y6=0, .NR3D_Q_BLKC_Y5=0, .NR3D_Q_BLKC_Y4=0, .NR3D_Q_BLKC_Y3=2, .NR3D_Q_BLKC_Y2=8}},
+    .tnr_curve_4={.bits={.rsv_0=0, .NR3D_Q_DETXTR_LVL_Y3=21, .NR3D_Q_DETXTR_LVL_Y2=16, .NR3D_Q_DETXTR_LVL_Y1=8, .NR3D_Q_DETXTR_LVL_Y0=0, .NR3D_Q_BLKC_Y7=0}},
+    .tnr_curve_5={.bits={.rsv_0=0, .NR3D_Q_DE1_BASE_Y0=32, .NR3D_Q_DETXTR_LVL_Y7=32, .NR3D_Q_DETXTR_LVL_Y6=32, .NR3D_Q_DETXTR_LVL_Y5=32, .NR3D_Q_DETXTR_LVL_Y4=27}},
+    .tnr_curve_6={.bits={.rsv_0=0, .NR3D_Q_DE1_BASE_Y5=0, .NR3D_Q_DE1_BASE_Y4=12, .NR3D_Q_DE1_BASE_Y3=21, .NR3D_Q_DE1_BASE_Y2=27, .NR3D_Q_DE1_BASE_Y1=32}},
+    .tnr_curve_7={.bits={.rsv_0=0, .NR3D_Q_DE2TXTR_BASE_Y2=22, .NR3D_Q_DE2TXTR_BASE_Y1=5, .NR3D_Q_DE2TXTR_BASE_Y0=0, .NR3D_Q_DE1_BASE_Y7=0, .NR3D_Q_DE1_BASE_Y6=0}},
+    .tnr_curve_8={.bits={.rsv_0=0, .NR3D_Q_DE2TXTR_BASE_Y7=32, .NR3D_Q_DE2TXTR_BASE_Y6=32, .NR3D_Q_DE2TXTR_BASE_Y5=32, .NR3D_Q_DE2TXTR_BASE_Y4=32, .NR3D_Q_DE2TXTR_BASE_Y3=32}},
+    .tnr_curve_9={.bits={.rsv_0=0, .NR3D_Q_MV_Y4=20, .NR3D_Q_MV_Y3=14, .NR3D_Q_MV_Y2=7, .NR3D_Q_MV_Y1=3, .NR3D_Q_MV_Y0=0}},
+    .tnr_curve_10={.bits={.rsv_0=0, .NR3D_Q_WVAR_Y1=16, .NR3D_Q_WVAR_Y0=16, .NR3D_Q_MV_Y7=32, .NR3D_Q_MV_Y6=30, .NR3D_Q_MV_Y5=26}},
+    .tnr_curve_11={.bits={.rsv_0=0, .NR3D_Q_WVAR_Y6=1, .NR3D_Q_WVAR_Y5=1, .NR3D_Q_WVAR_Y4=2, .NR3D_Q_WVAR_Y3=3, .NR3D_Q_WVAR_Y2=6}},
+    .tnr_curve_12={.bits={.rsv_0=0, .NR3D_Q_WSM_Y3=9, .NR3D_Q_WSM_Y2=3, .NR3D_Q_WSM_Y1=1, .NR3D_Q_WSM_Y0=0, .NR3D_Q_WVAR_Y7=1}},
+    .tnr_curve_13={.bits={.rsv_0=0, .NR3D_Q_WSM_Y7=16, .NR3D_Q_WSM_Y6=16, .NR3D_Q_WSM_Y5=16, .NR3D_Q_WSM_Y4=14}},
+    .tnr_curve_14={.bits={.rsv_0=0, .NR3D_Q_SDL_Y4=32, .NR3D_Q_SDL_Y3=40, .NR3D_Q_SDL_Y2=48, .NR3D_Q_SDL_Y1=56, .NR3D_Q_SDL_Y0=63}},
+    .tnr_curve_15={.bits={.rsv_0=0, .NR3D_Q_SDL_Y8=0, .NR3D_Q_SDL_Y7=8, .NR3D_Q_SDL_Y6=16, .NR3D_Q_SDL_Y5=24}},
+    .tnr_r2c_1 ={.bits={.NR3D_R2CENC=0, .NR3D_R2C_VAL4=13, .NR3D_R2C_VAL3=11, .NR3D_R2C_VAL2=7, .NR3D_R2C_VAL1=3, .rsv_26=0}},
+    .tnr_r2c_2 ={.bits={.rsv_0=0, .NR3D_R2C_TXTR_THROFF=12, .NR3D_R2C_TXTR_THR4=9, .NR3D_R2C_TXTR_THR3=6, .NR3D_R2C_TXTR_THR2=4, .NR3D_R2C_TXTR_THR1=2}},
+    .tnr_r2c_3 ={.bits={.rsv_0=0, .NR3D_R2CF_CNT4=0, .NR3D_R2CF_CNT3=0, .NR3D_R2CF_CNT2=0, .NR3D_R2CF_CNT1=0}}
+
+};
+const ISP_NVRAM_NR3D_T ov16885mipiraw_NR3D_0038 = {
+        .on_con    ={.bits={.rsv_0=0, .NR3D_ON_EN=0, .rsv_5=0, .NR3D_TILE_EDGE=15, .rsv_12=0, .NR3D_SL2_OFF=0, .rsv_21=0}},
+    .tnr_tnr_enable={.bits={.rsv_0=0, .NR3D_TNR_C_EN=1, .NR3D_TNR_Y_EN=1}},
+    .tnr_flt_config={.bits={.rsv_0=0, .NR3D_EN_CCR=1, .NR3D_EN_CYCR=1, .NR3D_FLT_STR_MAX=28, .NR3D_BLEND_RATIO_MV=8, .NR3D_BLEND_RATIO_TXTR=8, .NR3D_BLEND_RATIO_DE=8, .NR3D_BLEND_RATIO_BLKY=8}},
+    .tnr_fb_info1={.bits={.rsv_0=0, .NR3D_Q_SP=20, .NR3D_Q_NL=4}},
+    .tnr_thr_1 ={.bits={.rsv_0=0, .NR3D_SMALL_SAD_THR=10, .NR3D_MV_PEN_THR=32, .NR3D_MV_PEN_W=8, .NR3D_BDI_THR=4, .rsv_30=0}},
+    .tnr_curve_1={.bits={.rsv_0=0, .NR3D_Q_BLKY_Y4=16, .NR3D_Q_BLKY_Y3=26, .NR3D_Q_BLKY_Y2=32, .NR3D_Q_BLKY_Y1=30, .NR3D_Q_BLKY_Y0=28}},
+    .tnr_curve_2={.bits={.rsv_0=0, .NR3D_Q_BLKC_Y1=26, .NR3D_Q_BLKC_Y0=24, .NR3D_Q_BLKY_Y7=0, .NR3D_Q_BLKY_Y6=0, .NR3D_Q_BLKY_Y5=4}},
+    .tnr_curve_3={.bits={.rsv_0=0, .NR3D_Q_BLKC_Y6=0, .NR3D_Q_BLKC_Y5=0, .NR3D_Q_BLKC_Y4=0, .NR3D_Q_BLKC_Y3=2, .NR3D_Q_BLKC_Y2=8}},
+    .tnr_curve_4={.bits={.rsv_0=0, .NR3D_Q_DETXTR_LVL_Y3=21, .NR3D_Q_DETXTR_LVL_Y2=16, .NR3D_Q_DETXTR_LVL_Y1=8, .NR3D_Q_DETXTR_LVL_Y0=0, .NR3D_Q_BLKC_Y7=0}},
+    .tnr_curve_5={.bits={.rsv_0=0, .NR3D_Q_DE1_BASE_Y0=32, .NR3D_Q_DETXTR_LVL_Y7=32, .NR3D_Q_DETXTR_LVL_Y6=32, .NR3D_Q_DETXTR_LVL_Y5=32, .NR3D_Q_DETXTR_LVL_Y4=27}},
+    .tnr_curve_6={.bits={.rsv_0=0, .NR3D_Q_DE1_BASE_Y5=0, .NR3D_Q_DE1_BASE_Y4=12, .NR3D_Q_DE1_BASE_Y3=21, .NR3D_Q_DE1_BASE_Y2=27, .NR3D_Q_DE1_BASE_Y1=32}},
+    .tnr_curve_7={.bits={.rsv_0=0, .NR3D_Q_DE2TXTR_BASE_Y2=22, .NR3D_Q_DE2TXTR_BASE_Y1=5, .NR3D_Q_DE2TXTR_BASE_Y0=0, .NR3D_Q_DE1_BASE_Y7=0, .NR3D_Q_DE1_BASE_Y6=0}},
+    .tnr_curve_8={.bits={.rsv_0=0, .NR3D_Q_DE2TXTR_BASE_Y7=32, .NR3D_Q_DE2TXTR_BASE_Y6=32, .NR3D_Q_DE2TXTR_BASE_Y5=32, .NR3D_Q_DE2TXTR_BASE_Y4=32, .NR3D_Q_DE2TXTR_BASE_Y3=32}},
+    .tnr_curve_9={.bits={.rsv_0=0, .NR3D_Q_MV_Y4=20, .NR3D_Q_MV_Y3=14, .NR3D_Q_MV_Y2=7, .NR3D_Q_MV_Y1=3, .NR3D_Q_MV_Y0=0}},
+    .tnr_curve_10={.bits={.rsv_0=0, .NR3D_Q_WVAR_Y1=16, .NR3D_Q_WVAR_Y0=16, .NR3D_Q_MV_Y7=32, .NR3D_Q_MV_Y6=30, .NR3D_Q_MV_Y5=26}},
+    .tnr_curve_11={.bits={.rsv_0=0, .NR3D_Q_WVAR_Y6=1, .NR3D_Q_WVAR_Y5=1, .NR3D_Q_WVAR_Y4=2, .NR3D_Q_WVAR_Y3=3, .NR3D_Q_WVAR_Y2=6}},
+    .tnr_curve_12={.bits={.rsv_0=0, .NR3D_Q_WSM_Y3=9, .NR3D_Q_WSM_Y2=3, .NR3D_Q_WSM_Y1=1, .NR3D_Q_WSM_Y0=0, .NR3D_Q_WVAR_Y7=1}},
+    .tnr_curve_13={.bits={.rsv_0=0, .NR3D_Q_WSM_Y7=16, .NR3D_Q_WSM_Y6=16, .NR3D_Q_WSM_Y5=16, .NR3D_Q_WSM_Y4=14}},
+    .tnr_curve_14={.bits={.rsv_0=0, .NR3D_Q_SDL_Y4=32, .NR3D_Q_SDL_Y3=40, .NR3D_Q_SDL_Y2=48, .NR3D_Q_SDL_Y1=56, .NR3D_Q_SDL_Y0=63}},
+    .tnr_curve_15={.bits={.rsv_0=0, .NR3D_Q_SDL_Y8=0, .NR3D_Q_SDL_Y7=8, .NR3D_Q_SDL_Y6=16, .NR3D_Q_SDL_Y5=24}},
+    .tnr_r2c_1 ={.bits={.NR3D_R2CENC=0, .NR3D_R2C_VAL4=13, .NR3D_R2C_VAL3=11, .NR3D_R2C_VAL2=7, .NR3D_R2C_VAL1=3, .rsv_26=0}},
+    .tnr_r2c_2 ={.bits={.rsv_0=0, .NR3D_R2C_TXTR_THROFF=12, .NR3D_R2C_TXTR_THR4=9, .NR3D_R2C_TXTR_THR3=6, .NR3D_R2C_TXTR_THR2=4, .NR3D_R2C_TXTR_THR1=2}},
+    .tnr_r2c_3 ={.bits={.rsv_0=0, .NR3D_R2CF_CNT4=0, .NR3D_R2CF_CNT3=0, .NR3D_R2CF_CNT2=0, .NR3D_R2CF_CNT1=0}}
+
+};
+const ISP_NVRAM_NR3D_T ov16885mipiraw_NR3D_0039 = {
+        .on_con    ={.bits={.rsv_0=0, .NR3D_ON_EN=0, .rsv_5=0, .NR3D_TILE_EDGE=15, .rsv_12=0, .NR3D_SL2_OFF=0, .rsv_21=0}},
+    .tnr_tnr_enable={.bits={.rsv_0=0, .NR3D_TNR_C_EN=1, .NR3D_TNR_Y_EN=1}},
+    .tnr_flt_config={.bits={.rsv_0=0, .NR3D_EN_CCR=1, .NR3D_EN_CYCR=1, .NR3D_FLT_STR_MAX=28, .NR3D_BLEND_RATIO_MV=8, .NR3D_BLEND_RATIO_TXTR=8, .NR3D_BLEND_RATIO_DE=8, .NR3D_BLEND_RATIO_BLKY=8}},
+    .tnr_fb_info1={.bits={.rsv_0=0, .NR3D_Q_SP=20, .NR3D_Q_NL=4}},
+    .tnr_thr_1 ={.bits={.rsv_0=0, .NR3D_SMALL_SAD_THR=10, .NR3D_MV_PEN_THR=32, .NR3D_MV_PEN_W=8, .NR3D_BDI_THR=4, .rsv_30=0}},
+    .tnr_curve_1={.bits={.rsv_0=0, .NR3D_Q_BLKY_Y4=16, .NR3D_Q_BLKY_Y3=26, .NR3D_Q_BLKY_Y2=32, .NR3D_Q_BLKY_Y1=30, .NR3D_Q_BLKY_Y0=28}},
+    .tnr_curve_2={.bits={.rsv_0=0, .NR3D_Q_BLKC_Y1=26, .NR3D_Q_BLKC_Y0=24, .NR3D_Q_BLKY_Y7=0, .NR3D_Q_BLKY_Y6=0, .NR3D_Q_BLKY_Y5=4}},
+    .tnr_curve_3={.bits={.rsv_0=0, .NR3D_Q_BLKC_Y6=0, .NR3D_Q_BLKC_Y5=0, .NR3D_Q_BLKC_Y4=0, .NR3D_Q_BLKC_Y3=2, .NR3D_Q_BLKC_Y2=8}},
+    .tnr_curve_4={.bits={.rsv_0=0, .NR3D_Q_DETXTR_LVL_Y3=21, .NR3D_Q_DETXTR_LVL_Y2=16, .NR3D_Q_DETXTR_LVL_Y1=8, .NR3D_Q_DETXTR_LVL_Y0=0, .NR3D_Q_BLKC_Y7=0}},
+    .tnr_curve_5={.bits={.rsv_0=0, .NR3D_Q_DE1_BASE_Y0=32, .NR3D_Q_DETXTR_LVL_Y7=32, .NR3D_Q_DETXTR_LVL_Y6=32, .NR3D_Q_DETXTR_LVL_Y5=32, .NR3D_Q_DETXTR_LVL_Y4=27}},
+    .tnr_curve_6={.bits={.rsv_0=0, .NR3D_Q_DE1_BASE_Y5=0, .NR3D_Q_DE1_BASE_Y4=12, .NR3D_Q_DE1_BASE_Y3=21, .NR3D_Q_DE1_BASE_Y2=27, .NR3D_Q_DE1_BASE_Y1=32}},
+    .tnr_curve_7={.bits={.rsv_0=0, .NR3D_Q_DE2TXTR_BASE_Y2=22, .NR3D_Q_DE2TXTR_BASE_Y1=5, .NR3D_Q_DE2TXTR_BASE_Y0=0, .NR3D_Q_DE1_BASE_Y7=0, .NR3D_Q_DE1_BASE_Y6=0}},
+    .tnr_curve_8={.bits={.rsv_0=0, .NR3D_Q_DE2TXTR_BASE_Y7=32, .NR3D_Q_DE2TXTR_BASE_Y6=32, .NR3D_Q_DE2TXTR_BASE_Y5=32, .NR3D_Q_DE2TXTR_BASE_Y4=32, .NR3D_Q_DE2TXTR_BASE_Y3=32}},
+    .tnr_curve_9={.bits={.rsv_0=0, .NR3D_Q_MV_Y4=20, .NR3D_Q_MV_Y3=14, .NR3D_Q_MV_Y2=7, .NR3D_Q_MV_Y1=3, .NR3D_Q_MV_Y0=0}},
+    .tnr_curve_10={.bits={.rsv_0=0, .NR3D_Q_WVAR_Y1=16, .NR3D_Q_WVAR_Y0=16, .NR3D_Q_MV_Y7=32, .NR3D_Q_MV_Y6=30, .NR3D_Q_MV_Y5=26}},
+    .tnr_curve_11={.bits={.rsv_0=0, .NR3D_Q_WVAR_Y6=1, .NR3D_Q_WVAR_Y5=1, .NR3D_Q_WVAR_Y4=2, .NR3D_Q_WVAR_Y3=3, .NR3D_Q_WVAR_Y2=6}},
+    .tnr_curve_12={.bits={.rsv_0=0, .NR3D_Q_WSM_Y3=9, .NR3D_Q_WSM_Y2=3, .NR3D_Q_WSM_Y1=1, .NR3D_Q_WSM_Y0=0, .NR3D_Q_WVAR_Y7=1}},
+    .tnr_curve_13={.bits={.rsv_0=0, .NR3D_Q_WSM_Y7=16, .NR3D_Q_WSM_Y6=16, .NR3D_Q_WSM_Y5=16, .NR3D_Q_WSM_Y4=14}},
+    .tnr_curve_14={.bits={.rsv_0=0, .NR3D_Q_SDL_Y4=32, .NR3D_Q_SDL_Y3=40, .NR3D_Q_SDL_Y2=48, .NR3D_Q_SDL_Y1=56, .NR3D_Q_SDL_Y0=63}},
+    .tnr_curve_15={.bits={.rsv_0=0, .NR3D_Q_SDL_Y8=0, .NR3D_Q_SDL_Y7=8, .NR3D_Q_SDL_Y6=16, .NR3D_Q_SDL_Y5=24}},
+    .tnr_r2c_1 ={.bits={.NR3D_R2CENC=0, .NR3D_R2C_VAL4=13, .NR3D_R2C_VAL3=11, .NR3D_R2C_VAL2=7, .NR3D_R2C_VAL1=3, .rsv_26=0}},
+    .tnr_r2c_2 ={.bits={.rsv_0=0, .NR3D_R2C_TXTR_THROFF=12, .NR3D_R2C_TXTR_THR4=9, .NR3D_R2C_TXTR_THR3=6, .NR3D_R2C_TXTR_THR2=4, .NR3D_R2C_TXTR_THR1=2}},
+    .tnr_r2c_3 ={.bits={.rsv_0=0, .NR3D_R2CF_CNT4=0, .NR3D_R2CF_CNT3=0, .NR3D_R2CF_CNT2=0, .NR3D_R2CF_CNT1=0}}
+
+};
+const ISP_NBC_LTM_SW_PARAM_T ov16885mipiraw_NBC_LCE_LINK_0020 = {
+        32,  // TC_LINK_STR
+    16,  // CE_LINK_STR
+    24,  // GAIN_CLIP_HI
+    16,  // GAIN_CLIP_LO
+    32,  // GAMMA_SMOOTH
+    16,  // P50_GAIN
+    16,  // P250_GAIN
+    16,  // P500_GAIN
+    16,  // P750_GAIN
+    16,  // P950_GAIN
+    0,  // RSV1
+    0,  // RSV2
+    0,  // RSV3
+    0,  // RSV4
+    0,  // RSV5
+    0,  // RSV6
+    0,  // RSV7
+    0  // RSV8
+
+};
+const ISP_NBC_LTM_SW_PARAM_T ov16885mipiraw_NBC_LCE_LINK_0021 = {
+        32,  // TC_LINK_STR
+    16,  // CE_LINK_STR
+    24,  // GAIN_CLIP_HI
+    16,  // GAIN_CLIP_LO
+    32,  // GAMMA_SMOOTH
+    16,  // P50_GAIN
+    16,  // P250_GAIN
+    16,  // P500_GAIN
+    16,  // P750_GAIN
+    16,  // P950_GAIN
+    0,  // RSV1
+    0,  // RSV2
+    0,  // RSV3
+    0,  // RSV4
+    0,  // RSV5
+    0,  // RSV6
+    0,  // RSV7
+    0  // RSV8
+
+};
+const ISP_NBC_LTM_SW_PARAM_T ov16885mipiraw_NBC_LCE_LINK_0022 = {
+        32,  // TC_LINK_STR
+    16,  // CE_LINK_STR
+    24,  // GAIN_CLIP_HI
+    16,  // GAIN_CLIP_LO
+    32,  // GAMMA_SMOOTH
+    16,  // P50_GAIN
+    16,  // P250_GAIN
+    16,  // P500_GAIN
+    16,  // P750_GAIN
+    16,  // P950_GAIN
+    0,  // RSV1
+    0,  // RSV2
+    0,  // RSV3
+    0,  // RSV4
+    0,  // RSV5
+    0,  // RSV6
+    0,  // RSV7
+    0  // RSV8
+
+};
+const ISP_NBC_LTM_SW_PARAM_T ov16885mipiraw_NBC_LCE_LINK_0023 = {
+        32,  // TC_LINK_STR
+    16,  // CE_LINK_STR
+    24,  // GAIN_CLIP_HI
+    16,  // GAIN_CLIP_LO
+    32,  // GAMMA_SMOOTH
+    16,  // P50_GAIN
+    16,  // P250_GAIN
+    16,  // P500_GAIN
+    16,  // P750_GAIN
+    16,  // P950_GAIN
+    0,  // RSV1
+    0,  // RSV2
+    0,  // RSV3
+    0,  // RSV4
+    0,  // RSV5
+    0,  // RSV6
+    0,  // RSV7
+    0  // RSV8
+
+};
+const ISP_NBC_LTM_SW_PARAM_T ov16885mipiraw_NBC_LCE_LINK_0024 = {
+        32,  // TC_LINK_STR
+    16,  // CE_LINK_STR
+    24,  // GAIN_CLIP_HI
+    16,  // GAIN_CLIP_LO
+    32,  // GAMMA_SMOOTH
+    16,  // P50_GAIN
+    16,  // P250_GAIN
+    16,  // P500_GAIN
+    16,  // P750_GAIN
+    16,  // P950_GAIN
+    0,  // RSV1
+    0,  // RSV2
+    0,  // RSV3
+    0,  // RSV4
+    0,  // RSV5
+    0,  // RSV6
+    0,  // RSV7
+    0  // RSV8
+
+};
+const ISP_NBC_LTM_SW_PARAM_T ov16885mipiraw_NBC_LCE_LINK_0025 = {
+        32,  // TC_LINK_STR
+    16,  // CE_LINK_STR
+    24,  // GAIN_CLIP_HI
+    16,  // GAIN_CLIP_LO
+    32,  // GAMMA_SMOOTH
+    16,  // P50_GAIN
+    16,  // P250_GAIN
+    16,  // P500_GAIN
+    16,  // P750_GAIN
+    16,  // P950_GAIN
+    0,  // RSV1
+    0,  // RSV2
+    0,  // RSV3
+    0,  // RSV4
+    0,  // RSV5
+    0,  // RSV6
+    0,  // RSV7
+    0  // RSV8
+
+};
+const ISP_NBC_LTM_SW_PARAM_T ov16885mipiraw_NBC_LCE_LINK_0026 = {
+        32,  // TC_LINK_STR
+    16,  // CE_LINK_STR
+    24,  // GAIN_CLIP_HI
+    16,  // GAIN_CLIP_LO
+    32,  // GAMMA_SMOOTH
+    16,  // P50_GAIN
+    16,  // P250_GAIN
+    16,  // P500_GAIN
+    16,  // P750_GAIN
+    16,  // P950_GAIN
+    0,  // RSV1
+    0,  // RSV2
+    0,  // RSV3
+    0,  // RSV4
+    0,  // RSV5
+    0,  // RSV6
+    0,  // RSV7
+    0  // RSV8
+
+};
+const ISP_NBC_LTM_SW_PARAM_T ov16885mipiraw_NBC_LCE_LINK_0027 = {
+        32,  // TC_LINK_STR
+    16,  // CE_LINK_STR
+    24,  // GAIN_CLIP_HI
+    16,  // GAIN_CLIP_LO
+    32,  // GAMMA_SMOOTH
+    16,  // P50_GAIN
+    16,  // P250_GAIN
+    16,  // P500_GAIN
+    16,  // P750_GAIN
+    16,  // P950_GAIN
+    0,  // RSV1
+    0,  // RSV2
+    0,  // RSV3
+    0,  // RSV4
+    0,  // RSV5
+    0,  // RSV6
+    0,  // RSV7
+    0  // RSV8
+
+};
+const ISP_NBC_LTM_SW_PARAM_T ov16885mipiraw_NBC_LCE_LINK_0028 = {
+        32,  // TC_LINK_STR
+    16,  // CE_LINK_STR
+    24,  // GAIN_CLIP_HI
+    16,  // GAIN_CLIP_LO
+    32,  // GAMMA_SMOOTH
+    16,  // P50_GAIN
+    16,  // P250_GAIN
+    16,  // P500_GAIN
+    16,  // P750_GAIN
+    16,  // P950_GAIN
+    0,  // RSV1
+    0,  // RSV2
+    0,  // RSV3
+    0,  // RSV4
+    0,  // RSV5
+    0,  // RSV6
+    0,  // RSV7
+    0  // RSV8
+
+};
+const ISP_NBC_LTM_SW_PARAM_T ov16885mipiraw_NBC_LCE_LINK_0029 = {
+        32,  // TC_LINK_STR
+    16,  // CE_LINK_STR
+    24,  // GAIN_CLIP_HI
+    16,  // GAIN_CLIP_LO
+    32,  // GAMMA_SMOOTH
+    16,  // P50_GAIN
+    16,  // P250_GAIN
+    16,  // P500_GAIN
+    16,  // P750_GAIN
+    16,  // P950_GAIN
+    0,  // RSV1
+    0,  // RSV2
+    0,  // RSV3
+    0,  // RSV4
+    0,  // RSV5
+    0,  // RSV6
+    0,  // RSV7
+    0  // RSV8
+
+};
+const ISP_NBC_LTM_SW_PARAM_T ov16885mipiraw_NBC_LCE_LINK_0030 = {
+        32,  // TC_LINK_STR
+    16,  // CE_LINK_STR
+    24,  // GAIN_CLIP_HI
+    16,  // GAIN_CLIP_LO
+    32,  // GAMMA_SMOOTH
+    16,  // P50_GAIN
+    16,  // P250_GAIN
+    16,  // P500_GAIN
+    16,  // P750_GAIN
+    16,  // P950_GAIN
+    0,  // RSV1
+    0,  // RSV2
+    0,  // RSV3
+    0,  // RSV4
+    0,  // RSV5
+    0,  // RSV6
+    0,  // RSV7
+    0  // RSV8
+
+};
+const ISP_NBC_LTM_SW_PARAM_T ov16885mipiraw_NBC_LCE_LINK_0031 = {
+        32,  // TC_LINK_STR
+    16,  // CE_LINK_STR
+    24,  // GAIN_CLIP_HI
+    16,  // GAIN_CLIP_LO
+    32,  // GAMMA_SMOOTH
+    16,  // P50_GAIN
+    16,  // P250_GAIN
+    16,  // P500_GAIN
+    16,  // P750_GAIN
+    16,  // P950_GAIN
+    0,  // RSV1
+    0,  // RSV2
+    0,  // RSV3
+    0,  // RSV4
+    0,  // RSV5
+    0,  // RSV6
+    0,  // RSV7
+    0  // RSV8
+
+};
+const ISP_NBC_LTM_SW_PARAM_T ov16885mipiraw_NBC_LCE_LINK_0032 = {
+        32,  // TC_LINK_STR
+    16,  // CE_LINK_STR
+    24,  // GAIN_CLIP_HI
+    16,  // GAIN_CLIP_LO
+    32,  // GAMMA_SMOOTH
+    16,  // P50_GAIN
+    16,  // P250_GAIN
+    16,  // P500_GAIN
+    16,  // P750_GAIN
+    16,  // P950_GAIN
+    0,  // RSV1
+    0,  // RSV2
+    0,  // RSV3
+    0,  // RSV4
+    0,  // RSV5
+    0,  // RSV6
+    0,  // RSV7
+    0  // RSV8
+
+};
+const ISP_NBC_LTM_SW_PARAM_T ov16885mipiraw_NBC_LCE_LINK_0033 = {
+        32,  // TC_LINK_STR
+    16,  // CE_LINK_STR
+    24,  // GAIN_CLIP_HI
+    16,  // GAIN_CLIP_LO
+    32,  // GAMMA_SMOOTH
+    16,  // P50_GAIN
+    16,  // P250_GAIN
+    16,  // P500_GAIN
+    16,  // P750_GAIN
+    16,  // P950_GAIN
+    0,  // RSV1
+    0,  // RSV2
+    0,  // RSV3
+    0,  // RSV4
+    0,  // RSV5
+    0,  // RSV6
+    0,  // RSV7
+    0  // RSV8
+
+};
+const ISP_NBC_LTM_SW_PARAM_T ov16885mipiraw_NBC_LCE_LINK_0034 = {
+        32,  // TC_LINK_STR
+    16,  // CE_LINK_STR
+    24,  // GAIN_CLIP_HI
+    16,  // GAIN_CLIP_LO
+    32,  // GAMMA_SMOOTH
+    16,  // P50_GAIN
+    16,  // P250_GAIN
+    16,  // P500_GAIN
+    16,  // P750_GAIN
+    16,  // P950_GAIN
+    0,  // RSV1
+    0,  // RSV2
+    0,  // RSV3
+    0,  // RSV4
+    0,  // RSV5
+    0,  // RSV6
+    0,  // RSV7
+    0  // RSV8
+
+};
+const ISP_NBC_LTM_SW_PARAM_T ov16885mipiraw_NBC_LCE_LINK_0035 = {
+        32,  // TC_LINK_STR
+    16,  // CE_LINK_STR
+    24,  // GAIN_CLIP_HI
+    16,  // GAIN_CLIP_LO
+    32,  // GAMMA_SMOOTH
+    16,  // P50_GAIN
+    16,  // P250_GAIN
+    16,  // P500_GAIN
+    16,  // P750_GAIN
+    16,  // P950_GAIN
+    0,  // RSV1
+    0,  // RSV2
+    0,  // RSV3
+    0,  // RSV4
+    0,  // RSV5
+    0,  // RSV6
+    0,  // RSV7
+    0  // RSV8
+
+};
+const ISP_NBC_LTM_SW_PARAM_T ov16885mipiraw_NBC_LCE_LINK_0036 = {
+        32,  // TC_LINK_STR
+    16,  // CE_LINK_STR
+    24,  // GAIN_CLIP_HI
+    16,  // GAIN_CLIP_LO
+    32,  // GAMMA_SMOOTH
+    16,  // P50_GAIN
+    16,  // P250_GAIN
+    16,  // P500_GAIN
+    16,  // P750_GAIN
+    16,  // P950_GAIN
+    0,  // RSV1
+    0,  // RSV2
+    0,  // RSV3
+    0,  // RSV4
+    0,  // RSV5
+    0,  // RSV6
+    0,  // RSV7
+    0  // RSV8
+
+};
+const ISP_NBC_LTM_SW_PARAM_T ov16885mipiraw_NBC_LCE_LINK_0037 = {
+        32,  // TC_LINK_STR
+    16,  // CE_LINK_STR
+    24,  // GAIN_CLIP_HI
+    16,  // GAIN_CLIP_LO
+    32,  // GAMMA_SMOOTH
+    16,  // P50_GAIN
+    16,  // P250_GAIN
+    16,  // P500_GAIN
+    16,  // P750_GAIN
+    16,  // P950_GAIN
+    0,  // RSV1
+    0,  // RSV2
+    0,  // RSV3
+    0,  // RSV4
+    0,  // RSV5
+    0,  // RSV6
+    0,  // RSV7
+    0  // RSV8
+
+};
+const ISP_NBC_LTM_SW_PARAM_T ov16885mipiraw_NBC_LCE_LINK_0038 = {
+        32,  // TC_LINK_STR
+    16,  // CE_LINK_STR
+    24,  // GAIN_CLIP_HI
+    16,  // GAIN_CLIP_LO
+    32,  // GAMMA_SMOOTH
+    16,  // P50_GAIN
+    16,  // P250_GAIN
+    16,  // P500_GAIN
+    16,  // P750_GAIN
+    16,  // P950_GAIN
+    0,  // RSV1
+    0,  // RSV2
+    0,  // RSV3
+    0,  // RSV4
+    0,  // RSV5
+    0,  // RSV6
+    0,  // RSV7
+    0  // RSV8
+
+};
+const ISP_NBC_LTM_SW_PARAM_T ov16885mipiraw_NBC_LCE_LINK_0039 = {
+        32,  // TC_LINK_STR
+    16,  // CE_LINK_STR
+    24,  // GAIN_CLIP_HI
+    16,  // GAIN_CLIP_LO
+    32,  // GAMMA_SMOOTH
+    16,  // P50_GAIN
+    16,  // P250_GAIN
+    16,  // P500_GAIN
+    16,  // P750_GAIN
+    16,  // P950_GAIN
+    0,  // RSV1
+    0,  // RSV2
+    0,  // RSV3
+    0,  // RSV4
+    0,  // RSV5
+    0,  // RSV6
+    0,  // RSV7
+    0  // RSV8
+
+};

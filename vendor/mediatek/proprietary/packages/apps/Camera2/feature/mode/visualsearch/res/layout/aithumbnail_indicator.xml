@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ai_root_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+     <RelativeLayout
+            android:id="@+id/layoutPreviewPoint"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="38dp">
+            <com.mediatek.camera.feature.mode.visualsearch.view.LoadingAnimationView
+                android:id="@+id/loadingAnimationView1"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:visibility="visible"
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="56dp"/>
+            <com.mediatek.camera.feature.mode.visualsearch.view.LoadingAnimationView
+                android:id="@+id/loadingAnimationView2"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:visibility="visible"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="80dp"/>
+            <com.mediatek.camera.feature.mode.visualsearch.view.LoadingAnimationView
+                android:id="@+id/loadingAnimationView3"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:visibility="visible"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="180dp"
+                android:layout_marginBottom="120dp"/>
+            <com.mediatek.camera.feature.mode.visualsearch.view.LoadingAnimationView
+                android:id="@+id/loadingAnimationView4"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:visibility="visible"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="56dp"
+                android:layout_marginTop="100dp"/>
+        </RelativeLayout>
+
+    <com.mediatek.camera.feature.mode.visualsearch.view.ImagePointsView
+        android:id="@+id/ivPreview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:visibility="visible"/>
+
+    <FrameLayout
+        android:id="@+id/thumbnail_indicator"
+        android:layout_width="@dimen/ai_thumbnail_icon_width"
+        android:layout_height="@dimen/ai_thumbnail_icon_width"
+        android:layout_gravity="bottom|left"
+        android:layout_marginLeft="@dimen/ai_thumbnail_icon_marginLeft"
+        android:layout_marginBottom="@dimen/ai_thumbnail_icon_marginBottom"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:visibility="visible"
+        >
+
+        <com.mediatek.camera.common.widget.RotateImageView
+            android:id="@+id/iv_aiThumbnail"
+            android:layout_width="@dimen/ai_thumbnail_icon_width"
+            android:layout_height="@dimen/ai_thumbnail_icon_width"
+            android:clickable="true"
+            android:focusable="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_photo_library"
+            android:visibility="visible"/>
+
+    </FrameLayout>
+    <TextView
+        android:id="@+id/tv_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="72dp"
+        android:text="@string/please_aim_at_your_target_product"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:visibility="visible"/>
+</RelativeLayout>

@@ -1,0 +1,8 @@
+{
+    "err" : "Your request is not valid currently. Please contact us to fix this problem",
+    "apiMisuse" : "Your request is not valid currently. Please contact us to fix this problem",
+    "missingInfo" : "Some information is missing, please ensure all fields are filled",
+    "unauthorized" : "Please login again",
+    "screeningPermissionDenied" : "Please ensure your premium subscription for this service is valid",
+    "success" : "Success"
+}

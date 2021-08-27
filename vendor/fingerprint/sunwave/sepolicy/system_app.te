@@ -1,0 +1,3 @@
+allow system_app hal_swfingerprint_default:binder { call transfer };
+allow system_app hal_swfingerprint_hwservice:hwservice_manager { find };
+

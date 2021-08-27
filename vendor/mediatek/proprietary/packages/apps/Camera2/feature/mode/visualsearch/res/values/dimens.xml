@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="activity_hdrhorizontal_margin">16dp</dimen>
+    <dimen name="activity_hdrvertical_margin">16dp</dimen>
+    <dimen name="ai_thumbnail_icon_width">40dp</dimen>
+    <dimen name="ai_thumbnail_icon_marginLeft">23dp</dimen>
+    <dimen name="ai_thumbnail_icon_marginBottom">38.5dp</dimen>
+    <dimen name="drag_bar_width">60dp</dimen>
+    <dimen name="drag_bar_height">6dp</dimen>
+    <dimen name="bottom_panel_default_height">60dp</dimen>
+    <dimen name="side_margin">8dp</dimen>
+    <dimen name="title_bar_icon_size">28dp</dimen>
+    <dimen name="zoom_image_height">162dp</dimen>
+
+</resources>

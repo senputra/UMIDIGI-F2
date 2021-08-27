@@ -1,0 +1,35 @@
+on post-fs-data
+    mkdir /data/vendor 0771 system system
+    mkdir /data/vendor/ipsec 0700 root root
+    mkdir /data/vendor/ipsec/wo 0700 root root
+    mkdir /dev/vendor/net/ 0700 root root
+
+
+on property:mtk.md1.status=ready && property:persist.mtk_epdg_support=1
+    setprop ril.epdg.interface.ctrl 1
+    start epdg_wod
+
+on property:mtk.md1.status=reset
+    stop epdg_wod
+
+on property:mtk.md1.status=stop
+    stop epdg_wod
+
+on property:mtk.md1.status=flightmode
+    stop epdg_wod
+
+on property:mtk.md1.status=exception
+    stop epdg_wod
+
+# Trigger TRM when wod restart
+on property:ro.md_apps.load_type=user && property:init.svc.epdg_wod=restarting
+    setprop ril.mux.report.case 2
+    setprop ril.muxreport 1
+
+service epdg_wod /vendor/bin/epdg_wod
+    class late_start
+    socket wod_action stream 660 root system
+    socket wod_sim    stream 660 root system
+    user root
+    group root system log inet radio net_admin
+    disabled

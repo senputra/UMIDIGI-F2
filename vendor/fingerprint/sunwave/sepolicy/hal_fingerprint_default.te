@@ -1,0 +1,50 @@
+
+allow hal_fingerprint_default tee_device:chr_file rw_file_perms;
+allow hal_fingerprint_default uhid_device:chr_file { write open ioctl };
+allow hal_fingerprint_default ctl_default_prop:property_service { set };
+allow hal_fingerprint_default property_socket:sock_file { write };
+allow hal_fingerprint_default init:unix_stream_socket { connectto };
+type sf_device,dev_type;
+type sf_data_file, file_type, data_file_type;
+
+allow hal_fingerprint_default self:netlink_kobject_uevent_socket { read};
+
+type sf_service, vndservice_manager_type;
+
+allow hal_fingerprint_default sf_device:chr_file rw_file_perms;
+allow hal_fingerprint_default self:netlink_kobject_uevent_socket { create setopt bind read };
+
+
+
+allow hal_fingerprint_default tee_device:chr_file { open read ioctl write };
+
+allow hal_fingerprint_default input_device:dir { search };
+allow hal_fingerprint_default input_device:chr_file { open read write ioctl rw_file_perms};
+allow hal_fingerprint_default teei_fp_device:chr_file { read write ioctl open };
+allow factory sf_device:chr_file rw_file_perms;
+allow factory self:netlink_kobject_uevent_socket { create setopt bind read };
+allow factory teei_fp_device:chr_file { read write ioctl open };
+
+allow hal_fingerprint_default storage_file:lnk_file { read  };
+allow hal_fingerprint_default mnt_user_file:lnk_file { read  };
+allow hal_fingerprint_default mnt_user_file:dir { read search };
+allow hal_fingerprint_default sdcardfs:dir { read search };
+
+allow hal_fingerprint_default sysfs_devices_system_cpu:file { write };
+
+allow hal_swfingerprint_default system_app:binder { call };
+allow hal_fingerprint_default system_app:binder { call };
+
+allow hal_fingerprint_default proc:file write;
+
+
+typeattribute hal_fingerprint_default mlstrustedsubject;
+
+
+allow hal_fingerprint_default sf_service:service_manager  find;
+binder_call(hal_fingerprint_default,hal_fingerprint_default)
+
+allow hal_fingerprint_default hal_swfingerprint_hwservice:hwservice_manager { add find };
+
+
+

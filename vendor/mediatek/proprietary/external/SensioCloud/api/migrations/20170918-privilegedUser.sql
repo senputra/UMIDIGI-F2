@@ -1,0 +1,1 @@
+ALTER TABLE hc.users ADD COLUMN isprivilegeduser BOOLEAN NOT NULL DEFAULT FALSE;

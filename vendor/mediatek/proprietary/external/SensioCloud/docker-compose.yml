@@ -1,0 +1,38 @@
+version: '3'
+services:
+  postgres:
+    build: ./postgres
+    ports: 
+      - "5432:5432"
+    networks:
+      - backend
+  api:
+    build: ./api
+    ports:
+      - "3001:3001"
+    depends_on:
+      - postgres
+      - auth
+    networks:
+      - backend
+  auth:
+    build: ./auth
+    ports:
+      - "3002:3002"
+    depends_on:
+      - postgres
+    networks:
+      - backend
+  nginx:
+    build: ./nginx
+    ports:
+     - "3000:3000"
+    depends_on:
+      - api
+      - auth
+    networks:
+      - frontend
+      - backend
+networks:
+  frontend:
+  backend:

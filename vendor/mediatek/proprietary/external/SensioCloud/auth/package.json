@@ -1,0 +1,24 @@
+{
+  "name": "mediatekcare",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app",
+    "watch": "nodemon"
+  },
+  "dependencies": {
+    "async": "^2.2.0",
+    "bcrypt": "^1.0.3",
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "jsonwebtoken": "^8.0.1",
+    "moment": "^2.18.1",
+    "morgan": "^1.8.1",
+    "passport": "^0.3.2",
+    "passport-jwt": "^3.0.0",
+    "passport-local": "^1.0.0",
+    "pg": "^6.1.5",
+    "pg-native": "^1.10.0",
+    "request": "^2.81.0"
+  }
+}

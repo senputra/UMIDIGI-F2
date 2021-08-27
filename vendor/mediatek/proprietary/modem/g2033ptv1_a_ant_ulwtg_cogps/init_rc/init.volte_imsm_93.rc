@@ -1,0 +1,61 @@
+#
+# MAL related services (Begin)
+#
+
+on property:mtk.md1.status=ready
+    start volte_imsm_93
+    start volte_stack
+    start volte_ua
+    start volte_imcb
+    wait /only_for_timeout 1
+
+on property:mtk.md1.status=reset
+    rm /dev/radio/pttyims
+    rm /dev/radio/ptty2ims
+    rm /dev/radio/ptty3ims
+    rm /dev/radio/ptty4ims
+    stop volte_imcb
+    stop volte_ua
+    stop volte_stack
+    stop volte_imsm_93
+
+on property:mtk.md1.status=stop
+    rm /dev/radio/pttyims
+    rm /dev/radio/ptty2ims
+    rm /dev/radio/ptty3ims
+    rm /dev/radio/ptty4ims
+    stop volte_imcb
+    stop volte_ua
+    stop volte_stack
+    stop volte_imsm_93
+
+on property:mtk.md1.status=flightmode
+    rm /dev/radio/pttyims
+    rm /dev/radio/ptty2ims
+    rm /dev/radio/ptty3ims
+    rm /dev/radio/ptty4ims
+    stop volte_imcb
+    stop volte_ua
+    stop volte_stack
+    stop volte_imsm_93
+
+on property:mtk.md1.status=exception
+    rm /dev/radio/pttyims
+    rm /dev/radio/ptty2ims
+    rm /dev/radio/ptty3ims
+    rm /dev/radio/ptty4ims
+    stop volte_imcb
+    stop volte_ua
+    stop volte_stack
+    stop volte_imsm_93
+
+service volte_imsm_93 /vendor/bin/volte_imsm_93
+    class core
+    user root
+    group radio cache inet misc log system wifi
+    oneshot
+    disabled
+
+#
+# MAL related services (End)
+#

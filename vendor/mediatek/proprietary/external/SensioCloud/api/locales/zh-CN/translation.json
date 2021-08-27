@@ -1,0 +1,8 @@
+{
+    "err" : "您的操作正遭遇系统问题，请联系我们以修复此问题",
+    "apiMisuse" : "您的操作正遭遇系统问题，请联系我们以修复此问题",
+    "missingInfo" : "缺失部分信息，请确保所有信息填写完整",
+    "unathorized" : "请重新登录",
+    "screeningPermissionDenied" : "请订阅高级服务获取预筛查功能许可",
+    "success" : "成功"
+}

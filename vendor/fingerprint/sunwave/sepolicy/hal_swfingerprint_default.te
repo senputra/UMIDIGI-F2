@@ -1,0 +1,77 @@
+file_type_auto_trans(fingerprintd,system_data_file,fingerprintd_data_file);
+type hal_swfingerprint_hwservice, hwservice_manager_type;
+
+binder_call(hal_swfingerprint_client, hal_swfingerprint_server);
+binder_call(hal_swfingerprint_server, hal_swfingerprint_client);
+
+
+allow hal_swfingerprint_server hal_swfingerprint_hwservice:hwservice_manager { add find };
+allow hal_swfingerprint_server hidl_base_hwservice:hwservice_manager add;
+
+allow hal_swfingerprint_client hal_swfingerprint_hwservice:hwservice_manager find;
+allow hal_swfingerprint_default sf_service:service_manager find ;
+allow hal_fingerprint_default sf_service:service_manager add ;
+
+allow hal_swfingerprint ion_device:chr_file r_file_perms;
+
+r_dir_file(hal_swfingerprint, cgroup)
+r_dir_file(hal_swfingerprint, sysfs)
+
+type hal_swfingerprint_default, domain;
+type hal_swfingerprint_default_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(hal_swfingerprint_default)
+hal_server_domain(hal_swfingerprint_default, hal_swfingerprint)
+
+
+typeattribute hal_swfingerprint_default mlstrustedsubject;
+
+
+vndbinder_use(hal_swfingerprint_default)
+hwbinder_use(hal_swfingerprint_default)
+vndbinder_use(hal_fingerprint_default)
+
+binder_call(hal_swfingerprint_default, hal_fingerprint_default)
+binder_call(hal_fingerprint_default, hal_swfingerprint_default)
+
+binder_call(platform_app, hal_swfingerprint_hwservice)
+binder_call(hal_swfingerprint_hwservice,platform_app)
+binder_call(platform_app, hal_swfingerprint_default)
+binder_call(hal_swfingerprint_default, platform_app)
+
+
+allow servicemanager hal_swfingerprint_default:dir{search};
+allow servicemanager hal_swfingerprint_default:file { read open };
+allow servicemanager hal_swfingerprint_default:process {getattr};
+
+
+allow hal_swfingerprint_default self:process execmem;
+allow hal_swfingerprint_default kernel:system module_request;
+allow hal_swfingerprint_default fuse:dir create_dir_perms;
+allow hal_swfingerprint_default fuse:file create_file_perms;
+#allow hal_swfingerprint_default self:capability { dac_override dac_read_search };
+
+
+allow servicemanager hal_swfingerprint_default:dir { search };
+allow servicemanager hal_swfingerprint_default:file { open read write };
+allow servicemanager hal_swfingerprint_default:process { getattr };
+
+
+allow hal_swfingerprint_default hwbinder_device:chr_file {read write open ioctl};
+allow hal_swfingerprint_default vndbinder_device:chr_file {read write open ioctl};
+
+
+allow vndservicemanager hal_fingerprint_default:dir search ;
+allow vndservicemanager hal_fingerprint_default:file {open read  } ;
+allow vndservicemanager hal_fingerprint_default:process getattr;
+
+
+
+allow platform_app hal_swfingerprint_hwservice:hwservice_manager find;
+
+allow hal_swfingerprint_default system_app:binder { call };
+allow hal_fingerprint_default system_app:binder { call };
+
+allow hal_fingerprint_default vndbinder_device:chr_file { open read write ioctl };
+allow hal_fingerprint_default vndservicemanager:binder { call };
+allow hal_fingerprint_default system_data_file:dir { write add_name create};
+allow hal_fingerprint_default system_data_file:file { create write open};

@@ -1,0 +1,7 @@
+board_type=g2033ptv1
+rf_type=a_ant
+sim_hotplug=yes
+cogps_type=1
+c2k_type=no
+sim_swap=no
+special_fun=no

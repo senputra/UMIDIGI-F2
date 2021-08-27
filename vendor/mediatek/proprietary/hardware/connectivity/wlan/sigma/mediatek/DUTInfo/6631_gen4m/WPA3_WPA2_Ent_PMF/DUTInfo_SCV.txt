@@ -1,0 +1,86 @@
+#$! File Type: TScript
+#
+# Copyright (c) 2019 Wi-Fi Alliance
+# 
+# 
+# THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES 
+# WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF 
+# MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY 
+# SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER 
+# RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT,
+# NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE
+# USE OR PERFORMANCE OF THIS SOFTWARE.
+#
+#
+# Description  : This file hold all CAPI commands used for specific test process
+#                as per testplan. It is part of test operation, and may send
+#                command to dut also to the testbed device as per testplan
+#                requirement.
+# Note         :  
+#                
+#   Program      : WPA3
+#   Version      : 1.0.0
+#   Release date : October, 2017
+#  
+############################################################################ZZZ
+
+######### DUT (Device Under Test) Information #########################
+#### WTS Control Agent Support ########
+# 1-If DUT has WTS Control Agent support. 0-If not supported.
+define!$WTS_ControlAgent_Support!1!
+
+
+# DUT MACAddress 
+define!$MANUAL_DUT_MACAddress!00:08:22:11:73:31!
+#QCA STA
+#define!$MANUAL_DUT_MACAddress!00:D0:CA:00:3E:33!
+#Intel STA
+#define!$MANUAL_DUT_MACAddress!84:C5:A6:59:BE:8D!
+
+# DUTType : WPA3-FT or WPA3-Enterprise
+DUTType!WPA3-Enterprise!
+
+
+#DUT Category : c1 or c2 or c3 if device is WPA2-Enterprise
+DUTCategory!c3!
+
+# DUT Band : ABG or BG or B (B only) or ABGN or GN or AC
+DUTBand!AC!
+
+#Supported EAP Methods 0-No 1-Yes
+TLS!1!
+TTLS!1!
+PEAP0!1!
+PEAP1!1!
+
+#Supports configuration of a network profile through its UI for at least one of the EAP methods
+UI_NetProf_Config_EAP!1!
+
+
+# Set to 1 if STAUT supports RSA3K
+#TLS_ECDHE_RSA_AES_256_GCM_SHA384 
+RSA3K_support_ECDHE!1!
+
+#TLS_DHE_RSA_AES_256_GCM_SHA384 
+RSA3K_support_DHE!1!
+
+#User Override of Server Certificate (UOSC) Allowed/Disallowed Support: 1 - Allowed, 0 - Disallowed
+UOSC_Allowed!0!
+
+#STAUT supports configuration (a): "explicitly configured server certificate": 1 - Supported, 0 - Not Supported
+SC_EXPL!1!
+
+#STAUT supports configuration (b): "server domain (FQDN) + root CA": 1 - Supported, 0 - Not Supported
+FQDN_RCA!1!
+
+#STAUT supports configuration (c): "server domain suffix + root CA": 1 - Supported, 0 - Not Supported
+FQDN_Suffix_RCA!1!
+
+#STAUT supports configuration (d): "root CA only": 1 - Supported, 0 - Not Supported
+RCA_ONLY!1!
+
+#STAUT supports configuration (e): "server domain (FQDN) + root store": 1 - Supported, 0 - Not Supported
+FQDN_RS!1!
+
+#STAUT supports configuration (f): "server domain suffix + root store": 1 - Supported, 0 - Not Supported
+FQDN_Suffix_RS!1!

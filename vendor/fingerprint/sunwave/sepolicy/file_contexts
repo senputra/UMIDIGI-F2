@@ -1,0 +1,16 @@
+
+######data######
+# Sunwave 2-2: Please append the following line to the end of
+# ${ANDROID_BUILD_TOP}/device/${VENDOR}/${TARGET_PRODUCT}/sepolicy/file_contexts
+# to label sunwave's fingerprint data file.
+#/data/system/sunwave(/.*)?  u:object_r:sf_data_file:s0
+
+######dev#######
+# Sunwave 2-1: Please append the following line to the end of
+# ${ANDROID_BUILD_TOP}/device/${VENDOR}/${TARGET_PRODUCT}/sepolicy/file_contexts
+# to label '/dev/sunwave_fp' device.
+/dev/sunwave_fp             u:object_r:sf_device:s0
+
+/(vendor|system/vendor)/bin/hw/vendor\.sw\.swfingerprint@1\.0-service u:object_r:hal_swfingerprint_default_exec:s0
+#/data/system/users/[0-9]+/fp_data(/.*)? u:object_r:sf_data_file:s0
+

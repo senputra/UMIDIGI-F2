@@ -1,0 +1,23 @@
+REQUIREMENTS
+   - Docker Engine 17.06.0+
+   - Docker Compose 1.14.0
+
+INSTALLATION
+   1. Install Docker & Docker Compose
+      Reference: https://docs.docker.com/engine/installation/ https://docs.docker.com/compose/install/
+   2. In the same location of this file, run "docker-compose up -d"
+      If everything went well, you should see the following output:
+      Creating 6381docker_postgres_1 ...
+      Creating 6381docker_postgres_1 ... done
+      Creating 6381docker_auth_1 ...
+      Creating 6381docker_auth_1 ... done
+      Creating 6381docker_api_1 ...
+      Creating 6381docker_api_1 ... done
+      Creating 6381docker_nginx_1 ...
+      Creating 6381docker_nginx_1 ... done
+      
+CONFIGURATIONS
+   - The server will be listening on port 3000 by default. This could be modified in nginx/nginx.conf.
+   
+TESTING
+   - TBC

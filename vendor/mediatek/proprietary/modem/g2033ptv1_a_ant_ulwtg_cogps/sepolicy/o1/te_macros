@@ -1,0 +1,13 @@
+define(`ims_ap_domain', `
+unix_socket_connect($1, volte_imsvt1, volte_imcb)
+allow $1 volte_vt_socket:dir { read write ioctl open remove_name add_name };
+allow $1 volte_vt_socket:dir write;
+allow $1 volte_vt_socket:sock_file { create unlink read write };
+allow $1 volte_ua:fd use;
+allow $1 volte_ua:udp_socket {connect read write setopt getattr getopt shutdown};
+allow $1 volte_stack:unix_stream_socket connectto;
+
+unix_socket_connect($1, volte_stack, volte_stack)
+unix_socket_connect($1, volte_imsa1, volte_imcb)
+')
+

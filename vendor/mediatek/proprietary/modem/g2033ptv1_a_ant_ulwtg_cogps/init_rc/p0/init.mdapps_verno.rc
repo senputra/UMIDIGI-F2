@@ -1,0 +1,2 @@
+on boot
+    setprop ro.vendor.md_apps.verno "MOLY.LR12A.R3.MP.V96.9"

@@ -1,0 +1,8 @@
+{
+    "err" : "您的操作正遭遇系統問題，請聯繫我們以修復此問題",
+    "apiMisuse" : "您的操作正遭遇系統問題，請聯繫我們以修復此問題",
+    "missingInfo" : "部分資料不完整，請確保所有資料填寫完整",
+    "unathorized" : "請重新登入",
+    "screeningPermissionDenied" : "請訂閱服務啟用預篩查功能",
+    "success" : "成功"
+}

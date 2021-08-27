@@ -1,0 +1,21 @@
+// ===========================================
+// = Configuration of libvsim-adaptor-client =
+// ===========================================
+
+cc_library_shared {
+
+    srcs: ["vsim_adaptor_ipc.c"],
+
+    shared_libs: [
+        "libcutils",
+        "libc",
+        "liblog",
+    ],
+
+    cflags: ["-DRIL_SHLIB"],
+
+    name: "libvsim-adaptor-client",
+    //proprietary: true,
+    //owner: "mtk",
+
+}

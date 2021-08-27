@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<carrier_config>
+    <boolean name="show_4g_for_lte_data_icon_bool" value="true"/>
+    <string-array name="non_roaming_operator_string_array" num="1">
+        <item value="20610"/>
+    </string-array>
+    <int name="carrier_default_wfc_ims_mode_int" value="1" />
+    <int name="carrier_default_wfc_ims_roaming_mode_int" value="1"/>
+</carrier_config>

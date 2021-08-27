@@ -1,0 +1,6 @@
+
+# Sunwave: Please append the following line to the end of
+# ${ANDROID_BUILD_TOP}/device/${VENDOR}/${TARGET_PRODUCT}/sepolicy/service_contexts
+# to label 'SunwaveFingerprintService'.
+SunwaveFingerprintService  u:object_r:sf_service:s0
+

@@ -1,0 +1,30 @@
+{
+  "appPort": 3002,
+  "dbConfigs": 
+  {
+      "database": "six381authdb",
+      "username": "mediatek",
+      "password": "mediatek",
+      "host": "postgres",
+      "port": 5432,
+      "dialect": "postgres"
+  },
+  "accessTokenSecretOrKey": "secretA",
+  "accessTokenJwtOptions": {
+    "issuer": "6381.mediatek.io",
+    "audience": "6381",
+    "expiresIn": "2h"
+  },
+  "refreshTokenSecretOrKey": "secretB",
+  "refreshTokenJwtOptions": {
+    "issuer": "6381.mediatek.io",
+    "audience": "6381",
+    "expiresIn": "30d"
+  },
+  "jwtStrategyOptions": {
+    "secretOrKey": "secretB",
+    "issuer": "6381.mediatek.io",
+    "audience": "6381"
+  }
+}
+

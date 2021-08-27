@@ -1,0 +1,14 @@
+This module build an apk for  AI Visual Search Beta Version
+
+WHAT IT DOES?
+=============
+It's a plugin feature of Camera, exists as an independent apk.
+
+HOW IT WAS BUILT?
+==================
+mmm vendor/mediatek/proprietary/packages/apps/Camera2/feature/mode/visualsearch
+
+
+HOW TO USE IT?
+==============
+Launch Camera.apk and push VisualSearch.apk to /system/vendor/etc/camera folder, launch camera app, you can find it in mode list
